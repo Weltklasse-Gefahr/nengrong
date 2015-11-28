@@ -23,12 +23,8 @@ class UserController extends Controller
             echo '{"code":"-1","msg":"验证码错误"}';
         }
 
-        $user = M("User");
-        $users = $user->where("email='%s' and password='%s' and status!=9999", array($email, MD5($password)))->select();
-
-        setcookie("email", $email, time()+3600);
-        setcookie("mEmail", MD5($email."ENFENF"), time()+3600);
-        setcookie("userType", $users->user_type, time()+3600);
+        $user = D('User','Service');
+        $users = $user->loginService();
         
         $display = $_GET['display'];
         if ($display == 'json') {
@@ -60,19 +56,15 @@ class UserController extends Controller
 
         } 
 
-        $userAdd = M('user');
-        $userAdd->email = $email;
-        $userAdd->password = md5($password);
-        $userAdd->status = 0;
-        if(empty($userType) ) {
-            $userAdd->user_type = 3;
+        $user = D('User','Service');
+        $users = $user->registerService();
+        
+        $display = $_GET['display'];
+        if ($display == 'json') {
+            dump($users);
+            echo json_encode($users);
+            exit();
         }
-        else{
-            $userAdd->user_type = $userType;
-        }
-        $user->add();
-
-        $users = $user->where("email='%s' and status!=9999", array($email) )->select();
         if (sizeof($users) == 1) {
             echo '{"code":"0","msg":""}';
 
