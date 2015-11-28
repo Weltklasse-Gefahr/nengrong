@@ -3,7 +3,7 @@ namespace Home\Controller;
 
 use Think\Controller;
 
-class UserController extends Controller {
+class ProjectProviderController extends Controller {
 	public function myInformation()
     {
         $this->display();
