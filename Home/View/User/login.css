@@ -1,0 +1,86 @@
+.content .td {
+	width: 1300px;
+	height: 35px;
+	border-bottom: 2px solid #808080;
+	overflow: hidden;
+	text-align: center;
+	
+}
+.content .td img {
+	width:168px;
+	height:26px;
+	padding-left: 18px;
+	margin: 0 auto;
+}
+.content .bd {
+	background: url(login.jpg) no-repeat center bottom;
+	width: 1300px;
+	height: 600px;
+	
+}
+.content .bd .md {
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	width: 310px;
+	height: 200px;
+	margin: 18 auto 0 auto;
+	
+}
+.content .bd .md .mail{
+	width: 250px;
+	height: 35px;
+	margin: 4 auto 0 auto;
+	
+}
+.content .bd .md .pass{
+	width: 250px;
+	height: 35px;
+	margin: 4 auto 0 auto;
+	
+}
+.content .bd .md #mailinput {
+	border-radius: 5px;
+	width: 250px;
+	height: 35px;
+	padding-left: 2px;
+	background-color: #ccc;
+	font-size: 18px;
+}
+.content .bd .md #passinput {
+	border-radius: 5px;
+	width: 250px;
+	height: 35px;
+	background-color: #ccc;
+	font-size: 18px;
+}
+.content .bd .md span {
+	font-size: 12px;
+}
+.content .bd .md .mark {
+	width: 250px;
+	margin: 4 auto 0 auto;
+	font-size: 12px;
+}
+.content .bd .md .button {
+	width: 250px;
+	margin: 4 auto 0 auto;
+}
+.content .bd .md #loginbtn {
+	border-radius: 5px;
+	color: #fff;
+	font-size: 18px;
+	background-color: #ffa500;
+	width:250px;
+	height:35px;
+	border-width:0; 
+	
+}
+.content .bd .md .beizhu {
+	width: 250px;
+	margin: 0 auto;
+	font-size: 12px;
+}
+.content .bd .md .beizhu a {
+	width: 100px;
+	margin: 0 auto;
+}

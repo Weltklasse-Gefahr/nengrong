@@ -1,0 +1,31 @@
+.r-content .bd .subtext1 {
+	color: #F67D00;
+	padding-left: 18px;
+	position: relative;
+	margin-top:1rem;
+}
+
+.r-content .bd .subtext2 {
+	padding-left: 18px;
+	position: relative;
+	margin-top:0rem;
+}
+
+.r-content .bd .ser-job {
+	border-top: 1px solid #ccc;
+	margin-top: 30px;
+}
+
+.r-content .bd .subtext3 {
+	padding-left: 36px;
+	position: relative;
+	margin-top:1rem;
+	margin-bottom:0rem;
+}
+.r-content .bd .subtextweb {
+	font-size:14px;
+	position: absolute;
+	right: 150px;
+	margin-top:0rem;
+	margin-bottom:0rem;
+}

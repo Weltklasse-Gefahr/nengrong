@@ -1,0 +1,34 @@
+@CHARSET "UTF-8";
+.r-content .bd .subtext1 {
+	float: left;
+	padding-left: 18px;
+	position: relative;
+	width: 650px;
+	margin-right:3rem;
+	margin-top:1rem;
+}
+
+.r-content .bd .subtext2 {
+	float: left;
+	padding-left: 18px;
+	position: relative;
+	width: 150px;
+	margin-right:1rem;
+	margin-left:2rem;
+	margin-top:6rem;
+}
+.r-content .bd #subtextimg1 {
+	float: left;
+	padding-left: 18px;
+	position: relative;
+	margin-right:0rem;
+	margin-top:2rem;
+}
+.r-content .bd .subtext3 {
+	float: left;
+	padding-left: 18px;
+	position: relative;
+	width: 180px;
+	margin-right:1rem;
+	margin-top:6rem;
+}

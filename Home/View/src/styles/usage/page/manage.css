@@ -1,0 +1,34 @@
+.r-content .bd .subtext1 {
+	float: left;
+	padding-left: 18px;
+	position: relative;
+	width: 650px;
+	margin-right:3rem;
+	margin-top:1rem;
+}
+.r-content .bd .subtextimg {
+	width:100px;
+	height:70px;
+	float: left;
+	padding-left: 18px;
+	position: relative;
+	margin-right:0rem;
+}
+.r-content .bd .subtext2 {
+	color: #F67D00;
+	float: left;
+	padding-left: 18px;
+	position: relative;
+	margin-right:1rem;
+	margin-left:2rem;
+	margin-top:0rem;
+	margin-bottom:0;
+}
+.r-content .bd .subtext3 {
+	float: left;
+	padding-left: 18px;
+	position: relative;
+	width: 500px;
+	margin-right:1rem;
+	margin-top:0rem;
+}

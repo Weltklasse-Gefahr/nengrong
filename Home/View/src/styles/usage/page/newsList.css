@@ -1,0 +1,48 @@
+@CHARSET "UTF-8";
+.r-content .bd .list {
+	padding: 0;
+	margin: 0;
+}
+.r-content .bd .list li {
+	overflow: hidden;
+	cursor: pointer;
+	list-style: none;
+	line-height: 30px;
+}
+.r-content .bd .list li:hover {
+	color: #F67D00;
+}
+.r-content .bd .list li .title {
+	float: left;
+	padding-left: 18px;
+	position: relative;
+}
+
+.r-content .bd .list li .title:before {
+	content: "";
+	display: block;
+	position: absolute;
+	left: 0px;
+	top: 14px;
+	width: 6px;
+	height: 6px;
+	background-color: #f67d00;
+	border-radius: 50%;
+}
+.r-content .bd .list li:hover .title:before {
+	background-color: #F67D00;
+}
+
+.r-content .bd .list li .date {
+	float: right;
+}
+
+.r-content .bd .list li .del {
+	float: right;
+	margin-left: 18px;
+	color: #C94B4B;
+}
+
+.r-content .bd .list li .del:hover {
+	color: red;
+}

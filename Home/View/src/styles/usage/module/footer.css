@@ -1,0 +1,17 @@
+#orange2 {
+	height: 58px;
+	line-height: 58px;
+	background-color: #ff7937;
+	text-align: center;
+	color: #fff;
+	width: 100%;
+	min-width: 1200px;
+}
+
+#orange2 a {
+	color: #fff;
+}
+
+#orange2 a:hover {
+	color: #808080;
+}

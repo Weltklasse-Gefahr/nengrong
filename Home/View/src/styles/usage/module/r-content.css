@@ -1,0 +1,69 @@
+.r-content {
+	float: left;
+	margin: 70px 0 0 50px;
+	min-height: 600px;
+}
+
+.r-content .hd {
+	padding: 5px;
+	width: 415px;
+	border-bottom: 2px solid #F67D00;
+}
+
+.r-content .hd .subtopic {
+	margin: 0;
+	line-height: 24px;
+}
+
+.r-content .hd .cn {
+	color: #F67D00;
+	font-weight: bold;
+	font-size: 18px;
+}
+
+.r-content .bd {
+	padding: 20px 80px 20px 0;
+	width: 720px;
+}
+
+.r-content .bd > ul.list {
+	height: 150px;
+}
+
+.r-content .bd > .pager {
+	text-align: right;
+	padding: 100px 0 10px 0;
+}
+
+.r-content .bd > .pager .count {
+	margin-right: 12px;
+}
+
+.r-content .bd > .pager a {
+	display: inline-block;
+	height: 22px;
+	padding: 0 8px;
+	text-align: center;
+	margin-left: 4px;
+	border: 1px solid #ccc;
+	line-height: 20px;
+	color: #5A5757;
+}
+
+.r-content .bd > .pager a.n, .r-content .bd > .pager a.i {
+	padding: 0 6px;
+}
+
+.r-content .bd > .pager a.s {
+	padding: 0 3px;
+	font-size: 12px;
+}
+
+.r-content .bd > .pager a.active {
+	color: #f67d00;
+	border: none;
+}
+
+.r-content .bd > .pager a:hover {
+	color: #f67d00;
+}

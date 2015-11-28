@@ -1,0 +1,6 @@
+@import url(lib/amazeui.min.css);
+@import url(usage/module/header.css); /* 顶部导航栏自定义样式 */
+@import url(usage/module/l-nav.css); /* 左侧导航栏 */
+@import url(usage/module/r-content.css); /* 右侧布局 */
+@import url(usage/module/footer.css); /* 首页页脚 */
+@import url(usage/module/sub_footer.css); /* 二级页面页脚 */

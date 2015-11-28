@@ -1,0 +1,30 @@
+.r-content .bd .subtext1 {
+	color: #F67D00;
+	font-size:14px;
+	float: left;
+	padding-left: 18px;
+	position: relative;
+	width: 650px;
+	margin-right:1rem;
+	margin-top:1rem;
+}
+
+.r-content .bd .subtext2 {
+	font-size:13px;
+	float: left;
+	padding-left: 18px;
+	position: relative;
+	width: 650px;
+	margin-right:1rem;
+	margin-top:1rem;
+}
+.r-content .bd .subtextimg {
+	width:500px;
+	height:280px;
+	float: left;
+	padding-left: 18px;
+	position: relative;
+	margin-right:0rem;
+	margin-top:2rem;
+	margin-bottom:2rem;
+}

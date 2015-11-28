@@ -1,0 +1,44 @@
+.r-content .bd > div{
+	border-bottom: 2px solid #ccc;
+	overflow: hidden;
+}
+.r-content .bd > div.last{
+	border-bottom: none;
+}
+.r-content .bd .person{
+	width:120px;
+	padding-left: 18px;
+	float: left;
+	padding-bottom: 4px;
+}
+.r-content .bd .subtextimg {
+	width:90px;
+	height:100px;
+	position: relative;
+	margin-right:0rem;
+	margin-top:1rem;
+	margin-bottom:1rem;
+}
+.r-content .bd .subtext {
+	color:#808080;
+	font-size:12px;
+	float: left;
+	padding-left: 18px;
+	position: relative;
+	width: 510px;
+	margin-right:0rem;
+	margin-top:1rem;
+}
+.r-content .bd .subtextpt {
+	font-size:14px;
+	position: relative;
+	margin:0;
+	text-align: center;
+}
+.r-content .bd .name {
+	color:#808080;
+	font-size:13px;
+	position: relative;
+	margin:0;
+	text-align: center;
+}

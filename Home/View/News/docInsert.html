@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>上传资料</title>
+    
+    <!-- Set render engine for 360 browser -->
+    <meta name="renderer" content="webkit">
+    
+    <!-- No Baidu Siteapp-->
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    
+    <link rel="icon" type="image/png" href="/EnergyFe/img/i/favicon.png">
+    
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="/EnergyFe/img/i/favicon.png">
+    
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+    <link rel="apple-touch-icon-precomposed" href="/EnergyFe/img/i/favicon.png">
+    
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileImage" content="/EnergyFe/img/i/favicon.png">
+    <meta name="msapplication-TileColor" content="#0e90d2">
+    <link rel="stylesheet" href="/EnergyFe/prd/styles/common@<php>include '/home/ubuntu/enetfPlatform/nengrong/Home/View/ver/styles/common.css.ver';</php>.css">
+    <link rel="stylesheet" href="/EnergyFe/prd/styles/newsInsert@<php>include '/home/ubuntu/enetfPlatform/nengrong/Home/View/ver/styles/newsInsert.css.ver';</php>.css">
+</head>
+<body>
+    <php>include '/home/ubuntu/enetfPlatform/nengrong/Home/View/hf/header.html';</php>
+    <div class="content">
+        <form id="docForm" action="?c=News&a=uploaddoc" method="post">
+            <div class="param"><span>token：</span><input type="text" name="token" /></div>
+            <div class="param"><span>资料：</span><input type="file" multiple="true" name="files" style="display: inline-block;"/></div>
+            <input id="submit" type="submit" value="上传" />
+        </form>
+    </div>
+    <php>include '/home/ubuntu/enetfPlatform/nengrong/Home/View/hf/sub_footer.html';</php>
+<script src="/EnergyFe/prd/scripts/common@<php>include '/home/ubuntu/enetfPlatform/nengrong/Home/View/ver/scripts/common.js.ver';</php>.js"></script>
+<script src="/EnergyFe/prd/scripts/docInsert@<php>include '/home/ubuntu/enetfPlatform/nengrong/Home/View/ver/scripts/docInsert.js.ver';</php>.js"></script>
+</body>
+</html>

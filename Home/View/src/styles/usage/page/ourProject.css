@@ -1,0 +1,50 @@
+.r-content .bd {
+	padding-left: 22px;
+}
+
+.r-content .bd #subtextimg1 {
+	float: left;
+	padding-left: 18px;
+	position: relative;
+	margin-right:3rem;
+	margin-top:2rem;
+}
+.r-content .bd .subtext1 {
+	float: left;
+	padding-left: 18px;
+	position: relative;
+	width: 325px;
+	margin-top:3rem;
+	text-indent: 18px;
+}
+
+.r-content .bd .subtext2 {
+	float: left;
+	padding-left: 18px;
+	position: relative;
+	width: 350px;
+	margin-right:1rem;
+	margin-top:2rem;
+}
+.r-content .bd #subtextimg2 {
+	float: left;
+	padding-left: 18px;
+	position: relative;
+	margin-top:2rem;
+}
+.r-content .bd #subtextimg3 {
+	float: left;
+	padding-left: 18px;
+	position: relative;
+	margin-right:3rem;
+	margin-top:0rem;
+	margin-bottom:3rem;
+}
+.r-content .bd .subtext3 {
+	float: left;
+	padding-left: 18px;
+	position: relative;
+	width: 330px;
+	margin-top:1rem;
+	margin-bottom:3rem;
+}

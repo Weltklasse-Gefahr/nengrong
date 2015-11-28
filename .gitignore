@@ -1,11 +1,32 @@
-# Build and Release Folders
-bin/
-bin-debug/
-bin-release/
+# thinkPHP
+/Runtime
 
-# Other files and folders
-.settings/
+# FileUpload
+/UploadDocument
 
-# Project files, i.e. `.project`, `.actionScriptProperties` and `.flexProperties`
-# should NOT be excluded as they contain compiler settings and other important
-# information for Eclipse / Flash Builder.
+# fekit
+**/ver/
+**/dev/
+**/prd/
+**/refs/
+
+# grunt
+**/node_modules/
+*.css.map
+
+# kdiff3
+*.orig
+
+# temp
+*.log
+*.cache
+*.diff
+*.patch
+*.tmp
+
+# system
+.DS_Store
+Thumbs.db
+
+# package
+*.rar
