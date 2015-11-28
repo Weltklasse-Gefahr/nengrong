@@ -42,7 +42,7 @@ class UserController extends Controller
         } else {
             echo '{"code":"-1","msg":"登录信息错误"}';
         }
-
+        $this->display();
     }
 
     //注册
@@ -79,6 +79,7 @@ class UserController extends Controller
         } else {
             echo '{"code":"-1","msg":"mysql error!"}';
         }
+        $this->display();
     }
 
     //修改密码
@@ -103,6 +104,7 @@ class UserController extends Controller
         $user->email = $email;
         $user->password = $newPwd;
         $user->save();
+        $this->display();
         // $test_user = M('User');
         // $test_user->id = $id;
         // $test_user->password = $pwd;
