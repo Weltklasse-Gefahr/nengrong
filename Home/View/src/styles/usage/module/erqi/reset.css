@@ -1,4 +1,4 @@
-html,button {
+html, button {
     user-select: none;
     font-family: microsoft yahei;
     font-size: 14px;
@@ -71,4 +71,11 @@ a:active {
     height: 0;
     clear: both;
     visibility: hidden
+}
+
+button {
+    padding: 0;
+    border: 0;
+    background: none;
+    outline: 0;
 }
