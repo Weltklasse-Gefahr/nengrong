@@ -12,7 +12,6 @@ class UserService extends Model{
 
         setcookie("email", $email, time()+3600);
         setcookie("mEmail", MD5($email."ENFENF"), time()+3600);
-        setcookie("userType", $users->user_type, time()+3600);
 
         return $users;
 	}
@@ -22,7 +21,7 @@ class UserService extends Model{
 		$userAdd = M('user');
         $userAdd->email = $email;
         $userAdd->password = md5($password);
-        $userAdd->status = 0;
+        $userAdd->status = 2;
         if(empty($userType) ) {
             $userAdd->user_type = 3;
         }
