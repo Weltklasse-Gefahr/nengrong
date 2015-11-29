@@ -1,0 +1,24 @@
+.l-nav {
+	float: left;
+	width: 300px;
+	padding-left: 50px;
+}
+
+.l-nav dl {
+	width: 160px;
+	text-align: center;
+	line-height: 40px;
+}
+
+.l-nav dl dt {
+	background-color: #FD7940;
+	color: #fff;
+}
+
+.l-nav dl dd {
+	cursor: pointer;
+}
+
+.l-nav dl dd.active, .l-nav dl dd:hover {
+	color: #FD7940;
+}

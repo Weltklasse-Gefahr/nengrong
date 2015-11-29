@@ -1,18 +1,18 @@
 /* ¶þ¼¶Ò³ÃæÒ³½Å */
-.black{
+.sub-footer{
 	background-color:#000000;
 	height: 58px;
+    line-height: 58px;
     width: 100%;
     min-width: 1200px;
-    padding-top: 20px;
     text-align: center;
     color: #fff;
     font-size: 14px;
 }
 
-.black a{
+.sub-footer a{
 	color:#fff;
 }
-.black a:hover{
+.sub-footer a:hover{
 	color:#666;
 }

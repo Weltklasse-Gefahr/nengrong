@@ -1,0 +1,41 @@
+.header {
+	min-width: 1200px;
+	border-bottom: 10px solid #F67D00;
+}
+
+.header .hd {
+	background-color: #feeee0;
+}
+
+.header .hd .c {
+	width: 1200px;
+	padding-right: 30px;
+	margin: 0 auto;
+	line-height: 30px;
+	text-align: right;
+	color: #FA783F;
+}
+
+.header .hd .c .split {
+	padding: 0 10px;
+	color: #ccc;
+}
+
+.header .hd .c a {
+	color: #ccc;
+}
+
+.header .hd .c a:hover {
+	color: #FA783F;
+}
+
+.header .bd {
+	width: 1200px;
+	margin: 0 auto;
+	line-height: 70px;
+}
+
+.header .bd img {
+	margin-right: 20px;
+	transform: translateY(5px);
+}
