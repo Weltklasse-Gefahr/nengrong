@@ -33,6 +33,6 @@
 	border: 0;
 }
 
-.content form input[type="submit"]:active {
-	background: #cc7904;
+.content form input[type="submit"]:hover {
+	background: #F08D03;
 }

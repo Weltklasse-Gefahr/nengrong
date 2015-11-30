@@ -67,7 +67,7 @@
 		<!-- 右侧布局 -->
 		<div class="r-content">
 			<p class="state">当前账户：已激活</p>
-			<div class="form">
+			<form id="infoForm" action="?c=ProjectProvider&a=myInformation&rtype=1" method="post">
 				<p class="title">账户详细信息</p>
 				<div class="detail part1 clrfix">
 					<ul>
@@ -115,8 +115,8 @@
 						<input type="file" name="frsfzfm"/>
 					</div>
 				</div>
-				<button class="submit">保存</button>
-			</div>
+				<input id="submit" type="submit" value="保存" />
+			</form>
 		</div>
 	</div>
 
