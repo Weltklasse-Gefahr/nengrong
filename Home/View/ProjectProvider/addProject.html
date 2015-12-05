@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes">
+	<title>我的资料</title>
+	
+	<!-- Set render engine for 360 browser -->
+	<meta name="renderer" content="webkit">
+	
+	<!-- No Baidu Siteapp-->
+	<meta http-equiv="Cache-Control" content="no-siteapp" />
+	
+	<link rel="icon" type="image/png" href="/EnergyFe/img/i/favicon.png">
+	
+	<!-- Add to homescreen for Chrome on Android -->
+	<meta name="mobile-web-app-capable" content="yes">
+	<link rel="icon" sizes="192x192" href="/EnergyFe/img/i/favicon.png">
+	
+	<!-- Add to homescreen for Safari on iOS -->
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-title" content="Amaze UI" />
+	<link rel="apple-touch-icon-precomposed" href="/EnergyFe/img/i/favicon.png">
+	
+	<!-- Tile icon for Win8 (144x144 + tile color) -->
+	<meta name="msapplication-TileImage" content="/EnergyFe/img/i/favicon.png">
+	<meta name="msapplication-TileColor" content="#0e90d2">
+	<link rel="stylesheet" href="/EnergyFe/prd/styles/x-common@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/styles/x-common.css.ver';</php>.css">
+	<link rel="stylesheet" href="/EnergyFe/prd/styles/pp-myinfo@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/styles/pp-myinfo.css.ver';</php>.css">
+<body>
+	<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/hf/erqi/header.html';</php>
+
+	<div class="main clrfix">
+		<!-- 左侧导航栏 -->
+		<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ProjectProvider/ProjectProvider_left.html';</php>
+		
+		<!-- 右侧布局 -->
+		<div class="r-content">
+			<p class="state">当前账户：已激活</p>
+			<form id="infoForm" action="?c=ProjectProvider&a=myInformation&rtype=1" method="post">
+				<p class="title">账户详细信息</p>
+				<div class="detail part1 clrfix">
+					<ul>
+						<li><span class="lb">E-mail</span>project@jiaxun.com</li>
+						<li><span class="lb">联系人</span><input name="contact_name" value="张三"/></li>
+						<li><span class="lb">联系人手机</span><input name="mobile" value="13675438976"/></li>
+						<li><span class="lb">联系人职务</span><input name="job" value="项目库负责人"/></li>
+						<li><span class="lb">所在地区</span><input name="area" value="中国"/></li>
+						<li><span class="lb">详细地址</span><input name="address" value="黑龙江延寿镇放光社区50栋224室"/></li>
+						<li><span class="lb">企业注册资本</span><input name="money" value="200万"/></li>
+					</ul>
+					<ul>
+						<li><span class="lb">企业名称</span><input name="company_name" value="常州佳讯光电系统工程有限公司"/></li>
+						<li><span class="lb">企业类型</span>
+							<select name="type">
+								<option value="1">央企国企</option>
+								<option value="2">中外合资</option>
+								<option value="3">外商独资</option>
+								<option value="4">大型民营</option>
+								<option value="5">小型民营</option>
+							</select>
+						</li>
+						<li><span class="lb">公司传真</span><input name="company_fax" value="8580 1CD"/></li>
+						<li><span class="lb">其他手机</span><input name="other_mobile" value="15267859046"/></li>
+						<li><span class="lb">座机</span><input name="phone" value="0451-8976-4563"/></li>
+						<li><span class="lb">企业法人</span><input name="legal" value="李四"/></li>
+					</ul>
+				</div>
+				<p class="title">图片资料上传</p>
+				<div class="detail part2 clrfix">
+					<div class="item">
+						<p>公司营业执照</p>
+						<input type="file" data-type="image" name="gsyyzz" style="visibility: hidden;" />
+					</div>
+					<div class="item">
+						<p>组织机构代码证</p>
+						<input type="file" data-type="image" name="zzjgdmz" style="visibility: hidden;" />
+					</div>
+					<div class="item">
+						<p>国税登记证</p>
+						<input type="file" data-type="image" name="gsdjz" style="visibility: hidden;" />
+					</div>
+					<div class="item">
+						<p>地税登记证</p>
+						<input type="file" data-type="image" name="dsdjz" style="visibility: hidden;" />
+					</div>
+					<div class="item">
+						<p>法人身份证正面</p>
+						<input type="file" data-type="image" name="frsfzzm" style="visibility: hidden;" />
+					</div>
+					<div class="item">
+						<p>法人身份证反面</p>
+						<input type="file" data-type="image" name="frsfzfm" style="visibility: hidden;" />
+					</div>
+					<div class="finance clrfix"><p>财务审计报告</p><input type="file" data-type="file" name="cwsjbg" style="visibility: hidden;" /></div>
+				</div>
+				<input id="submit" type="submit" value="保存" />
+			</form>
+		</div>
+	</div>
+
+	<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/hf/sub_footer.html';</php>
+	
+	<script src="/EnergyFe/prd/scripts/x-common@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/scripts/x-common.js.ver';</php>.js"></script>
+	<script src="/EnergyFe/prd/scripts/pp-myinfo@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/scripts/pp-myinfo.js.ver';</php>.js"></script>
+</body>
+</html>

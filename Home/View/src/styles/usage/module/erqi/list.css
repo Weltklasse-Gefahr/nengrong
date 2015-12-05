@@ -33,6 +33,10 @@
     display: block;
 }
 
+.r-content .list .bd {
+    height: 240px;
+}
+
 .r-content .list .bd .new a {
     color: #FD7940;
 }

@@ -41,10 +41,10 @@
 		<!-- 右侧布局 -->
 		<div class="r-content">
 			<div class="list-opt">
-				<button class="add">新增项目</button>
+				<a class="add" href="?c=ProjectProvider&a=addProject">新增项目</a>
 				<div class="filter">
 					<label>项目状态</label>
-					<span class="active" data-filter="all">全部</span>
+					<span data-filter="all" class="active">全部</span>
 					<span data-filter="uncommitted">未提交</span>
 					<span data-filter="committed">已提交</span>
 				</div>
@@ -80,6 +80,15 @@
 						<p class="c4">已提交</p>
 					</div>
 				</div>
+			</div>
+			<div class="pager">
+				<span data-page-index="1">&lt; 上一页</span>
+                <span data-page-index="1" class="active">1</span>
+                <span data-page-index="2" href="#">2</span>
+                <span data-page-index="3" href="#">3</span>
+                <span data-page-index="4" href="#">4</span>
+                <span data-page-index="5" href="#">5</span>
+                <span data-page-index="5" href="#">下一页 &gt;</span>
 			</div>
 		</div>
 	</div>

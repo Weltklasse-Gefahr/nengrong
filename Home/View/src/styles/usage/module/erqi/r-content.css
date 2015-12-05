@@ -1,4 +1,5 @@
 .r-content {
 	float: left;
 	width: 900px;
+	min-height: 380px;
 }
