@@ -6,7 +6,7 @@
 	<meta name="description" content="">
 	<meta name="keywords" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes">
-	<title>我的资料</title>
+	<title>待评估项目</title>
 	
 	<!-- Set render engine for 360 browser -->
 	<meta name="renderer" content="webkit">
@@ -30,7 +30,7 @@
 	<meta name="msapplication-TileImage" content="/EnergyFe/img/i/favicon.png">
 	<meta name="msapplication-TileColor" content="#0e90d2">
 	<link rel="stylesheet" href="/EnergyFe/prd/styles/x-common@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/styles/x-common.css.ver';</php>.css">
-	<link rel="stylesheet" href="/EnergyFe/prd/styles/pp-myinfo@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/styles/pp-myinfo.css.ver';</php>.css">
+	<link rel="stylesheet" href="/EnergyFe/prd/styles/pp-dpgxm@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/styles/pp-dpgxm.css.ver';</php>.css">
 <body>
 	<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/hf/header.html';</php>
 	<!-- 二期页面header -->
@@ -66,58 +66,41 @@
 		
 		<!-- 右侧布局 -->
 		<div class="r-content">
-			<p class="state">当前账户：已激活</p>
-			<form id="infoForm" action="?c=ProjectProvider&a=myInformation&rtype=1" method="post">
-				<p class="title">账户详细信息</p>
-				<div class="detail part1 clrfix">
-					<ul>
-						<li><span class="lb">E-mail</span>project@jiaxun.com</li>
-						<li><span class="lb">联系人</span><input name="contact_name" value="张三"/></li>
-						<li><span class="lb">联系人手机</span><input name="mobile" value="13675438976"/></li>
-						<li><span class="lb">联系人职务</span><input name="job" value="项目库负责人"/></li>
-						<li><span class="lb">所在地区</span><input name="area" value="中国"/></li>
-						<li><span class="lb">详细地址</span><input name="address" value="黑龙江延寿镇放光社区50栋224室"/></li>
-						<li><span class="lb">企业注册资本</span><input name="money" value="200万"/></li>
-					</ul>
-					<ul>
-						<li><span class="lb">企业名称</span><input name="company_name" value="常州佳讯光电系统工程有限公司"/></li>
-						<li><span class="lb">企业类型</span><select name="type"><option value="GQ">国企</option></select></li>
-						<li><span class="lb">公司传真</span><input name="company_fax" value="8580 1CD"/></li>
-						<li><span class="lb">其他手机</span><input name="other_mobile" value="15267859046"/></li>
-						<li><span class="lb">座机</span><input name="phone" value="0451-8976-4563"/></li>
-						<li><span class="lb">企业法人</span><input name="legal" value="李四"/></li>
-					</ul>
+			<div>
+				<button>新增项目</button>
+			</div>
+			<div class="list">
+				<div class="hd">
+					<p class="c0">项目编号</p>
+					<p class="c1">项目类型</p>
+					<p class="c2">位置</p>
+					<p class="c3">创建日期</p>
+					<p class="c4">状态</p>
 				</div>
-				<p class="title">图片资料上传</p>
-				<div class="detail part2 clrfix">
-					<div class="item">
-						<p>公司营业执照</p>
-						<input type="file" data-type="image" name="gsyyzz" style="visibility: hidden;" />
+				<div class="bd">
+					<div>
+						<p class="c0"><a href="javascript:;">LY0370-010K-E15-007001</a></p>
+						<p class="c1">商业分布式</p>
+						<p class="c2">北京海淀区 路＊号</p>
+						<p class="c3">2015/10/11</p>
+						<p class="c4">已提交</p>
 					</div>
-					<div class="item">
-						<p>组织机构代码证</p>
-						<input type="file" data-type="image" name="zzjgdmz" style="visibility: hidden;" />
+					<div>
+						<p class="c0"><a href="javascript:;">LY0370-010K-E15-007001</a></p>
+						<p class="c1">商业分布式</p>
+						<p class="c2">北京海淀区 路＊号</p>
+						<p class="c3">2015/10/11</p>
+						<p class="c4">已提交</p>
 					</div>
-					<div class="item">
-						<p>国税登记证</p>
-						<input type="file" data-type="image" name="gsdjz" style="visibility: hidden;" />
+					<div>
+						<p class="c0"><a href="javascript:;">LY0370-010K-E15-007001</a></p>
+						<p class="c1">商业分布式</p>
+						<p class="c2">北京海淀区 路＊号</p>
+						<p class="c3">2015/10/11</p>
+						<p class="c4">已提交</p>
 					</div>
-					<div class="item">
-						<p>地税登记证</p>
-						<input type="file" data-type="image" name="dsdjz" style="visibility: hidden;" />
-					</div>
-					<div class="item">
-						<p>法人身份证正面</p>
-						<input type="file" data-type="image" name="frsfzzm" style="visibility: hidden;" />
-					</div>
-					<div class="item">
-						<p>法人身份证反面</p>
-						<input type="file" data-type="image" name="frsfzfm" style="visibility: hidden;" />
-					</div>
-					<div class="finance clrfix"><p>财务审计报告</p><input type="file" data-type="file" name="cwsjbg" style="visibility: hidden;" /></div>
 				</div>
-				<input id="submit" type="submit" value="保存" />
-			</form>
+			</div>
 		</div>
 	</div>
 
@@ -132,6 +115,6 @@
 	</div>
 	
 	<script src="/EnergyFe/prd/scripts/x-common@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/scripts/x-common.js.ver';</php>.js"></script>
-	<script src="/EnergyFe/prd/scripts/pp-myinfo@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/scripts/pp-myinfo.js.ver';</php>.js"></script>
+	<script src="/EnergyFe/prd/scripts/pp-dpgxm@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/scripts/pp-dpgxm.js.ver';</php>.js"></script>
 </body>
 </html>

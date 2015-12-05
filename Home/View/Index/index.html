@@ -30,12 +30,12 @@
 	<meta name="msapplication-TileImage" content="/EnergyFe/img/i/favicon.png">
 	<meta name="msapplication-TileColor" content="#0e90d2">
 	
-	<link rel="stylesheet" href="/EnergyFe/prd/styles/common@<php>include '/home/ubuntu/enetfPlatform/nengrong/Home/View/ver/styles/common.css.ver';</php>.css">
-	<link rel="stylesheet" href="/EnergyFe/prd/styles/index@<php>include '/home/ubuntu/enetfPlatform/nengrong/Home/View/ver/styles/index.css.ver';</php>.css">
+	<link rel="stylesheet" href="/EnergyFe/prd/styles/common@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/styles/common.css.ver';</php>.css">
+	<link rel="stylesheet" href="/EnergyFe/prd/styles/index@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/styles/index.css.ver';</php>.css">
 </head>
 
 <body>
-	<php>include '/home/ubuntu/enetfPlatform/nengrong/Home/View/hf/header.html';</php>
+	<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/hf/header.html';</php>
 	<!-- 图片轮播1:光伏，能源，互联网，金融 -->
 	<!-- <div id="your-slider" class="am-slider am-slider-default">
 		<ul class="am-slides">
@@ -123,7 +123,7 @@
 			</ul>
 		</div>
 	</div>
-	<php>include '/home/ubuntu/enetfPlatform/nengrong/Home/View/hf/footer.html';</php>
+	<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/hf/footer.html';</php>
 
 	<div id="win"
 		style="display: none; POSITION: fixed; left: 50%; top: 50%; width: 600px; height: 400px; margin-left: -300px; margin-top: -200px; border: 1px solid #888; background-color: #fff; text-align: center; z-index: 20">
@@ -142,8 +142,8 @@
 			</form>
 		</section>
 	</div>
-	<script src="/EnergyFe/prd/scripts/common@<php>include '/home/ubuntu/enetfPlatform/nengrong/Home/View/ver/scripts/common.js.ver';</php>.js"></script>
+	<script src="/EnergyFe/prd/scripts/common@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/scripts/common.js.ver';</php>.js"></script>
 	<script src="/EnergyFe/prd/scripts/lib/amazeui.min.js"></script>
-	<script src="/EnergyFe/prd/scripts/index@<php>include '/home/ubuntu/enetfPlatform/nengrong/Home/View/ver/scripts/index.js.ver';</php>.js"></script>
+	<script src="/EnergyFe/prd/scripts/index@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/scripts/index.js.ver';</php>.js"></script>
 </body>
 </html>

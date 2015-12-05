@@ -29,16 +29,16 @@
 	<!-- Tile icon for Win8 (144x144 + tile color) -->
 	<meta name="msapplication-TileImage" content="/EnergyFe/img/i/favicon.png">
 	<meta name="msapplication-TileColor" content="#0e90d2">
-	<link rel="stylesheet" href="/EnergyFe/prd/styles/common@<php>include '/home/ubuntu/enetfPlatform/nengrong/Home/View/ver/styles/common.css.ver';</php>.css">
-	<link rel="stylesheet" href="/EnergyFe/prd/styles/newsContent@<php>include '/home/ubuntu/enetfPlatform/nengrong/Home/View/ver/styles/newsContent.css.ver';</php>.css">
+	<link rel="stylesheet" href="/EnergyFe/prd/styles/common@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/styles/common.css.ver';</php>.css">
+	<link rel="stylesheet" href="/EnergyFe/prd/styles/newsContent@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/styles/newsContent.css.ver';</php>.css">
 </head>
 
 <body>
 
-	<php>include '/home/ubuntu/enetfPlatform/nengrong/Home/View/hf/header.html';</php>
+	<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/hf/header.html';</php>
 	<div class="material_Contentbox">
 		<!-- 左侧导航栏 -->
-		<php>include '/home/ubuntu/enetfPlatform/nengrong/Home/View/News/News_left.html';</php>
+		<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/News/News_left.html';</php>
 		
 		<!-- 右侧布局 -->
 		<div class="r-content">
@@ -55,9 +55,9 @@
 			</div>
 		</div>
 	</div>
-	<php>include '/home/ubuntu/enetfPlatform/nengrong/Home/View/hf/sub_footer.html';</php>
+	<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/hf/sub_footer.html';</php>
 	
-	<script src="/EnergyFe/prd/scripts/common@<php>include '/home/ubuntu/enetfPlatform/nengrong/Home/View/ver/scripts/common.js.ver';</php>.js"></script>
-	<script src="/EnergyFe/prd/scripts/newsContent@<php>include '/home/ubuntu/enetfPlatform/nengrong/Home/View/ver/scripts/newsContent.js.ver';</php>.js"></script>
+	<script src="/EnergyFe/prd/scripts/common@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/scripts/common.js.ver';</php>.js"></script>
+	<script src="/EnergyFe/prd/scripts/newsContent@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/scripts/newsContent.js.ver';</php>.js"></script>
 </body>
 </html>
