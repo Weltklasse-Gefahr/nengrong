@@ -1,0 +1,39 @@
+.r-content .list-opt {
+    margin-bottom: 20px;
+}
+
+.r-content .list-opt .add {
+    width: 100px;
+    height: 35px;
+    border-radius: 5px;
+    background-color: #FD7940;
+    color: #fff;
+    border: 0;
+}
+.r-content .list-opt .add:hover {
+    background: #F1920C;
+}
+
+.r-content .list-opt .filter {
+    margin-left: 50px;
+    display: inline-block;
+    line-height: 24px;
+}
+
+.r-content .list-opt .filter label {
+    margin-right: 20px;
+}
+
+.r-content .list-opt .filter span {
+    display: inline-block;
+    width: 75px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.r-content .list-opt .filter span.active {
+    border-radius: 5px;
+    background-color: #FD7940;
+    color: #fff;
+    border: 0;
+}
