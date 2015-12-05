@@ -1,0 +1,36 @@
+.md {
+	border: 2px solid #ffa500;
+	width: 85%;
+}
+.md .title{
+	width: 350px;
+	font-size: 22px;
+	margin: 20px auto 30px auto;
+}
+.md .part1{
+	font-size: 18px;
+	padding-left: 10px;
+	margin: 10px 20px 20px 20px;
+}
+.md .part2{
+	font-size: 18px;
+	padding-left: 10px;
+	margin: 10px 20px 20px 20px;
+}
+.md .part3{
+	font-size: 18px;
+	padding-left: 10px;
+	margin: 10px 20px 20px 20px;
+}
+.md .part4{
+	font-size: 18px;
+	padding-left: 10px;
+	margin: 10px 20px 20px 20px;
+}
+.md .part5{
+	font-size: 18px;
+	padding-left: 10px;
+	margin: 10px 20px 50px 20px;
+}
+
+

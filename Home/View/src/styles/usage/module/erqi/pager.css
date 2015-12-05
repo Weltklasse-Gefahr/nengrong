@@ -1,0 +1,22 @@
+.r-content .pager {
+	text-align: right;
+	padding: 20px 0 10px 0;
+}
+
+.r-content .pager span {
+	display: inline-block;
+	line-height: 30px;
+	padding: 0 10px;
+	height: 30px;
+	text-align: center;
+	margin-left: 4px;
+	border: 1px solid #ccc;
+	color: #f67d00;
+	cursor: pointer;
+}
+
+.r-content .pager span.active {
+	color: #5A5757;
+	border: none;
+	cursor: default;
+}

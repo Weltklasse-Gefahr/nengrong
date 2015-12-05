@@ -22,7 +22,7 @@
 	border: 1px solid #ccc;
 	border-radius: 5px;
 	width: 400px;
-	margin: 18 auto 0 auto;
+	margin: 18px auto 0 auto;
 	
 }
 .content .bd .md #warning {
@@ -33,18 +33,34 @@
 	color: #000000;
 	background-color: #FF0000;
 	font-size: 18px;
-	margin: 6 auto 0 auto;
+	margin: 6px auto 0 auto;
+}
+.content .bd .md #warning2 {
+	border-radius: 5px;
+	width: 300px;
+	height: 35px;
+	padding-left: 2px;
+	color: #000000;
+	background-color: #FF0000;
+	font-size: 18px;
+	margin: 6px auto 0 auto;
 }
 .content .bd .md .mail{
 	width: 250px;
 	height: 35px;
-	margin: 12 auto 12 auto;
+	margin: 12px auto 12px auto;
 	
 }
 .content .bd .md .pass{
 	width: 250px;
 	height: 35px;
-	margin: 12 auto 12 auto;
+	margin: 12px auto 12px auto;
+	
+}
+.content .bd .md .dynamiccode{
+	width: 250px;
+	height: 35px;
+	margin: 12px auto 12px auto;
 	
 }
 .content .bd .md #mailinput {
@@ -62,17 +78,24 @@
 	background-color: #ccc;
 	font-size: 18px;
 }
+.content .bd .md #dynamiccodeinput {
+	border-radius: 5px;
+	width: 150px;
+	height: 35px;
+	background-color: #ccc;
+	font-size: 18px;
+}
 .content .bd .md span {
 	font-size: 12px;
 }
 .content .bd .md .mark {
 	width: 250px;
-	margin: 4 auto 0 auto;
+	margin: 4px auto 0 auto;
 	font-size: 12px;
 }
 .content .bd .md .button {
 	width: 250px;
-	margin: 4 auto 0 auto;
+	margin: 4px auto 0 auto;
 }
 .content .bd .md #loginbtn {
 	border-radius: 5px;
