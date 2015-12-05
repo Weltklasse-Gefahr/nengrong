@@ -1,4 +1,8 @@
 $(function() {
+
+	$(".l-nav").find(".wdzl").addClass("active")
+		.children("a").attr("href", "javascript:;");
+
 	require("common/customInputFile");
 	require("lib/jquery.form");
 	

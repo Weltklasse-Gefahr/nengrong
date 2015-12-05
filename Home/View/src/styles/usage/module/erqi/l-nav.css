@@ -15,10 +15,10 @@
 	color: #fff;
 }
 
-.l-nav dl dd {
-	cursor: pointer;
+.l-nav dl dd a {
+	display: block;
 }
 
-.l-nav dl dd.active, .l-nav dl dd:hover {
+.l-nav dl dd.active a, .l-nav dl dd a:hover {
 	color: #FD7940;
 }

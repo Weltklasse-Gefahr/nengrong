@@ -32,42 +32,22 @@
 	<link rel="stylesheet" href="/EnergyFe/prd/styles/x-common@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/styles/x-common.css.ver';</php>.css">
 	<link rel="stylesheet" href="/EnergyFe/prd/styles/pp-dpgxm@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/styles/pp-dpgxm.css.ver';</php>.css">
 <body>
-	<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/hf/header.html';</php>
-	<!-- 二期页面header -->
-	<div class="header">
-		<div class="hd">
-			<div class="c">
-				欢迎您，<span id="">XX公司</span>
-				<span class="split">|</span>
-				<a id="logout" href="javascript:;">注销</a>
-			</div>
-		</div>
-		<div class="bd">
-			<img src="/EnergyFe/img/x-logo.png">信息管理系统
-		</div>
-	</div>
+	<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/hf/erqi/header.html';</php>
 
 	<div class="main clrfix">
 		<!-- 左侧导航栏 -->
-		<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/News/ProjectProvider_left.html';</php>
-		<div class="l-nav">
-			<dl>
-				<dt>我的项目</dt>
-				<dd data-href="">待评估项目</dd>
-				<dd data-href="">已签意向书</dd>
-				<dd data-href="">已签融资合同</dd>
-			</dl>
-			<dl>
-				<dt>个人中心</dt>
-				<dd class="active" data-href="">我的资料</dd>
-				<dd data-href="">安全中心</dd>
-			</dl>
-		</div>
+		<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ProjectProvider/ProjectProvider_left.html';</php>
 		
 		<!-- 右侧布局 -->
 		<div class="r-content">
-			<div>
-				<button>新增项目</button>
+			<div class="list-opt">
+				<button class="add">新增项目</button>
+				<div class="filter">
+					<label>项目状态</label>
+					<span class="active" data-filter="all">全部</span>
+					<span data-filter="uncommitted">未提交</span>
+					<span data-filter="committed">已提交</span>
+				</div>
 			</div>
 			<div class="list">
 				<div class="hd">
@@ -78,7 +58,7 @@
 					<p class="c4">状态</p>
 				</div>
 				<div class="bd">
-					<div>
+					<div class="new">
 						<p class="c0"><a href="javascript:;">LY0370-010K-E15-007001</a></p>
 						<p class="c1">商业分布式</p>
 						<p class="c2">北京海淀区 路＊号</p>
@@ -105,14 +85,6 @@
 	</div>
 
 	<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/hf/sub_footer.html';</php>
-	<!-- 子页面footer:关于我们，联系方式 -->
-	<div class="sub-footer">
-		<a href="?c=AboutUs&a=company">关于我们</a> ｜ 
-		<a id="favorites" href="javascipt:void(0);">收藏我们</a> ｜ 
-		<a href="?c=AboutUs&a=contact">联系我们</a> ｜ 
-		<a href="?c=AboutUs&a=joinUs">加入我们</a>
-		<span href=""> ©2015 北京光辉普惠能源科技有限公司 All rights reserved</span>
-	</div>
 	
 	<script src="/EnergyFe/prd/scripts/x-common@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/scripts/x-common.js.ver';</php>.js"></script>
 	<script src="/EnergyFe/prd/scripts/pp-dpgxm@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/scripts/pp-dpgxm.js.ver';</php>.js"></script>

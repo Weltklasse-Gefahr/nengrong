@@ -1,0 +1,42 @@
+.r-content .list p {
+    display: inline-block;
+    text-align: center;
+    line-height: 40px;
+    margin-right: 2px;
+}
+
+.r-content .list .hd p {
+    background-color: #eee;
+}
+
+.r-content .list p.c4 {
+    margin-right: 0;
+}
+
+.r-content .list .c0 {
+    width: 24%;
+}
+.r-content .list .c1 {
+    width: 24%;
+}
+.r-content .list .c2 {
+    width: 24%;
+}
+.r-content .list .c3 {
+    width: 10%;
+}
+.r-content .list .c4 {
+    width: 15%;
+}
+
+.r-content .list .c0 a {
+    display: block;
+}
+
+.r-content .list .bd .new a {
+    color: #FD7940;
+}
+
+.r-content .list .bd a:hover {
+    color: #996F6F;
+}
