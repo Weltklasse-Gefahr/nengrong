@@ -9,7 +9,7 @@ $(function(){
 		$("#warning3").show();
 	}
 
-	$("#registerbtn").click(function(){ 
+	$("#changebtn").click(function(){ 
 		var mailval= $.trim($("#mailinput").val());
 		var passval= $.trim($("#passinput").val());
 		var repeatpassval= $.trim($("#repeatpassinput").val());
