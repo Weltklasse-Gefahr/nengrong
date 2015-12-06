@@ -1,7 +1,7 @@
 .l-nav {
 	float: left;
 	width: 300px;
-	padding-left: 50px;
+	padding: 60px 0 0 50px;
 }
 
 .l-nav dl {

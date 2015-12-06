@@ -1,6 +1,6 @@
 $(function() {
 
-	$(".l-nav").find(".wdzl").addClass("active")
+	$(".l-nav").find(".myInformation").addClass("active")
 		.children("a").attr("href", "javascript:;");
 
 	require("common/customInputFile");

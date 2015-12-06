@@ -51,6 +51,6 @@ class ProjectProviderMyInfoController extends Controller {
 
     public function securityCenter()
     {
-        $this->display();
+        $this->display("ProjectProvider:securityCenter");
     }
 }

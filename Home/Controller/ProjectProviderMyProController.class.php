@@ -12,8 +12,13 @@ class ProjectProviderMyProController extends Controller {
     **/
     public function projectInfoNew()
     {
-    	$this->display();
-    }	
+    	$this->display("ProjectProvider:projectInfoNew");
+    }
+
+    public function awaitingAssessment()
+    {
+        $this->display("ProjectProvider:awaitingAssessment");
+    }
 
 
     /**
