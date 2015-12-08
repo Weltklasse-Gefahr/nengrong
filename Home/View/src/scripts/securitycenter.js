@@ -1,4 +1,8 @@
 $(function(){
+	
+	$(".l-nav").find(".securityCenter").addClass("active")
+		.children("a").attr("href", "javascript:;");
+
 	function warning() {
 		$("#warning").show();
 	}

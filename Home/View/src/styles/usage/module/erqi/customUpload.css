@@ -1,0 +1,42 @@
+.r-content form .preview {
+	position: relative;
+}
+
+.r-content form .preview .del {
+	position: absolute;
+	width: 20px;
+	text-align: center;
+	line-height: 20px;
+	font-style: normal;
+	font-size: 18px;
+	right: 0;
+	top: 0px;
+	color: #FA783F;
+	cursor: pointer;
+	background-color: rgb(117, 154, 141);
+	display: none;
+}
+.r-content form .preview:hover .del {
+	display: inline-block;
+}
+
+.r-content form .input-wrap {
+	overflow: hidden;
+	position: relative;
+	background: none center center no-repeat;
+}
+
+.r-content form .input-wrap input[type=file] {
+	opacity: 0;
+	cursor: pointer;
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.r-content form .input-wrap img {
+	margin-right: 3px;
+	vertical-align: middle;
+}

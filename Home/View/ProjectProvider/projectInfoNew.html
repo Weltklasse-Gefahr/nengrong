@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes">
+	<title>新增项目</title>
+	
+	<!-- Set render engine for 360 browser -->
+	<meta name="renderer" content="webkit">
+	
+	<!-- No Baidu Siteapp-->
+	<meta http-equiv="Cache-Control" content="no-siteapp" />
+	
+	<link rel="icon" type="image/png" href="/EnergyFe/img/i/favicon.png">
+	
+	<!-- Add to homescreen for Chrome on Android -->
+	<meta name="mobile-web-app-capable" content="yes">
+	<link rel="icon" sizes="192x192" href="/EnergyFe/img/i/favicon.png">
+	
+	<!-- Add to homescreen for Safari on iOS -->
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-title" content="Amaze UI" />
+	<link rel="apple-touch-icon-precomposed" href="/EnergyFe/img/i/favicon.png">
+	
+	<!-- Tile icon for Win8 (144x144 + tile color) -->
+	<meta name="msapplication-TileImage" content="/EnergyFe/img/i/favicon.png">
+	<meta name="msapplication-TileColor" content="#0e90d2">
+	<link rel="stylesheet" href="/EnergyFe/prd/styles/x-common@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/styles/x-common.css.ver';</php>.css">
+	<link rel="stylesheet" href="/EnergyFe/prd/styles/pp-projectInfoNew@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/styles/pp-projectInfoNew.css.ver';</php>.css">
+<body>
+	<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/hf/erqi/header.html';</php>
+
+	<div class="main clrfix">
+		<!-- 左侧导航栏 -->
+		<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ProjectProvider/ProjectProvider_left.html';</php>
+		
+		<!-- 右侧布局 -->
+		<div class="r-content">
+			<div class="step">
+				
+			</div>
+			<form id="infoForm">
+				<p class="title">屋顶业主信息</p>
+				<ul class="detail part2">
+					<li>
+						<span class="lb">屋顶业主名称</span>
+						<input name="company_contacts" value="张三">
+					</li>
+					<li>
+						<span class="lb">业主企业类型</span>
+						<select name="company_type">
+							<option value="1">央企国企</option>
+							<option value="2">中外合资</option>
+							<option value="3">外商独资</option>
+							<option value="4">大型民营</option>
+							<option value="5">小型民营</option>
+						</select>
+					</li>
+					<li>
+						<span class="lb">业主企业注册资本</span>
+						<input name="company_contacts" value="张三">
+					</li>
+					<li>
+						<span class="lb">屋顶产权证明</span>
+						<input name="company_contacts" value="张三"><input type="file" accept="application/pdf,application/msword,application/vnd.ms-powerpoint,aplication/zip" name="financial_audit" style="visibility: hidden;" />
+					</li>
+					<li>
+						<span class="lb">年用电量</span>
+						<input name="company_contacts" value="张三"><span class="gray">&nbsp;万度</span>
+					</li>
+					<li>
+						<span class="lb">电费</span>
+						<input name="company_contacts" value="张三"><span class="gray">&nbsp;万元</span>
+					</li>
+					<li>
+						<span class="gray">最近一年电费明细(备注：请上传近12个月，每月电费明细)</span>
+						<input type="file" accept="application/pdf,application/msword,application/vnd.ms-powerpoint,aplication/zip" name="financial_audit" style="visibility: hidden;" />
+					</li>
+				</ul>
+				<p class="title">屋顶情况</p>
+				<ul class="detail part2">
+					<li>
+						<span>屋顶业主名称</span>
+						<input name="company_contacts" value="张三">
+					</li>
+				</ul>
+			</form>
+		</div>
+	</div>
+
+	<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/hf/sub_footer.html';</php>
+	
+	<script src="/EnergyFe/prd/scripts/x-common@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/scripts/x-common.js.ver';</php>.js"></script>
+	<script src="/EnergyFe/prd/scripts/pp-projectInfoNew@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/scripts/pp-projectInfoNew.js.ver';</php>.js"></script>
+</body>
+</html>

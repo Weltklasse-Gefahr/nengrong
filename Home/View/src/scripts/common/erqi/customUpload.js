@@ -1,5 +1,13 @@
 $(function($) {
-	$.fn.customInputFile = function() {
+	$.fn.customUpload = function(option) {
+
+		option = option || {
+			img_url: "",
+			content: "+",
+			uploadType: "file",
+			width: "20px",
+			height: "38px"
+		};
 
 		$.each(this, function(i, item) {
 
@@ -9,17 +17,35 @@ $(function($) {
 				return ;
 			}
 
-			var fileType, $inputFile, $preview
+			var uploadType, $wrap, $inputFile, $preview;
 			
 			if(!($this.parent().is(".input-wrap"))) {
 
-				fileType = $(this).data("type") || "file";
+				uploadType = option.uploadType;
 
-				if(fileType === "image") { // 图片预览
-					$this.wrap($('<div class="input-wrap input-' + fileType + '"></div>'));
-					$this.parent().before($('<div class="preview" style="display: none;"><a target="_blank" href="javascript:;"><img /></a><i class="del">x</i></div>'));
+				$wrap = $('<div class="input-wrap"></div>').css({
+					width: option.width,
+					height: option.height
+				});
+
+				if(option.bg_url) {
+					$wrap.css({
+						"background-image": "url(/EnergyFe/img/" + option.bg_url + ")"
+					});
+				}
+				if(option.img_url) {
+					$wrap.css({
+						"line-height": option.height
+					}).append('<img style="width: 18px; height: 18px;" src="/EnergyFe/img/'+ option.img_url +'" />');
+				}
+				if(option.content) {
+					$wrap.append(option.content);
+				}
+
+				$this.parent().append($wrap.append($this));
+				if(uploadType === "image") { // 图片预览
+					$this.parent().before($('<div class="preview" style="display: none;"><a target="_blank" href="javascript:;"><img style="width: '+option.width+';height: '+option.height+'"/></a><i class="del">x</i></div>'));
 				} else { // 文件展示文件名
-					$this.wrap($('<div class="input-wrap input-' + fileType + '">+</div>'));
 					$this.parent().after($('<div class="preview" style="display: none;"><a target="_blank" href="javascript:;"></a><i class="del">x</i></div>'));
 				}
 			}
@@ -33,13 +59,13 @@ $(function($) {
 				var	resultFile = this.files[0];
 
 				if(resultFile && resultFile.name) {
-					// if(fileType === "image") {
+					// if(uploadType === "image") {
 						var reader = new FileReader();
 
 						reader.onload = function (e) {
 		                    var alink = $preview.show().find("a");
 
-		                    if(fileType === "image") {
+		                    if(uploadType === "image") {
 		                    	alink.attr("href", this.result);
 			                    alink.find("img").attr({
 				                    src: this.result,

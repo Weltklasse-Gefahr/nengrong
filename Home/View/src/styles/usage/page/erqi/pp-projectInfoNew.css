@@ -1,0 +1,51 @@
+.r-content {
+	padding-top: 30px;
+}
+
+.r-content form {
+	margin-top: 60px;
+}
+
+.r-content form > .title {
+	font-size: 18px;
+	margin: 20px 0;
+}
+
+.r-content form .part2 li {
+	line-height: 34px;
+}
+
+.r-content form .part2 li .lb {
+	color: #9b9b9b;
+	width: 200px;
+	display: inline-block;
+}
+
+.r-content form .part2 .input-wrap {
+	display: inline-block;
+	color: #2C586E;
+	margin: 0 10px 0 5px;
+	transform: translateY(5px);
+}
+
+.r-content form .part2 .preview {
+	display: inline-block;
+	line-height: 30px;
+	padding: 0 25px 0 10px;
+	border: 1px solid #eee;
+}
+
+.r-content form .part2 > .preview a:hover {
+	color: #2C586E;
+}
+
+.r-content form ul.part2 li .gray {
+	color: #9b9b9b;
+}
+
+.r-content form ul.part2 input, .r-content form ul.part2 select {
+	font-size: 14px;
+	padding-left: 2px;
+	width: 240px;
+	height: 24px;
+}

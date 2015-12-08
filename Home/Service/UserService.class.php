@@ -38,4 +38,18 @@ class UserService extends Model{
 	public function changePassword(){
 
 	}
+
+    /**
+    **@auth qianqiang
+    **@breif 根据项目编码获取项目信息
+    **@date 2015.12.05
+    **/
+    public function getUserInfo($email){
+        //$objUser = M("User");
+        //这样写可读性是不是更好
+        $objUser = new \Home\Model\UserModel(); 
+        $condition["email"] = $email;
+        $userInfo = $objUser->where($condition)->select();
+        return $userInfo[0];
+    }
 }
