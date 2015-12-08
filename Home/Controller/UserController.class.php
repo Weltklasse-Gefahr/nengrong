@@ -25,7 +25,7 @@ class UserController extends Controller
             }
 
             $user = D('User','Service');
-            $users = $user->loginService();
+            $users = $user->loginService($email, $password);
             
             if ($_GET['display'] == 'json') {
                 dump($users);
@@ -69,7 +69,7 @@ class UserController extends Controller
             } 
 
             $user = D('User','Service');
-            $users = $user->registerService();
+            $users = $user->registerService($email, $password);
             
             $display = $_GET['display'];
             if ($display == 'json') {

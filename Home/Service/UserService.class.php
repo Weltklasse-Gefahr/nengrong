@@ -5,8 +5,12 @@ use Think\Model;
 
 class UserService extends Model{
 
-	//登录
-	public function loginService(){
+	/**
+    **@auth qianqiang
+    **@breif 登录
+    **@date 
+    **/
+	public function loginService($email, $password){
 		$user = M("User");
         $users = $user->where("email='%s' and password='%s' and status!=9999", array($email, MD5($password)))->select();
 
@@ -16,8 +20,12 @@ class UserService extends Model{
         return $users;
 	}
 
-	//注册
-	public function registerService(){
+	/**
+    **@auth qianqiang
+    **@breif 注册
+    **@date 
+    **/
+	public function registerService($email, $password){
 		$userAdd = M('user');
         $userAdd->email = $email;
         $userAdd->password = md5($password);
@@ -34,7 +42,11 @@ class UserService extends Model{
         return $users;
 	}
 
-	//修改密码
+	/**
+    **@auth qianqiang
+    **@breif 修改密码
+    **@date 
+    **/
 	public function changePassword(){
 
 	}
