@@ -14,6 +14,8 @@ drop table if exists ENF_PushProject;
 
 drop table if exists ENF_User;
 
+drop table if exists ENF_Manager;
+
 /*==============================================================*/
 /* Table: ENF_Ground                                            */
 /*==============================================================*/
@@ -197,7 +199,7 @@ create table ENF_User
    local_tax_certificate varchar(100) comment '地税登记证URL',
    identity_card_front  varchar(100) comment '法人身份证正面URL',
    identity_card_back   varchar(100) comment '法人身份证反面URL',
-   financial_audit      varchar(100) comment '财务审计报告URL',
+   financial_audit      varchar(100) comment '地税登记证URL',
    create_date          datetime comment '创建时间',
    change_date          datetime comment '修改时间',
    status               int not null default 0 comment '状态类型：0正常、1已激活、2未激活、11未提交、12已提交未查看（业务员界面高亮处理）、13已提交已查看、21签意向合同（可以推送）、22签意向合同、31签融资合同、41已推送、42未推送、9999删除',
@@ -206,4 +208,17 @@ create table ENF_User
 )ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 alter table ENF_User comment '用户表';
+
+/*==============================================================*/
+/* Table: ENF_Manager                                           */
+/*==============================================================*/
+create table ENF_Manager
+(
+   id                   bigint not null auto_increment,
+   user_name            varchar(100) not null unique comment '用户名',
+   password             varchar(100) not null comment '密码',
+   primary key (id)
+)ENGINE = InnoDB DEFAULT CHARSET = utf8;
+
+alter table ENF_Manager comment '管理员表';
 

@@ -14,6 +14,11 @@ class UserService extends Model{
 		$user = M("User");
         $users = $user->where("email='%s' and password='%s' and status!=9999", array($email, MD5($password)))->select();
 
+        if (sizeof($users) != 1) {
+        	echo '{"code":"-1","msg":"登录信息错误"}';
+        	exit;
+        }
+
         setcookie("email", $email, time()+3600);
         setcookie("mEmail", MD5($email."ENFENF"), time()+3600);
 
@@ -26,6 +31,13 @@ class UserService extends Model{
     **@date 
     **/
 	public function registerService($email, $password){
+		$user = M("User");
+		$users = $user->where("email='%s' and status!=9999", array($email) )->select();
+		if (sizeof($users) == 1) {
+			echo '{"code":"-1","msg":"该邮箱已经注册"}';
+			exit;
+		} 
+
 		$userAdd = M('user');
         $userAdd->email = $email;
         $userAdd->password = md5($password);
@@ -39,6 +51,11 @@ class UserService extends Model{
         $user->add();
 
         $users = $user->where("email='%s' and status!=9999", array($email) )->select();
+
+        if (sizeof($users) != 1) {
+        	echo '{"code":"-1","msg":"mysql error!"}';
+        	exit;
+        }
         return $users;
 	}
 
@@ -47,8 +64,25 @@ class UserService extends Model{
     **@breif 修改密码
     **@date 
     **/
-	public function changePassword(){
+	public function changePassword($email, $password, $newPwd){
+		$user = M('User');
+		$objUser = $user->where("email='%s' and password='%s' and status!=9999", array($email, MD5($password)))->select();
+		if(sizeof($objUser) == 0){
+			echo '{"code":"-1","msg":"原密码错误!"}';
+			exit;
+		}
 
+		$objUser->email = $email;
+		$objUser->password = MD5($newPwd);
+		$objUser->save();
+
+		$objUser = $user->where("email='%s' and password='%s' and status!=9999", array($email, MD5($newPwd)))->select();
+		if (sizeof($objUser) != 1) {
+			echo '{"code":"-1","msg":"mysql error!"}';
+			exit;
+		}
+
+		return $objUser;
 	}
 
     /**
