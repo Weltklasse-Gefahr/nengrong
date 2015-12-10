@@ -22,7 +22,7 @@ class UserService extends Model{
         setcookie("email", $email, time()+3600);
         setcookie("mEmail", MD5($email."ENFENF"), time()+3600);
 
-        return $users;
+        return $users[0];
 	}
 
 	/**
@@ -56,7 +56,7 @@ class UserService extends Model{
         	echo '{"code":"-1","msg":"mysql error!"}';
         	exit;
         }
-        return $users;
+        return $users[0];
 	}
 
 	/**
@@ -82,7 +82,7 @@ class UserService extends Model{
 			exit;
 		}
 
-		return $objUser;
+		return $objUser[0];
 	}
 
     /**
