@@ -92,7 +92,7 @@ class UserController extends Controller
             }
 
             $user = D('User','Service');
-            $objUser = $user->changePassword($userName, $pwd, $newPwd);
+            $objUser = $user->changePasswordService($userName, $pwd, $newPwd);
             if ($_GET['display'] == 'json') {
                 dump($objUser);
                 echo json_encode($objUser);
@@ -104,19 +104,43 @@ class UserController extends Controller
         }
     }
 
-    //忘记密码时修改密码
+    //忘记密码时重置密码
     public function resetPassword(){
-        $email = $_POST['email'];
-        $newPwd = $_POST['newPassword'];
-        if ( empty($email) || empty($newPwd) ) {
-            echo '{"code":"-1","msg":"邮箱或者新密码为空！"}';
-            exit;
-        }
+        if($_POST['rtype'] == 1 || $_GET['rtype'] == 1){
+            $email = $_POST['email'];
+            $newPwd = $_POST['newPassword'];
+            if ( empty($email) || empty($newPwd) ) {
+                echo '{"code":"-1","msg":"邮箱或者新密码为空！"}';
+                exit;
+            }
 
-        $user = M('User');
-        $user->email = $email;
-        $user->password = $newPwd;
-        $user->save();
+            $user = D('User','Service');
+            $objUser = $user->resetPasswordService($email, $newPwd);
+            if ($_GET['display'] == 'json') {
+                dump($objUser);
+                echo json_encode($objUser);
+                exit;
+            }
+            $this->display(index);        
+        }else{
+            $this->display();
+        }
+    }
+
+    /**
+    **@auth qianqiang
+    **@breif 展示项目提供方所有用户
+    **@date 2015.12.10
+    **/
+    public function getAllProjectProviderInfo(){
+        if($_POST['rtype'] == 1 || $_GET['rtype'] == 1){
+            $user = D('User','Service');
+            $users = $user->getAllProjectProviderService();
+            $this->assign('listInfo',$users);
+            $this->display();
+        }else{
+            $this->display();
+        }
     }
 
     //用户激活

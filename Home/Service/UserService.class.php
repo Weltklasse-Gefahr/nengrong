@@ -64,7 +64,7 @@ class UserService extends Model{
     **@breif 修改密码
     **@date 
     **/
-	public function changePassword($email, $password, $newPwd){
+	public function changePasswordService($email, $password, $newPwd){
 		$user = M('User');
 		$objUser = $user->where("email='%s' and password='%s' and status!=9999", array($email, MD5($password)))->select();
 		if(sizeof($objUser) == 0){
@@ -83,6 +83,43 @@ class UserService extends Model{
 		}
 
 		return $objUser[0];
+	}
+
+	/**
+    **@auth qianqiang
+    **@breif 重置密码
+    **@date 2015.12.10
+    **/
+	public function resetPasswordService($email, $newPwd){
+		$user = M('User');
+		$objUser = $user->where("email='%s' and status!=9999", array($email))->select();
+		if(sizeof($objUser) == 0){
+			echo '{"code":"-1","msg":"原密码错误!"}';
+			exit;
+		}
+
+        $user->email = $email;
+        $user->password = MD5($newPwd);
+        $user->save();
+
+        $objUser = $user->where("email='%s' and password='%s' and status!=9999", array($email, MD5($newPwd)))->select();
+		if (sizeof($objUser) != 1) {
+			echo '{"code":"-1","msg":"mysql error!"}';
+			exit;
+		}
+
+		return $objUser[0];
+	}
+
+	/**
+    **@auth qianqiang
+    **@breif 展示项目提供方所有用户
+    **@date 2015.12.10
+    **/
+	public function getAllProjectProviderService(){
+		$user = M('User');
+		$users = $user->where("user_type=3 and status!=9999")->select();
+		return $users;
 	}
 
     /**
