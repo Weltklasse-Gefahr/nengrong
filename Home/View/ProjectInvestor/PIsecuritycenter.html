@@ -49,15 +49,7 @@
 
 	<div class="main clrfix">
 		<!-- 左侧导航栏 -->
-		<php>include '/home/ubuntu/enetfPlatform/nengrong/Home/View/News/ProjectProvider_left.html';</php>
-		<div class="l-nav">
-			<dl>
-				<dd data-href="">已投资项目</dd>
-				<dd data-href="">推荐项目</dd>
-				<dd data-href="">我的资料</dd>
-				<dt>安全中心</dt>
-			</dl>
-		</div>
+		<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ProjectInvestor/ProjectInvestor_left.html';</php>
 		
 		<!-- 右侧布局 -->
 		<div class="r-content">
