@@ -75,11 +75,15 @@ function uploadPicOne($photo, $savePath = ''){
     // 设置附件上传类型
     $upload->exts      =     array('jpg', 'gif', 'png', 'jpeg');
     // 设置附件上传根目录
-    $upload->rootPath  =      '../View/img/'; 
+    $upload->rootPath  =      dirname(dirname(__FILE__)).'/View/img/'; 
     //图片的保持名字
     $upload->saveName = array('uniqid','');
     // 设置附件上传（子）目录
     $upload->savePath  =       $savePath; 
+    if(!file_exists(dirname(dirname(__FILE__)).'/View/img/'.$savePath))
+    {
+        mkdir(dirname(dirname(__FILE__)).'/View/img/'.$savePath,0777);     
+    }
     // 上传单个文件 
     $info   =   $upload->uploadOne($photo);
     if(!$info) {
@@ -108,11 +112,15 @@ function uploadFileOne($file, $savePath = ''){
     // 设置附件上传类型
     $upload->exts      =     array('pdf', 'doc', 'excel');
     // 设置附件上传根目录
-    $upload->rootPath  =      '../View/img/'; 
+    $upload->rootPath  =      dirname(dirname(__FILE__)).'/View/img/'; 
     //图片的保持名字
     $upload->saveName = array('uniqid','');
     // 设置附件上传（子）目录
     $upload->savePath  =       $savePath; 
+    if(!file_exists(dirname(dirname(__FILE__)).'/View/img/'.$savePath))
+    {
+        mkdir(dirname(dirname(__FILE__)).'/View/img/'.$savePath,0777);     
+    }
     // 上传单个文件 
     $info   =   $upload->uploadOne($file);
     if(!$info) {

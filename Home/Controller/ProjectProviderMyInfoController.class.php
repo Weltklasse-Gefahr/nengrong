@@ -12,8 +12,9 @@ class ProjectProviderMyInfoController extends Controller {
     **/
 	public function myInformation()
     {
-
+        //判断登陆，并且获取用户名的email
         isLogin($_COOKIE['email'],$_COOKIE['mEmail']);
+        $email = "qiujinhan@gmail.com";//$_COOKIE['email'];
         $display =$_GET['display'];
     	//操作类型为1是插入和保存数据
     	$optype = $_POST['rtype'] ? $_POST['rtype']:$_GET['rtype'];
@@ -33,6 +34,8 @@ class ProjectProviderMyInfoController extends Controller {
             $arrUser['company_telephone'] = $_POST['company_telephone'];//其他手机
             $arrUser['company_person'] = $_POST['company_person'];//企业法人
             $arrUser['company_phone'] = $_POST['company_phone'];//座机
+            $arrUser['company_area'] = $_POST['province']."#".$_POST['city']."#".$_POST['county'];//省市区
+
             
             
             //上传6图片资料上传,
@@ -48,23 +51,23 @@ class ProjectProviderMyInfoController extends Controller {
             {
                 if(!empty($_FILES[$val]))
                 {
-                    $res = uploadPicOne($_FILES[$val], "".$id);
+                    $res = uploadPicOne($_FILES[$val], "ProjectProvider".$email);
                     //echo json_encode($res);exit;
                     //图片的保持路径
-                    $arrUser[$val] = $res;
+                    $arrUser[$val] = $res; 
                 }
             } 
            
             //上传1个财务审计报告，返回一个url
             if (!empty($_FILES["financial_audit"]))
             {
-                 $res = uploadPicOne($_FILES["financial_audit"], "".$id);
+                 $res = uploadPicOne($_FILES["financial_audit"], "ProjectProvider".$email);
                  $arrUser["financial_audit"] = $res;
             }
 
             //拼接插入数据
             $objUser = D("User","Service");
-            $strWhere = "id=".$id;
+            $strWhere = "email='".$email."'";
             if ($display=="json")
             {
                 echo json_encode($arrUser);
@@ -85,17 +88,18 @@ class ProjectProviderMyInfoController extends Controller {
 	    else
 	    {
 	    	//数据的显示
-	    	//从cookie里面读取到用户
-	    	$id = $_POST['id'] ? $_POST['id']:$_GET['id'];
 	        $objUser = D("User","Service");
-            $condition["id"] = $id;
+            $condition["email"] = $email;
 	        $user = $objUser->getUserInfo($condition);
 	        if ($display=="json")
 	        {
-	            echo json_encode($user);
+	            echo json_encode($user[0]);
 	            exit;
 	        }
-	    	
+	    	$arr_company_area = explode("#",$user[0]["company_area"]);
+            $user[0]["province"] = $arr_company_area[0];
+            $user[0]["city"] = $arr_company_area[1];
+            $user[0]["county"] = $arr_company_area[2];
 	    	$this->assign('user',$user[0]);
 	        $this->display("ProjectProvider:myInformation");
 	    }
