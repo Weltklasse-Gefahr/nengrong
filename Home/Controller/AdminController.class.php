@@ -306,8 +306,8 @@ class AdminController extends Controller
             $users = $user->getAllInnerStaffService();
             $this->assign('listInfo',$users);
 
-            echo '{"code":"0","msg":"成功！"}';
-            // $this->display("Admin:admin_inner_staff");
+            //echo '{"code":"0","msg":"成功！"}';
+            $this->display("Admin:admin_inner_staff");
         //}else{
         //    $this->display("Admin:admin_inner_staff");
         //}
