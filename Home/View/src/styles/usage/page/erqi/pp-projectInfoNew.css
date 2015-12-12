@@ -24,7 +24,7 @@
 .r-content form .part2 .input-wrap {
 	display: inline-block;
 	color: #2C586E;
-	margin: 0 10px 0 5px;
+	margin-right: 5px;
 	transform: translateY(5px);
 }
 
@@ -48,4 +48,40 @@
 	padding-left: 2px;
 	width: 240px;
 	height: 24px;
+}
+
+.r-content form .part2 li .lb + input, .r-content form .part2 li .lb + select {
+	margin-right: 5px;
+}
+
+.r-content form .part2 li .citem {
+	margin-right: 8px;
+}
+
+.r-content form .part2 li .citem input[type="checkbox"] {
+	top: 7px;
+	position: relative;
+	margin-right: 3px;
+	width: auto;
+}
+
+.r-content form .part2 li .more-info {
+	width: 120px;
+}
+
+.r-content form .operator {
+	margin-top: 30px;
+}
+
+.r-content form .operator input[type="submit"] {
+	width: 100px;
+	height: 30px;
+	border-radius: 5px;
+	background-color: #FD7940;
+	color: #fff;
+	border: 0;
+}
+
+.r-content form .operator .save {
+	margin-right: 140px;
 }
