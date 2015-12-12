@@ -30,7 +30,7 @@ class UserService extends Model{
     **@breif 注册
     **@date 
     **/
-	public function registerService($email, $password){
+	public function registerService($email, $password, $userType){
 		$user = M("User");
 		$users = $user->where("email='%s' and status!=9999", array($email) )->select();
 		if (sizeof($users) == 1) {
@@ -48,6 +48,7 @@ class UserService extends Model{
         else{
             $userAdd->user_type = $userType;
         }
+        $userAdd->create_date = time();
         $user->add();
 
         $users = $user->where("email='%s' and status!=9999", array($email) )->select();
@@ -74,6 +75,7 @@ class UserService extends Model{
 
 		$objUser->email = $email;
 		$objUser->password = MD5($newPwd);
+		$objUser->change_date = time();
 		$objUser->save();
 
 		$objUser = $user->where("email='%s' and password='%s' and status!=9999", array($email, MD5($newPwd)))->select();
@@ -94,12 +96,13 @@ class UserService extends Model{
 		$user = M('User');
 		$objUser = $user->where("email='%s' and status!=9999", array($email))->select();
 		if(sizeof($objUser) == 0){
-			echo '{"code":"-1","msg":"原密码错误!"}';
+			echo '{"code":"-1","msg":"用户不存在!"}';
 			exit;
 		}
 
         $user->email = $email;
         $user->password = MD5($newPwd);
+        $user->change_date = time();
         $user->save();
 
         $objUser = $user->where("email='%s' and password='%s' and status!=9999", array($email, MD5($newPwd)))->select();
@@ -122,17 +125,158 @@ class UserService extends Model{
 		return $users;
 	}
 
+	/**
+    **@auth qianqiang
+    **@breif 展示项目投资方所有用户
+    **@date 2015.12.10
+    **/
+	public function getAllProjectInvestorService(){
+		$user = M('User');
+		$users = $user->where("user_type=4 and status!=9999")->select();
+		return $users;
+	}
+
+	/**
+    **@auth qianqiang
+    **@breif 展示业务员所有用户
+    **@date 2015.12.10
+    **/
+	public function getAllInnerStaffService(){
+		$user = M('User');
+		$users = $user->where("user_type=2 and status!=9999")->select();
+		return $users;
+	}
+
+	/**
+    **@auth qianqiang
+    **@breif 删除用户
+    **@date 2015.12.12
+    **/
+	public function deleteUserService($email){
+		$user = M('User');
+		$objUser = $user->where("email='%s' and status!=9999", array($email))->select();
+		if(sizeof($objUser) == 0){
+			echo '{"code":"-1","msg":"用户不存在!"}';
+			exit;
+		}
+
+		$user->email = $email;
+        $user->status = 9999;
+        $user->change_date = time();
+        $user->save();
+
+        $objUser = $user->where("email='%s' and status!=9999", array($email))->select();
+		if (sizeof($objUser) != 0) {
+			echo '{"code":"-1","msg":"mysql error!"}';
+			exit;
+		}
+	}
+
+	/**
+    **@auth qianqiang
+    **@breif 管理员修改项目提供方信息
+    **@date 2015.12.12
+    **/
+	public function changeProjectProviderByManager($email, $phone){
+		$user = M('User');
+		$objUser = $user->where("email='%s' and status!=9999", array($email))->select();
+		if(sizeof($objUser) == 0){
+			echo '{"code":"-1","msg":"用户不存在!"}';
+			exit;
+		}
+
+		$user->email = $email;
+        $user->company_telephone = $phone;
+        $user->change_date = time();
+        $user->save();
+
+        $objUser = $user->where("email='%s' and company_telephone='%s' and status!=9999", array($email, $phone))->select();
+		if (sizeof($objUser) != 1) {
+			echo '{"code":"-1","msg":"mysql error!"}';
+			exit;
+		}
+		return $objUser[0];
+	}
+
+	/**
+    **@auth qianqiang
+    **@breif 管理员修改项目投资方信息
+    **@date 2015.12.12
+    **/
+	public function changeProjectInvestorByManager($email, $companyName){
+		$user = M('User');
+		$objUser = $user->where("email='%s' and status!=9999", array($email))->select();
+		if(sizeof($objUser) == 0){
+			echo '{"code":"-1","msg":"用户不存在!"}';
+			exit;
+		}
+
+		$user->email = $email;
+        $user->company_name = $companyName;
+        $user->change_date = time();
+        $user->save();
+
+        $objUser = $user->where("email='%s' and company_name='%s' and status!=9999", array($email, $companyName))->select();
+		if (sizeof($objUser) != 0) {
+			echo '{"code":"-1","msg":"mysql error!"}';
+			exit;
+		}
+		return $objUser[0];
+	}
+
+	/**
+    **@auth qianqiang
+    **@breif 管理员修改项目业务人员信息
+    **@date 2015.12.12
+    **/
+	public function changeInnerStaffByManager($email, $code, $name){
+		$user = M('User');
+		$objUser = $user->where("email='%s' and status!=9999", array($email))->select();
+		if(sizeof($objUser) == 0){
+			echo '{"code":"-1","msg":"用户不存在!"}';
+			exit;
+		}
+
+		$user->email = $email;
+        $user->code = $code;
+        $user->name = $name;
+        $user->change_date = time();
+        $user->save();
+
+        $objUser = $user->where("email='%s' and code='%s' and name='%s' and status!=9999", array($email, $code, $name))->select();
+		if (sizeof($objUser) != 0) {
+			echo '{"code":"-1","msg":"mysql error!"}';
+			exit;
+		}
+		return $objUser[0];
+	}
+
     /**
     **@auth qianqiang
     **@breif 根据项目编码获取项目信息
+    **@param condition 数组，查询的条件
+    **@return 一个数组
     **@date 2015.12.05
     **/
-    public function getUserInfo($email){
+    public function getUserInfo($condition){
         //$objUser = M("User");
         //这样写可读性是不是更好
         $objUser = new \Home\Model\UserModel(); 
-        $condition["email"] = $email;
         $userInfo = $objUser->where($condition)->select();
-        return $userInfo[0];
+        return $userInfo;
+    }
+
+    /**
+    **@auth qiujinhan
+    **@breif 更新user表数据
+    **@param where 字符串格式，更新的条件
+    **@param updateData 数组，更新的内容
+    **@return 更新成功返回true 更新失败返回false
+    **@date 2015.12.05
+    **/
+    public function updateUserInfo($where, $updateData){
+        $objUser = new \Home\Model\UserModel(); 
+        $res = $objUser->where($where)->save($updateData);
+        return $res;
     }
 }
