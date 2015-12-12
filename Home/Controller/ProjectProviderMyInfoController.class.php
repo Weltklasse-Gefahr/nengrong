@@ -12,6 +12,9 @@ class ProjectProviderMyInfoController extends Controller {
     **/
 	public function myInformation()
     {
+
+        isLogin($_COOKIE['email'],$_COOKIE['mEmail']);
+        $display =$_GET['display'];
     	//操作类型为1是插入和保存数据
     	$optype = $_POST['rtype'] ? $_POST['rtype']:$_GET['rtype'];
     	if ( $optype == 1)
@@ -30,15 +33,44 @@ class ProjectProviderMyInfoController extends Controller {
             $arrUser['company_telephone'] = $_POST['company_telephone'];//其他手机
             $arrUser['company_person'] = $_POST['company_person'];//企业法人
             $arrUser['company_phone'] = $_POST['company_phone'];//座机
-
-
-            //上传6图片资料上传
-
-            //上传1个doc等文件，调用一个函数，返回一个url
+            
+            
+            //上传6图片资料上传,
+            $arrPhotos = array(
+                "business_license",         //公司营业执照
+                "organization_code",        //组织机构代码证
+                "national_tax_certificate", //国税登记证
+                "local_tax_certificate",    //地税登记证
+                "identity_card_front",      //法人身份证正面
+                "identity_card_back",       //法人身份证反面
+                );
+            foreach($arrPhotos as $val)
+            {
+                if(!empty($_FILES[$val]))
+                {
+                    $res = uploadPicOne($_FILES[$val], "".$id);
+                    //echo json_encode($res);exit;
+                    //图片的保持路径
+                    $arrUser[$val] = $res;
+                }
+            } 
+           
+            //上传1个财务审计报告，返回一个url
+            if (!empty($_FILES["financial_audit"]))
+            {
+                 $res = uploadPicOne($_FILES["financial_audit"], "".$id);
+                 $arrUser["financial_audit"] = $res;
+            }
 
             //拼接插入数据
             $objUser = D("User","Service");
-            $strWhere = "id=1";
+            $strWhere = "id=".$id;
+            if ($display=="json")
+            {
+                echo json_encode($arrUser);
+                exit;
+            }
+            
             $res = $objUser->updateUserInfo($strWhere, $arrUser);
             if ($res == true)
             {
@@ -46,7 +78,7 @@ class ProjectProviderMyInfoController extends Controller {
             }
             else
             {
-                echo '{"code":"-1","msg":"更新失败"}';
+                echo '{"code":"-1","msg":"更新失败！"}';
             }
 
 	    }
@@ -55,7 +87,6 @@ class ProjectProviderMyInfoController extends Controller {
 	    	//数据的显示
 	    	//从cookie里面读取到用户
 	    	$id = $_POST['id'] ? $_POST['id']:$_GET['id'];
-	    	$display =$_GET['display'];
 	        $objUser = D("User","Service");
             $condition["id"] = $id;
 	        $user = $objUser->getUserInfo($condition);
