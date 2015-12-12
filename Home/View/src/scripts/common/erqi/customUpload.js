@@ -36,7 +36,7 @@ $(function($) {
 				if(option.img_url) {
 					$wrap.css({
 						"line-height": option.height
-					}).append('<img style="width: 18px; height: 18px;" src="/EnergyFe/img/'+ option.img_url +'" />');
+					}).append('<img src="/EnergyFe/img/'+ option.img_url +'" />');
 				}
 				if(option.content) {
 					$wrap.append(option.content);

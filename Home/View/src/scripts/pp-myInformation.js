@@ -49,7 +49,7 @@ $(function() {
 	   	//options:  options对象
 	   	var queryString = $.param(formData);   //name=1&address=2  
 	   	var formElement = jqForm[0];              //将jqForm转换为DOM对象  
-	   	var mobile = formElement.mobile.value.trim();
+	   	var mobile = $.trim(formElement.company_contacts_phone.value);
 
 	   	if(!mobile) {
 	   		alert("请输入联系人手机号");
@@ -62,11 +62,12 @@ $(function() {
 	}
 
 	function successCallback(data) {
+		$("#submit").removeClass("disabled");
 		if(data.code == "0") {
-			$("#submit").removeClass("disabled");
 			alert("上传成功！");
+			location.href="?c=ProjectProviderMyPro&a=awaitingAssessment";
 		} else {
-			alert("上传失败！\n"+data.errmsg);
+			alert("上传失败！\n"+data.msg);
 		}
 	}
 
