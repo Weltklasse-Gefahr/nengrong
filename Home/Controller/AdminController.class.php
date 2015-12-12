@@ -30,10 +30,10 @@ class AdminController extends Controller
             $user = D('User','Service');
             $users = $user->getAllInnerStaffService();
             $this->assign('listInfo',$users);
-            
+
             if ($_GET['display'] == 'json') {
                 dump($users);
-                echo json_encode($users);
+                //echo json_encode($users);
                 exit;
             }
             
@@ -71,7 +71,7 @@ class AdminController extends Controller
             $objManager = $manager->changePassword($userName, $pwd, $newPwd);
             if ($_GET['display'] == 'json') {
                 dump($objManager);
-                echo json_encode($objManager);
+                //echo json_encode($objManager);
                 exit;
             }
             $this->display(index);            
@@ -396,6 +396,15 @@ class AdminController extends Controller
         }else{
             $this->display();
         }
+    }
+
+
+    public function addAdmin(){
+        $manager = M('Admin');
+        $data['user_name'] = 'admin';
+        $data['password'] = MD5("admin");
+        $manager->add($data);
+        echo '{"code":"0","msg":"添加管理员"}';
     }
 
 }
