@@ -85,8 +85,18 @@ class UserController extends Controller
         if($_POST['rtype'] == 1 || $_GET['rtype'] == 1){
             $email = $_POST['email'];
             $newPwd = $_POST['newPassword'];
+            $userName = $_POST['userName'];
+            $mUserName = $_POST['mUserName'];
             if ( empty($email) || empty($newPwd) ) {
                 echo '{"code":"-1","msg":"邮箱或者新密码为空！"}';
+                exit;
+            }
+            if (empty($userName) || empty($mUserName)) {
+                echo '{"code":"-1","msg":"没有登录！"}';
+                exit;
+            }
+            if (!($mUserName == MD5($userName."ENFENF"))) {
+                echo '{"code":"-1","msg":"登录信息错误"}';
                 exit;
             }
 
@@ -110,8 +120,18 @@ class UserController extends Controller
     **/
     public function deleteUser(){
     	$email = $_POST['email'];
+    	$userName = $_POST['userName'];
+        $mUserName = $_POST['mUserName'];
     	if ( empty($email) ) {
     		echo '{"code":"-1","msg":"邮箱为空！"}';
+    		exit;
+    	}
+    	if (empty($userName) || empty($mUserName)) {
+    		echo '{"code":"-1","msg":"没有登录！"}';
+    		exit;
+    	}
+    	if (!($mUserName == MD5($userName."ENFENF"))) {
+    		echo '{"code":"-1","msg":"登录信息错误"}';
     		exit;
     	}
 
@@ -128,10 +148,20 @@ class UserController extends Controller
     **/
     public function addInnerStaff(){
     	$email = $_POST['email'];
-    	$password = $_POST['password'];
-    	$userType = $_POST['userType'];
-    	if (empty($email) || empty($password)) {
-    		echo '{"code":"-1","msg":"邮箱或者密码为空！"}';
+    	$password = "123456";
+    	$userType = 2;
+    	$userName = $_POST['userName'];
+        $mUserName = $_POST['mUserName'];
+    	if (empty($email) {
+    		echo '{"code":"-1","msg":"邮箱为空！"}';
+    		exit;
+    	}
+    	if (empty($userName) || empty($mUserName)) {
+    		echo '{"code":"-1","msg":"没有登录！"}';
+    		exit;
+    	}
+    	if (!($mUserName == MD5($userName."ENFENF"))) {
+    		echo '{"code":"-1","msg":"登录信息错误"}';
     		exit;
     	}
 
@@ -154,10 +184,20 @@ class UserController extends Controller
     **/
     public function addProjectInvestor(){
     	$email = $_POST['email'];
-    	$password = $_POST['password'];
-    	$userType = $_POST['userType'];
-    	if (empty($email) || empty($password)) {
-    		echo '{"code":"-1","msg":"邮箱或者密码为空！"}';
+    	$password = "123456";
+    	$userType = 4;
+    	$userName = $_POST['userName'];
+        $mUserName = $_POST['mUserName'];
+    	if (empty($email)) {
+    		echo '{"code":"-1","msg":"邮箱为空！"}';
+    		exit;
+    	}
+    	if (empty($userName) || empty($mUserName)) {
+    		echo '{"code":"-1","msg":"没有登录！"}';
+    		exit;
+    	}
+    	if (!($mUserName == MD5($userName."ENFENF"))) {
+    		echo '{"code":"-1","msg":"登录信息错误"}';
     		exit;
     	}
 
@@ -179,7 +219,32 @@ class UserController extends Controller
     **@date 2015.12.12
     **/
     public function changeProjectProviderInfo(){
+    	$email = $_POST['email'];
+    	$phone = $_POST['telephone'];
+    	$userName = $_POST['userName'];
+        $mUserName = $_POST['mUserName'];
+        if (empty($email) || empty($phone)) {
+        	echo '{"code":"-1","msg":"邮箱或者电话为空！"}';
+        }
+        if (empty($userName) || empty($mUserName)) {
+        	echo '{"code":"-1","msg":"没有登录！"}';
+        	exit;
+        }
+        if (!($mUserName == MD5($userName."ENFENF"))) {
+        	echo '{"code":"-1","msg":"登录信息错误"}';
+        	exit;
+        }
 
+        $user = D('User','Service');
+    	$users = $user->changeProjectProviderByManager($email, $phone);
+
+    	$display = $_GET['display'];
+    	if ($display == 'json') {
+    		dump($users);
+    		echo json_encode($users);
+    		exit;
+    	}
+    	$this->display(index);
     }
 
     /**
@@ -188,16 +253,67 @@ class UserController extends Controller
     **@date 2015.12.12
     **/
     public function changeProjectInvestorInfo(){
+    	$email = $_POST['email'];
+    	$companyName = $_POST['companyName'];
+    	$userName = $_POST['userName'];
+        $mUserName = $_POST['mUserName'];
+        if (empty($email) || empty($companyName)) {
+        	echo '{"code":"-1","msg":"邮箱或者公司名称为空！"}';
+        }
+        if (empty($userName) || empty($mUserName)) {
+        	echo '{"code":"-1","msg":"没有登录！"}';
+        	exit;
+        }
+        if (!($mUserName == MD5($userName."ENFENF"))) {
+        	echo '{"code":"-1","msg":"登录信息错误"}';
+        	exit;
+        }
 
+		$user = D('User','Service');
+    	$users = $user->changeProjectInvestorByManager($email, $companyName);
+
+    	$display = $_GET['display'];
+    	if ($display == 'json') {
+    		dump($users);
+    		echo json_encode($users);
+    		exit;
+    	}
+    	$this->display(index);
     }
-    
+
     /**
     **@auth qianqiang
     **@breif 业务员管理->编辑
     **@date 2015.12.12
     **/
     public function changeInnerStaffInfo(){
+    	$email = $_POST['email'];
+    	$code = $_POST['code'];
+    	$name = $_POST['name'];
+    	$userName = $_POST['userName'];
+        $mUserName = $_POST['mUserName'];
+    	if (empty($email) || empty($code) || empty($name)) {
+    		echo '{"code":"-1","msg":"邮箱、员工编号、名称不能为空！"}';
+    	}
+    	if (empty($userName) || empty($mUserName)) {
+    		echo '{"code":"-1","msg":"没有登录！"}';
+    		exit;
+    	}
+    	if (!($mUserName == MD5($userName."ENFENF"))) {
+    		echo '{"code":"-1","msg":"登录信息错误"}';
+    		exit;
+    	}
 
+    	$user = D('User','Service');
+    	$users = $user->changeInnerStaffByManager($email, $code, $name);
+
+    	$display = $_GET['display'];
+    	if ($display == 'json') {
+    		dump($users);
+    		echo json_encode($users);
+    		exit;
+    	}
+    	$this->display(index);
     }
 
     /**
@@ -207,6 +323,16 @@ class UserController extends Controller
     **/
     public function getAllProjectProviderInfo(){
         if($_POST['rtype'] == 1 || $_GET['rtype'] == 1){
+        	$userName = $_POST['userName'];
+        	$mUserName = $_POST['mUserName'];
+        	if (empty($userName) || empty($mUserName)) {
+                echo '{"code":"-1","msg":"没有登录！"}';
+                exit;
+            }
+            if (!($mUserName == MD5($userName."ENFENF"))) {
+                echo '{"code":"-1","msg":"登录信息错误"}';
+                exit;
+            }
             $user = D('User','Service');
             $users = $user->getAllProjectProviderService();
             $this->assign('listInfo',$users);
@@ -223,6 +349,16 @@ class UserController extends Controller
     **/
     public function getAllProjectInvestorInfo(){
         if($_POST['rtype'] == 1 || $_GET['rtype'] == 1){
+        	$userName = $_POST['userName'];
+        	$mUserName = $_POST['mUserName'];
+        	if (empty($userName) || empty($mUserName)) {
+                echo '{"code":"-1","msg":"没有登录！"}';
+                exit;
+            }
+            if (!($mUserName == MD5($userName."ENFENF"))) {
+                echo '{"code":"-1","msg":"登录信息错误"}';
+                exit;
+            }
             $user = D('User','Service');
             $users = $user->getAllProjectInvestorService();
             $this->assign('listInfo',$users);
@@ -239,6 +375,16 @@ class UserController extends Controller
     **/
     public function getAllInnerStaffInfo(){
         if($_POST['rtype'] == 1 || $_GET['rtype'] == 1){
+        	$userName = $_POST['userName'];
+        	$mUserName = $_POST['mUserName'];
+        	if (empty($userName) || empty($mUserName)) {
+                echo '{"code":"-1","msg":"没有登录！"}';
+                exit;
+            }
+            if (!($mUserName == MD5($userName."ENFENF"))) {
+                echo '{"code":"-1","msg":"登录信息错误"}';
+                exit;
+            }
             $user = D('User','Service');
             $users = $user->getAllInnerStaffService();
             $this->assign('listInfo',$users);
@@ -247,4 +393,6 @@ class UserController extends Controller
             $this->display();
         }
     }
+
+    //添加注册日期,修改日期
 }
