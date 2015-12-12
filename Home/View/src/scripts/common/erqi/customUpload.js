@@ -108,10 +108,15 @@ $(function($) {
 			});
 
 			$preview.find(".del").click(function(e) {
-				$preview.hide().find("a").attr("href", "javascript:;").text("").find("img").attr({
-                    src: "",
-                    alt: ""
-                });
+				if(uploadType === "image") {
+					$preview.hide().find("a").attr("href", "javascript:;").find("img").attr({
+	                    src: "",
+	                    alt: ""
+	                });
+				} else {
+					$preview.hide().find("a").attr("href", "javascript:;").text("");
+				}
+				
 				$inputWrap.show().find("input[type=file]").val("");
 				option.callback && option.callback.call(item);
 				return false;
