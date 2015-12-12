@@ -30,7 +30,7 @@ $(function() {
 					$fromplace.val("");
 					ue.setContent("");
 				} else {
-					alert("上传失败！\n"+data.errmsg);
+					alert("上传失败！\n"+data.msg);
 				}
 			});
 			return false;

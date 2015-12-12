@@ -34,6 +34,10 @@
 	height: 24px;
 }
 
+.r-content form .part1 ul .area select {
+	width: 64px;
+}
+
 .r-content form .part1 > div {
 	float: left;
 	width: 16%;

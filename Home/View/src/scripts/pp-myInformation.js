@@ -3,6 +3,11 @@ $(function() {
 	$(".l-nav").find(".myInformation").addClass("active")
 		.children("a").attr("href", "javascript:;");
 
+	// 省市区级联
+	require("common/erqi/AreaData");
+	require("common/erqi/cascadeSelect");
+	$(".detail.part1 .area select").cascadeSelect(AreaData);
+
 	require("common/erqi/customUpload");
 	require("lib/jquery.form");
 	
