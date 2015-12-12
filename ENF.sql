@@ -2,7 +2,8 @@
 /* DBMS name:      MySQL 5.0                                    */
 /* Created on:     2015/12/2 23:31:34                           */
 /*==============================================================*/
-
+create database nengrongweb;
+use nengrongweb;
 
 drop table if exists ENF_Ground;
 
