@@ -17,7 +17,7 @@ class AdminController extends Controller
     **/
     public function login(){
     	if($_POST['rtype'] == 1 || $_GET['rtype'] == 1){
-            $userName = $_POST['userName'];
+            $userName = $_POST['username'];
             $password = $_POST['password'];
             if (empty($userName) || empty($password)) {
                 echo '{"code":"-1","msg":"邮箱或者密码为空！"}';
@@ -37,7 +37,7 @@ class AdminController extends Controller
                 exit;
             }
             
-            $this->display("Admin:admin_main");
+            $this->display("Admin:admin_inner_staff");
         }else {
             $this->display("Admin:admin_login");
         }
