@@ -3,7 +3,7 @@ namespace Home\Service;
 
 use Think\Model;
 
-class ManagerService extends Model{
+class AdminService extends Model{
 
 	/**
     **@auth qianqiang
@@ -11,8 +11,8 @@ class ManagerService extends Model{
     **@date 2015.12.08
     **/
 	public function loginService($userName, $password){
-		$manager = M("Manager");
-        $objManager = $manager->where("user_name='%s' and password='%s' and status!=9999", array($userName, MD5($password)))->select();
+		$manager = M("Admin");
+        $objManager = $manager->where("user_name='%s' and password='%s'", array($userName, MD5($password)))->select();
         if (sizeof($objManager) != 1) {
         	echo '{"code":"-1","msg":"登录信息错误"}';
         	exit;
@@ -30,8 +30,8 @@ class ManagerService extends Model{
     **@date 2015.12.09
     **/
 	public function changePassword($userName, $password, $newPwd){
-		$manager = M('Manager');
-		$objManager = $manager->where("user_name='%s' and password='%s' and status!=9999", array($userName, MD5($password)))->select();
+		$manager = M('Admin');
+		$objManager = $manager->where("user_name='%s' and password='%s'", array($userName, MD5($password)))->select();
 		if(sizeof($users) == 0){
 			echo '{"code":"-1","msg":"原密码错误!"}';
 			exit;
@@ -41,7 +41,7 @@ class ManagerService extends Model{
 		$objManager->password = MD5($newPwd);
 		$objManager->save();
 
-		$objManager = $manager->where("user_name='%s' and password='%s' and status!=9999", array($userName, MD5($newPwd)))->select();
+		$objManager = $manager->where("user_name='%s' and password='%s'", array($userName, MD5($newPwd)))->select();
 		if (sizeof($objManager) != 1) {
 			echo '{"code":"-1","msg":"mysql error!"}';
 			exit;

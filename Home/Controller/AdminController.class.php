@@ -24,16 +24,20 @@ class AdminController extends Controller
                 exit;
             }
 
-            $manager = D('Manager','Service');
+            $manager = D('Admin','Service');
             $objManager = $manager->loginService($userName, $password);
             
+            $user = D('User','Service');
+            $users = $user->getAllInnerStaffService();
+            $this->assign('listInfo',$users);
+            
             if ($_GET['display'] == 'json') {
-                dump($objManager);
-                echo json_encode($objManager);
+                dump($users);
+                echo json_encode($users);
                 exit;
             }
             
-            $this->display(index);
+            $this->display("Admin:admin_main");
         }else {
             $this->display("Admin:admin_login");
         }
@@ -63,7 +67,7 @@ class AdminController extends Controller
                 exit;
             }
 
-            $manager = D('Manager','Service');
+            $manager = D('Admin','Service');
             $objManager = $manager->changePassword($userName, $pwd, $newPwd);
             if ($_GET['display'] == 'json') {
                 dump($objManager);
