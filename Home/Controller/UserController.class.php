@@ -149,16 +149,16 @@ class UserController extends Controller
 
     // }
 
-    //修改资料
-    public function changeUserInfo(){
-        $email = $_POST['email'];
-        $mEmail = $_POST['mEmail'];
-        if (!($mEmail == MD5($email."ENFENF"))) {
-            echo '{"code":"-1","msg":"登录信息错误"}';
-            exit;
-        }
+    // //修改资料
+    // public function changeUserInfo(){
+    //     $email = $_POST['email'];
+    //     $mEmail = $_POST['mEmail'];
+    //     if (!($mEmail == MD5($email."ENFENF"))) {
+    //         echo '{"code":"-1","msg":"登录信息错误"}';
+    //         exit;
+    //     }
 
-    }
+    // }
 
 
     public function getDynamicCode(){
