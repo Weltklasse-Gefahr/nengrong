@@ -92,7 +92,7 @@ class UserController extends Controller
             }
 
             $user = D('User','Service');
-            $objUser = $user->changePasswordService($userName, $pwd, $newPwd);
+            $objUser = $user->changePasswordService($email, $pwd, $newPwd);
             if ($_GET['display'] == 'json') {
                 dump($objUser);
                 echo json_encode($objUser);

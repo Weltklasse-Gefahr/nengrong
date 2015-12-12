@@ -37,7 +37,8 @@ class AdminController extends Controller
                 exit;
             }
             
-            $this->display("Admin:admin_inner_staff");
+            echo '{"code":"0","msg":"登录成功！"}';
+            //$this->display("Admin:admin_inner_staff");
         }else {
             $this->display("Admin:admin_login");
         }
@@ -300,7 +301,7 @@ class AdminController extends Controller
     public function getAllInnerStaffInfo(){
         if($_POST['rtype'] == 1 || $_GET['rtype'] == 1){
         	isLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
-            
+
             $user = D('User','Service');
             $users = $user->getAllInnerStaffService();
             $this->assign('listInfo',$users);
