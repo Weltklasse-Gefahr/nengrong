@@ -40,7 +40,7 @@
 		
 		<!-- 右侧布局 -->
 		<div class="r-content">
-			<p class="state">当前账户：已激活</p>
+			<p class="state">当前账户：{$user['status'] == 1?'已激活':'未激活'}</p>
 			<form id="infoForm" action="?c=ProjectProviderMyInfo&a=myInformation&rtype=1" method="post">
 				<p class="title">账户详细信息</p>
 				<div class="detail part1 clrfix">
@@ -49,13 +49,13 @@
 						<li><span class="lb">联系人</span><input name="company_contacts" value="{$user['company_contacts']}"/></li>
 						<li><span class="lb">联系人手机</span><input name="company_contacts_phone" value="{$user['company_contacts_phone']}"/></li>
 						<li class="area"><span class="lb">所在地区</span>
-							<select name="province" class="first" data-code="$user['province']">
+							<select name="province" class="first" data-code="{$user['province']}">
 								<option value="">选择省</option>
 							</select>省
-							<select name="city" data-code="$user['city']">
+							<select name="city" data-code="{$user['city']}">
 								<option value="">选择市</option>
 							</select>市
-							<select name="county" data-code="$user['county']">
+							<select name="county" data-code="{$user['county']}">
 								<option value="">选择区</option>
 							</select>区
 						</li>
@@ -95,11 +95,11 @@
 					</div>
 					<div class="item">
 						<p>地税登记证</p>
-						<input type="file" accept="image/gif,image/jpeg,image/png" name="local_tax_certificate" style="visibility: hidden;" ata-url="{$user['local_tax_certificate']}"/>
+						<input type="file" accept="image/gif,image/jpeg,image/png" name="local_tax_certificate" style="visibility: hidden;" data-url="{$user['local_tax_certificate']}"/>
 					</div>
 					<div class="item">
 						<p>法人身份证正面</p>
-						<input type="file" accept="image/gif,image/jpeg,image/png" name="identity_card_front" style="visibility: hidden;" ata-url="{$user['identity_card_front']}"/>
+						<input type="file" accept="image/gif,image/jpeg,image/png" name="identity_card_front" style="visibility: hidden;" data-url="{$user['identity_card_front']}"/>
 					</div>
 					<div class="item">
 						<p>法人身份证反面</p>

@@ -54,7 +54,7 @@ class ProjectProviderMyInfoController extends Controller {
                     $res = uploadPicOne($_FILES[$val], "ProjectProvider".$email);
                     //echo json_encode($res);exit;
                     //图片的保持路径
-                    $arrUser[$val] = $res; 
+                    $arrUser[$val] = "/EnergyFe/img/".$res; 
                 }
             } 
            
@@ -62,7 +62,7 @@ class ProjectProviderMyInfoController extends Controller {
             if (!empty($_FILES["financial_audit"]))
             {
                  $res = uploadPicOne($_FILES["financial_audit"], "ProjectProvider".$email);
-                 $arrUser["financial_audit"] = $res;
+                 $arrUser["financial_audit"] =  $res;
             }
 
             //拼接插入数据
