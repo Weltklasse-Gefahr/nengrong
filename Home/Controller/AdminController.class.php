@@ -19,8 +19,8 @@ class AdminController extends Controller
     	if($_POST['rtype'] == 1 || $_GET['rtype'] == 1){
             $userName = $_POST['userName'];
             $password = $_POST['password'];
-            if (empty($email) || empty($password)) {
-                echo '{"code":"-1","msg":"邮箱或者密码或者动态码为空！"}';
+            if (empty($userName) || empty($password)) {
+                echo '{"code":"-1","msg":"邮箱或者密码为空！"}';
                 exit;
             }
 
