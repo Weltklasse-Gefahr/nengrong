@@ -16,7 +16,7 @@ class UserController extends Controller
             $email = $_POST['email'];
             $password = $_POST['password'];
             $dynamicCode = $_POST['dynamicCode'];
-            $mDynamicCode = $_POST['mDynamicCode'];
+            $mDynamicCode = $_COOKIE['mDynamicCode'];
             if (empty($email) || empty($password) || empty($dynamicCode)) {
                 echo '{"code":"-1","msg":"邮箱或者密码或者动态码为空！"}';
                 exit;
@@ -75,34 +75,34 @@ class UserController extends Controller
         }
     }
 
-    //修改密码
-    public function changePassword(){
-        if($_POST['rtype'] == 1 || $_GET['rtype'] == 1){
-            $email = $_POST['email'];
-            $mEmail = $_POST['mEmail'];
-            $pwd = $_POST['password'];
-            $newPwd = $_POST['newPassword'];
-            if ( empty($email) || empty($mEmail) || empty($pwd) || empty($newPwd) ) {
-                echo '{"code":"-1","msg":"邮箱或者新旧密码为空！"}';
-                exit;
-            }
-            if (!($mEmail == MD5($email."ENFENF"))) {
-                echo '{"code":"-1","msg":"登录信息错误"}';
-                exit;
-            }
+    // //修改密码
+    // public function changePassword(){
+    //     if($_POST['rtype'] == 1 || $_GET['rtype'] == 1){
+    //         $email = $_POST['email'];
+    //         $mEmail = $_POST['mEmail'];
+    //         $pwd = $_POST['password'];
+    //         $newPwd = $_POST['newPassword'];
+    //         if ( empty($email) || empty($mEmail) || empty($pwd) || empty($newPwd) ) {
+    //             echo '{"code":"-1","msg":"邮箱或者新旧密码为空！"}';
+    //             exit;
+    //         }
+    //         if (!($mEmail == MD5($email."ENFENF"))) {
+    //             echo '{"code":"-1","msg":"登录信息错误"}';
+    //             exit;
+    //         }
 
-            $user = D('User','Service');
-            $objUser = $user->changePasswordService($userName, $pwd, $newPwd);
-            if ($_GET['display'] == 'json') {
-                dump($objUser);
-                echo json_encode($objUser);
-                exit;
-            }
-            $this->display(index);            
-        }else{
-            $this->display();
-        }
-    }
+    //         $user = D('User','Service');
+    //         $objUser = $user->changePasswordService($email, $pwd, $newPwd);
+    //         if ($_GET['display'] == 'json') {
+    //             dump($objUser);
+    //             echo json_encode($objUser);
+    //             exit;
+    //         }
+    //         $this->display(index);            
+    //     }else{
+    //         $this->display();
+    //     }
+    // }
 
     //忘记密码时重置密码
     public function resetPassword(){
@@ -138,16 +138,16 @@ class UserController extends Controller
         
     }
 
-    //显示用户详细信息
-    public function userInfo(){
-        $email = $_POST['email'];
-        $mEmail = $_POST['mEmail'];
-        if (!($mEmail == MD5($email."ENFENF"))) {
-            echo '{"code":"-1","msg":"登录信息错误"}';
-            exit;
-        }
+    // //显示用户详细信息
+    // public function userInfo(){
+    //     $email = $_POST['email'];
+    //     $mEmail = $_POST['mEmail'];
+    //     if (!($mEmail == MD5($email."ENFENF"))) {
+    //         echo '{"code":"-1","msg":"登录信息错误"}';
+    //         exit;
+    //     }
 
-    }
+    // }
 
     //修改资料
     public function changeUserInfo(){
