@@ -27,12 +27,12 @@ class AdminController extends Controller
             $manager = D('Admin','Service');
             $objManager = $manager->loginService($userName, $password);
             
-            $user = D('User','Service');
-            $users = $user->getAllInnerStaffService();
-            $this->assign('listInfo',$users);
+            // $user = D('User','Service');
+            // $users = $user->getAllInnerStaffService();
+            // $this->assign('listInfo',$users);
 
             if ($_GET['display'] == 'json') {
-                dump($users);
+                dump($objManager);
                 //echo json_encode($users);
                 exit;
             }
@@ -299,16 +299,18 @@ class AdminController extends Controller
     **@date 2015.12.10
     **/
     public function getAllInnerStaffInfo(){
-        if($_POST['rtype'] == 1 || $_GET['rtype'] == 1){
+        //if($_POST['rtype'] == 1 || $_GET['rtype'] == 1){
         	isLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
 
             $user = D('User','Service');
             $users = $user->getAllInnerStaffService();
             $this->assign('listInfo',$users);
-            $this->display();
-        }else{
-            $this->display();
-        }
+
+            echo '{"code":"0","msg":"成功！"}';
+            // $this->display("Admin:admin_inner_staff");
+        //}else{
+        //    $this->display("Admin:admin_inner_staff");
+        //}
     }
 
 
