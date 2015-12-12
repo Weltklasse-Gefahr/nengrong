@@ -152,7 +152,7 @@ class UserController extends Controller
     	$userType = 2;
     	$userName = $_POST['userName'];
         $mUserName = $_POST['mUserName'];
-    	if (empty($email) {
+    	if (empty($email)) {
     		echo '{"code":"-1","msg":"邮箱为空！"}';
     		exit;
     	}
@@ -394,5 +394,4 @@ class UserController extends Controller
         }
     }
 
-    //添加注册日期,修改日期
 }
