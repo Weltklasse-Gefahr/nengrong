@@ -17,11 +17,10 @@ $(function($) {
 				return ;
 			}
 
-			var uploadType, $wrap, $inputFile, $preview;
+			var uploadType = option.uploadType,
+				$wrap, $inputWrap, $preview;
 			
 			if(!($this.parent().is(".input-wrap"))) {
-
-				uploadType = option.uploadType;
 
 				$wrap = $('<div class="input-wrap"></div>').css({
 					width: option.width,
@@ -48,15 +47,32 @@ $(function($) {
 					$this.parent().append($wrap.append($this));
 				}
 
-				$this.parent().after($('<div class="preview" style="width: '+option.width+';height: '+option.height+';display: none;"><a target="_blank" href="javascript:;"></a><i class="del">x</i></div>'));
+				$this.parent().after($('<div class="preview" style="height: '+option.height+';display: none;"><a target="_blank" href="javascript:;"></a><i class="del">x</i></div>'));
 				if(uploadType === "image") { // 图片预览
 					$this.parent().next(".preview").find("a").append('<img style="width: '+option.width+';height:'+option.height+'"/>');
 				}
 			}
 			$this.css("visibility", "visible");
 
-			var $inputFile = $this.parent(),
-				$preview = $inputFile.siblings(".preview");
+			var $inputWrap = $this.parent(),
+				$preview = $inputWrap.siblings(".preview");
+
+			// 编辑页预览附件
+			var url = $this.attr("data-url");
+			if(url) {
+				var name = $this.attr("data-name"),
+					alink = $preview.show().find("a");
+				if(uploadType === "image") {
+					alink.attr("href", url).find("img").attr({
+	                    src: url,
+	                    alt: name
+	                });
+					$inputWrap.hide();
+				} else {
+					alink.attr("href", url).text(name);
+				}
+				$(this).removeAttr("data-url").removeAttr("data-name");
+			}
 
 			$this.change(function(e) {
 
@@ -70,14 +86,13 @@ $(function($) {
 		                    var alink = $preview.show().find("a");
 
 		                    if(uploadType === "image") {
-		                    	alink.attr("href", this.result);
-			                    alink.find("img").attr({
+		                    	alink.attr("href", this.result).find("img").attr({
 				                    src: this.result,
 				                    alt: resultFile.name
 				                });
-				                $inputFile.hide();
+				                $inputWrap.hide();
 			                } else {
-			                	alink.html(resultFile.name);
+			                	alink.attr("href", "javascript:;").text(resultFile.name);
 			                }
 
 			                option.callback && option.callback.call(item);
@@ -86,15 +101,18 @@ $(function($) {
 		                reader.readAsDataURL(resultFile);
 		        	// } else {
 		        	// 	$preview.find("a")
-		        	// 	$inputFile.hide();
+		        	// 	$inputWrap.hide();
 		        	// }
 				}
 
 			});
 
 			$preview.find(".del").click(function(e) {
-				$preview.hide();
-				$inputFile.show().find("input[type=file]").val("");
+				$preview.hide().find("a").attr("href", "javascript:;").text("").find("img").attr({
+                    src: "",
+                    alt: ""
+                });
+				$inputWrap.show().find("input[type=file]").val("");
 				option.callback && option.callback.call(item);
 				return false;
 			});

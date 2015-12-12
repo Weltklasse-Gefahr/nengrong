@@ -30,13 +30,6 @@ $(function($) {
 		var self = this,
 			cascadeData = dealData(data);
 
-		// 填充第一级
-		var first_options =  self.get(0).options,
-			first_items = cascadeData['1'].children;
-		$.each(first_items, function(i, item) {
-			first_options.add(new Option(cascadeData[item].name, item));
-		});
-
 		// 级联
 		self.change(function() {
 			var $nextSelect = $(this).next("select");
@@ -48,10 +41,31 @@ $(function($) {
 						$nextSelect[0].options.add(new Option(cascadeData[item].name, item));
 					});
 				}
-				$nextSelect[0].selectedIndex = 0;
+				
+				var code = $nextSelect.attr("data-code");
+				if(code) {
+					$nextSelect.val(code).removeAttr("data-code");
+				} else {
+					$nextSelect[0].selectedIndex = 0;
+				}
+				
 				$nextSelect.trigger("change");
 			}
 		});
 
+		// 填充第一级
+		var first_options =  self.get(0).options,
+			first_items = cascadeData['1'].children;
+		$.each(first_items, function(i, item) {
+			first_options.add(new Option(cascadeData[item].name, item));
+		});
+
+		// 编辑页填充值
+		var first_select = self.eq(0),
+			code = first_select.attr("data-code");
+		if(code) {
+			first_select.val(code).removeAttr("data-code");
+			first_select.trigger("change");
+		}
 	};
 });
