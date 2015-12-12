@@ -16,7 +16,7 @@ class UserController extends Controller
             $email = $_POST['email'];
             $password = $_POST['password'];
             $dynamicCode = $_POST['dynamicCode'];
-            $mDynamicCode = $_POST['mDynamicCode'];
+            $mDynamicCode = $_COOKIE['mDynamicCode'];
             if (empty($email) || empty($password) || empty($dynamicCode)) {
                 echo '{"code":"-1","msg":"邮箱或者密码或者动态码为空！"}';
                 exit;

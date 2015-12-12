@@ -17,7 +17,7 @@ class AdminController extends Controller
     **/
     public function login(){
     	if($_POST['rtype'] == 1 || $_GET['rtype'] == 1){
-            $userName = $_POST['username'];
+            $userName = $_POST['userName'];
             $password = $_POST['password'];
             if (empty($userName) || empty($password)) {
                 echo '{"code":"-1","msg":"邮箱或者密码为空！"}';
@@ -50,20 +50,12 @@ class AdminController extends Controller
     **/
 	public function changePassword(){
         if($_POST['rtype'] == 1 || $_GET['rtype'] == 1){
-            $userName = $_POST['userName'];
-            $mUserName = $_POST['mUserName'];
+            isLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
+
             $pwd = $_POST['password'];
             $newPwd = $_POST['newPassword'];
             if (empty($pwd) || empty($newPwd)) {
                 echo '{"code":"-1","msg":"新旧密码为空！"}';
-                exit;
-            }
-            if (empty($userName) || empty($mUserName)) {
-                echo '{"code":"-1","msg":"没有登录！"}';
-                exit;
-            }
-            if (!($mUserName == MD5($userName."ENFENF"))) {
-                echo '{"code":"-1","msg":"登录信息错误"}';
                 exit;
             }
 
@@ -87,20 +79,12 @@ class AdminController extends Controller
     **/
     public function resetPassword(){
         if($_POST['rtype'] == 1 || $_GET['rtype'] == 1){
+            isLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
+
             $email = $_POST['email'];
             $newPwd = $_POST['newPassword'];
-            $userName = $_POST['userName'];
-            $mUserName = $_POST['mUserName'];
             if ( empty($email) || empty($newPwd) ) {
                 echo '{"code":"-1","msg":"邮箱或者新密码为空！"}';
-                exit;
-            }
-            if (empty($userName) || empty($mUserName)) {
-                echo '{"code":"-1","msg":"没有登录！"}';
-                exit;
-            }
-            if (!($mUserName == MD5($userName."ENFENF"))) {
-                echo '{"code":"-1","msg":"登录信息错误"}';
                 exit;
             }
 
@@ -123,19 +107,11 @@ class AdminController extends Controller
     **@date 2015.12.12
     **/
     public function deleteUser(){
+        isLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
+
     	$email = $_POST['email'];
-    	$userName = $_POST['userName'];
-        $mUserName = $_POST['mUserName'];
     	if ( empty($email) ) {
     		echo '{"code":"-1","msg":"邮箱为空！"}';
-    		exit;
-    	}
-    	if (empty($userName) || empty($mUserName)) {
-    		echo '{"code":"-1","msg":"没有登录！"}';
-    		exit;
-    	}
-    	if (!($mUserName == MD5($userName."ENFENF"))) {
-    		echo '{"code":"-1","msg":"登录信息错误"}';
     		exit;
     	}
 
@@ -151,21 +127,13 @@ class AdminController extends Controller
     **@date 2015.12.12
     **/
     public function addInnerStaff(){
+        isLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
+
     	$email = $_POST['email'];
     	$password = "123456";
     	$userType = 2;
-    	$userName = $_POST['userName'];
-        $mUserName = $_POST['mUserName'];
     	if (empty($email)) {
     		echo '{"code":"-1","msg":"邮箱为空！"}';
-    		exit;
-    	}
-    	if (empty($userName) || empty($mUserName)) {
-    		echo '{"code":"-1","msg":"没有登录！"}';
-    		exit;
-    	}
-    	if (!($mUserName == MD5($userName."ENFENF"))) {
-    		echo '{"code":"-1","msg":"登录信息错误"}';
     		exit;
     	}
 
@@ -187,21 +155,13 @@ class AdminController extends Controller
     **@date 2015.12.12
     **/
     public function addProjectInvestor(){
+        isLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
+
     	$email = $_POST['email'];
     	$password = "123456";
     	$userType = 4;
-    	$userName = $_POST['userName'];
-        $mUserName = $_POST['mUserName'];
     	if (empty($email)) {
     		echo '{"code":"-1","msg":"邮箱为空！"}';
-    		exit;
-    	}
-    	if (empty($userName) || empty($mUserName)) {
-    		echo '{"code":"-1","msg":"没有登录！"}';
-    		exit;
-    	}
-    	if (!($mUserName == MD5($userName."ENFENF"))) {
-    		echo '{"code":"-1","msg":"登录信息错误"}';
     		exit;
     	}
 
@@ -223,20 +183,12 @@ class AdminController extends Controller
     **@date 2015.12.12
     **/
     public function changeProjectProviderInfo(){
+        isLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
+
     	$email = $_POST['email'];
     	$phone = $_POST['telephone'];
-    	$userName = $_POST['userName'];
-        $mUserName = $_POST['mUserName'];
         if (empty($email) || empty($phone)) {
         	echo '{"code":"-1","msg":"邮箱或者电话为空！"}';
-        }
-        if (empty($userName) || empty($mUserName)) {
-        	echo '{"code":"-1","msg":"没有登录！"}';
-        	exit;
-        }
-        if (!($mUserName == MD5($userName."ENFENF"))) {
-        	echo '{"code":"-1","msg":"登录信息错误"}';
-        	exit;
         }
 
         $user = D('User','Service');
@@ -257,20 +209,12 @@ class AdminController extends Controller
     **@date 2015.12.12
     **/
     public function changeProjectInvestorInfo(){
+        isLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
+
     	$email = $_POST['email'];
     	$companyName = $_POST['companyName'];
-    	$userName = $_POST['userName'];
-        $mUserName = $_POST['mUserName'];
         if (empty($email) || empty($companyName)) {
         	echo '{"code":"-1","msg":"邮箱或者公司名称为空！"}';
-        }
-        if (empty($userName) || empty($mUserName)) {
-        	echo '{"code":"-1","msg":"没有登录！"}';
-        	exit;
-        }
-        if (!($mUserName == MD5($userName."ENFENF"))) {
-        	echo '{"code":"-1","msg":"登录信息错误"}';
-        	exit;
         }
 
 		$user = D('User','Service');
@@ -291,21 +235,13 @@ class AdminController extends Controller
     **@date 2015.12.12
     **/
     public function changeInnerStaffInfo(){
+        isLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
+
     	$email = $_POST['email'];
     	$code = $_POST['code'];
     	$name = $_POST['name'];
-    	$userName = $_POST['userName'];
-        $mUserName = $_POST['mUserName'];
     	if (empty($email) || empty($code) || empty($name)) {
     		echo '{"code":"-1","msg":"邮箱、员工编号、名称不能为空！"}';
-    	}
-    	if (empty($userName) || empty($mUserName)) {
-    		echo '{"code":"-1","msg":"没有登录！"}';
-    		exit;
-    	}
-    	if (!($mUserName == MD5($userName."ENFENF"))) {
-    		echo '{"code":"-1","msg":"登录信息错误"}';
-    		exit;
     	}
 
     	$user = D('User','Service');
@@ -327,16 +263,8 @@ class AdminController extends Controller
     **/
     public function getAllProjectProviderInfo(){
         if($_POST['rtype'] == 1 || $_GET['rtype'] == 1){
-        	$userName = $_POST['userName'];
-        	$mUserName = $_POST['mUserName'];
-        	if (empty($userName) || empty($mUserName)) {
-                echo '{"code":"-1","msg":"没有登录！"}';
-                exit;
-            }
-            if (!($mUserName == MD5($userName."ENFENF"))) {
-                echo '{"code":"-1","msg":"登录信息错误"}';
-                exit;
-            }
+            isLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
+
             $user = D('User','Service');
             $users = $user->getAllProjectProviderService();
             $this->assign('listInfo',$users);
@@ -353,16 +281,8 @@ class AdminController extends Controller
     **/
     public function getAllProjectInvestorInfo(){
         if($_POST['rtype'] == 1 || $_GET['rtype'] == 1){
-        	$userName = $_POST['userName'];
-        	$mUserName = $_POST['mUserName'];
-        	if (empty($userName) || empty($mUserName)) {
-                echo '{"code":"-1","msg":"没有登录！"}';
-                exit;
-            }
-            if (!($mUserName == MD5($userName."ENFENF"))) {
-                echo '{"code":"-1","msg":"登录信息错误"}';
-                exit;
-            }
+        	isLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
+
             $user = D('User','Service');
             $users = $user->getAllProjectInvestorService();
             $this->assign('listInfo',$users);
@@ -379,16 +299,8 @@ class AdminController extends Controller
     **/
     public function getAllInnerStaffInfo(){
         if($_POST['rtype'] == 1 || $_GET['rtype'] == 1){
-        	$userName = $_POST['userName'];
-        	$mUserName = $_POST['mUserName'];
-        	if (empty($userName) || empty($mUserName)) {
-                echo '{"code":"-1","msg":"没有登录！"}';
-                exit;
-            }
-            if (!($mUserName == MD5($userName."ENFENF"))) {
-                echo '{"code":"-1","msg":"登录信息错误"}';
-                exit;
-            }
+        	isLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
+            
             $user = D('User','Service');
             $users = $user->getAllInnerStaffService();
             $this->assign('listInfo',$users);

@@ -133,7 +133,7 @@ function uploadFileOne($file, $savePath = ''){
 **@param $userName 用户名
 **@param mUserName  加密后的用户名
 **@return 如果登陆了就返回true 如果没有登陆就弹框提示，并且跳转到登陆页面
-**@date 2015.12.05
+**@date 2015.12.12
 **/
 function isLogin($userName, $mUserName){
     return true;
