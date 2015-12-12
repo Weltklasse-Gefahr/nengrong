@@ -14,7 +14,7 @@ drop table if exists ENF_PushProject;
 
 drop table if exists ENF_User;
 
-drop table if exists ENF_Manager;
+drop table if exists ENF_Admin;
 
 /*==============================================================*/
 /* Table: ENF_Ground                                            */
@@ -181,6 +181,8 @@ create table ENF_User
    email                varchar(100) not null unique comment '注册邮箱',
    password             varchar(100) not null comment '密码',
    user_type            int not null comment '用户类型：1管理员、2业务员、3项目提供方、4投资人',
+   code					varchar(100) unique comment '业务员编码',
+   name					varchar(20) comment '业务员名称',
    company_name         varchar(100) comment '企业名称',
    company_type         int comment '企业注册资本/类型：1央企国企、2中外合资、3外商独资、4大型民营、5小型民营',
    company_person       varchar(100) comment '企业法人',
@@ -210,9 +212,9 @@ create table ENF_User
 alter table ENF_User comment '用户表';
 
 /*==============================================================*/
-/* Table: ENF_Manager                                           */
+/* Table: ENF_Admin                                           */
 /*==============================================================*/
-create table ENF_Manager
+create table ENF_Admin
 (
    id                   bigint not null auto_increment,
    user_name            varchar(100) not null unique comment '用户名',
@@ -220,5 +222,5 @@ create table ENF_Manager
    primary key (id)
 )ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
-alter table ENF_Manager comment '管理员表';
+alter table ENF_Admin comment '管理员表';
 
