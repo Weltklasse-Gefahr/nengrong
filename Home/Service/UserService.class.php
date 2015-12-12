@@ -94,7 +94,7 @@ class UserService extends Model{
 		$user = M('User');
 		$objUser = $user->where("email='%s' and status!=9999", array($email))->select();
 		if(sizeof($objUser) == 0){
-			echo '{"code":"-1","msg":"原密码错误!"}';
+			echo '{"code":"-1","msg":"用户不存在!"}';
 			exit;
 		}
 
@@ -120,6 +120,52 @@ class UserService extends Model{
 		$user = M('User');
 		$users = $user->where("user_type=3 and status!=9999")->select();
 		return $users;
+	}
+
+	/**
+    **@auth qianqiang
+    **@breif 展示项目投资方所有用户
+    **@date 2015.12.10
+    **/
+	public function getAllProjectInvestorService(){
+		$user = M('User');
+		$users = $user->where("user_type=4 and status!=9999")->select();
+		return $users;
+	}
+
+	/**
+    **@auth qianqiang
+    **@breif 展示业务员所有用户
+    **@date 2015.12.10
+    **/
+	public function getAllInnerStaffService(){
+		$user = M('User');
+		$users = $user->where("user_type=2 and status!=9999")->select();
+		return $users;
+	}
+
+	/**
+    **@auth qianqiang
+    **@breif 删除用户
+    **@date 2015.12.12
+    **/
+	public function deleteUserService($email){
+		$user = M('User');
+		$objUser = $user->where("email='%s' and status!=9999", array($email))->select();
+		if(sizeof($objUser) == 0){
+			echo '{"code":"-1","msg":"用户不存在!"}';
+			exit;
+		}
+
+		$user->email = $email;
+        $user->status = 9999;
+        $user->save();
+
+        $objUser = $user->where("email='%s' and status!=9999", array($email))->select();
+		if (sizeof($objUser) != 0) {
+			echo '{"code":"-1","msg":"mysql error!"}';
+			exit;
+		}
 	}
 
     /**

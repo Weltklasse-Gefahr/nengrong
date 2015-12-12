@@ -127,22 +127,6 @@ class UserController extends Controller
         }
     }
 
-    /**
-    **@auth qianqiang
-    **@breif 展示项目提供方所有用户
-    **@date 2015.12.10
-    **/
-    public function getAllProjectProviderInfo(){
-        if($_POST['rtype'] == 1 || $_GET['rtype'] == 1){
-            $user = D('User','Service');
-            $users = $user->getAllProjectProviderService();
-            $this->assign('listInfo',$users);
-            $this->display();
-        }else{
-            $this->display();
-        }
-    }
-
     //用户激活
     public function activeUser(){
         $email = $_POST['email'];

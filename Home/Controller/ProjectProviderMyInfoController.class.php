@@ -51,6 +51,30 @@ class ProjectProviderMyInfoController extends Controller {
 
     public function securityCenter()
     {
-        $this->display("ProjectProvider:securityCenter");
+        if($_POST['rtype'] == 1 || $_GET['rtype'] == 1){
+            $email = $_POST['email'];
+            $mEmail = $_POST['mEmail'];
+            $pwd = $_POST['password'];
+            $newPwd = $_POST['newPassword'];
+            if ( empty($email) || empty($mEmail) || empty($pwd) || empty($newPwd) ) {
+                echo '{"code":"-1","msg":"邮箱或者新旧密码为空！"}';
+                exit;
+            }
+            if (!($mEmail == MD5($email."ENFENF"))) {
+                echo '{"code":"-1","msg":"登录信息错误"}';
+                exit;
+            }
+
+            $user = D('ProjectProviderSafety','Service');
+            $objUser = $user->changePasswordService($userName, $pwd, $newPwd);
+            if ($_GET['display'] == 'json') {
+                dump($objUser);
+                echo json_encode($objUser);
+                exit;
+            }
+            $this->display(index);            
+        }else{
+            $this->display("ProjectProvider:securityCenter");
+        }
     }
 }
