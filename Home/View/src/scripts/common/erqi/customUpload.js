@@ -42,11 +42,15 @@ $(function($) {
 					$wrap.append(option.content);
 				}
 
-				$this.parent().append($wrap.append($this));
+				if($this.next().length) {
+					$this.next().before($wrap.append($this));
+				} else {
+					$this.parent().append($wrap.append($this));
+				}
+
+				$this.parent().after($('<div class="preview" style="width: '+option.width+';height: '+option.height+';display: none;"><a target="_blank" href="javascript:;"></a><i class="del">x</i></div>'));
 				if(uploadType === "image") { // 图片预览
-					$this.parent().before($('<div class="preview" style="display: none;"><a target="_blank" href="javascript:;"><img style="width: '+option.width+';height: '+option.height+'"/></a><i class="del">x</i></div>'));
-				} else { // 文件展示文件名
-					$this.parent().after($('<div class="preview" style="display: none;"><a target="_blank" href="javascript:;"></a><i class="del">x</i></div>'));
+					$this.parent().next(".preview").find("a").append('<img style="width: '+option.width+';height:'+option.height+'"/>');
 				}
 			}
 			$this.css("visibility", "visible");
@@ -75,6 +79,8 @@ $(function($) {
 			                } else {
 			                	alink.html(resultFile.name);
 			                }
+
+			                option.callback && option.callback.call(item);
 		                };
 
 		                reader.readAsDataURL(resultFile);
@@ -89,6 +95,7 @@ $(function($) {
 			$preview.find(".del").click(function(e) {
 				$preview.hide();
 				$inputFile.show().find("input[type=file]").val("");
+				option.callback && option.callback.call(item);
 				return false;
 			});
 		});

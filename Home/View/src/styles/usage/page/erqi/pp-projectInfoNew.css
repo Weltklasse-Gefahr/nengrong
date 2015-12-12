@@ -6,6 +6,67 @@
 	margin-top: 60px;
 }
 
+.r-content form .part1 li {
+	margin-top: 20px;
+}
+
+.r-content form .part1 .lb {
+	width: 100px;
+	float: left;
+}
+
+.r-content form .part1 .item {
+	float: left;
+}
+
+.r-content form .part1 .item .filter {
+	line-height: 26px;
+	height: 32px;
+}
+
+.r-content form .part1 .item .filter span {
+	display: inline-block;
+	width: 110px;
+	text-align: center;
+	cursor: pointer;
+}
+
+.r-content form .part1 .item .filter span.active {
+	border-radius: 5px;
+	background-color: #FD7940;
+	color: #fff;
+	border: 0;
+}
+
+.r-content form .part1 .item select {
+	height: 24px;
+	margin: 0 4px 0 26px;
+	width: 130px;
+}
+.r-content form .part1 .item select.first {
+	margin-left: 0;
+}
+
+.r-content form .part1 .item .demo {
+	display: inline-block;
+	text-align: center;
+	margin-right: 20px;
+}
+
+.r-content form .part1 .item .img-ct {
+	display: inline-block;
+	text-align: center;
+	margin-right: 50px;
+}
+
+.r-content form .part1 .item .img-ct .previewname {
+	height: 20px;
+}
+
+.r-content form .part1 .item .img-ct + .tip {
+	margin-top: 10px;
+}
+
 .r-content form > .title {
 	font-size: 18px;
 	margin: 20px 0;
@@ -80,6 +141,10 @@
 	background-color: #FD7940;
 	color: #fff;
 	border: 0;
+}
+
+.r-content form input[type="submit"]:hover {
+	background: #F1920C;
 }
 
 .r-content form .operator .save {

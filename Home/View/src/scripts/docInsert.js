@@ -45,7 +45,7 @@ $(function() {
 			$("#submit").removeClass("disabled");
 			alert("上传成功！");
 		} else {
-			alert("上传失败！\n"+data.errmsg);
+			alert("上传失败！\n"+data.msg);
 		}
 	}
 

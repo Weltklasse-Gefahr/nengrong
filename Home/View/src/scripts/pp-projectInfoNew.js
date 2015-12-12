@@ -2,6 +2,11 @@ $(function() {
 
 	$(".l-nav").find(".awaitingAssessment").addClass("active");
 
+	// 省市区级联
+	require("common/erqi/AreaData");
+	require("common/erqi/cascadeSelect");
+	$(".detail.part1 .area select").cascadeSelect(AreaData);
+
 	require("common/erqi/customUpload");
 	require("lib/jquery.form");
 	
@@ -10,7 +15,16 @@ $(function() {
 		bg_url: "upload.png",
 		uploadType: "image",
 		width: "120px",
-		height: "120px"
+		height: "120px",
+		callback: function() { // 添加或删除图片
+			// 显示或清除图片名称
+			var $prename = $(this).parent().siblings(".previewname");
+			if(this.files.length) {
+				$prename.text(this.files[0].name);
+			} else {
+				$prename.text("");
+			}
+		}
 	});
 
 	// 上传文件

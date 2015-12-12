@@ -44,6 +44,69 @@
 				<span ></span>
 			</div>
 			<form id="infoForm">
+				<ul class="detail part1">
+					<li class="clrfix">
+						<span class="lb">项目类型：</span>
+						<div class="item">
+							<div class="filter">
+								<input type="hidden" value="" name="projectType" />
+								<span data-filter="all" class="active">屋顶分布式</span>
+								<span data-filter="uncommitted">地面分布式</span>
+								<span data-filter="committed">大型地面</span>
+							</div>
+							<div class="filter">
+								<input type="hidden" value="" name="projectStatus" />
+								<span data-filter="all" class="active">未建</span>
+								<span data-filter="uncommitted">已建</span>
+							</div>
+						</div>
+					</li>
+					<li class="clrfix">
+						<span class="lb">选择位置：</span>
+						<div class="item area">
+							<select name="province" class="first">
+								<option value="">选择省</option>
+							</select>省
+							<select name="city">
+								<option value="">选择市</option>
+							</select>市
+							<select name="county">
+								<option value="">选择区</option>
+							</select>区
+						</div>
+					</li>
+					<li class="clrfix">
+						<span class="lb">上传图片：</span>
+						<div class="item">
+							<div class="img-ct">
+								<input type="file" accept="image/gif,image/jpeg,image/png" name="local_tax_certificate" style="visibility: hidden;" />
+								<p class="previewname"></p>
+							</div>
+							<div class="img-ct">
+								<input type="file" accept="image/gif,image/jpeg,image/png" name="local_tax_certificate" style="visibility: hidden;" />
+								<p class="previewname"></p>
+							</div>
+							<p class="tip">备注：请上传近期高清照片，从不同角度拍摄。</p>
+						</div>
+					</li>
+					<li class="clrfix">
+						<span class="lb">参考示例图片：</span>
+						<div class="item">
+							<div class="demo">
+								<img src="/EnergyFe/img/demo1.jpg" style="width:110px;height:72px;" />
+								<p>场地情况全景图</p>
+							</div>
+							<div class="demo">
+								<img src="/EnergyFe/img/demo2.jpg" src="" style="width:100px;height:72px;" />
+								<p>场平照片</p>
+							</div>
+							<div class="demo">
+								<img src="/EnergyFe/img/demo3.jpg" src="" style="width:139px;height:72px;" />
+								<p>变电站照片</p>
+							</div>
+						</div>
+					</li>
+				</ul>
 				<p class="title">屋顶业主信息</p>
 				<ul class="detail part2">
 					<li>
