@@ -48,5 +48,6 @@ class AdminService extends Model{
 		}
 		return $objManager[0];
 	}
+
 	
 }
