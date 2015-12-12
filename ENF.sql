@@ -5,6 +5,8 @@
 create database nengrongweb;
 use nengrongweb;
 
+drop table if exists ENF_Area;
+
 drop table if exists ENF_Ground;
 
 drop table if exists ENF_Housetop;
@@ -16,6 +18,19 @@ drop table if exists ENF_PushProject;
 drop table if exists ENF_User;
 
 drop table if exists ENF_Admin;
+
+/*==============================================================*/
+/* Table: ENF_Area                                              */
+/*==============================================================*/
+create table ENF_Area
+(
+   id                   varchar(10) not null comment 'id',
+   area                 varchar(50) not null comment '地区描述',
+   parent_id            varchar(10) not null comment '父级id',
+   primary key (id)
+)ENGINE = InnoDB DEFAULT CHARSET = utf8;
+
+alter table ENF_Area comment '地区表';
 
 /*==============================================================*/
 /* Table: ENF_Ground                                            */
@@ -147,7 +162,7 @@ create table ENF_Project
    project_code         varchar(30) not null unique comment '项目编号',
    project_type         int comment '项目类型：1屋顶分布式、2地面分布式、3大型地面',
    build_state          int comment '建设状态：1未建、2已建',
-   project_area         int comment '项目位置',
+   project_area         varchar(10) comment '项目位置',
    picture1             varchar(100) comment '图片1URL',
    picture2             varchar(100) comment '图片2URL',
    picture3             varchar(100) comment '图片3URL',
@@ -183,7 +198,7 @@ create table ENF_User
    password             varchar(100) not null comment '密码',
    user_type            int not null comment '用户类型：1管理员、2业务员、3项目提供方、4投资人',
    code					varchar(100) unique comment '业务员编码',
-   name					varchar(20) comment '业务员名称',
+   name					varchar(20) comment '业务员姓名',
    company_name         varchar(100) comment '企业名称',
    company_type         int comment '企业注册资本/类型：1央企国企、2中外合资、3外商独资、4大型民营、5小型民营',
    company_person       varchar(100) comment '企业法人',
@@ -191,7 +206,7 @@ create table ENF_User
    company_fax          varchar(20) comment '公司传真',
    company_phone        varchar(20) comment '座机',
    company_telephone    varchar(11) comment '其他手机',
-   company_area         int comment '所在地区',
+   company_area         varchar(10) comment '所在地区',
    company_address      varchar(100) comment '详细地址',
    company_contacts     varchar(100) comment '联系人',
    company_contacts_phone varchar(11) comment '联系人电话',
