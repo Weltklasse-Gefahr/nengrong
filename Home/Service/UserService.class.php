@@ -254,14 +254,29 @@ class UserService extends Model{
     /**
     **@auth qianqiang
     **@breif 根据项目编码获取项目信息
+    **@param condition 数组，查询的条件
+    **@return 一个数组
     **@date 2015.12.05
     **/
-    public function getUserInfo($email){
+    public function getUserInfo($condition){
         //$objUser = M("User");
         //这样写可读性是不是更好
         $objUser = new \Home\Model\UserModel(); 
-        $condition["email"] = $email;
         $userInfo = $objUser->where($condition)->select();
-        return $userInfo[0];
+        return $userInfo;
+    }
+
+    /**
+    **@auth qiujinhan
+    **@breif 更新user表数据
+    **@param where 字符串格式，更新的条件
+    **@param updateData 数组，更新的内容
+    **@return 更新成功返回true 更新失败返回false
+    **@date 2015.12.05
+    **/
+    public function updateUserInfo($where, $updateData){
+        $objUser = new \Home\Model\UserModel(); 
+        $res = $objUser->where($where)->save($updateData);
+        return $res;
     }
 }
