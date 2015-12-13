@@ -332,10 +332,10 @@ class AdminController extends Controller
 
     /**
     **@auth qianqiang
-    **@breif 展示要编辑的客服人员的信息
+    **@breif 展示要编辑的用户信息
     **@date 2015.12.13
     **/
-    public function getEditInnerStaffInfo(){
+    public function getEditUserInfo(){
         isLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
         $id = $_GET["id"];
         // $id = 1;
@@ -349,7 +349,7 @@ class AdminController extends Controller
             exit;
         }
         // $this->display("Admin:admin_inner_staff");
-        echo '{"code":"0","msg":"登录成功！"}';
+        echo '{"code":"0","msg":""}';
     }
 
 
