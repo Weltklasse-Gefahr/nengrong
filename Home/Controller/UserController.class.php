@@ -33,7 +33,7 @@ class UserController extends Controller
             }
             
             if($users->user_type == 2){
-                $this->display(index);
+                $this->display("User:protocol");
             }else if($users->user_type == 3){
                 $this->display(index);
             }else if($users->user_type == 4){

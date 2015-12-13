@@ -250,6 +250,18 @@ class UserService extends Model{
 		return $objUser[0];
 	}
 
+	/**
+    **@auth qianqiang
+    **@breif 根据用户id查询用户信息
+    **@date 2015.12.13
+    **/
+	public function getUserINfoById($id){
+		$condition["id"] = $id;
+		$condition["status"] = array('neq',9999);
+		$userInfo = $this->getUserInfo($condition);
+		return $userInfo;
+	}
+
     /**
     **@auth qianqiang
     **@breif 根据项目编码获取项目信息

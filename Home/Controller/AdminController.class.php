@@ -330,6 +330,28 @@ class AdminController extends Controller
         //}
     }
 
+    /**
+    **@auth qianqiang
+    **@breif 展示要编辑的客服人员的信息
+    **@date 2015.12.13
+    **/
+    public function getEditInnerStaffInfo(){
+        isLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
+        $id = $_GET["id"];
+        // $id = 1;
+        $user = D('User','Service');
+        $users = $user->getUserINfoById($id);
+        $this->assign('userInfo',$users);
+
+        $display = $_GET['display'];
+        if ($display == 'json') {
+            dump($users);
+            exit;
+        }
+        // $this->display("Admin:admin_inner_staff");
+        echo '{"code":"0","msg":"登录成功！"}';
+    }
+
 
     public function addAdmin(){
         $manager = M('Admin');
