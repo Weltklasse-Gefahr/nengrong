@@ -263,16 +263,16 @@ class AdminController extends Controller
     **@date 2015.12.10
     **/
     public function getAllProjectProviderInfo(){
-        if($_POST['rtype'] == 1 || $_GET['rtype'] == 1){
+        // if($_POST['rtype'] == 1 || $_GET['rtype'] == 1){
             isLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
 
             $user = D('User','Service');
             $users = $user->getAllProjectProviderService();
             $this->assign('listInfo',$users);
             $this->display();
-        }else{
-            $this->display();
-        }
+        // }else{
+        //     $this->display();
+        // }
     }
 
     /**
@@ -281,16 +281,16 @@ class AdminController extends Controller
     **@date 2015.12.10
     **/
     public function getAllProjectInvestorInfo(){
-        if($_POST['rtype'] == 1 || $_GET['rtype'] == 1){
+        // if($_POST['rtype'] == 1 || $_GET['rtype'] == 1){
         	isLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
 
             $user = D('User','Service');
             $users = $user->getAllProjectInvestorService();
             $this->assign('listInfo',$users);
             $this->display();
-        }else{
-            $this->display();
-        }
+        // }else{
+        //     $this->display();
+        // }
     }
 
     /**

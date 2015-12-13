@@ -115,8 +115,9 @@ class ProjectProviderMyInfoController extends Controller {
     public function securityCenter()
     {
         if($_POST['rtype'] == 1 || $_GET['rtype'] == 1){
-            isLogin($_COOKIE['email'],$_COOKIE['mEmail']);
+            isLogin($_COOKIE['email'], $_COOKIE['mEmail']);
 
+            $email = $_COOKIE['email'];
             $pwd = $_POST['password'];
             $newPwd = $_POST['newPassword'];
             if ( empty($pwd) || empty($newPwd) ) {
@@ -125,10 +126,10 @@ class ProjectProviderMyInfoController extends Controller {
             }
 
             $user = D('ProjectProviderSafety','Service');
-            $objUser = $user->changePasswordService($userName, $pwd, $newPwd);
+            $objUser = $user->changePasswordService($email, $pwd, $newPwd);
             if ($_GET['display'] == 'json') {
                 dump($objUser);
-                echo json_encode($objUser);
+                // echo json_encode($objUser);
                 exit;
             }
             $this->display("ProjectProvider:securityCenter");            

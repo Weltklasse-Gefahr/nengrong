@@ -48,7 +48,7 @@ class UserService extends Model{
         else{
             $userAdd->user_type = $userType;
         }
-        $userAdd->create_date = time();
+        $userAdd->create_date = date("Y-m-d H:i:s",time());
         $user->add();
 
         $users = $user->where("email='%s' and status!=9999", array($email) )->select();
@@ -75,7 +75,7 @@ class UserService extends Model{
 
 		$objUser->email = $email;
 		$objUser->password = MD5($newPwd);
-		$objUser->change_date = time();
+		$objUser->change_date = date("Y-m-d H:i:s",time());
 		$objUser->save();
 
 		$objUser = $user->where("email='%s' and password='%s' and status!=9999", array($email, MD5($newPwd)))->select();
@@ -102,7 +102,7 @@ class UserService extends Model{
 
         $user->email = $email;
         $user->password = MD5($newPwd);
-        $user->change_date = time();
+        $user->change_date = date("Y-m-d H:i:s",time());
         $user->save();
 
         $objUser = $user->where("email='%s' and password='%s' and status!=9999", array($email, MD5($newPwd)))->select();
@@ -162,7 +162,7 @@ class UserService extends Model{
 
 		$user->email = $email;
         $user->status = 9999;
-        $user->change_date = time();
+        $user->change_date = date("Y-m-d H:i:s",time());
         $user->save();
 
         $objUser = $user->where("email='%s' and status!=9999", array($email))->select();
@@ -187,7 +187,7 @@ class UserService extends Model{
 
 		$user->email = $email;
         $user->company_telephone = $phone;
-        $user->change_date = time();
+        $user->change_date = date("Y-m-d H:i:s",time());
         $user->save();
 
         $objUser = $user->where("email='%s' and company_telephone='%s' and status!=9999", array($email, $phone))->select();
@@ -213,7 +213,7 @@ class UserService extends Model{
 
 		$user->email = $email;
         $user->company_name = $companyName;
-        $user->change_date = time();
+        $user->change_date = date("Y-m-d H:i:s",time());
         $user->save();
 
         $objUser = $user->where("email='%s' and company_name='%s' and status!=9999", array($email, $companyName))->select();
@@ -240,7 +240,7 @@ class UserService extends Model{
 		$user->email = $email;
         $user->code = $code;
         $user->name = $name;
-        $user->change_date = time();
+        $user->change_date = date("Y-m-d H:i:s",time());
         $user->save();
 
         $objUser = $user->where("email='%s' and code='%s' and name='%s' and status!=9999", array($email, $code, $name))->select();
