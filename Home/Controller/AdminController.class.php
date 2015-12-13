@@ -348,8 +348,8 @@ class AdminController extends Controller
             dump($users);
             exit;
         }
-        // $this->display("Admin:admin_inner_staff");
-        echo '{"code":"0","msg":""}';
+        $this->display("Admin:admin_inner_staff_edit");
+        // echo '{"code":"0","msg":""}';
     }
 
 

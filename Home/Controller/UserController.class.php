@@ -31,14 +31,19 @@ class UserController extends Controller
                 echo json_encode($users);
                 exit;
             }
-            
-            if($users->user_type == 2){
-                $this->display("User:protocol");
-            }else if($users->user_type == 3){
-                $this->display(index);
-            }else if($users->user_type == 4){
-                $this->display(index);
+
+            // echo '{"code":"0","msg":"登录成功！","url":"?c=User&a=protocol"}';
+            if(intval($users->user_type) == 2){
+                echo '{"code":"0","msg":"登录成功！","url":"?c=User&a=protocol"}';
+                // $this->display("User:protocol");
+            }else if((int)$users->user_type == 3){
+                echo '{"code":"0","msg":"登录成功！","url":"?c=User&a=protocol"}';
+                // $this->display("User:protocol");
+            }else if(intval($users->user_type) == 4){
+                echo '{"code":"0","msg":"登录成功！","url":"?c=User&a=protocol"}';
+                // $this->display("User:protocol");
             }
+            //else echo '{"code":"-1","msg":"123！","url":"?c=User&a=protocol"}';
         }else {
             $this->display("User:login");
         }
