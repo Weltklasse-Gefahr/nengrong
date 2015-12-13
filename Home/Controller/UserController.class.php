@@ -66,10 +66,9 @@ class UserController extends Controller
             $display = $_GET['display'];
             if ($display == 'json') {
                 dump($users);
-                echo json_encode($users);
                 exit;
             }
-            echo '{"code":"0","msg":"登录成功！","url":"?c=User&a=protocol"}';
+            echo '{"code":"0","msg":"注册成功！","url":"?c=User&a=protocol"}';
         }else {
             $this->display("User:register");
         }
