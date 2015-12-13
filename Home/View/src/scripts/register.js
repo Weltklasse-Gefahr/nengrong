@@ -36,8 +36,7 @@ $(function(){
 		    },
 			dataType: "json"
 		}).done(function(data){
-			location.href="http://www.enetf.com";
-			var aa=1;
+			location.href=data.url;
 		});
 	});
 });

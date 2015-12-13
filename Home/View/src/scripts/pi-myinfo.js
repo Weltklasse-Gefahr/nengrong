@@ -1,4 +1,6 @@
 $(function() {
+
+	$(".l-nav").find(".PImyInformation").addClass("active");
 	require("common/customInputFile");
 	require("lib/jquery.form");
 	

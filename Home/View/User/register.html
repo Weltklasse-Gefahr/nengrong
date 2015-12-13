@@ -28,8 +28,8 @@
 	<!-- Tile icon for Win8 (144x144 + tile color) -->
 	<meta name="msapplication-TileImage" content="/EnergyFe/img/i/app-icon72x72@2x.png">
 	<meta name="msapplication-TileColor" content="#0e90d2">
-	<link rel="stylesheet" href="/EnergyFe/prd/styles/common@<php>include './nengrong/Home/View/ver/styles/common.css.ver';</php>.css">
-	<link rel="stylesheet" href="/EnergyFe/prd/styles/register@<php>include './nengrong/Home/View/ver/styles/register.css.ver';</php>.css">
+	<link rel="stylesheet" href="/EnergyFe/prd/styles/x-common@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/styles/x-common.css.ver';</php>.css">
+	<link rel="stylesheet" href="/EnergyFe/prd/styles/register@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/styles/register.css.ver';</php>.css">
 </head>
 <body>
 	<div class="content">
@@ -52,14 +52,14 @@
 				</div>
 				<div class="mark">
 					<input type="checkbox" id="markbox">
-					<span>我已阅读并同意<a href="http://www.enetf.com/?c=User&a=protocol">ENetF使用协议和隐私条款</a></span>
+					<span>我已阅读并同意<a href="?c=User&a=protocol">ENetF使用协议和隐私条款</a></span>
 				</div>
 				<div class="button">
 					<button id="registerbtn" type="submit";>注册</button>
 				</div>
-				<div class="beizhu">
-					<a href="login.html">已注册，去登陆</a>
-				</div>
+			</div>
+			<div class="beizhu">
+					<a href="?c=User&a=login">已注册，去登陆</a>
 			</div>
 		</div>
 	</div>
