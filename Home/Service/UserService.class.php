@@ -240,10 +240,10 @@ class UserService extends Model{
 		$data['code'] = $code;
 		$data['name'] = $name;
 		$data['change_date'] = date("Y-m-d H:i:s",time());
-        $user->save($data);
+        $user->where("email='".$email."'")->save($data);
 
         $objUser = $user->where("email='%s' and code='%s' and name='%s' and status!=9999", array($email, $code, $name))->select();
-		if (sizeof($objUser) != 0) {
+		if (sizeof($objUser) != 1) {
 			echo '{"code":"-1","msg":"mysql error!"}';
 			exit;
 		}

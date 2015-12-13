@@ -238,9 +238,12 @@ class AdminController extends Controller
     public function changeInnerStaffInfo(){
         isLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
 
-    	$email = $_POST['email'];
-    	$code = $_POST['code'];
-    	$name = $_POST['name'];
+    	// $email = $_POST['email'];
+    	// $code = $_POST['code'];
+    	// $name = $_POST['name'];
+        $email = "qianqiang@qq.com";
+        $code = "qwe";
+        $name = "qwe";
     	if (empty($email) || empty($code) || empty($name)) {
     		echo '{"code":"-1","msg":"邮箱、员工编号、名称不能为空！"}';
     	}
