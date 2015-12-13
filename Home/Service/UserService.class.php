@@ -236,11 +236,11 @@ class UserService extends Model{
 			exit;
 		}
 
-		$user->email = $email;
-        $user->code = $code;
-        $user->name = $name;
-        $user->change_date = date("Y-m-d H:i:s",time());
-        $user->save();
+		$data['email'] = $email;
+		$data['code'] = $code;
+		$data['name'] = $name;
+		$data['change_date'] = date("Y-m-d H:i:s",time());
+        $user->save($data);
 
         $objUser = $user->where("email='%s' and code='%s' and name='%s' and status!=9999", array($email, $code, $name))->select();
 		if (sizeof($objUser) != 0) {
