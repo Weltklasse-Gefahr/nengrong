@@ -52,7 +52,7 @@ class UserController extends Controller
             $userType = $_POST['userType'];
             // $email = "qianqiang1989@qq.com";
             // $password = "123456";
-            // $userType = 2;
+            // $userType = 3;
             if (empty($email) || empty($password)) {
                 echo '{"code":"-1","msg":"邮箱或者密码为空！"}';
                 exit;

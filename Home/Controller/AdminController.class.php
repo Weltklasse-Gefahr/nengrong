@@ -269,6 +269,12 @@ class AdminController extends Controller
             $user = D('User','Service');
             $users = $user->getAllProjectProviderService();
             $this->assign('listInfo',$users);
+
+        $display = $_GET['display'];
+        if ($display == 'json') {
+            dump($users);
+            exit;
+        }    
             $this->display();
         // }else{
         //     $this->display();
@@ -287,6 +293,12 @@ class AdminController extends Controller
             $user = D('User','Service');
             $users = $user->getAllProjectInvestorService();
             $this->assign('listInfo',$users);
+
+        $display = $_GET['display'];
+        if ($display == 'json') {
+            dump($users);
+            exit;
+        }    
             $this->display();
         // }else{
         //     $this->display();
@@ -306,6 +318,11 @@ class AdminController extends Controller
             $users = $user->getAllInnerStaffService();
             $this->assign('listInfo',$users);
 
+        $display = $_GET['display'];
+        if ($display == 'json') {
+            dump($users);
+            exit;
+        }
             //echo '{"code":"0","msg":"成功！"}';
             $this->display("Admin:admin_inner_staff");
         //}else{
