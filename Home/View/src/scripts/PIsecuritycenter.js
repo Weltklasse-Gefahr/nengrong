@@ -1,4 +1,6 @@
 $(function(){
+	$(".l-nav").find(".PIsecuritycenter").addClass("active");
+	
 	function warning() {
 		$("#warning").show();
 	}
