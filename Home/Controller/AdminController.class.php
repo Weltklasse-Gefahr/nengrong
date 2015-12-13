@@ -237,16 +237,20 @@ class AdminController extends Controller
     **/
     public function changeInnerStaffInfo(){
         isLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
-
+        $id = $_POST['id'];
     	$email = $_POST['email'];
     	$code = $_POST['code'];
     	$name = $_POST['name'];
+        // $id = "6";
+        // $email = "qianqiang@qq.com";
+        // $code = "qwe";
+        // $name = "qwe";
     	if (empty($email) || empty($code) || empty($name)) {
     		echo '{"code":"-1","msg":"邮箱、员工编号、名称不能为空！"}';
     	}
 
     	$user = D('User','Service');
-    	$users = $user->changeInnerStaffByManager($email, $code, $name);
+    	$users = $user->changeInnerStaffByManager($id, $email, $code, $name);
 
     	$display = $_GET['display'];
     	if ($display == 'json') {
