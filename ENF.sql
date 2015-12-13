@@ -7,6 +7,8 @@ use nengrongweb;
 
 drop table if exists ENF_Area;
 
+drop table if exists ENF_Doc;
+
 drop table if exists ENF_Ground;
 
 drop table if exists ENF_Housetop;
@@ -31,6 +33,20 @@ create table ENF_Area
 )ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 alter table ENF_Area comment '地区表';
+
+/*==============================================================*/
+/* Table: ENF_Doc                                               */
+/*==============================================================*/
+create table ENF_Doc
+(
+   id                   bigint not null auto_increment,
+   file_name            varchar(100) not null comment '文件名称',
+   file_rename          varchar(100) not null comment '文件重定向名称',
+   update_date          datetime not null comment '上传时间',
+   primary key (id)
+)ENGINE = InnoDB DEFAULT CHARSET = utf8;
+
+alter table ENF_Doc comment '附件表';
 
 /*==============================================================*/
 /* Table: ENF_Ground                                            */
