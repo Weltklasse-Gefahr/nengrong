@@ -9,7 +9,7 @@ $(function(){
 		$("#warning3").show();
 	}
 
-	$("#changebtn").click(function(){ 
+	$("#registerbtn").click(function(){ 
 		var mailval= $.trim($("#mailinput").val());
 		var passval= $.trim($("#passinput").val());
 		var repeatpassval= $.trim($("#repeatpassinput").val());
@@ -29,15 +29,15 @@ $(function(){
 
 		$.ajax({
 		    type: "post",
-		    url: "?c=User&a=signIn" ,
+		    url: "?c=User&a=register" ,
 		    data: {
 		    	email: mailval,
-		    	password: passval
+		    	password: passval,
+		    	rtype: 1
 		    },
 			dataType: "json"
 		}).done(function(data){
-			location.href="http://www.enetf.com";
-			var aa=1;
+			location.href=data.url;
 		});
 	});
 });

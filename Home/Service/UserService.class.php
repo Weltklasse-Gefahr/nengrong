@@ -39,17 +39,16 @@ class UserService extends Model{
 		} 
 
 		$userAdd = M('user');
-        $userAdd->email = $email;
-        $userAdd->password = md5($password);
-        $userAdd->status = 2;
+        $data['email'] = $email;
+        $data['password'] = md5($password);
         if(empty($userType) ) {
-            $userAdd->user_type = 3;
+            $data['user_type'] = 3;
         }
         else{
-            $userAdd->user_type = $userType;
+            $data['user_type'] = $userType;
         }
-        $userAdd->create_date = date("Y-m-d H:i:s",time());
-        $user->add();
+        $data['create_date'] = date("Y-m-d H:i:s",time());
+        $userAdd->add($data);
 
         $users = $user->where("email='%s' and status!=9999", array($email) )->select();
 
@@ -177,7 +176,7 @@ class UserService extends Model{
     **@breif 管理员修改项目提供方信息
     **@date 2015.12.12
     **/
-	public function changeProjectProviderByManager($email, $phone){
+	public function changeProjectProviderByManager($id, $email, $phone){
 		$user = M('User');
 		$objUser = $user->where("email='%s' and status!=9999", array($email))->select();
 		if(sizeof($objUser) == 0){
@@ -203,7 +202,7 @@ class UserService extends Model{
     **@breif 管理员修改项目投资方信息
     **@date 2015.12.12
     **/
-	public function changeProjectInvestorByManager($email, $companyName){
+	public function changeProjectInvestorByManager($id, $email, $companyName){
 		$user = M('User');
 		$objUser = $user->where("email='%s' and status!=9999", array($email))->select();
 		if(sizeof($objUser) == 0){
@@ -229,26 +228,32 @@ class UserService extends Model{
     **@breif 管理员修改项目业务人员信息
     **@date 2015.12.12
     **/
-	public function changeInnerStaffByManager($email, $code, $name){
+	public function changeInnerStaffByManager($id, $email, $code, $name){
 		$user = M('User');
-		$objUser = $user->where("email='%s' and status!=9999", array($email))->select();
-		if(sizeof($objUser) == 0){
-			echo '{"code":"-1","msg":"用户不存在!"}';
-			exit;
-		}
-
-		$user->email = $email;
-        $user->code = $code;
-        $user->name = $name;
-        $user->change_date = date("Y-m-d H:i:s",time());
-        $user->save();
+		$data['email'] = $email;
+		$data['code'] = $code;
+		$data['name'] = $name;
+		$data['change_date'] = date("Y-m-d H:i:s",time());
+        $user->where("id='".$id."'")->save($data);
 
         $objUser = $user->where("email='%s' and code='%s' and name='%s' and status!=9999", array($email, $code, $name))->select();
-		if (sizeof($objUser) != 0) {
+		if (sizeof($objUser) != 1) {
 			echo '{"code":"-1","msg":"mysql error!"}';
 			exit;
 		}
 		return $objUser[0];
+	}
+
+	/**
+    **@auth qianqiang
+    **@breif 根据用户id查询用户信息
+    **@date 2015.12.13
+    **/
+	public function getUserINfoById($id){
+		$condition["id"] = $id;
+		$condition["status"] = array('neq',9999);
+		$userInfo = $this->getUserInfo($condition);
+		return $userInfo;
 	}
 
     /**

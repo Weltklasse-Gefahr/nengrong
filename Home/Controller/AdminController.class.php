@@ -201,7 +201,7 @@ class AdminController extends Controller
     		echo json_encode($users);
     		exit;
     	}
-    	$this->display(index);
+    	echo '{"code":"0","msg":"修改成功！"}';
     }
 
     /**
@@ -227,7 +227,7 @@ class AdminController extends Controller
     		echo json_encode($users);
     		exit;
     	}
-    	$this->display(index);
+    	echo '{"code":"0","msg":"修改成功！"}';
     }
 
     /**
@@ -237,16 +237,20 @@ class AdminController extends Controller
     **/
     public function changeInnerStaffInfo(){
         isLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
-
+        $id = $_POST['id'];
     	$email = $_POST['email'];
     	$code = $_POST['code'];
     	$name = $_POST['name'];
+        // $id = "6";
+        // $email = "qianqiang@qq.com";
+        // $code = "qwe";
+        // $name = "qwe";
     	if (empty($email) || empty($code) || empty($name)) {
     		echo '{"code":"-1","msg":"邮箱、员工编号、名称不能为空！"}';
     	}
 
     	$user = D('User','Service');
-    	$users = $user->changeInnerStaffByManager($email, $code, $name);
+    	$users = $user->changeInnerStaffByManager($id, $email, $code, $name);
 
     	$display = $_GET['display'];
     	if ($display == 'json') {
@@ -254,7 +258,7 @@ class AdminController extends Controller
     		echo json_encode($users);
     		exit;
     	}
-    	$this->display(index);
+    	echo '{"code":"0","msg":"修改成功！"}';
     }
 
     /**
@@ -269,6 +273,12 @@ class AdminController extends Controller
             $user = D('User','Service');
             $users = $user->getAllProjectProviderService();
             $this->assign('listInfo',$users);
+
+        $display = $_GET['display'];
+        if ($display == 'json') {
+            dump($users);
+            exit;
+        }    
             $this->display();
         // }else{
         //     $this->display();
@@ -287,6 +297,12 @@ class AdminController extends Controller
             $user = D('User','Service');
             $users = $user->getAllProjectInvestorService();
             $this->assign('listInfo',$users);
+
+        $display = $_GET['display'];
+        if ($display == 'json') {
+            dump($users);
+            exit;
+        }    
             $this->display();
         // }else{
         //     $this->display();
@@ -306,11 +322,38 @@ class AdminController extends Controller
             $users = $user->getAllInnerStaffService();
             $this->assign('listInfo',$users);
 
+        $display = $_GET['display'];
+        if ($display == 'json') {
+            dump($users);
+            exit;
+        }
             //echo '{"code":"0","msg":"成功！"}';
             $this->display("Admin:admin_inner_staff");
         //}else{
         //    $this->display("Admin:admin_inner_staff");
         //}
+    }
+
+    /**
+    **@auth qianqiang
+    **@breif 展示要编辑的用户信息
+    **@date 2015.12.13
+    **/
+    public function getEditUserInfo(){
+        isLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
+        $id = $_GET["id"];
+        // $id = 1;
+        $user = D('User','Service');
+        $users = $user->getUserINfoById($id);
+        $this->assign('userInfo',$users);
+
+        $display = $_GET['display'];
+        if ($display == 'json') {
+            dump($users);
+            exit;
+        }
+        $this->display("Admin:admin_inner_staff_edit");
+        // echo '{"code":"0","msg":""}';
     }
 
 

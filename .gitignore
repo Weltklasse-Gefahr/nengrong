@@ -5,6 +5,7 @@
 
 # FileUpload
 /UploadDocument
+/userdata
 
 # fekit
 **/ver/

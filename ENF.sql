@@ -7,6 +7,8 @@ use nengrongweb;
 
 drop table if exists ENF_Area;
 
+drop table if exists ENF_Doc;
+
 drop table if exists ENF_Ground;
 
 drop table if exists ENF_Housetop;
@@ -31,6 +33,20 @@ create table ENF_Area
 )ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 alter table ENF_Area comment '地区表';
+
+/*==============================================================*/
+/* Table: ENF_Doc                                               */
+/*==============================================================*/
+create table ENF_Doc
+(
+   id                   bigint not null auto_increment,
+   file_name            varchar(100) not null comment '文件名称',
+   file_rename          varchar(100) not null comment '文件重定向名称',
+   update_date          datetime not null comment '上传时间',
+   primary key (id)
+)ENGINE = InnoDB DEFAULT CHARSET = utf8;
+
+alter table ENF_Doc comment '附件表';
 
 /*==============================================================*/
 /* Table: ENF_Ground                                            */
@@ -217,7 +233,7 @@ create table ENF_User
    local_tax_certificate varchar(100) comment '地税登记证URL',
    identity_card_front  varchar(100) comment '法人身份证正面URL',
    identity_card_back   varchar(100) comment '法人身份证反面URL',
-   financial_audit      varchar(100) comment '地税登记证URL',
+   financial_audit      varchar(20) comment '财务审计报告的docID',
    create_date          datetime comment '创建时间',
    change_date          datetime comment '修改时间',
    status               int not null default 0 comment '状态类型：0正常、1已激活、2未激活、11未提交、12已提交未查看（业务员界面高亮处理）、13已提交已查看、21签意向合同（可以推送）、22签意向合同、31签融资合同、41已推送、42未推送、9999删除',

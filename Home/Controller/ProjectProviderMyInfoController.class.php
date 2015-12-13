@@ -25,7 +25,6 @@ class ProjectProviderMyInfoController extends Controller {
             $arrUser['company_contacts'] = $_POST['company_contacts']; //联系人
             $arrUser['company_contacts_phone'] = $_POST['company_contacts_phone']; //联系人手机
             $arrUser['company_contacts_position'] = $_POST['company_contacts_position'];//联系人职务
-            $arrUser['company_area'] = $_POST['company_area'];//所在地区
             $arrUser['company_address'] = $_POST['company_address'];//详细地址
             $arrUser['company_capital'] = $_POST['company_capital'];//企业注册资本
             $arrUser['company_name'] = $_POST['company_name'];//企业名称
@@ -54,15 +53,15 @@ class ProjectProviderMyInfoController extends Controller {
                     $res = uploadPicOne($_FILES[$val], "ProjectProvider".$email);
                     //echo json_encode($res);exit;
                     //图片的保持路径
-                    $arrUser[$val] = "/EnergyFe/img/".$res; 
+                    $arrUser[$val] = "/userdata/img/".$res; 
                 }
             } 
            
             //上传1个财务审计报告，返回一个url
             if (!empty($_FILES["financial_audit"]))
             {
-                 $res = uploadPicOne($_FILES["financial_audit"], "ProjectProvider".$email);
-                 $arrUser["financial_audit"] =  $res;
+                 $res = uploadFileOne($_FILES["financial_audit"], "ProjectProvider".$email);
+                 $arrUser["financial_audit"] =  "/userdata/file/".$res;
             }
 
             //拼接插入数据
@@ -100,6 +99,8 @@ class ProjectProviderMyInfoController extends Controller {
             $user[0]["province"] = $arr_company_area[0];
             $user[0]["city"] = $arr_company_area[1];
             $user[0]["county"] = $arr_company_area[2];
+            $arrFinancialAudit = explode("/", $user[0]["financial_audit"]);
+            $user[0]["financial_audit_name"] = $arrFinancialAudit["4"];
 	    	$this->assign('user',$user[0]);
 	        $this->display("ProjectProvider:myInformation");
 	    }

@@ -15,14 +15,11 @@ class UserController extends Controller
         if($_POST['rtype'] == 1 || $_GET['rtype'] == 1){
             $email = $_POST['email'];
             $password = $_POST['password'];
-            $dynamicCode = $_POST['dynamicCode'];
-            $mDynamicCode = $_COOKIE['mDynamicCode'];
-            if (empty($email) || empty($password) || empty($dynamicCode)) {
-                echo '{"code":"-1","msg":"邮箱或者密码或者动态码为空！"}';
-                exit;
-            }
-            if (!($mDynamicCode == MD5($dynamicCode."ENFENF"))) {
-                echo '{"code":"-1","msg":"验证码错误"}';
+            // $email = "qianqiang@qq.com";
+            // $password = "123456";
+
+            if (empty($email) || empty($password) ) {
+                echo '{"code":"-1","msg":"邮箱或者密码为空！"}';
                 exit;
             }
 
@@ -34,18 +31,18 @@ class UserController extends Controller
                 echo json_encode($users);
                 exit;
             }
-            
-            if($users->user_type == 1){
-                $this->display(index);
-            }else if($users->user_type == 2){
-                $this->display(index);
-            }else if($users->user_type == 3){
-                $this->display(index);
-            }else if($users->user_type == 4){
-                $this->display(index);
+
+            // $a = intval($users["user_type"]);
+            // echo $a;echo gettype($a);exit;
+            if(intval($users["user_type"]) == 2){
+                echo '{"code":"0","msg":"登录成功！","url":"?c=User&a=protocol"}';
+            }else if($users["user_type"] == 3){
+                echo '{"code":"0","msg":"登录成功！","url":"?c=User&a=protocol"}';
+            }else if($users["user_type"] == 4){
+                echo '{"code":"0","msg":"登录成功！","url":"?c=User&a=protocol"}';
             }
         }else {
-            $this->display();
+            $this->display("User:login");
         }
     }
 
@@ -55,6 +52,9 @@ class UserController extends Controller
             $email = $_POST['email'];
             $password = $_POST['password'];
             $userType = $_POST['userType'];
+            // $email = "qianqiang1989@qq.com";
+            // $password = "123456";
+            // $userType = 3;
             if (empty($email) || empty($password)) {
                 echo '{"code":"-1","msg":"邮箱或者密码为空！"}';
                 exit;
@@ -66,12 +66,11 @@ class UserController extends Controller
             $display = $_GET['display'];
             if ($display == 'json') {
                 dump($users);
-                echo json_encode($users);
                 exit;
             }
-            $this->display(index);
+            echo '{"code":"0","msg":"注册成功！","url":"?c=User&a=protocol"}';
         }else {
-            $this->display();
+            $this->display("User:register");
         }
     }
 
@@ -178,6 +177,15 @@ class UserController extends Controller
         // $test_user = D('User');
         // $test = $test_user->mytest();
         // echo json_encode($test);
+    }
+
+    public function addUser(){
+        $user = M('User');
+        $data['email'] = 'qianqiang@qq.com';
+        $data['password'] = MD5("123456");
+        $data['user_type'] = 3;
+        $user->add($data);
+        echo '{"code":"0","msg":"添加用户"}';
     }
 
 }
