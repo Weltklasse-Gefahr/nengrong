@@ -88,6 +88,7 @@ $(function() {
 				type: $form.attr("method"),
 				url: $form.attr("action"),
 				data: {
+					optype: optype,
 					project_code: $form.find("[name=project_code]").val()
 				}
 			}).done(function(data) {
