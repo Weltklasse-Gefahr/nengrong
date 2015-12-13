@@ -47,9 +47,12 @@ $(function($) {
 					$this.parent().append($wrap.append($this));
 				}
 
-				$this.parent().after($('<div class="preview" style="width: '+option.width+';height: '+option.height+';display: none;"><a target="_blank" href="javascript:;"></a><i class="del">x</i></div>'));
+				$this.parent().after($('<div class="preview" style="display: none;"><a target="_blank" href="javascript:;"></a><i class="del">x</i></div>'));
 				if(uploadType === "image") { // 图片预览
-					$this.parent().next(".preview").find("a").append('<img style="width: '+option.width+';height:'+option.height+'"/>');
+					$this.parent().next(".preview").css({
+						"width": option.width,
+						"height": option.height
+					}).find("a").append('<img style="width: '+option.width+';height:'+option.height+'"/>');
 				}
 			}
 			$this.css("visibility", "visible");
