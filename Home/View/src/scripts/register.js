@@ -29,10 +29,11 @@ $(function(){
 
 		$.ajax({
 		    type: "post",
-		    url: "?c=User&a=signIn" ,
+		    url: "?c=User&a=register" ,
 		    data: {
 		    	email: mailval,
-		    	password: passval
+		    	password: passval,
+		    	rtype: 1
 		    },
 			dataType: "json"
 		}).done(function(data){

@@ -23,6 +23,7 @@ $(function(){
 		    data: {
 		    	email: mailval,
 		    	password: passval,
+		    	rtype: 1
 		    },
 			dataType: "json"
 		}).done(function(data){
