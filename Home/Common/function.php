@@ -133,8 +133,6 @@ function uploadFileOne($file, $savePath = ''){
     }
 }
 
-
-
 /**
 **@auth qiujinhan
 **@breif 登陆状态判断
@@ -158,5 +156,17 @@ function isLogin($userName, $mUserName){
         exit;
     }
 }
+
+/**
+**@auth qianqiang
+**@breif 判断必填资料是否填写完成
+**@param $userName 用户名
+**@return 如果填写了就返回true 如果没有没有填写就弹框提示，并且跳转到我的资料页面
+**@date 2015.12.12
+**/
+function isDataComplete($userName){
+    
+}
+
 
 ?>
