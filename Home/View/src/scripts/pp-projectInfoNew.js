@@ -80,6 +80,33 @@ $(function() {
 		}
 	}
 
-	$("#infoForm").ajaxForm(options);
+	$form = $("#infoForm");
+	$form.find("input[type=submit]").click(function() {
+		var optype = $(this).data("optype");
+		if(optype === "delete") {
+			$.ajax({
+				type: $form.attr("method"),
+				url: $form.attr("action"),
+				data: {
+					project_code: $form.find("[name=project_code]").val()
+				}
+			}).done(function(data) {
+				if(data.code == "0") {
+					alert("删除成功！");
+					location.href = "?c=ProjectProviderMyPro&a=awaitingAssessment";
+				} else {
+					alert("删除失败！");
+				}
+			}).fail(function() {
+				alert("删除失败！");
+			});
+			return false;
+		} else {
+			$form.find("[name=optype]").val(optype);
+			return true;
+		}
+	});
+
+	$form.ajaxForm(options);
 
 });

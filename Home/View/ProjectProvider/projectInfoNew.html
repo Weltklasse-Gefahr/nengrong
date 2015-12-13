@@ -44,6 +44,8 @@
 				<span ></span>
 			</div>
 			<form id="infoForm" action="?c=ProjectProviderMyPro&a=projectInfoNew&rtype=1" method="post">
+				<input type="hidden" name="project_code" value=""/>
+				<input type="hidden" name="optype" value=""/>
 				<ul class="detail part1">
 					<li class="clrfix">
 						<span class="lb">项目类型：</span>
@@ -299,8 +301,9 @@
 					</li>
 				</ul>
 				<div class="operator">
-					<input class="save" type="submit" value="保存">
-					<input class="submit" type="submit" value="提交">
+					<input data-optype="save" type="submit" value="保存">
+					<input data-optype="submit" type="submit" value="提交">
+					<input data-optype="delete" type="submit" value="删除" class="last">
 				</div>
 			</form>
 		</div>
