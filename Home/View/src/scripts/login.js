@@ -31,7 +31,7 @@ $(function(){
 		    url: "?c=user&a=login" ,
 		    data: {
 		    	email: mailval,
-		    	password: passval，
+		    	password: passval,
 		    	dynamicCode:dynamiccodeval
 		    },
 			dataType: "json"
