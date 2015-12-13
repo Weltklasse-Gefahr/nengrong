@@ -201,7 +201,7 @@ class AdminController extends Controller
     		echo json_encode($users);
     		exit;
     	}
-    	$this->display(index);
+    	echo '{"code":"0","msg":"修改成功！"}';
     }
 
     /**
@@ -227,7 +227,7 @@ class AdminController extends Controller
     		echo json_encode($users);
     		exit;
     	}
-    	$this->display(index);
+    	echo '{"code":"0","msg":"修改成功！"}';
     }
 
     /**
@@ -254,7 +254,7 @@ class AdminController extends Controller
     		echo json_encode($users);
     		exit;
     	}
-    	$this->display(index);
+    	echo '{"code":"0","msg":"修改成功！"}';
     }
 
     /**
