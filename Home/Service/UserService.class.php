@@ -39,17 +39,16 @@ class UserService extends Model{
 		} 
 
 		$userAdd = M('user');
-        $userAdd->email = $email;
-        $userAdd->password = md5($password);
-        $userAdd->status = 2;
+        $data['email'] = $email;
+        $data['password'] = md5($password);
         if(empty($userType) ) {
-            $userAdd->user_type = 3;
+            $data['user_type'] = 3;
         }
         else{
-            $userAdd->user_type = $userType;
+            $data['user_type'] = $userType;
         }
-        $userAdd->create_date = date("Y-m-d H:i:s",time());
-        $user->add();
+        $data['create_date'] = date("Y-m-d H:i:s",time());
+        $userAdd->add($data);
 
         $users = $user->where("email='%s' and status!=9999", array($email) )->select();
 
