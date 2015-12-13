@@ -1,6 +1,6 @@
 $(function(){
 	$(".l-nav").find(".PIsecuritycenter").addClass("active");
-	
+
 	function warning() {
 		$("#warning").show();
 	}
@@ -30,7 +30,7 @@ $(function(){
 		    },
 			dataType: "json"
 		}).done(function(data){
-			location.href="http://www.enetf.com";
+			location.href=data.url;
 		});
 	});
 });
