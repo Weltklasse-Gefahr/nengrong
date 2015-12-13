@@ -229,12 +229,6 @@ class UserService extends Model{
     **@date 2015.12.12
     **/
 	public function changeInnerStaffByManager($id, $email, $code, $name){
-		$user = M('User');
-		$objUser = $user->where("email='%s' and status!=9999", array($email))->select();
-		if(sizeof($objUser) == 0){
-			echo '{"code":"-1","msg":"用户不存在!"}';
-			exit;
-		}
 
 		$data['email'] = $email;
 		$data['code'] = $code;
