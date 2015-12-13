@@ -176,7 +176,7 @@ class UserService extends Model{
     **@breif 管理员修改项目提供方信息
     **@date 2015.12.12
     **/
-	public function changeProjectProviderByManager($email, $phone){
+	public function changeProjectProviderByManager($id, $email, $phone){
 		$user = M('User');
 		$objUser = $user->where("email='%s' and status!=9999", array($email))->select();
 		if(sizeof($objUser) == 0){
@@ -202,7 +202,7 @@ class UserService extends Model{
     **@breif 管理员修改项目投资方信息
     **@date 2015.12.12
     **/
-	public function changeProjectInvestorByManager($email, $companyName){
+	public function changeProjectInvestorByManager($id, $email, $companyName){
 		$user = M('User');
 		$objUser = $user->where("email='%s' and status!=9999", array($email))->select();
 		if(sizeof($objUser) == 0){
@@ -229,7 +229,7 @@ class UserService extends Model{
     **@date 2015.12.12
     **/
 	public function changeInnerStaffByManager($id, $email, $code, $name){
-
+		$user = M('User');
 		$data['email'] = $email;
 		$data['code'] = $code;
 		$data['name'] = $name;
