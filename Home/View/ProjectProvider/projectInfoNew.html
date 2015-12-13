@@ -49,15 +49,15 @@
 						<span class="lb">项目类型：</span>
 						<div class="item">
 							<div class="filter">
-								<input type="hidden" value="" name="projectType" />
-								<span data-filter="all" class="active">屋顶分布式</span>
-								<span data-filter="uncommitted">地面分布式</span>
-								<span data-filter="committed">大型地面</span>
+								<input type="hidden" value="" name="project_type" />
+								<span data-filter="1" class="active">屋顶分布式</span>
+								<span data-filter="2">地面分布式</span>
+								<span data-filter="3">大型地面</span>
 							</div>
 							<div class="filter">
-								<input type="hidden" value="" name="projectStatus" />
-								<span data-filter="all" class="active">未建</span>
-								<span data-filter="uncommitted">已建</span>
+								<input type="hidden" value="" name="build_state" />
+								<span data-filter="1" class="active">未建</span>
+								<span data-filter="2">已建</span>
 							</div>
 						</div>
 					</li>
@@ -76,14 +76,24 @@
 						</div>
 					</li>
 					<li class="clrfix">
+						<span class="lb">详细地址：</span>
+						<div class="item area">
+							<input name="" value="" />
+						</div>
+					</li>
+					<li class="clrfix">
 						<span class="lb">上传图片：</span>
-						<div class="item">
+						<div class="item clrfix">
 							<div class="img-ct">
-								<input type="file" accept="image/gif,image/jpeg,image/png" name="local_tax_certificate" style="visibility: hidden;" />
-								<p class="previewname"></p>
+								<input type="file" accept="image/gif,image/jpeg,image/png" name="picture1" style="visibility: hidden;" />
+								<p>屋顶全景图</p>
 							</div>
 							<div class="img-ct">
-								<input type="file" accept="image/gif,image/jpeg,image/png" name="local_tax_certificate" style="visibility: hidden;" />
+								<input type="file" accept="image/gif,image/jpeg,image/png" name="picture2" style="visibility: hidden;" />
+								<p>屋顶正南向照片</p>
+							</div>
+							<div class="img-ct">
+								<input type="file" accept="image/gif,image/jpeg,image/png" name="picture3" style="visibility: hidden;" />
 								<p class="previewname"></p>
 							</div>
 							<p class="tip">备注：请上传近期高清照片，从不同角度拍摄。</p>
@@ -111,85 +121,84 @@
 				<ul class="detail part2">
 					<li>
 						<span class="lb">屋顶业主名称</span>
-						<input name="company_contacts" value="张三">
+						<input name="housetop_owner" value="张三">
 					</li>
 					<li>
 						<span class="lb">业主企业类型</span>
 						<select name="company_type">
-							<option value="1">央企国企</option>
-							<option value="2">中外合资</option>
-							<option value="3">外商独资</option>
-							<option value="4">大型民营</option>
-							<option value="5">小型民营</option>
+							<option value="1">国企</option>
+							<option value="2" selected>外企</option>
+							<option value="3">私企</option>
 						</select>
 					</li>
 					<li>
 						<span class="lb">业主企业注册资本</span>
-						<input name="company_contacts" value="张三">
+						<input name="company_capital" value="200"><span class="gray">万</span>
 					</li>
 					<li>
 						<span class="lb">屋顶产权证明</span>
-						<select name="company_type">
-							<option value="1">有</option>
+						<select name="housetop_property_prove_select">
+							<option value="1" selected>有</option>
 							<option value="2">无</option>
 						</select>
-						<input type="file" accept="application/pdf,application/msword,application/vnd.ms-powerpoint,aplication/zip" name="financial_audit" style="visibility: hidden;" />
+						<input type="file" accept="application/pdf,application/msword,application/vnd.ms-powerpoint,aplication/zip" name="housetop_property_prove" style="visibility: hidden;" />
 					</li>
 					<li>
 						<span class="lb">年用电量</span>
-						<input name="company_contacts" value="张三"><span class="gray">万度</span>
+						<input name="electricity_total" value="15.6"><span class="gray">万度</span>
 					</li>
 					<li>
 						<span class="lb">电费</span>
-						<input name="company_contacts" value="张三"><span class="gray">万元</span>
+						<input name="electricity_pay" value="66.3"><span class="gray">万元</span>
 					</li>
 					<li>
 						<span class="gray">最近一年电费明细(备注：请上传近12个月，每月电费明细)</span>
-						<input type="file" accept="application/pdf,application/msword,application/vnd.ms-powerpoint,aplication/zip" name="financial_audit" style="visibility: hidden;" />
+						<input type="file" accept="application/pdf,application/msword,application/vnd.ms-powerpoint,aplication/zip" name="electricity_pay_list" style="visibility: hidden;" />
 					</li>
 				</ul>
 				<p class="title">屋顶情况</p>
 				<ul class="detail part2">
 					<li>
 						<span class="lb">屋顶类型</span>
-						<select name="company_type">
+						<select name="housetop_type">
 							<option value="1">混凝土</option>
 							<option value="2">混凝土</option>
 						</select>
-						<input class="more-info" name="company_contacts" value="张三">
+						<input class="more-info" name="" value="">
 					</li>
 					<li>
 						<span class="lb">屋顶面积</span>
-						<input name="company_contacts" value="张三"><span class="gray">m<sup>2</sup></span>
+						<input name="housetop_area" value="666"><span class="gray">m<sup>2</sup></span>
 					</li>
 					<li>
 						<span class="lb">屋顶使用寿命</span>
-						<input name="company_contacts" value="张三"><span class="gray">年</span>
+						<input name="housetop_age" value="70"><span class="gray">年</span>
 					</li>
 					<li>
 						<span class="lb">屋顶朝向</span>
-						<select name="company_type">
+						<select name="housetop_direction">
 							<option value="1">正南</option>
-							<option value="2">正南</option>
+							<option value="2">正北</option>
 						</select>
-						<input class="more-info" name="company_contacts" value="张三">
+						<input class="more-info" name="" value="">
 					</li>
 				</ul>
 				<p class="title">电网接入</p>
 				<ul class="detail part2">
 					<li>
 						<span class="lb">上级变压器容量</span>
-						<input name="company_contacts" value="张三"><span class="gray">kVA</span>
+						<input name="transformer_capacity" value="100"><span class="gray">kVA</span>
 					</li>
 					<li>
 						<span class="lb">并网电压等级</span>
-						<input name="company_contacts" value="张三"><span class="gray">kV</span>
+						<input name="voltage_level" value="2"><span class="gray">kV</span>
 					</li>
 					<li>
 						<span class="lb">并网方式</span>
-						<select name="company_type">
+						<select name="synchronize_type">
 							<option value="1">自发自用</option>
-							<option value="2">自发自用</option>
+							<option value="2" selected>全额上网</option>
+							<option value="3">自发自用全额上网</option>
 						</select>
 					</li>
 				</ul>
@@ -197,23 +206,24 @@
 				<ul class="detail part2">
 					<li>
 						<span class="lb">拟建设容量</span>
-						<input name="company_contacts" value="张三"><span class="gray">kW</span>
+						<input name="plan_build_volume" value="100"><span class="gray">kW</span>
 					</li>
 					<li>
 						<span class="lb">与能融网合作方式（可多选）</span>
-						<span class="citem"><input type="checkbox" name="company_contacts" value="张三"><span class="gray">EPC</span></span>
-						<span class="citem"><input type="checkbox" name="company_contacts" value="张三"><span class="gray">申请融资</span></span>
-						<span class="citem"><input type="checkbox" name="company_contacts" value="张三"><span class="gray">推介项目</span></span>
+						<span class="citem"><input type="checkbox" name="cooperation_type" value="1"><span class="gray">EPC</span></span>
+						<span class="citem"><input type="checkbox" name="cooperation_type" value="2"><span class="gray">申请融资</span></span>
+						<span class="citem"><input type="checkbox" name="cooperation_type" value="3"><span class="gray">推介项目</span></span>
 					</li>
 					<li>
 						<span class="lb">拟融资金额</span>
-						<input name="company_contacts" value="张三"><span class="gray">kW</span>
+						<input name="plan_financing" value="100"><span class="gray">万元</span>
 					</li>
 					<li>
 						<span class="lb">融资方式</span>
-						<select name="company_type">
+						<select name="financing_type">
 							<option value="1">融资租赁（直租）</option>
-							<option value="2">融资租赁（直租）</option>
+							<option value="2">融资租赁（回租）</option>
+							<option value="3">股权融资</option>
 						</select>
 					</li>
 				</ul>
@@ -221,70 +231,71 @@
 				<ul class="detail part2">
 					<li>
 						<span class="lb">项目备案</span>
-						<select name="company_type">
+						<select name="project_backup_select">
 							<option value="1">有</option>
 							<option value="2">无</option>
 						</select>
-						<input type="file" accept="application/pdf,application/msword,application/vnd.ms-powerpoint,aplication/zip" name="financial_audit" style="visibility: hidden;" />
+						<input type="file" accept="application/pdf,application/msword,application/vnd.ms-powerpoint,aplication/zip" name="project_backup" style="visibility: hidden;" />
 					</li>
 					<li>
 						<span class="lb">电网接入备案</span>
-						<select name="company_type">
+						<select name="electricity_backup_select">
 							<option value="1">有</option>
 							<option value="2">无</option>
 						</select>
-						<input type="file" accept="application/pdf,application/msword,application/vnd.ms-powerpoint,aplication/zip" name="financial_audit" style="visibility: hidden;" />
+						<input type="file" accept="application/pdf,application/msword,application/vnd.ms-powerpoint,aplication/zip" name="electricity_backup" style="visibility: hidden;" />
 					</li>
 					<li>
 						<span class="lb">屋顶租赁协议</span>
-						<select name="company_type">
+						<select name="house_rent_agreement_select">
 							<option value="1">有</option>
 							<option value="2">无</option>
 						</select>
-						<input type="file" accept="application/pdf,application/msword,application/vnd.ms-powerpoint,aplication/zip" name="financial_audit" style="visibility: hidden;" />
+						<input type="file" accept="application/pdf,application/msword,application/vnd.ms-powerpoint,aplication/zip" name="house_rent_agreement" style="visibility: hidden;" />
 					</li>
 					<li>
 						<span class="lb">租赁年限</span>
-						<input name="company_contacts" value="张三">
+						<input name="rent_time" value="10">
 					</li>
 					<li>
 						<span class="lb">租赁租金</span>
-						<input name="company_contacts" value="张三"><span class="gray">元/年</span>
+						<input name="rent_pay" value="20000"><span class="gray">元/年</span>
 					</li>
 					<li>
 						<span class="lb">合同能源管理协议</span>
-						<select name="company_type">
+						<select name="power_manage_agreement_select">
 							<option value="1">有</option>
 							<option value="2">无</option>
 						</select>
-						<input type="file" accept="application/pdf,application/msword,application/vnd.ms-powerpoint,aplication/zip" name="financial_audit" style="visibility: hidden;" />
+						<input type="file" accept="application/pdf,application/msword,application/vnd.ms-powerpoint,aplication/zip" name="power_manage_agreement" style="visibility: hidden;" />
 					</li>
 					<li>
 						<span class="lb">电价结算方式</span>
-						<select name="company_type">
-							<option value="1">峰谷平店家打折</option>
-							<option value="2">峰谷平店家打折</option>
+						<select name="electricity_clear_type">
+							<option value="1">峰谷平电价打折</option>
+							<option value="2">平均电价打折</option>
+							<option value="3">固定电价</option>
 						</select>
 					</li>
 					<li>
-						<span class="lb">租赁年限</span>
-						<input name="company_contacts" value="张三">
+						<span class="lb">结算电价</span>
+						<input name="electricity_clear" value="100">
 					</li>
 					<li>
 						<span class="lb">项目建议书</span>
-						<select name="company_type">
+						<select name="project_proposal_select">
 							<option value="1">有</option>
 							<option value="2">无</option>
 						</select>
-						<input type="file" accept="application/pdf,application/msword,application/vnd.ms-powerpoint,aplication/zip" name="financial_audit" style="visibility: hidden;" />
+						<input type="file" accept="application/pdf,application/msword,application/vnd.ms-powerpoint,aplication/zip" name="project_proposal" style="visibility: hidden;" />
 					</li>
 					<li>
 						<span class="lb">屋顶载荷证明</span>
-						<select name="company_type">
+						<select name="housetop_load_prove_select">
 							<option value="1">有</option>
 							<option value="2">无</option>
 						</select>
-						<input type="file" accept="application/pdf,application/msword,application/vnd.ms-powerpoint,aplication/zip" name="financial_audit" style="visibility: hidden;" />
+						<input type="file" accept="application/pdf,application/msword,application/vnd.ms-powerpoint,aplication/zip" name="housetop_load_prove" style="visibility: hidden;" />
 					</li>
 				</ul>
 				<div class="operator">

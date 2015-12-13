@@ -1,52 +1,25 @@
 $(function() {
 
-	$(".l-nav").find(".awaitingAssessment").addClass("active");
-
-	// 项目类型
-	$("input[name=project_type], input[name=build_state]").siblings("span").click(function() {
-		$(this).addClass("active").siblings().removeClass("active");
-		$(this).siblings("input").val($(this).data("filter"));
-	});
-
-	// 省市区级联
-	require("common/erqi/AreaData");
-	require("common/erqi/cascadeSelect");
-	$(".detail.part1 .area select").cascadeSelect(AreaData);
+	$(".l-nav").find(".jzdc").addClass("active")
+		.children("a").attr("href", "javascript:;");
 
 	require("common/erqi/customUpload");
 	require("lib/jquery.form");
 	
 	// 上传图片
-	$(".detail.part1 input[type=file]").customUpload({
+	$(".detail.part2 .item input[type=file]").customUpload({
 		bg_url: "upload.png",
 		uploadType: "image",
 		width: "120px",
-		height: "120px",
-		callback: function(type) { // 添加或删除图片
-			// 显示或清除图片名称
-			var $prename = $(this).parent().siblings(".previewname");
-			if(type === "add") {
-				$prename.text(this.files[0].name);
-			} else {
-				$prename.text("");
-			}
-
-			// 增加或移除图片上传框，并更新索引
-			if(type === "add") {
-				
-			} else {
-				
-			}
-		}
+		height: "120px"
 	});
 
 	// 上传文件
-	$(".detail.part2 input[type=file]").customUpload({
-		img_url: "attachment.png",
-		content: "上传附件",
+	$(".detail.part2 .finance input[type=file]").customUpload({
+		content: "+",
 		uploadType: "file",
-		width: "80px",
-		height: "20px"
+		width: "20px",
+		height: "38px"
 	});
 
 	// 保存资料
@@ -54,10 +27,10 @@ $(function() {
 	   	// target: '#output',          //把服务器返回的内容放入id为output的元素中      
 	   	beforeSubmit: beforeSubmit, //提交前的回调函数  
 	   	success: successCallback,  	//提交后的回调函数
-	   	dataType: "json",           //html(默认), xml, script, json...接受服务端返回的类型  
+	   	dataType: "json"           //html(默认), xml, script, json...接受服务端返回的类型  
 	   	// clearForm: true,         //成功提交后，清除所有表单元素的值  
 	   	// resetForm: true,         //成功提交后，重置所有表单元素的值  
-	   	timeout: 6000               //限制请求的时间，当请求大于3秒后，跳出请求
+	   	// timeout: 6000               //限制请求的时间，当请求大于3秒后，跳出请求
 	};
 	  
 	function beforeSubmit(formData, jqForm, options){
@@ -71,7 +44,7 @@ $(function() {
 	   	//options:  options对象
 	   	var queryString = $.param(formData);   //name=1&address=2  
 	   	var formElement = jqForm[0];              //将jqForm转换为DOM对象  
-	   	var mobile = formElement.mobile.value.trim();
+	   	var mobile = $.trim(formElement.company_contacts_phone.value);
 
 	   	if(!mobile) {
 	   		alert("请输入联系人手机号");
@@ -84,14 +57,14 @@ $(function() {
 	}
 
 	function successCallback(data) {
+		$("#submit").removeClass("disabled");
 		if(data.code == "0") {
-			$("#submit").removeClass("disabled");
 			alert("上传成功！");
+			location.href="?c=ProjectProviderMyPro&a=awaitingAssessment";
 		} else {
-			alert("上传失败！\n"+data.errmsg);
+			alert("上传失败！\n"+data.msg);
 		}
 	}
 
 	$("#infoForm").ajaxForm(options);
-
 });
