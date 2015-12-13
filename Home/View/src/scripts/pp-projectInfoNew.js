@@ -66,18 +66,6 @@ $(function() {
 			return false;
 		}
 
-	   	//formData: 数组对象，提交表单时，Form插件会以Ajax方式自动提交这些数据，格式如：[{name:user,value:val },{name:pwd,value:pwd}]  
-	   	//jqForm:   jQuery对象，封装了表单的元素
-	   	//options:  options对象
-	   	var queryString = $.param(formData);   //name=1&address=2  
-	   	var formElement = jqForm[0];              //将jqForm转换为DOM对象  
-	   	var mobile = formElement.mobile.value.trim();
-
-	   	if(!mobile) {
-	   		alert("请输入联系人手机号");
-	   		return false;
-	   	}
-
 	   	$("#submit").addClass("disabled");
 
 	   	return true;
