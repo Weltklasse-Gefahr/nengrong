@@ -22,7 +22,7 @@ $(function(){
 
 		$.ajax({
 		    type: "post",
-		    url: "?c=ProjectProvider&a=securityCenter" ,
+		    url: "?c=ProjectInvestor&a=securityCenter" ,
 		    data: {
 		    	newpass: newpassval
 		    },
