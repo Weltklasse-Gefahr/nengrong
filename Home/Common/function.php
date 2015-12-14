@@ -75,15 +75,16 @@ function uploadPicOne($photo, $savePath = ''){
     // 设置附件上传类型
     $upload->exts      =     array('jpg', 'gif', 'png', 'jpeg');
     // 设置附件上传根目录
-    $upload->rootPath  =      dirname(dirname(__FILE__)).'/View/img/'; 
+    $dirNengrongUserDataImg = dirname(dirname(dirname(__FILE__))).'/userdata/img/';
+    $upload->rootPath  =      $dirNengrongUserDataImg; 
     //图片的保持名字
     $upload->saveName = array('uniqid','');
+    // 开启子目录保存 并调用自定义函数get_user_id生成子目录
+    $upload->autoSub = true;
+    $upload->subName = "img";
+
     // 设置附件上传（子）目录
     $upload->savePath  =       $savePath; 
-    if(!file_exists(dirname(dirname(__FILE__)).'/View/img/'.$savePath))
-    {
-        mkdir(dirname(dirname(__FILE__)).'/View/img/'.$savePath,0777);     
-    }
     // 上传单个文件 
     $info   =   $upload->uploadOne($photo);
     if(!$info) {
@@ -112,15 +113,15 @@ function uploadFileOne($file, $savePath = ''){
     // 设置附件上传类型
     $upload->exts      =     array('pdf', 'doc', 'excel');
     // 设置附件上传根目录
-    $upload->rootPath  =      dirname(dirname(__FILE__)).'/View/img/'; 
-    //图片的保持名字
-    $upload->saveName = array('uniqid','');
+    $dirNengrongUserDataDoc = dirname(dirname(dirname(__FILE__))).'/userdata/doc/'; 
+    $upload->rootPath  =      $dirNengrongUserDataDoc; 
+    //doc的文件不变
+    $upload->saveName =  array('uniqid','');
+    // 开启子目录保存 并调用自定义函数get_user_id生成子目录
+    $upload->autoSub = true;
+    $upload->subName = "file";
     // 设置附件上传（子）目录
     $upload->savePath  =       $savePath; 
-    if(!file_exists(dirname(dirname(__FILE__)).'/View/img/'.$savePath))
-    {
-        mkdir(dirname(dirname(__FILE__)).'/View/img/'.$savePath,0777);     
-    }
     // 上传单个文件 
     $info   =   $upload->uploadOne($file);
     if(!$info) {
@@ -160,12 +161,23 @@ function isLogin($userName, $mUserName){
 /**
 **@auth qianqiang
 **@breif 判断必填资料是否填写完成
-**@param $userName 用户名
+**@param $email 用户邮箱
 **@return 如果填写了就返回true 如果没有没有填写就弹框提示，并且跳转到我的资料页面
 **@date 2015.12.12
 **/
-function isDataComplete($userName){
-    
+function isDataComplete($email){
+    $user = M("User");
+    $objUser = $user->where("email='".$email."'")->find();
+    dump($objUser);
+    //只有项目提供方有必填项：企业名称、联系人、联系人手机
+    if($objUser["user_type"] == 3){
+        if($objUser["company_name"] == NULL || $objUser["company_contacts"] == NULL || $objUser["company_contacts_phone"] == NULL){
+            header('Content-Type: text/html; charset=utf-8');
+            echo "<script type='text/javascript'>alert('请先完善个人资料');location.href='?c=ProjectProviderMyInfo&a=myInformation'</script>";
+            exit;
+        }
+    }
+    return true;
 }
 
 

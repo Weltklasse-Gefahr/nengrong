@@ -75,31 +75,32 @@ class AdminController extends Controller
 
     /**
     **@auth qianqiang
-    **@breif 重置密码
+    **@breif 重置密码为原始密码
     **@date 2015.12.12
     **/
     public function resetPassword(){
-        if($_POST['rtype'] == 1 || $_GET['rtype'] == 1){
+        // if($_POST['rtype'] == 1 || $_GET['rtype'] == 1){
             isLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
 
-            $email = $_POST['email'];
-            $newPwd = $_POST['newPassword'];
-            if ( empty($email) || empty($newPwd) ) {
-                echo '{"code":"-1","msg":"邮箱或者新密码为空！"}';
+            $id = $_POST['id'];
+            // $id = 7;
+            if ( empty($id) ) {
+                echo '{"code":"-1","msg":"id为空！"}';
                 exit;
             }
 
             $user = D('User','Service');
-            $objUser = $user->resetPasswordService($email, $newPwd);
+            $objUser = $user->setOriginalPasswordService($id);
             if ($_GET['display'] == 'json') {
                 dump($objUser);
                 echo json_encode($objUser);
                 exit;
             }
-            $this->display(index);        
-        }else{
-            $this->display();
-        }
+            echo '{"code":"0","msg":"修改成功"}';
+            // $this->display(index);        
+        // }else{
+        //     $this->display();
+        // }
     }
 
     /**
@@ -352,8 +353,14 @@ class AdminController extends Controller
             dump($users);
             exit;
         }
-        $this->display("Admin:admin_inner_staff_edit");
-        // echo '{"code":"0","msg":""}';
+        //$this->display("Admin:admin_inner_staff_edit");
+        if($users["user_type"] == 2){
+            $this->display("Admin:admin_inner_staff_edit");
+        }else if($users["user_type"] == 3){
+            $this->display("Admin:admin_inner_staff_edit");
+        }else if($users["user_type"] == 4){
+            $this->display("Admin:admin_inner_staff_edit");
+        }
     }
 
 
