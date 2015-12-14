@@ -111,16 +111,16 @@ class AdminController extends Controller
     public function deleteUser(){
         isLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
 
-    	$email = $_POST['email'];
-    	if ( empty($email) ) {
+    	$id = $_POST['id'];
+    	if ( empty($id) ) {
     		echo '{"code":"-1","msg":"邮箱为空！"}';
     		exit;
     	}
 
     	$user = D('User','Service');
-    	$user->deleteUserService($email);
+    	$user->deleteUserService($id);
     	
-    	$this->display(index); 
+    	echo '{"code":"0","msg":"delete success"}';
     }
 
     /**

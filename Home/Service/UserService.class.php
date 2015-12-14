@@ -184,12 +184,12 @@ class UserService extends Model{
 		$data["status"] = 9999;
         $data['change_date'] = date("Y-m-d H:i:s",time());
         $user->where("id='".$id."'")->save($data);
-//带修改
-  //       $objUser = $user->where("id='%s' and status!=9999", array($email))->select();
-		// if (sizeof($objUser) != 0) {
-		// 	echo '{"code":"-1","msg":"mysql error!"}';
-		// 	exit;
-		// }
+
+        $objUser = $user->where("id='".$id."' and status!=9999")->select();
+		if (sizeof($objUser) != 0) {
+			echo '{"code":"-1","msg":"mysql error!"}';
+			exit;
+		}
 	}
 
 	/**
