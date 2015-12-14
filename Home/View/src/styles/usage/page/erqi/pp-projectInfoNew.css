@@ -16,6 +16,7 @@
 }
 
 .r-content form .part1 .item {
+	width: 800px;
 	float: left;
 }
 
@@ -47,6 +48,11 @@
 	margin-left: 0;
 }
 
+.r-content form .part1 .item.area input {
+	height: 24px;
+	width: 500px;
+}
+
 .r-content form .part1 .item .demo {
 	display: inline-block;
 	text-align: center;
@@ -54,17 +60,19 @@
 }
 
 .r-content form .part1 .item .img-ct {
-	display: inline-block;
+	float: left;
 	text-align: center;
-	margin-right: 50px;
+	margin-right: 25px;
 }
 
-.r-content form .part1 .item .img-ct .previewname {
+.r-content form .part1 .item .img-ct p {
 	height: 20px;
 }
 
 .r-content form .part1 .item .img-ct + .tip {
 	margin-top: 10px;
+	width: 800px;
+	float: left;
 }
 
 .r-content form > .title {
@@ -141,12 +149,13 @@
 	background-color: #FD7940;
 	color: #fff;
 	border: 0;
+	margin-right: 140px;
 }
 
-.r-content form input[type="submit"]:hover {
+.r-content form .operator input[type="submit"]:hover {
 	background: #F1920C;
 }
 
-.r-content form .operator .save {
-	margin-right: 140px;
+.r-content form .operator input[type="submit"].last {
+	margin-right: 0;
 }

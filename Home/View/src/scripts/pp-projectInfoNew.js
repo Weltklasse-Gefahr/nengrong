@@ -2,6 +2,12 @@ $(function() {
 
 	$(".l-nav").find(".awaitingAssessment").addClass("active");
 
+	// 项目类型
+	$("input[name=project_type], input[name=build_state]").siblings("span").click(function() {
+		$(this).addClass("active").siblings().removeClass("active");
+		$(this).siblings("input").val($(this).data("filter"));
+	});
+
 	// 省市区级联
 	require("common/erqi/AreaData");
 	require("common/erqi/cascadeSelect");
@@ -16,13 +22,20 @@ $(function() {
 		uploadType: "image",
 		width: "120px",
 		height: "120px",
-		callback: function() { // 添加或删除图片
+		callback: function(type) { // 添加或删除图片
 			// 显示或清除图片名称
 			var $prename = $(this).parent().siblings(".previewname");
-			if(this.files.length) {
+			if(type === "add") {
 				$prename.text(this.files[0].name);
 			} else {
 				$prename.text("");
+			}
+
+			// 增加或移除图片上传框，并更新索引
+			if(type === "add") {
+				
+			} else {
+				
 			}
 		}
 	});
@@ -53,18 +66,6 @@ $(function() {
 			return false;
 		}
 
-	   	//formData: 数组对象，提交表单时，Form插件会以Ajax方式自动提交这些数据，格式如：[{name:user,value:val },{name:pwd,value:pwd}]  
-	   	//jqForm:   jQuery对象，封装了表单的元素
-	   	//options:  options对象
-	   	var queryString = $.param(formData);   //name=1&address=2  
-	   	var formElement = jqForm[0];              //将jqForm转换为DOM对象  
-	   	var mobile = formElement.mobile.value.trim();
-
-	   	if(!mobile) {
-	   		alert("请输入联系人手机号");
-	   		return false;
-	   	}
-
 	   	$("#submit").addClass("disabled");
 
 	   	return true;
@@ -79,6 +80,34 @@ $(function() {
 		}
 	}
 
-	$("#infoForm").ajaxForm(options);
+	$form = $("#infoForm");
+	$form.find("input[type=submit]").click(function() {
+		var optype = $(this).data("optype");
+		if(optype === "delete") {
+			$.ajax({
+				type: $form.attr("method"),
+				url: $form.attr("action"),
+				data: {
+					optype: optype,
+					project_code: $form.find("[name=project_code]").val()
+				}
+			}).done(function(data) {
+				if(data.code == "0") {
+					alert("删除成功！");
+					location.href = "?c=ProjectProviderMyPro&a=awaitingAssessment";
+				} else {
+					alert("删除失败！");
+				}
+			}).fail(function() {
+				alert("删除失败！");
+			});
+			return false;
+		} else {
+			$form.find("[name=optype]").val(optype);
+			return true;
+		}
+	});
+
+	$form.ajaxForm(options);
 
 });
