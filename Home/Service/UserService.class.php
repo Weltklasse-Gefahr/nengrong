@@ -99,10 +99,10 @@ class UserService extends Model{
 			exit;
 		}
 
-        $user->email = $email;
-        $user->password = MD5($newPwd);
-        $user->change_date = date("Y-m-d H:i:s",time());
-        $user->save();
+		//$data['email'] = $email;
+		$data['password'] = MD5($newPwd);
+		$data['change_date'] = date("Y-m-d H:i:s",time());
+        $user->where("email='".$email."'")->save($data);
 
         $objUser = $user->where("email='%s' and password='%s' and status!=9999", array($email, MD5($newPwd)))->select();
 		if (sizeof($objUser) != 1) {
