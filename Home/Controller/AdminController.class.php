@@ -75,7 +75,7 @@ class AdminController extends Controller
 
     /**
     **@auth qianqiang
-    **@breif 重置密码
+    **@breif 重置密码为原始密码
     **@date 2015.12.12
     **/
     public function resetPassword(){
@@ -96,7 +96,8 @@ class AdminController extends Controller
                 echo json_encode($objUser);
                 exit;
             }
-            $this->display(index);        
+            echo '{"code":"0","msg":"修改成功"}';
+            // $this->display(index);        
         // }else{
         //     $this->display();
         // }

@@ -173,24 +173,23 @@ class UserService extends Model{
     **@breif 删除用户
     **@date 2015.12.12
     **/
-	public function deleteUserService($email){
+	public function deleteUserService($id){
 		$user = M('User');
-		$objUser = $user->where("email='%s' and status!=9999", array($email))->select();
+		$objUser = $user->where("id='".$id."' and status!=9999")->select();
 		if(sizeof($objUser) == 0){
 			echo '{"code":"-1","msg":"用户不存在!"}';
 			exit;
 		}
 
-		$user->email = $email;
-        $user->status = 9999;
-        $user->change_date = date("Y-m-d H:i:s",time());
-        $user->save();
-
-        $objUser = $user->where("email='%s' and status!=9999", array($email))->select();
-		if (sizeof($objUser) != 0) {
-			echo '{"code":"-1","msg":"mysql error!"}';
-			exit;
-		}
+		$data["status"] = 9999;
+        $data['change_date'] = date("Y-m-d H:i:s",time());
+        $user->where("id='".$id."'")->save($data);
+//带修改
+  //       $objUser = $user->where("id='%s' and status!=9999", array($email))->select();
+		// if (sizeof($objUser) != 0) {
+		// 	echo '{"code":"-1","msg":"mysql error!"}';
+		// 	exit;
+		// }
 	}
 
 	/**
