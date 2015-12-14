@@ -34,7 +34,7 @@ class UserController extends Controller
 
             // $a = intval($users["user_type"]);
             // echo $a;echo gettype($a);exit;
-            if(intval($users["user_type"]) == 2){
+            if($users["user_type"] == 2){
                 echo '{"code":"0","msg":"登录成功！","url":"?c=User&a=protocol"}';
             }else if($users["user_type"] == 3){
                 echo '{"code":"0","msg":"登录成功！","url":"?c=User&a=protocol"}';
@@ -165,6 +165,10 @@ class UserController extends Controller
     }
 
     public function test1(){
+        $email = "qianqiang@qq.com";
+        isDataComplete($email);
+        echo "chenggong!";
+        exit;
         $User = M("User");
         $email = $User->where('id=3 and password=123')->getField('email');
         echo json_encode($email);

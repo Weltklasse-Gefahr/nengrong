@@ -160,12 +160,23 @@ function isLogin($userName, $mUserName){
 /**
 **@auth qianqiang
 **@breif 判断必填资料是否填写完成
-**@param $userName 用户名
+**@param $email 用户邮箱
 **@return 如果填写了就返回true 如果没有没有填写就弹框提示，并且跳转到我的资料页面
 **@date 2015.12.12
 **/
-function isDataComplete($userName){
-    
+function isDataComplete($email){
+    $user = M("User");
+    $objUser = $user->where("email='".$email."'")->find();
+    dump($objUser);
+    //只有项目提供方有必填项：企业名称、联系人、联系人手机
+    if($objUser["user_type"] == 3){
+        if($objUser["company_name"] == NULL || $objUser["company_contacts"] == NULL || $objUser["company_contacts_phone"] == NULL){
+            header('Content-Type: text/html; charset=utf-8');
+            echo "<script type='text/javascript'>alert('请先完善个人资料');location.href='?c=ProjectProviderMyInfo&a=myInformation'</script>";
+            exit;
+        }
+    }
+    return true;
 }
 
 

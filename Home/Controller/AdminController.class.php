@@ -352,8 +352,14 @@ class AdminController extends Controller
             dump($users);
             exit;
         }
-        $this->display("Admin:admin_inner_staff_edit");
-        // echo '{"code":"0","msg":""}';
+        //$this->display("Admin:admin_inner_staff_edit");
+        if($users["user_type"] == 2){
+            $this->display("Admin:admin_inner_staff_edit");
+        }else if($users["user_type"] == 3){
+            $this->display("Admin:admin_inner_staff_edit");
+        }else if($users["user_type"] == 4){
+            $this->display("Admin:admin_inner_staff_edit");
+        }
     }
 
 

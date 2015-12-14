@@ -178,16 +178,10 @@ class UserService extends Model{
     **/
 	public function changeProjectProviderByManager($id, $email, $phone){
 		$user = M('User');
-		$objUser = $user->where("email='%s' and status!=9999", array($email))->select();
-		if(sizeof($objUser) == 0){
-			echo '{"code":"-1","msg":"用户不存在!"}';
-			exit;
-		}
-
-		$user->email = $email;
-        $user->company_telephone = $phone;
-        $user->change_date = date("Y-m-d H:i:s",time());
-        $user->save();
+		$data['email'] = $email;
+		$data['company_telephone'] = $phone;
+		$data['change_date'] = date("Y-m-d H:i:s",time());
+        $user->where("id='".$id."'")->save($data);
 
         $objUser = $user->where("email='%s' and company_telephone='%s' and status!=9999", array($email, $phone))->select();
 		if (sizeof($objUser) != 1) {
@@ -204,19 +198,13 @@ class UserService extends Model{
     **/
 	public function changeProjectInvestorByManager($id, $email, $companyName){
 		$user = M('User');
-		$objUser = $user->where("email='%s' and status!=9999", array($email))->select();
-		if(sizeof($objUser) == 0){
-			echo '{"code":"-1","msg":"用户不存在!"}';
-			exit;
-		}
-
-		$user->email = $email;
-        $user->company_name = $companyName;
-        $user->change_date = date("Y-m-d H:i:s",time());
-        $user->save();
+		$data['email'] = $email;
+		$data['company_name'] = $companyName;
+		$data['change_date'] = date("Y-m-d H:i:s",time());
+        $user->where("id='".$id."'")->save($data);
 
         $objUser = $user->where("email='%s' and company_name='%s' and status!=9999", array($email, $companyName))->select();
-		if (sizeof($objUser) != 0) {
+		if (sizeof($objUser) != 1) {
 			echo '{"code":"-1","msg":"mysql error!"}';
 			exit;
 		}
