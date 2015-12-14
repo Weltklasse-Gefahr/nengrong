@@ -115,6 +115,28 @@ class UserService extends Model{
 
 	/**
     **@auth qianqiang
+    **@breif 还原初始密码123456
+    **@date 2015.12.14
+    **/
+	public function setOriginalPasswordService($id){
+		$user = M('User');
+
+		//$data['email'] = $email;
+		$data['password'] = MD5("123456");
+		$data['change_date'] = date("Y-m-d H:i:s",time());
+        $user->where("id='".$id."'")->save($data);
+
+        $objUser = $user->where("id='%d' and password='%s' and status!=9999", array($id, MD5("123456")))->select();
+		if (sizeof($objUser) != 1) {
+			echo '{"code":"-1","msg":"mysql error!"}';
+			exit;
+		}
+
+		return $objUser[0];
+	}
+
+	/**
+    **@auth qianqiang
     **@breif 展示项目提供方所有用户
     **@date 2015.12.10
     **/
