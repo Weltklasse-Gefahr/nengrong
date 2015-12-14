@@ -343,7 +343,7 @@ class AdminController extends Controller
     public function getEditUserInfo(){
         isLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
         $id = $_GET["id"];
-        // $id = 1;
+        // $id = 2;
         $user = D('User','Service');
         $users = $user->getUserINfoById($id);
         $this->assign('userInfo',$users);
@@ -353,13 +353,13 @@ class AdminController extends Controller
             dump($users);
             exit;
         }
-        //$this->display("Admin:admin_inner_staff_edit");
-        if($users["user_type"] == 2){
+        
+        if(intval($users[0]["user_type"]) == 2){
             $this->display("Admin:admin_inner_staff_edit");
-        }else if($users["user_type"] == 3){
-            $this->display("Admin:admin_inner_staff_edit");
-        }else if($users["user_type"] == 4){
-            $this->display("Admin:admin_inner_staff_edit");
+        }else if(intval($users[0]["user_type"]) == 3){
+            $this->display("Admin:admin_provider_edit");
+        }else if(intval($users[0]["user_type"]) == 4){
+            $this->display("Admin:admin_investors_edit");
         }else{
             echo '{"code":"-1","msg":"user type not exist"}';
         }
