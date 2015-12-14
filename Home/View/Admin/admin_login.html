@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+        <title>Matrix Admin</title><meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="/EnergyFe/prd/styles/Admin/bootstrap.min.css">
+		<link rel="stylesheet" href="/EnergyFe/prd/styles/Admin/bootstrap-responsive.min.css">
+		<link rel="stylesheet" href="/EnergyFe/prd/styles/Admin/matrix-login@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/styles/Admin/matrix-login.css.ver';</php>.css">
+		<link rel="stylesheet" href="/EnergyFe/prd/styles/Admin/css/font-awesome<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/styles/Admin/css/font-awesome.css.ver';</php>.css">
+		<link href='http://fonts.useso.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
+
+    </head>
+    <body>
+        <div id="loginbox">            
+            <form id="loginform" class="form-vertical" method="post" action="?c=Admin&a=login">
+				 <div class="control-group normal_text"> <h3><img src="/EnergyFe/img/Admin/img/logo.png" alt="Logo" /></h3></div>
+				 <div id="warning" class="alert alert-error" style="display: none;">
+              <strong>Error!</strong> 用户名或密码错误，请重新输入！</div>
+                <div class="control-group">
+                    <div class="controls">
+                        <div class="main_input_box">
+                            <span class="add-on bg_lg"><i class="icon-user"></i></span><input id="userName" name="userName" type="text" placeholder="Username" /><input name="rtype" type="hidden" value="1" />
+                        </div>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="controls">
+                        <div class="main_input_box">
+                            <span class="add-on bg_ly"><i class="icon-lock"></i></span><input id="password" name="password" type="password" placeholder="Password" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <span class="pull-right"><a id="loginbtn" type="submit" class="btn btn-success" /> Login</a></span>
+                </div>
+            </form>
+        </div>
+        
+		<script src="/EnergyFe/prd/scripts/Admin/jquery.min.js"></script>
+		<script src="/EnergyFe/prd/scripts/Admin/admin/admin_login@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/scripts/Admin/admin/admin_login.js.ver';</php>.js"></script>
+    </body>
+
+</html>

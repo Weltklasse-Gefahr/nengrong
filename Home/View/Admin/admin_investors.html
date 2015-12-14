@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+
+<html lang="zh">
+
+<head>
+
+<title>能融网管理系统</title>
+
+<meta charset="UTF-8" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<link rel="stylesheet" href="css/bootstrap.min.css" />
+
+<link rel="stylesheet" href="css/bootstrap-responsive.min.css" />
+
+<link rel="stylesheet" href="css/uniform.css" />
+
+<link rel="stylesheet" href="css/select2.css" />
+
+<link rel="stylesheet" href="css/matrix-style.css" />
+
+<link rel="stylesheet" href="css/matrix-media.css" />
+
+<link href="font-awesome/css/font-awesome.css" rel="stylesheet" />
+
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body>
+
+ 
+
+<!--Header-part-->
+
+<div id="header">
+
+  <h1><a href="admin_inner_staff.html">Matrix Admin</a></h1>
+
+</div>
+
+<!--close-Header-part-->
+
+ 
+
+<!--top-Header-menu-->
+
+<div id="user-nav" class="navbar navbar-inverse">
+
+  <ul class="nav">
+
+    <li  class="dropdown" id="profile-messages" ><a title="" href="#" data-toggle="dropdown" data-target="#profile-messages" class="dropdown-toggle"><i class="icon icon-user"></i>  <span class="text">Welcome Admin</span><b class="caret"></b></a>
+
+      <ul class="dropdown-menu">
+
+        <li><a href="./admin_change_pwd.html"><i class="icon-lock"></i> Change Password</a></li>
+
+        <li class="divider"></li>
+
+        <li><a href="admin_login.html"><i class="icon-key"></i> Log Out</a></li>
+
+      </ul>
+
+    </li>
+
+  </ul>
+
+</div>
+
+<!--close-top-Header-menu-->
+
+<!--sidebar-menu-->
+
+ 
+
+<div id="sidebar"><a href="#" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
+
+  <ul>
+
+    <li><a href="admin_inner_staff.html"><i class="icon icon-group"></i> <span>业务员管理</span></a></li>
+	<li class="active"><a href="admin_investors.html"><i class="icon icon-briefcase"></i> <span>项目投资方管理</span></a></li>
+	<li><a href="admin_provider.html"><i class="icon icon-fire"></i> <span>项目提供方管理</span></a></li>
+  </ul>
+
+</div>
+
+ 
+
+<!--sidebar-menu-->
+
+ 
+
+<!--main-container-part-->
+
+<div id="content">
+
+  <div id="content-header">
+
+    <div id="breadcrumb"> <a href="#" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href="#" class="current">项目投资方管理</a> </div>
+
+    <h1>项目投资方管理</h1>
+
+  </div>
+
+  <div class="container-fluid">
+
+    <div class="row-fluid">
+
+      <div class="span12">
+
+        <div class="widget-box">
+
+          <div class="widget-title"> <span class="icon"><i class="icon-th"></i></span>
+
+            <h5>项目投资方列表</h5>
+				<div class="buttons"> 
+				<a id="add-event" data-toggle="modal" href="#modal-add-event" class="btn btn-inverse btn-mini"><i class="icon-plus icon-white"></i>添加项目投资方</a>
+              <div aria-hidden="true" style="display: none;" class="modal hide" id="modal-add-event">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">×</button>
+                  <h3>添加项目投资方</h3>
+                </div>
+				<div class="modal-body">
+
+				  <p>项目投资方邮箱:</p>
+                  <p>
+                    <input id="investors-email" type="text">
+                  </p>
+
+                  <p>项目投资方公司名称:</p>
+                  <p>
+                    <input id="investors-name" type="text">
+                  </p>
+                
+                </div>
+                <div class="modal-footer"> <a href="#" class="btn" data-dismiss="modal">Cancel</a> <a href="#" id="add-event-submit" class="btn btn-primary">Add event</a> </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="widget-content nopadding">
+
+            <table class="table table-bordered data-table">
+
+              <thead>
+
+                <tr>
+
+                  <th>项目投资方邮箱</th>
+
+                  <th>项目投资方公司名称</th>
+
+                  <th>更新日期</th>
+
+                  <th></th>
+
+                </tr>
+
+              </thead>
+
+              <tbody>
+
+                <tr class="gradeX">
+
+                  <td>email</td>
+
+                  <td>name</td>
+
+                  <td>update time</td>
+
+                  <td class="action-td">
+						<button id="edit_id" type="submit" class="btn btn-info">编辑</button>
+						<a id="reset_id" href="#myAlert_reset" data-toggle="modal" class="btn btn-warning">重置密码</a>
+						<a id="delete_id" href="#myAlert_delete" data-toggle="modal" class="btn btn-danger">删除</a>
+				  </td>
+
+                </tr>
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+<div id="myAlert_reset" class="modal hide">
+              <div class="modal-header">
+                <button data-dismiss="modal" class="close" type="button">×</button>
+                <h3>提示</h3>
+              </div>
+              <div class="modal-body">
+                <p>您确定要重置该投资方的密码吗？</p>
+              </div>
+              <div class="modal-footer"> 
+				<a id="confirm_id" data-dismiss="modal" class="btn btn-primary" href="#">重置</a> 
+				<a data-dismiss="modal" class="btn" href="#">取消</a> 
+			  </div>
+</div>
+<div id="myAlert_delete" class="modal hide">
+              <div class="modal-header">
+                <button data-dismiss="modal" class="close" type="button">×</button>
+                <h3>提示/h3>
+              </div>
+              <div class="modal-body">
+                <p>您确定要删除该投资方吗？</p>
+              </div>
+              <div class="modal-footer"> 
+				<a id="confirm_id" data-dismiss="modal" class="btn btn-primary" href="#">删除</a> 
+				<a data-dismiss="modal" class="btn" href="#">取消</a> 
+			  </div>
+</div>
+<!--Footer-part-->
+
+<div class="row-fluid">
+
+  <div id="footer" class="span12"> 2013 &copy; Matrix Admin. Brought to you by <a href="http://themedesigner.in/">Themedesigner.in</a> </div>
+
+</div>
+
+<!--end-Footer-part-->
+
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery.ui.custom.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.uniform.js"></script>
+<script src="js/select2.min.js"></script>
+<script src="js/jquery.dataTables.min.js"></script>
+<script src="js/matrix.js"></script>
+<script src="js/matrix.tables.js"></script>
+
+<script src="js/admin_investor.js"></script>
+
+</body>
+
+</html>
