@@ -360,6 +360,8 @@ class AdminController extends Controller
             $this->display("Admin:admin_inner_staff_edit");
         }else if($users["user_type"] == 4){
             $this->display("Admin:admin_inner_staff_edit");
+        }else{
+            echo '{"code":"-1","msg":"user type not exist"}';
         }
     }
 
