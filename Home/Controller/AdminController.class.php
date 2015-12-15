@@ -53,6 +53,7 @@ class AdminController extends Controller
         if($_POST['rtype'] == 1 || $_GET['rtype'] == 1){
             isLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
 
+            $userName = $_COOKIE['userName'];
             $pwd = $_POST['password'];
             $newPwd = $_POST['newPwd'];
             $confirmNewPwd = $_POST['confirmNewPwd'];
@@ -179,11 +180,11 @@ class AdminController extends Controller
 
     	$user = D('User','Service');
     	$users = $user->registerService($email, $password, $userType);
+        $objUser = $user->changeProjectInvestorByManager($users['id'], $email, $companyName);
 
     	$display = $_GET['display'];
     	if ($display == 'json') {
-    		dump($users);
-    		echo json_encode($users);
+    		dump($objUser);
     		exit;
     	}
     	echo '{"code":"0","msg":"add user success"}';
