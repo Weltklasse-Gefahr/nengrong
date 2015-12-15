@@ -57,17 +57,21 @@ class AdminController extends Controller
             $pwd = $_POST['password'];
             $newPwd = $_POST['newPwd'];
             $confirmNewPwd = $_POST['confirmNewPwd'];
+            // $userName = "admin1";
+            // $pwd = "admin1";
+            // $newPwd = "admin1";
+            // $confirmNewPwd = "admin1";
             if (empty($pwd) || empty($newPwd) || empty($confirmNewPwd)) {
                 echo '{"code":"-1","msg":"新旧密码为空"}';
                 exit;
             }
             if($newPwd != $confirmNewPwd){
-                echo '{"code":"-1","msg":"新密码不同"}';
+                echo '{"code":"-1","msg":"twice new password different"}';
                 exit;
             }
 
             $manager = D('Admin','Service');
-            $objManager = $manager->changePassword($userName, $pwd, $newPwd);
+            $objManager = $manager->changePasswordService($userName, $pwd, $newPwd);
             if ($_GET['display'] == 'json') {
                 dump($objManager);
                 exit;
@@ -379,8 +383,8 @@ class AdminController extends Controller
 
     public function addAdmin(){
         $manager = M('Admin');
-        $data['user_name'] = 'admin';
-        $data['password'] = MD5("admin");
+        $data['user_name'] = 'admin1';
+        $data['password'] = MD5("admin1");
         $manager->add($data);
         echo '{"code":"0","msg":"添加管理员"}';
     }
