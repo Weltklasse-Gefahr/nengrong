@@ -32,7 +32,6 @@ class AdminService extends Model{
 	public function changePasswordService($userName, $password, $newPwd){
 		$manager = M('Admin');
 		$objManager = $manager->where("user_name='%s' and password='%s'", array($userName, MD5($password)))->select();
-		echo $userName." ";echo $password." "; echo $newPwd." ";echo sizeof($objManager)." ";exit;
 		if(sizeof($objManager) == 0){
 			echo '{"code":"-1","msg":"old password error!"}';
 			exit;
