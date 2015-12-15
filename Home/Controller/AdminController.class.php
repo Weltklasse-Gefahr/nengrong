@@ -54,9 +54,14 @@ class AdminController extends Controller
             isLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
 
             $pwd = $_POST['password'];
-            $newPwd = $_POST['newPassword'];
-            if (empty($pwd) || empty($newPwd)) {
-                echo '{"code":"-1","msg":"新旧密码为空！"}';
+            $newPwd = $_POST['newPwd'];
+            $confirmNewPwd = $_POST['confirmNewPwd'];
+            if (empty($pwd) || empty($newPwd) || empty($confirmNewPwd)) {
+                echo '{"code":"-1","msg":"新旧密码为空"}';
+                exit;
+            }
+            if($newPwd != $confirmNewPwd){
+                echo '{"code":"-1","msg":"新密码不同"}';
                 exit;
             }
 
@@ -64,12 +69,11 @@ class AdminController extends Controller
             $objManager = $manager->changePassword($userName, $pwd, $newPwd);
             if ($_GET['display'] == 'json') {
                 dump($objManager);
-                //echo json_encode($objManager);
                 exit;
             }
-            $this->display(index);            
+            echo '{"code":"0","msg":"change password success"}';        
         }else{
-            $this->display();
+            $this->display("Admin:admin_change_pwd");
         }
     }
 
@@ -134,6 +138,9 @@ class AdminController extends Controller
     	$email = $_POST['email'];
         $code = $_POST['code'];
         $name = $_POST['name'];
+        // $email = "123abc";
+        // $code = "123";
+        // $name = "123";
     	$password = "123456";
     	$userType = 2;
     	if (empty($email)) {
@@ -162,6 +169,7 @@ class AdminController extends Controller
         isLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
 
     	$email = $_POST['email'];
+        $companyName = $_POST['companyName'];
     	$password = "123456";
     	$userType = 4;
     	if (empty($email)) {
@@ -178,7 +186,7 @@ class AdminController extends Controller
     		echo json_encode($users);
     		exit;
     	}
-    	$this->display(index);
+    	echo '{"code":"0","msg":"add user success"}';
     }
 
     /**
