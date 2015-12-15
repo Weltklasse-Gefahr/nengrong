@@ -132,6 +132,8 @@ class AdminController extends Controller
         isLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
 
     	$email = $_POST['email'];
+        $code = $_POST['code'];
+        $name = $_POST['name'];
     	$password = "123456";
     	$userType = 2;
     	if (empty($email)) {
@@ -141,14 +143,14 @@ class AdminController extends Controller
 
     	$user = D('User','Service');
     	$users = $user->registerService($email, $password, $userType);
+        $objUser = $user->changeInnerStaffByManager($users['id'], $email, $code, $name);
 
     	$display = $_GET['display'];
     	if ($display == 'json') {
-    		dump($users);
-    		echo json_encode($users);
+    		dump($objUser);
     		exit;
     	}
-    	$this->display(index);
+    	echo '{"code":"0","msg":"add user success"}';
     }
 
     /**
