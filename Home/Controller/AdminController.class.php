@@ -383,8 +383,8 @@ class AdminController extends Controller
 
     public function addAdmin(){
         $manager = M('Admin');
-        $data['user_name'] = 'admin1';
-        $data['password'] = MD5("admin1");
+        $data['user_name'] = 'admin';
+        $data['password'] = MD5("admin");
         $manager->add($data);
         echo '{"code":"0","msg":"添加管理员"}';
     }
