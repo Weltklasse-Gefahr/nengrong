@@ -203,13 +203,14 @@ class AdminController extends Controller
         isLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
         $id = $_POST['id'];
     	$email = $_POST['email'];
-    	$phone = $_POST['telephone'];
+        $phone = $_POST['phone'];
+    	$telephone = $_POST['telephone'];
         if (empty($email) || empty($phone)) {
         	echo '{"code":"-1","msg":"邮箱或者电话为空！"}';
         }
 
         $user = D('User','Service');
-    	$users = $user->changeProjectProviderByManager($id, $email, $phone);
+    	$users = $user->changeProjectProviderByManager($id, $email, $phone, $telephone);
 
     	$display = $_GET['display'];
     	if ($display == 'json') {

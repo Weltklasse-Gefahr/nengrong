@@ -196,14 +196,15 @@ class UserService extends Model{
     **@breif 管理员修改项目提供方信息
     **@date 2015.12.12
     **/
-	public function changeProjectProviderByManager($id, $email, $phone){
+	public function changeProjectProviderByManager($id, $email, $phone, $telephone){
 		$user = M('User');
 		$data['email'] = $email;
-		$data['company_telephone'] = $phone;
+		$data['company_phone'] = $phone;
+		$data['company_telephone'] = $telephone;
 		$data['change_date'] = date("Y-m-d H:i:s",time());
         $user->where("id='".$id."'")->save($data);
 
-        $objUser = $user->where("email='%s' and company_telephone='%s' and status!=9999", array($email, $phone))->select();
+        $objUser = $user->where("email='%s' and company_phone='%s' and company_telephone='%s' and status!=9999", array($email, $phone, $telephone))->select();
 		if (sizeof($objUser) != 1) {
 			echo '{"code":"-1","msg":"mysql error!"}';
 			exit;
