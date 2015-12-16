@@ -201,7 +201,7 @@ class AdminController extends Controller
     **/
     public function changeProjectProviderInfo(){
         isLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
-
+        $id = $_POST['id'];
     	$email = $_POST['email'];
     	$phone = $_POST['telephone'];
         if (empty($email) || empty($phone)) {
@@ -209,7 +209,7 @@ class AdminController extends Controller
         }
 
         $user = D('User','Service');
-    	$users = $user->changeProjectProviderByManager($email, $phone);
+    	$users = $user->changeProjectProviderByManager($id, $email, $phone);
 
     	$display = $_GET['display'];
     	if ($display == 'json') {
@@ -227,7 +227,7 @@ class AdminController extends Controller
     **/
     public function changeProjectInvestorInfo(){
         isLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
-
+        $id = $_POST['id'];
     	$email = $_POST['email'];
     	$companyName = $_POST['companyName'];
         if (empty($email) || empty($companyName)) {
@@ -235,7 +235,7 @@ class AdminController extends Controller
         }
 
 		$user = D('User','Service');
-    	$users = $user->changeProjectInvestorByManager($email, $companyName);
+    	$users = $user->changeProjectInvestorByManager($id, $email, $companyName);
 
     	$display = $_GET['display'];
     	if ($display == 'json') {
