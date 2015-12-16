@@ -295,7 +295,7 @@ class AdminController extends Controller
             dump($users);
             exit;
         }    
-            $this->display();
+            $this->display("admin:provider");
         // }else{
         //     $this->display();
         // }
@@ -319,7 +319,7 @@ class AdminController extends Controller
             dump($users);
             exit;
         }    
-            $this->display();
+            $this->display("Admin:admin_investors");
         // }else{
         //     $this->display();
         // }
