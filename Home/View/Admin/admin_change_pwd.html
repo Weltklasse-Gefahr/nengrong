@@ -10,19 +10,13 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<link rel="stylesheet" href="css/bootstrap.min.css" />
-
-<link rel="stylesheet" href="css/bootstrap-responsive.min.css" />
-
-<link rel="stylesheet" href="css/uniform.css" />
-
-<link rel="stylesheet" href="css/select2.css" />
-
-<link rel="stylesheet" href="css/matrix-style.css" />
-
-<link rel="stylesheet" href="css/matrix-media.css" />
-
-<link href="font-awesome/css/font-awesome.css" rel="stylesheet" />
+<link rel="stylesheet" href="/EnergyFe/prd/styles/Admin/bootstrap.min.css">
+<link rel="stylesheet" href="/EnergyFe/prd/styles/Admin/bootstrap-responsive.min.css">
+<link rel="stylesheet" href="/EnergyFe/prd/styles/Admin/uniform@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/styles/Admin/uniform.css.ver';</php>.css">
+<link rel="stylesheet" href="/EnergyFe/prd/styles/Admin/select2<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/styles/Admin/select2.css.ver';</php>.css">
+<link rel="stylesheet" href="/EnergyFe/prd/styles/Admin/matrix-style<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/styles/Admin/matrix-style.css.ver';</php>.css">
+<link rel="stylesheet" href="/EnergyFe/prd/styles/Admin/matrix-media<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/styles/Admin/matrix-media.css.ver';</php>.css">
+<link rel="stylesheet" href="/EnergyFe/prd/styles/Admin/css/font-awesome<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/styles/Admin/css/font-awesome.css.ver';</php>.css">
 
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
 
@@ -54,7 +48,7 @@
 
       <ul class="dropdown-menu">
 
-        <li><a href="./admin_change_pwd.html"><i class="icon-lock"></i> Change Password</a></li>
+        <li><a href="http://www.enetf.com/?c=Admin&a=changePasswordl"><i class="icon-lock"></i> Change Password</a></li>
 
         <li class="divider"></li>
 
@@ -77,8 +71,7 @@
 <div id="sidebar"><a href="#" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
 
   <ul>
-
-    <li><a href="admin_main.html"><i class="icon icon-group"></i> <span>业务员管理</span></a></li>
+    <li><a href="http://www.enetf.com/?c=Admin&a=getAllInnerStaffInfo"><i class="icon icon-group"></i> <span>业务员管理</span></a></li>
 	<li><a href="admin_investors.html"><i class="icon icon-briefcase"></i> <span>项目投资方管理</span></a></li>
 	<li><a href="admin_provider.html"><i class="icon icon-fire"></i> <span>项目提供方管理</span></a></li>
 
@@ -111,28 +104,62 @@
               <h5>修改密码</h5>
             </div>
             <div class="widget-content nopadding">
-              <form class="form-horizontal" method="post" action="#" name="password_validate" id="password_validate" novalidate="novalidate">
+			  <div id="warning" class="alert alert-error"  style="display: none;">
+			  <strong>Error!</strong> 对不起您输入的密码为空，请输入密码！</div>
+              <div class="form-horizontal" name="password_validate" id="password_validate" novalidate="novalidate">
                 <div class="control-group">
-                  <label class="control-label">密码：</label>
+                  <label class="control-label">旧密码：</label>
                   <div class="controls">
-                    <input type="password" name="pwd" id="pwd" />
+                    <input type="password" name="pwd" id="password" />
+                  </div>
+                </div>
+				<div class="control-group">
+                  <label class="control-label">新密码：</label>
+                  <div class="controls">
+                    <input type="password" name="pwd" id="newPwd" />
                   </div>
                 </div>
                 <div class="control-group">
-                  <label class="control-label">确认密码：</label>
+                  <label class="control-label">确认新密码：</label>
                   <div class="controls">
-                    <input type="password" name="pwd2" id="pwd2" />
+                    <input type="password" name="pwd2" id="confirmNewPwd" />
                   </div>
                 </div>
-                <div class="form-actions" style="text-align:center">
-                  <input type="submit" value="Validate" class="btn btn-success">
+                <div id="changePwd" class="form-actions" style="text-align:center">
+                  <input value="修改" class="btn btn-success">
                 </div>
-              </form>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
+</div>
+
+
+<div id="myAlert_change_pwd_success" class="modal hide"  style="display: none;">
+              <div class="modal-header">
+                <button data-dismiss="modal" class="close myAlert_change_pwd_success_closed" type="button">×</button>
+                <h3>提示</h3>
+              </div>
+              <div class="modal-body">
+                <p>修改密码成功！</p>
+              </div>
+              <div class="modal-footer"> 
+				<a data-dismiss="modal" class="btn myAlert_change_pwd_success_closed" href="#">关闭</a> 
+			  </div>
+</div>
+<div id="myAlert_change_pwd_failed" class="modal hide"  style="display: none;">
+              <div class="modal-header">
+                <button data-dismiss="modal" class="close myAlert_change_pwd_failed_closed" type="button">×</button>
+                <h3>提示</h3>
+              </div>
+              <div class="modal-body">
+                <p>修改密码失败！</p>
+              </div>
+              <div class="modal-footer"> 
+				<a data-dismiss="modal" class="btn myAlert_change_pwd_failed_closed" href="#">关闭</a> 
+			  </div>
 </div>
 
 <!--Footer-part-->
@@ -145,21 +172,19 @@
 
 <!--end-Footer-part-->
 
-<script src="js/jquery.min.js"></script>
+<script src="/EnergyFe/prd/scripts/Admin/jquery.min.js"></script>
+<script src="/EnergyFe/prd/scripts/Admin/bootstrap.min.js"></script>
+<script src="/EnergyFe/prd/scripts/Admin/select2.min.js"></script>
+<script src="/EnergyFe/prd/scripts/Admin/jquery.dataTables.min.js"></script>
+<script src="/EnergyFe/prd/scripts/Admin/jquery.ui.custom@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/scripts/Admin/jquery.ui.custom.js.ver';</php>.js"></script>
+<script src="/EnergyFe/prd/scripts/Admin/jquery.uniform@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/scripts/Admin/jquery.uniform.js.ver';</php>.js"></script>
 
-<script src="js/jquery.ui.custom.js"></script>
+<script src="/EnergyFe/prd/scripts/Admin/matrix@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/scripts/Admin/matrix.js.ver';</php>.js"></script>
 
-<script src="js/bootstrap.min.js"></script>
+<script src="/EnergyFe/prd/scripts/Admin/matrix.tables@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/scripts/Admin/matrix.tables.js.ver';</php>.js"></script>
 
-<script src="js/jquery.uniform.js"></script>
+<script src="/EnergyFe/prd/scripts/Admin/admin/admin_change_pwd@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/scripts/Admin/admin/admin_change_pwd.js.ver';</php>.js"></script>
 
-<script src="js/select2.min.js"></script>
-
-<script src="js/jquery.dataTables.min.js"></script>
-
-<script src="js/matrix.js"></script>
-
-<script src="js/matrix.tables.js"></script>
 
 </body>
 

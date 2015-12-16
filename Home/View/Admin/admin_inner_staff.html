@@ -47,7 +47,7 @@
 
       <ul class="dropdown-menu">
 
-        <li><a href="./admin_change_pwd.html"><i class="icon-lock"></i> Change Password</a></li>
+        <li><a href="http://www.enetf.com/?c=Admin&a=changePassword"><i class="icon-lock"></i> Change Password</a></li>
 
         <li class="divider"></li>
 
@@ -118,19 +118,19 @@
 				<div class="modal-body">
 				  <p>业务员邮箱:</p>
                   <p>
-                    <input id="salesman-email" type="text">
+                    <input id="add_email" type="text">
                   </p>
                   <p>业务员工号:</p>
                   <p>
-                    <input id="salesman-id" type="text">
+                    <input id="add_code" type="text">
                   </p>
                 
                   <p>业务员姓名:</p>
                   <p>
-                    <input id="salesman-name" type="text">
+                    <input id="add_name" type="text">
                   </p>
                 </div>
-                <div class="modal-footer"> <a href="#" class="btn" data-dismiss="modal">Cancel</a> <a href="#" id="add-event-submit" class="btn btn-primary">Add event</a> </div>
+                <div class="modal-footer"> <a href="#" class="btn" data-dismiss="modal">取消</a> <a href="#" id="add_inner_staff" class="btn btn-primary">添加</a> </div>
               </div>
             </div>
 
@@ -167,9 +167,9 @@
 						<td>{$inner_staff[name]}</td>
 						<td>{$inner_staff[change_date]}</td>
 						<td class="action-td">
-								<button id="edit_id" class="btn btn-info">编辑</button>
-								<a id="reset_id" href="#myAlert_reset" data-toggle="modal" class="btn btn-warning">重置密码</a>
-								<a id="delete_id" href="#myAlert_delete" data-toggle="modal" class="btn btn-danger">删除</a>
+								<button class="btn btn-info edit_id">编辑</button>
+								<a href="#myAlert_reset" data-toggle="modal" class="btn btn-warning reset_id">重置密码</a>
+								<a href="#myAlert_delete" data-toggle="modal" class="btn btn-danger delete_id">删除</a>
 						</td>
 					</tr>
 				</foreach>
@@ -211,7 +211,7 @@
                 <p>您确定要删除该用户吗？</p>
               </div>
               <div class="modal-footer"> 
-				<a id="confirm_id" data-dismiss="modal" class="btn btn-primary" href="#">删除</a> 
+				<a id="confirm_delete_id" data-dismiss="modal" class="btn btn-primary" href="#">删除</a> 
 				<a data-dismiss="modal" class="btn" href="#">取消</a> 
 			  </div>
 </div>
@@ -263,6 +263,31 @@
               </div>
               <div class="modal-footer"> 
 				<a data-dismiss="modal" class="btn myAlert_delete_failed_closed" href="#">关闭</a> 
+			  </div>
+</div>
+
+<div id="myAlert_add_success" class="modal hide"  style="display: none;">
+              <div class="modal-header">
+                <button data-dismiss="modal" class="close myAlert_add_success_closed" type="button">×</button>
+                <h3>提示</h3>
+              </div>
+              <div class="modal-body">
+                <p>添加业务员成功！</p>
+              </div>
+              <div class="modal-footer"> 
+				<a data-dismiss="modal" class="btn myAlert_add_success_closed" href="#">关闭</a> 
+			  </div>
+</div>
+<div id="myAlert_add_failed" class="modal hide"  style="display: none;">
+              <div class="modal-header">
+                <button data-dismiss="modal" class="close myAlert_add_failed_closed" type="button">×</button>
+                <h3>提示</h3>
+              </div>
+              <div class="modal-body">
+                <p>添加业务员失败！</p>
+              </div>
+              <div class="modal-footer"> 
+				<a data-dismiss="modal" class="btn myAlert_delete_add_closed" href="#">关闭</a> 
 			  </div>
 </div>
 <!--Footer-part-->

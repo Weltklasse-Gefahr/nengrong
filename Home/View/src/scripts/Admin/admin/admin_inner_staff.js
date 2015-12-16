@@ -8,7 +8,7 @@ $(function(){
 		});
 	});
 
-	$("#edit_id").click(function(){
+	$(".edit_id").click(function(){
 		var item_id = $(this).parent().parent().data("id");
 		location.href="?c=Admin&a=getEditUserInfo&id="+item_id;
 	});
@@ -50,7 +50,7 @@ $(function(){
 		$("#myAlert_edit_failed").hide();
 	});
 
-	$("#reset_id").click(function(){ 
+	$(".reset_id").click(function(){ 
 		var item_id = $(this).parent().parent().data("id");
 		$("#confirm_reset_id").off("click.reset");
 		$("#confirm_reset_id").on("click.reset", function(){
@@ -80,7 +80,7 @@ $(function(){
 		$("#myAlert_reset_failed").hide();
 	});
 
-	$("#delete_id").click(function(){ 
+	$(".delete_id").click(function(){ 
 		var item_id = $(this).parent().parent().data("id");
 		$("#confirm_delete_id").off("click.delete");
 		$("#confirm_delete_id").on("click.delete", function(){
@@ -93,9 +93,13 @@ $(function(){
 			dataType: "json"
 			}).done(function(data){
 				if (data.code== 0)
-					{$("#myAlert_delete_success").show();}
+					{
+						$("#myAlert_delete_success").show();
+					}
 				else 
-					{$("#myAlert_delete_failed").show();}
+					{
+						$("#myAlert_delete_failed").show();
+					}
 			});
 		});
 
@@ -104,11 +108,57 @@ $(function(){
 
 	$(".myAlert_delete_success_closed").click(function(){
 		$("#myAlert_delete_success").hide();
+		location.href="?c=Admin&a=getAllInnerStaffInfo";
 	});
 
 	$(".myAlert_delete_failed_closed").click(function(){
 		$("#myAlert_delete_failed").hide();
+		location.href="?c=Admin&a=getAllInnerStaffInfo";
 	});
 
+
+	$("#add_inner_staff").click(function(){ 
+		var email= $.trim($("#add_email").val());
+		var code= $.trim($("#add_code").val());
+		var name= $.trim($("#add_name").val());
+
+		if(!email || !code || !name ) {
+			warning();
+			return ;
+		}
+
+		$.ajax({
+		    type: "post",
+		    url: "?c=Admin&a=addInnerStaff" ,
+		    data: {
+		    	email: email,
+		    	code: code,
+		    	name:name
+		    },
+			dataType: "json"
+		}).done(function(data){
+			if (data.code== 0)
+				{
+					$("#modal-add-event").hide();
+					$("#myAlert_add_success").show();
+				}
+			else 
+				{
+					$("#myAlert_add_failed").show();
+				}
+		});
+
+		
+	});
+
+	$(".myAlert_add_success_closed").click(function(){
+		$("#myAlert_add_success").hide();
+		location.href="?c=Admin&a=getAllInnerStaffInfo";
+	});
+
+	$(".myAlert_add_failed_closed").click(function(){
+		$("#myAlert_add_failed").hide();
+		location.href="?c=Admin&a=getAllInnerStaffInfo";
+	});
 
 });
