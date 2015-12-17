@@ -205,8 +205,9 @@ class AdminController extends Controller
     	$email = $_POST['email'];
         $phone = $_POST['phone'];
     	$telephone = $_POST['telephone'];
-        if (empty($email) || empty($phone)) {
+        if (empty($email) || empty($phone) || empty($telephone)) {
         	echo '{"code":"-1","msg":"邮箱或者电话为空！"}';
+            exit;
         }
 
         $user = D('User','Service');
