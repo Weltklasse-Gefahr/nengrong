@@ -150,7 +150,7 @@ function isLogin($userName, $mUserName){
         echo "<script type='text/javascript'>alert('没有登录');location.href='?c=User&a=login'</script>";
         exit;
     }
-    if (!($mUserName == MD5(addToken($userName))) {
+    if (!($mUserName == MD5(addToken($userName)))) {
         //登录信息错误，弹框提示，并且跳转到登陆页
         header('Content-Type: text/html; charset=utf-8');
         echo "<script type='text/javascript'>alert('登录信息错误');location.href='?c=User&a=login'</script>";
@@ -174,7 +174,7 @@ function isAdminLogin($userName, $mUserName){
         echo "<script type='text/javascript'>alert('没有登录');location.href='?c=Admin&a=login'</script>";
         exit;
     }
-    if (!($mUserName == MD5(addToken($userName))) {
+    if (!($mUserName == MD5(addToken($userName)))) {
         //登录信息错误，弹框提示，并且跳转到登陆页
         header('Content-Type: text/html; charset=utf-8');
         echo "<script type='text/javascript'>alert('登录信息错误');location.href='?c=Admin&a=login'</script>";
