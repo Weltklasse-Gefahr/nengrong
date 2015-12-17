@@ -20,7 +20,7 @@ class UserService extends Model{
         }
 
         setcookie("email", $email, time()+3600);
-        setcookie("mEmail", MD5($email."ENFESDFSDNDLFJddddsssefOWEMDJDJ23392222KKSKSNF"), time()+3600);
+        setcookie("mEmail", MD5(addToken($email)), time()+3600);
 
         return $users[0];
 	}

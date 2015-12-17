@@ -150,7 +150,7 @@ function isLogin($userName, $mUserName){
         echo "<script type='text/javascript'>alert('没有登录');location.href='?c=User&a=login'</script>";
         exit;
     }
-    if (!($mUserName == MD5($userName."ENFESDFSDNDLFJddddsssefOWEMDJDJ23392222KKSKSNF"))) {
+    if (!($mUserName == MD5(addToken($userName))) {
         //登录信息错误，弹框提示，并且跳转到登陆页
         header('Content-Type: text/html; charset=utf-8');
         echo "<script type='text/javascript'>alert('登录信息错误');location.href='?c=User&a=login'</script>";
@@ -174,7 +174,7 @@ function isAdminLogin($userName, $mUserName){
         echo "<script type='text/javascript'>alert('没有登录');location.href='?c=Admin&a=login'</script>";
         exit;
     }
-    if (!($mUserName == MD5($userName."ENFESDFSDNDLFJddddsssefOWEMDJDJ23392222KKSKSNF"))) {
+    if (!($mUserName == MD5(addToken($userName))) {
         //登录信息错误，弹框提示，并且跳转到登陆页
         header('Content-Type: text/html; charset=utf-8');
         echo "<script type='text/javascript'>alert('登录信息错误');location.href='?c=Admin&a=login'</script>";
@@ -204,5 +204,15 @@ function isDataComplete($email){
     return true;
 }
 
+/**
+**@auth qianqiang
+**@breif 生成加密前的加密串
+**@param $str 需要加密的串
+**@return 返回需要加密的串
+**@date 2015.12.17
+**/
+function addToken($str){
+    return $str."ENFESDFSDNDLFJddddsssefOWEMDJDJ23392222KKSKSNF";
+}
 
 ?>
