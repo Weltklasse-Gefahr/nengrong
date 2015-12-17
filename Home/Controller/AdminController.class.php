@@ -26,10 +26,6 @@ class AdminController extends Controller
 
             $manager = D('Admin','Service');
             $objManager = $manager->loginService($userName, $password);
-            
-            // $user = D('User','Service');
-            // $users = $user->getAllInnerStaffService();
-            // $this->assign('listInfo',$users);
 
             if ($_GET['display'] == 'json') {
                 dump($objManager);
@@ -38,7 +34,6 @@ class AdminController extends Controller
             }
             
             echo '{"code":"0","msg":"登录成功！"}';
-            //$this->display("Admin:admin_inner_staff");
         }else {
             $this->display("Admin:admin_login");
         }
@@ -88,28 +83,23 @@ class AdminController extends Controller
     **@date 2015.12.12
     **/
     public function resetPassword(){
-        // if($_POST['rtype'] == 1 || $_GET['rtype'] == 1){
-            isAdminLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
+        isAdminLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
 
-            $id = $_POST['id'];
+        $id = $_POST['id'];
             // $id = 7;
-            if ( empty($id) ) {
-                echo '{"code":"-1","msg":"id为空！"}';
-                exit;
-            }
+        if ( empty($id) ) {
+            echo '{"code":"-1","msg":"id为空！"}';
+            exit;
+        }
 
-            $user = D('User','Service');
-            $objUser = $user->setOriginalPasswordService($id);
-            if ($_GET['display'] == 'json') {
-                dump($objUser);
-                echo json_encode($objUser);
-                exit;
-            }
-            echo '{"code":"0","msg":"修改成功"}';
-            // $this->display(index);        
-        // }else{
-        //     $this->display();
-        // }
+        $user = D('User','Service');
+        $objUser = $user->setOriginalPasswordService($id);
+        if ($_GET['display'] == 'json') {
+            dump($objUser);
+            echo json_encode($objUser);
+            exit;
+        }
+        echo '{"code":"0","msg":"修改成功"}';
     }
 
     /**
@@ -284,22 +274,18 @@ class AdminController extends Controller
     **@date 2015.12.10
     **/
     public function getAllProjectProviderInfo(){
-        // if($_POST['rtype'] == 1 || $_GET['rtype'] == 1){
-            isAdminLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
+        isAdminLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
 
-            $user = D('User','Service');
-            $users = $user->getAllProjectProviderService();
-            $this->assign('listInfo',$users);
+        $user = D('User','Service');
+        $users = $user->getAllProjectProviderService();
+        $this->assign('listInfo',$users);
 
         $display = $_GET['display'];
         if ($display == 'json') {
             dump($users);
             exit;
         }    
-            $this->display("admin:admin_provider");
-        // }else{
-        //     $this->display();
-        // }
+        $this->display("admin:admin_provider");
     }
 
     /**
@@ -308,22 +294,18 @@ class AdminController extends Controller
     **@date 2015.12.10
     **/
     public function getAllProjectInvestorInfo(){
-        // if($_POST['rtype'] == 1 || $_GET['rtype'] == 1){
-        	isAdminLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
+        isAdminLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
 
-            $user = D('User','Service');
-            $users = $user->getAllProjectInvestorService();
-            $this->assign('listInfo',$users);
+        $user = D('User','Service');
+        $users = $user->getAllProjectInvestorService();
+        $this->assign('listInfo',$users);
 
         $display = $_GET['display'];
         if ($display == 'json') {
             dump($users);
             exit;
         }    
-            $this->display("Admin:admin_investors");
-        // }else{
-        //     $this->display();
-        // }
+        $this->display("Admin:admin_investors");
     }
 
     /**
@@ -332,23 +314,19 @@ class AdminController extends Controller
     **@date 2015.12.10
     **/
     public function getAllInnerStaffInfo(){
-        //if($_POST['rtype'] == 1 || $_GET['rtype'] == 1){
-        	isAdminLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
+        isAdminLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
 
-            $user = D('User','Service');
-            $users = $user->getAllInnerStaffService();
-            $this->assign('listInfo',$users);
+        $user = D('User','Service');
+        $users = $user->getAllInnerStaffService();
+        $this->assign('listInfo',$users);
 
         $display = $_GET['display'];
         if ($display == 'json') {
             dump($users);
             exit;
         }
-            //echo '{"code":"0","msg":"成功！"}';
-            $this->display("Admin:admin_inner_staff");
-        //}else{
-        //    $this->display("Admin:admin_inner_staff");
-        //}
+            
+        $this->display("Admin:admin_inner_staff");
     }
 
     /**
