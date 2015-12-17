@@ -51,7 +51,7 @@ class AdminController extends Controller
     **/
 	public function changePassword(){
         if($_POST['rtype'] == 1 || $_GET['rtype'] == 1){
-            isLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
+            isAdminLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
 
             $userName = $_COOKIE['userName'];
             $pwd = $_POST['password'];
@@ -89,7 +89,7 @@ class AdminController extends Controller
     **/
     public function resetPassword(){
         // if($_POST['rtype'] == 1 || $_GET['rtype'] == 1){
-            isLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
+            isAdminLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
 
             $id = $_POST['id'];
             // $id = 7;
@@ -118,7 +118,7 @@ class AdminController extends Controller
     **@date 2015.12.12
     **/
     public function deleteUser(){
-        isLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
+        isAdminLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
 
     	$id = $_POST['id'];
     	if ( empty($id) ) {
@@ -138,7 +138,7 @@ class AdminController extends Controller
     **@date 2015.12.12
     **/
     public function addInnerStaff(){
-        isLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
+        isAdminLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
 
     	$email = $_POST['email'];
         $code = $_POST['code'];
@@ -171,7 +171,7 @@ class AdminController extends Controller
     **@date 2015.12.12
     **/
     public function addProjectInvestor(){
-        isLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
+        isAdminLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
 
     	$email = $_POST['email'];
         $companyName = $_POST['companyName'];
@@ -200,7 +200,7 @@ class AdminController extends Controller
     **@date 2015.12.12
     **/
     public function changeProjectProviderInfo(){
-        isLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
+        isAdminLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
         $id = $_POST['id'];
     	$email = $_POST['email'];
         $phone = $_POST['phone'];
@@ -227,7 +227,7 @@ class AdminController extends Controller
     **@date 2015.12.12
     **/
     public function changeProjectInvestorInfo(){
-        isLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
+        isAdminLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
         $id = $_POST['id'];
     	$email = $_POST['email'];
     	$companyName = $_POST['companyName'];
@@ -253,7 +253,7 @@ class AdminController extends Controller
     **@date 2015.12.12
     **/
     public function changeInnerStaffInfo(){
-        isLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
+        isAdminLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
         $id = $_POST['id'];
     	$email = $_POST['email'];
     	$code = $_POST['code'];
@@ -285,7 +285,7 @@ class AdminController extends Controller
     **/
     public function getAllProjectProviderInfo(){
         // if($_POST['rtype'] == 1 || $_GET['rtype'] == 1){
-            isLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
+            isAdminLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
 
             $user = D('User','Service');
             $users = $user->getAllProjectProviderService();
@@ -309,7 +309,7 @@ class AdminController extends Controller
     **/
     public function getAllProjectInvestorInfo(){
         // if($_POST['rtype'] == 1 || $_GET['rtype'] == 1){
-        	isLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
+        	isAdminLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
 
             $user = D('User','Service');
             $users = $user->getAllProjectInvestorService();
@@ -333,7 +333,7 @@ class AdminController extends Controller
     **/
     public function getAllInnerStaffInfo(){
         //if($_POST['rtype'] == 1 || $_GET['rtype'] == 1){
-        	isLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
+        	isAdminLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
 
             $user = D('User','Service');
             $users = $user->getAllInnerStaffService();
@@ -357,7 +357,7 @@ class AdminController extends Controller
     **@date 2015.12.13
     **/
     public function getEditUserInfo(){
-        isLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
+        isAdminLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
         $id = $_GET["id"];
         // $id = 2;
         $user = D('User','Service');

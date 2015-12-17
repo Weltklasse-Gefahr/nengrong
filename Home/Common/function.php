@@ -159,6 +159,30 @@ function isLogin($userName, $mUserName){
 }
 
 /**
+**@auth qiujinhan
+**@breif 管理员登陆状态判断
+**@param $userName 用户名
+**@param mUserName  加密后的用户名
+**@return 如果登陆了就返回true 如果没有登陆就弹框提示，并且跳转到登陆页面
+**@date 2015.12.17
+**/
+function isAdminLogin($userName, $mUserName){
+    // return true;
+    if (empty($userName) || empty($mUserName)) {
+        //没有登陆，弹框提示，并且跳转到登陆页
+        header('Content-Type: text/html; charset=utf-8');
+        echo "<script type='text/javascript'>alert('没有登录');location.href='?c=Admin&a=login'</script>";
+        exit;
+    }
+    if (!($mUserName == MD5($userName."ENFESDFSDNDLFJddddsssefOWEMDJDJ23392222KKSKSNF"))) {
+        //登录信息错误，弹框提示，并且跳转到登陆页
+        header('Content-Type: text/html; charset=utf-8');
+        echo "<script type='text/javascript'>alert('登录信息错误');location.href='?c=Admin&a=login'</script>";
+        exit;
+    }
+}
+
+/**
 **@auth qianqiang
 **@breif 判断必填资料是否填写完成
 **@param $email 用户邮箱
