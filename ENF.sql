@@ -43,7 +43,7 @@ create table ENF_Doc
 (
    id                   bigint not null auto_increment,
    file_name            varchar(100) not null comment '文件名称',
-   file_rename          varchar(100) not null comment '文件重定向名称',
+   file_rename          varchar(100) not null comment '文件重定向名称url',
    update_date          datetime not null comment '上传时间',
    primary key (id)
 )ENGINE = InnoDB DEFAULT CHARSET = utf8;
