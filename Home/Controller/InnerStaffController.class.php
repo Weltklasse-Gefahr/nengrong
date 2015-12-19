@@ -16,28 +16,30 @@ class InnerStaffController extends Controller {
 
     /**
     **@auth qianqiang
-    **@breif 客服->尽职调查入口
+    **@breif 客服->尽职调查
     **@date 2015.12.19
     **/
-    public function showEvaluation(){
-    	$this->display("InnerStaff:jzdc");
+    public function doEvaluation(){
+    	isLogin($_COOKIE['email'], $_COOKIE['mEmail']);
+    	
+    	$optype = $_POST['optype'] ? $_POST['optype']:$_GET['optype'];
+        $rtype = $_POST['rtype'] ? $_POST['rtype']:$_GET['rtype'];
+    	if($optype == "save" && $rtype == 1){
+
+    	}elseif($optype == "commit" && $rtype == 1){
+
+    	}elseif($rtype != 1){
+    		$projectCode = $_COOKIE['projectCode'];
+
+    		$objProject  = D("Project","Service");
+    		$objProjectInfo = $objProject->getProjectInfo($projectCode);
+    		$projectId = $objProjectInfo['id'];
+    		$projectDetail = $objProject->getProjectDetail($projectId, $objProjectInfo['project_type']);
+//获取尽职调查表中的数据，显示
+    		$this->assign('projectDetail', $projectDetail);
+    		$this->display("InnerStaff:jzdc");
+    	}
     }
 
-    /**
-    **@auth qianqiang
-    **@breif 客服->保存尽职调查
-    **@date 2015.12.19
-    **/
-    public function saveEvaluation(){
 
-    }
-
-    /**
-    **@auth qianqiang
-    **@breif 客服->提交尽职调查
-    **@date 2015.12.19
-    **/
-    public function submitEvaluation(){
-
-    }
 }

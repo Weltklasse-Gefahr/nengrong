@@ -86,7 +86,7 @@ $(function() {
 	});
 
 	// 日期选择框
-	require("lib/jquery-ui.min");
+	require("lib/jquery-ui");
 	$("input[data-type=date]").datepicker();
 
 	// 保存资料

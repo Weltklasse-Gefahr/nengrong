@@ -16,16 +16,6 @@ class ProjectProviderMyProController extends Controller {
     }
 
 
-    /**
-    **@auth qiujinhan@gmail.com
-    **@breif 项目提供方->待评估项目入口
-    **@date 2015.12.13
-    **/
-    public function awaitingAssessment()
-    {
-        $this->display("ProjectProvider:awaitingAssessment");
-    }
-
 
     /**
     **@auth qiujinhan@gmail.com
@@ -72,6 +62,17 @@ class ProjectProviderMyProController extends Controller {
             $this->assign('project',$projectInfo);
             $this->display();
         }
+    }
+
+
+    /**
+    **@auth qiujinhan@gmail.com
+    **@breif 项目提供方->待评估项目入口
+    **@date 2015.12.13
+    **/
+    public function awaitingAssessment()
+    {
+        $this->display("ProjectProvider:awaitingAssessment");
     }
 
 
