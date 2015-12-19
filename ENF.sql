@@ -9,6 +9,8 @@ drop table if exists ENF_Area;
 
 drop table if exists ENF_Doc;
 
+drop table if exists ENF_Evaluation;
+
 drop table if exists ENF_Ground;
 
 drop table if exists ENF_Housetop;
@@ -49,12 +51,56 @@ create table ENF_Doc
 alter table ENF_Doc comment '附件表';
 
 /*==============================================================*/
+/* Table: ENF_Evaluation                                        */
+/*==============================================================*/
+create table ENF_Evaluation
+(
+   id                   bigint not null auto_increment,
+   project_id           bigint comment '归属项目id',
+   IRR                  double comment '内部收益率',
+   evaluation_result    varchar(10) comment '评价结果',
+   static_payback_time  double comment '静态投资回收年',
+   dynamic_payback_time double comment '动态投资回收期',
+   LCOE                 double comment 'LCOE',
+   npv                  double comment '净现值',
+   power_asset_current_value double comment '电站资产累计现值',
+   evaluation_content   varchar(600) comment '评价内容',
+   document_review      varchar(600) comment '文件审查',
+   project_quality_situation varchar(600) comment '工程建设质量和系统运行情况',
+   project_invest_situation varchar(600) comment '项目建设投资情况',
+   project_earnings_situation varchar(600) comment '项目经济收益情况',
+   doc1                 varchar(20) comment '附件1对应的附件表id',
+   doc2                 varchar(20) comment '附件2对应的附件表id',
+   doc3                 varchar(20) comment '附件3对应的附件表id',
+   create_date          datetime comment '创建时间',
+   change_date          datetime comment '修改时间',
+   status               int not null default 0 comment '状态类型：0正常、1已激活、2未激活、11未提交、12已提交未查看（业务员界面高亮处理）、13已提交已查看、21签意向合同（可以推送）、22签意向合同、31签融资合同、41已推送、42未推送、51尽职调查已保存、52尽职调查已提交、9999删除',
+   primary key (id),
+   INDEX `evaluation_project_id` (`project_id`)
+)ENGINE = InnoDB DEFAULT CHARSET = utf8;
+
+alter table ENF_Evaluation comment '尽职调查表';
+
+/*==============================================================*/
 /* Table: ENF_Ground                                            */
 /*==============================================================*/
 create table ENF_Ground
 (
    id                   bigint not null auto_increment,
    project_id           bigint not null comment '归属项目id',
+   picture1             varchar(100) comment '图片1URL',
+   picture2             varchar(100) comment '图片2URL',
+   picture3             varchar(100) comment '图片3URL',
+   picture4             varchar(100) comment '图片4URL',
+   picture5             varchar(100) comment '图片5URL',
+   picture6             varchar(100) comment '图片6URL',
+   picture7             varchar(100) comment '图片7URL',
+   picture8             varchar(100) comment '图片8URL',
+   picture9             varchar(100) comment '图片9URL',
+   picture10            varchar(100) comment '图片10URL',
+   picture11            varchar(100) comment '图片11URL',
+   picture12            varchar(100) comment '图片12URL',
+   contract             varchar(20) comment '合同的docID',
    ground_property      int comment '土地性质（1一般农田、2林地、3荒地、4鱼塘、5基本农田）',
    ground_area          double comment '租赁土地面积',
    rent_time            double comment '租赁年限',
@@ -100,8 +146,9 @@ create table ENF_Ground
    comment              varchar(500) comment '备注',
    create_date          datetime comment '创建时间',
    change_date          datetime comment '修改时间',
-   status               int not null comment '状态类型：0正常、1已激活、2未激活、11未提交、12已提交未查看（业务员界面高亮处理）、13已提交已查看、21签意向合同（可以推送）、22签意向合同、31签融资合同、41已推送、42未推送、9999删除',
-   primary key (id)
+   status               int not null default 0 comment '状态类型：0正常、1已激活、2未激活、11未提交、12已提交未查看（业务员界面高亮处理）、13已提交已查看、21签意向合同（可以推送）、22签意向合同、31签融资合同、41已推送、42未推送、51尽职调查已保存、52尽职调查已提交、9999删除',
+   primary key (id),
+   INDEX `ground_project_id` (`project_id`)
 )ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 alter table ENF_Ground comment '大型地面电站/地面分布式';
@@ -113,9 +160,22 @@ create table ENF_Housetop
 (
    id                   bigint not null auto_increment,
    project_id           bigint not null comment '归属项目id',
+   picture1             varchar(100) comment '图片1URL',
+   picture2             varchar(100) comment '图片2URL',
+   picture3             varchar(100) comment '图片3URL',
+   picture4             varchar(100) comment '图片4URL',
+   picture5             varchar(100) comment '图片5URL',
+   picture6             varchar(100) comment '图片6URL',
+   picture7             varchar(100) comment '图片7URL',
+   picture8             varchar(100) comment '图片8URL',
+   picture9             varchar(100) comment '图片9URL',
+   picture10            varchar(100) comment '图片10URL',
+   picture11            varchar(100) comment '图片11URL',
+   picture12            varchar(100) comment '图片12URL',
+   contract             varchar(20) comment '合同的docID',
    housetop_owner       varchar(50) comment '屋顶业主名称',
    company_type         int comment '企业类型（1国企、2外企、3私企）',
-   company_capital      double comment '业主企业注册资本',
+   company_capital      double comment '注册资本金',
    housetop_property_prove varchar(8) comment '屋顶产权证明（有/无）',
    electricity_total    double comment '年用电量',
    electricity_pay      double comment '电费',
@@ -163,8 +223,9 @@ create table ENF_Housetop
    comment              varchar(500) comment '备注',
    create_date          datetime comment '创建时间',
    change_date          datetime comment '修改时间',
-   status               int not null comment '状态类型：0正常、1已激活、2未激活、11未提交、12已提交未查看（业务员界面高亮处理）、13已提交已查看、21签意向合同（可以推送）、22签意向合同、31签融资合同、41已推送、42未推送、9999删除',
-   primary key (id)
+   status               int not null default 0 comment '状态类型：0正常、1已激活、2未激活、11未提交、12已提交未查看（业务员界面高亮处理）、13已提交已查看、21签意向合同（可以推送）、22签意向合同、31签融资合同、41已推送、42未推送、51尽职调查已保存、52尽职调查已提交、9999删除',
+   primary key (id),
+   INDEX `housetop_project_id` (`project_id`)
 )ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 alter table ENF_Housetop comment '屋顶分布项目表';
@@ -177,24 +238,12 @@ create table ENF_Project
    id                   bigint not null auto_increment,
    project_code         varchar(30) not null unique comment '项目编号',
    project_type         int comment '项目类型：1屋顶分布式、2地面分布式、3大型地面',
+   project_area         varchar(10) comment '项目地区',
+   project_address     	varchar(60) comment '项目详细地址',
    build_state          int comment '建设状态：1未建、2已建',
-   project_area         varchar(50) comment '项目位置',
-   picture1             varchar(100) comment '图片1URL',
-   picture2             varchar(100) comment '图片2URL',
-   picture3             varchar(100) comment '图片3URL',
-   picture4             varchar(100) comment '图片4URL',
-   picture5             varchar(100) comment '图片5URL',
-   picture6             varchar(100) comment '图片6URL',
-   picture7             varchar(100) comment '图片7URL',
-   picture8             varchar(100) comment '图片8URL',
-   picture9             varchar(100) comment '图片9URL',
-   picture10            varchar(100) comment '图片10URL',
-   picture11            varchar(100) comment '图片11URL',
-   picture12            varchar(100) comment '图片12URL',
-   contract             varchar(100) comment '合同的docID',
    create_date          datetime comment '创建时间',
    change_date          datetime comment '修改时间',
-   status               int not null comment '状态类型：0正常、1已激活、2未激活、11未提交、12已提交未查看（业务员界面高亮处理）、13已提交已查看、21签意向合同（可以推送）、22签意向合同、31签融资合同、41已推送、42未推送、9999删除',
+   status               int not null default 0 comment '状态类型：0正常、1已激活、2未激活、11未提交、12已提交未查看（业务员界面高亮处理）、13已提交已查看、21签意向合同（可以推送）、22签意向合同、31签融资合同、41已推送、42未推送、51尽职调查已保存、52尽职调查已提交、9999删除',
    primary key (id)
 )ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
@@ -207,8 +256,9 @@ create table ENF_PushProject
    email                varchar(100) comment '投资人邮箱',
    project_code         varchar(100) comment '项目编号',
    push_time            datetime comment '推送时间',
-   status               int not null comment '状态类型：0正常、1已激活、2未激活、11未提交、12已提交未查看（业务员界面高亮处理）、13已提交已查看、21签意向合同（可以推送）、22签意向合同、31签融资合同、41已推送、42未推送、9999删除',
-   primary key (id)
+   status               int not null default 0 comment '状态类型：0正常、1已激活、2未激活、11未提交、12已提交未查看（业务员界面高亮处理）、13已提交已查看、21签意向合同（可以推送）、22签意向合同、31签融资合同、41已推送、42未推送、51尽职调查已保存、52尽职调查已提交、9999删除',
+   primary key (id),
+   INDEX `pushProject_email` (`email`)
 )ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 alter table ENF_PushProject comment '推送到投资方的项目表';
@@ -236,18 +286,18 @@ create table ENF_User
    company_contacts     varchar(100) comment '联系人',
    company_contacts_phone varchar(11) comment '联系人手机',
    company_contacts_position varchar(100) comment '联系人职务',
-   business_license     varchar(100) comment '公司营业执照URL',
-   organization_code    varchar(100) comment '组织机构代码证URL',
-   national_tax_certificate varchar(100) comment '国税登记证URL',
-   local_tax_certificate varchar(100) comment '地税登记证URL',
-   identity_card_front  varchar(100) comment '法人身份证正面URL',
-   identity_card_back   varchar(100) comment '法人身份证反面URL',
+   business_license     varchar(100) comment '公司营业执照-附件ID',
+   organization_code    varchar(100) comment '组织机构代码证-附件ID',
+   national_tax_certificate varchar(100) comment '国税登记证-附件ID',
+   local_tax_certificate varchar(100) comment '地税登记证-附件ID',
+   identity_card_front  varchar(100) comment '法人身份证正面-附件ID',
+   identity_card_back   varchar(100) comment '法人身份证反面-附件ID',
    financial_audit      varchar(20) comment '财务审计报告的docID',
    create_date          datetime comment '创建时间',
    change_date          datetime comment '修改时间',
-   status               int not null default 0 comment '状态类型：0正常、1已激活、2未激活、11未提交、12已提交未查看（业务员界面高亮处理）、13已提交已查看、21签意向合同（可以推送）、22签意向合同、31签融资合同、41已推送、42未推送、9999删除',
+   status               int not null default 0 comment '状态类型：0正常、1已激活、2未激活、11未提交、12已提交未查看（业务员界面高亮处理）、13已提交已查看、21签意向合同（可以推送）、22签意向合同、31签融资合同、41已推送、42未推送、51尽职调查已保存、52尽职调查已提交、9999删除',
    primary key (id),
-   INDEX `mail` (`email`)
+   INDEX `user_email` (`email`)
 )ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 alter table ENF_User comment '用户表';

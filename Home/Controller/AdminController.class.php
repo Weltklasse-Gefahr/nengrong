@@ -41,6 +41,18 @@ class AdminController extends Controller
 
     /**
     **@auth qianqiang
+    **@breif 管理员注销
+    **@date 2015.12.19
+    **/
+    public function logout(){
+        isAdminLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
+        $manager = D('Admin','Service');
+        $objManager = $manager->logoutService();
+        $this->display("Admin:admin_login");
+    }
+
+    /**
+    **@auth qianqiang
     **@breif 修改管理员密码
     **@date 2015.12.09
     **/

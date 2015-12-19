@@ -159,7 +159,7 @@ function isLogin($userName, $mUserName){
 }
 
 /**
-**@auth qiujinhan
+**@auth qianqiang
 **@breif 管理员登陆状态判断
 **@param $userName 用户名
 **@param mUserName  加密后的用户名
@@ -192,7 +192,7 @@ function isAdminLogin($userName, $mUserName){
 function isDataComplete($email){
     $user = M("User");
     $objUser = $user->where("email='".$email."'")->find();
-    dump($objUser);
+    //dump($objUser);
     //只有项目提供方有必填项：企业名称、联系人、联系人手机
     if($objUser["user_type"] == 3){
         if($objUser["company_name"] == NULL || $objUser["company_contacts"] == NULL || $objUser["company_contacts_phone"] == NULL){

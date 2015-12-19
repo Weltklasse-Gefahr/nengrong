@@ -45,6 +45,190 @@
 	top: -20px;
 }
 
+.r-content form .part1 .brief-info {
+	width: 780px;
+	height: 190px;
+	border: 2px solid #EC9797;
+	border-radius: 5px;
+	position: relative;
+}
+
+.r-content form .part1 .brief-info .l {
+	width: 286px;
+	height: 100%;
+	float: left;
+}
+
+.r-content form .part1 .brief-info .r {
+	width: 490px;
+	height: 100%;
+	float: left;
+}
+
+.r-content form .part1 .brief-info .top, .r-content form .part1 .brief-info .bottom {
+	background-color: #eee;
+	text-align: center;
+	line-height: 36px;
+}
+
+.r-content form .part1 .brief-info .top input, .r-content form .part1 .brief-info .bottom input {
+	height: 24px;
+	margin-left: 5px;
+	width: 75px;
+}
+
+.r-content form .part1 .brief-info .top span, .r-content form .part1 .brief-info .bottom span {
+	margin-right: 10px;
+}
+
+.r-content form .part1 .brief-info .top span.last, .r-content form .part1 .brief-info .bottom span.last {
+	margin-right: 0;
+}
+
+.r-content form .part1 .brief-info .middle {
+	height: 114px;
+}
+
+.r-content form .part1 .brief-info .middle .item {
+	float: left;
+	margin-left: 50px;
+	width: 100px;
+	text-align: center;
+}
+
+.r-content form .part1 .brief-info .middle .item img {
+	width: 50px;
+	height: 50px;
+}
+
+.r-content form .part1 .brief-info .middle .item input {
+	width: 80px;
+	height: 24px;
+}
+
+
+.r-content form .detail.part2 {
+	padding: 40px 0;
+}
+
+.r-content form .part2 table td {
+	text-align: center;
+	border: 1px solid #ccc;
+}
+
+.r-content form .part2 table.main-info {
+	width: 100%;
+}
+
+.r-content form .part2 table.main-info > tbody > tr > td:first-child {
+	width: 140px;
+	background-color: #ccc;
+}
+
+.r-content form .part2 table.base-info td {
+	height: 30px;
+}
+
+.r-content form .part2 table.base-info td.c0 {
+	width: 125px;
+}
+.r-content form .part2 table.base-info td.c1 {
+	width: 280px;
+	text-align: left;
+	padding-left: 35px;
+}
+.r-content form .part2 table.base-info td.c2 {
+	width: 80px;
+}
+.r-content form .part2 table.base-info td.c3 {
+	width: 214px;
+	text-align: left;
+	padding-left: 40px;
+}
+
+.r-content form .part2 table.base-info input, .r-content form .part2 table.base-info select {
+	padding-left: 2px;
+	width: 160px;
+	height: 24px;
+	margin-right: 5px;
+}
+
+.r-content form .part2 table.main-info textarea {
+	width: 100%;
+	height: 300px;
+	padding-left: 20px;
+	height: 110px;
+	border: 0;
+	resize: none;
+}
+
+.r-content form .part2 table.main-info .hd {
+	text-align: left;
+	padding-left: 20px;
+	line-height: 32px;
+	background-color: #ccc;
+}
+
+.r-content form .part2 table .result-info td {
+	width: 78px;
+	height: 40px;
+	position: relative;
+}
+
+.r-content form .part2 table .result-info td.s {
+	border-color: #fff;
+}
+
+.r-content form .part2 table .result-info td.s > div {
+	display: block;
+	cursor: pointer;
+	width: 76px;
+	height: 39px;
+	padding-top: 11px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	color: #fff;
+}
+
+.r-content form .part2 table .result-info td.s > div:hover {
+	width: 88px;
+	height: 50px;
+	top: -5px;
+	left: -5px;
+	padding-top: 15px;
+	z-index: 1;
+}
+
+.r-content form .part2 table .result-info .s-aaa {
+	background-color: #FD793F;
+}
+.r-content form .part2 table .result-info .s-aa {
+	background-color: #FF8F5E;
+}
+.r-content form .part2 table .result-info .s-a {
+	background-color: #FBAF8E;
+}
+.r-content form .part2 table .result-info .s-bbb {
+	background-color: #F8C8B4;
+}
+.r-content form .part2 table .result-info .s-bb {
+	background-color: #FBCC7B;
+}
+.r-content form .part2 table .result-info .s-b {
+	background-color: #F9AF33;
+}
+.r-content form .part2 table .result-info .s-ccc {
+	background-color: #96AFDB;
+}
+.r-content form .part2 table .result-info .s-cc {
+	background-color: #6D8BC0;
+}
+.r-content form .part2 table .result-info .s-c {
+	background-color: #6D8BC0;
+}
+
+
 .r-content form .operator {
 	margin-top: 30px;
 	text-align: center;
