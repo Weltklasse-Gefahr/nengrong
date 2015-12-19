@@ -21,7 +21,7 @@ class InnerStaffController extends Controller {
     **/
     public function doEvaluation(){
     	isLogin($_COOKIE['email'], $_COOKIE['mEmail']);
-    	$email = $_COOKIE['email'];
+    	
     	$optype = $_POST['optype'] ? $_POST['optype']:$_GET['optype'];
         $rtype = $_POST['rtype'] ? $_POST['rtype']:$_GET['rtype'];
     	if($optype == "save" && $rtype == 1){
@@ -29,7 +29,14 @@ class InnerStaffController extends Controller {
     	}elseif($optype == "commit" && $rtype == 1){
 
     	}elseif($rtype != 1){
-    		
+    		$projectCode = $_COOKIE['projectCode'];
+
+    		$objProject  = D("Project","Service");
+    		$objProjectInfo = $objProject->getProjectInfo($projectCode);
+    		$projectId = $objProjectInfo['id'];
+    		$projectDetail = $objProject->getProjectDetail($projectId, $objProjectInfo['project_type']);
+//获取尽职调查表中的数据，显示
+    		$this->assign('projectDetail', $projectDetail);
     		$this->display("InnerStaff:jzdc");
     	}
     }

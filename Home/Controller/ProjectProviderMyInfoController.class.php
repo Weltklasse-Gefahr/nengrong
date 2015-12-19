@@ -167,11 +167,10 @@ class ProjectProviderMyInfoController extends Controller {
                 exit;
             }
 
-            $user = D('ProjectProviderSafety','Service');
+            $user = D('User','Service');
             $objUser = $user->changePasswordService($email, $pwd, $newPwd);
             if ($_GET['display'] == 'json') {
                 dump($objUser);
-                // echo json_encode($objUser);
                 exit;
             }
             $this->display("ProjectProvider:securityCenter");            
