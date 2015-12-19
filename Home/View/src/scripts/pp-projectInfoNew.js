@@ -4,8 +4,18 @@ $(function() {
 
 	// 项目类型
 	$("input[name=project_type], input[name=build_state]").siblings("span").click(function() {
+
+		if($(this).hasClass("active")) {
+			return;
+		}
+
 		$(this).addClass("active").siblings().removeClass("active");
 		$(this).siblings("input").val($(this).data("filter"));
+		
+		$("#infoForm").attr("class", [
+			["housetop", "ground", "ground"][$("input[name=project_type]").val()-1],
+			["nonBuild", "build"][$("input[name=build_state]").val()-1]
+		].join("_"));
 	});
 
 	// 省市区级联
@@ -74,6 +84,10 @@ $(function() {
 			$(this).siblings(".other").hide().val("");
 		}
 	});
+
+	// 日期选择框
+	require("lib/jquery-ui.min");
+	$("input[data-type=date]").datepicker();
 
 	// 保存资料
 	var options = {
