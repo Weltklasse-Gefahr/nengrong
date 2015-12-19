@@ -35,11 +35,11 @@ class UserController extends Controller
             // $a = intval($users["user_type"]);
             // echo $a;echo gettype($a);exit;
             if($users["user_type"] == 2){
-                echo '{"code":"0","msg":"登录成功！","url":"?c=User&a=protocol"}';
+                echo '{"code":"0","msg":"登录成功！","url":"?c=InnerStaff&a=search"}';
             }else if($users["user_type"] == 3){
-                echo '{"code":"0","msg":"登录成功！","url":"?c=User&a=protocol"}';
+                echo '{"code":"0","msg":"登录成功！","url":"?c=ProjectProviderMyPro&a=awaitingAssessment"}';
             }else if($users["user_type"] == 4){
-                echo '{"code":"0","msg":"登录成功！","url":"?c=User&a=protocol"}';
+                echo '{"code":"0","msg":"登录成功！","url":"?c=ProjectInvestorMyPro&a=recommendedProject"}';
             }
         }else {
             $this->display("User:login");
@@ -160,9 +160,9 @@ class UserController extends Controller
     // }
 
 
-    public function getDynamicCode(){
-        code();
-    }
+    // public function getDynamicCode(){
+    //     code();
+    // }
 
     public function test1(){
         $email = "qianqiang@qq.com";
