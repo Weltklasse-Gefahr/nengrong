@@ -49,6 +49,32 @@ $(function() {
 		height: "20px"
 	});
 
+	// 有无（附件）
+	$("select").filter(function(){
+		return $(this).data("withFile");
+	}).change(function(e) {
+		var $inputWrap = $(this).siblings(".input-wrap"),
+			$preview = $(this).siblings(".preview");
+		if(this.value === "1") { // 有
+			$inputWrap.show();
+		} else { // 无
+			$inputWrap.hide().find("input").val("");
+			$preview.hide().find("a").attr("href", "javascript:;").text("");
+		}
+	});
+
+	// 其他（可填写）
+	$("select").filter(function(){
+		return $(this).data("withOther");
+	}).change(function(e) {
+		var value = this.value;
+		if(value === "0") { // 其他
+			$(this).siblings(".other").show();
+		} else {
+			$(this).siblings(".other").hide().val("");
+		}
+	});
+
 	// 保存资料
 	var options = {
 	   	// target: '#output',          //把服务器返回的内容放入id为output的元素中      

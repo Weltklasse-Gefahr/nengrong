@@ -87,15 +87,15 @@
 						<span class="lb">上传图片：</span>
 						<div class="item clrfix">
 							<div class="img-ct">
-								<input type="file" accept="image/gif,image/jpeg,image/png" name="picture" style="visibility: hidden;" />
+								<input type="file" accept="image/gif,image/jpeg,image/png" name="picture" style="visibility: hidden;" data-url="" data-name="" data-id="" />
 								<p>屋顶全景图</p>
 							</div>
 							<div class="img-ct">
-								<input type="file" accept="image/gif,image/jpeg,image/png" name="picture" style="visibility: hidden;" />
+								<input type="file" accept="image/gif,image/jpeg,image/png" name="picture" style="visibility: hidden;" data-url="" data-name="" data-id="" />
 								<p>屋顶正南向照片</p>
 							</div>
 							<div class="img-ct">
-								<input type="file" accept="image/gif,image/jpeg,image/png" name="picture" style="visibility: hidden;" />
+								<input type="file" accept="image/gif,image/jpeg,image/png" name="picture" style="visibility: hidden;" data-url="" data-name="" data-id="" />
 								<p class="previewname"></p>
 							</div>
 							<p class="tip">备注：请上传近期高清照片，从不同角度拍摄。</p>
@@ -123,14 +123,17 @@
 				<ul class="detail part2">
 					<li>
 						<span class="lb">屋顶业主名称</span>
-						<input name="housetop_owner" value="张三">
+						<input name="housetop_owner" value="张三"><span class="gray">公司</span>
 					</li>
 					<li>
 						<span class="lb">企业类型</span>
 						<select name="company_type">
-							<option value="1">国企</option>
-							<option value="2" selected>外企</option>
-							<option value="3">私企</option>
+							<option value="1">国企（上市公司）</option>
+							<option value="2" selected>外企（上市公司）</option>
+							<option value="3">私企（上市公司）</option>
+							<option value="4">国企（非上市公司）</option>
+							<option value="5">外企（非上市公司）</option>
+							<option value="6">私企（非上市公司）</option>
 						</select>
 					</li>
 					<li>
@@ -139,11 +142,11 @@
 					</li>
 					<li>
 						<span class="lb">屋顶产权证明</span>
-						<select name="housetop_property_prove_select">
+						<select data-with-file="true">
 							<option value="1" selected>有</option>
 							<option value="2">无</option>
 						</select>
-						<input type="file" accept="application/pdf,application/msword,application/vnd.ms-powerpoint,aplication/zip" name="housetop_property_prove" style="visibility: hidden;"  data-url="/EnergyFe/img/FI5.jpg" data-name="a.jpg"/>
+						<input type="file" accept="application/pdf,application/msword,application/vnd.ms-powerpoint,aplication/zip" name="housetop_property_prove" style="visibility: hidden;" data-url="" data-name="" data-id="" />
 					</li>
 					<li>
 						<span class="lb">年用电量</span>
@@ -162,15 +165,20 @@
 				<ul class="detail part2">
 					<li>
 						<span class="lb">屋顶类型</span>
-						<select name="housetop_type">
+						<select name="housetop_type" data-with-other="true">
 							<option value="1">混凝土</option>
-							<option value="2">混凝土</option>
+							<option value="2">彩钢瓦</option>
+							<option value="0">其他（可填写）</option>
 						</select>
-						<input class="more-info" name="" value="">
+						<input class="other" name="housetop_type_other" style="display: none;" value="">
 					</li>
 					<li>
 						<span class="lb">屋顶面积</span>
 						<input name="housetop_area" value="666"><span class="gray">m<sup>2</sup></span>
+					</li>
+					<li data-type="Housetop_build">
+						<span class="lb">屋顶防水周期</span>
+						<input name="housetop_waterproof_time" value="70"><span class="gray"年</span>
 					</li>
 					<li>
 						<span class="lb">屋顶使用寿命</span>
@@ -178,11 +186,30 @@
 					</li>
 					<li>
 						<span class="lb">屋顶朝向</span>
-						<select name="housetop_direction">
+						<select name="housetop_direction" data-with-other="true">
 							<option value="1">正南</option>
-							<option value="2">正北</option>
+							<option value="2">东西向</option>
+							<option value="0">其他（可填写）</option>
 						</select>
-						<input class="more-info" name="" value="">
+						<input class="other" name="housetop_direction_other" style="display: none;" value="">
+					</li>
+					<li data-type="Housetop_build">
+						<span class="lb">屋顶活载荷</span>
+						<input name="housetop_load" value="666"><span class="gray">kN/m<sup>2</sup></span>
+					</li>
+					<li data-type="Housetop_build">
+						<span class="lb">附近有无遮挡</span>
+						<select name="has_shelter">
+							<option value="1">有</option>
+							<option value="2">无</option>
+						</select>
+					</li>
+					<li data-type="Housetop_build">
+						<span class="lb">有无污染源</span>
+						<select name="has_pollution">
+							<option value="1">有</option>
+							<option value="2">无</option>
+						</select>
 					</li>
 				</ul>
 				<p class="title">电网接入</p>
@@ -195,12 +222,16 @@
 						<span class="lb">并网电压等级</span>
 						<input name="voltage_level" value="2"><span class="gray">kV</span>
 					</li>
+					<li data-type="Housetop_build">
+						<span class="lb">电网接入点距离</span>
+						<input name="electricity_distance" value="200"><span class="gray">m</span>
+					</li>
 					<li>
 						<span class="lb">并网方式</span>
 						<select name="synchronize_type">
 							<option value="1">自发自用</option>
 							<option value="2" selected>全额上网</option>
-							<option value="3">自发自用全额上网</option>
+							<option value="3">自发自用,全额上网</option>
 						</select>
 					</li>
 				</ul>
