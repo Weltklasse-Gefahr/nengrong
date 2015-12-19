@@ -72,8 +72,8 @@
   <ul>
 
     <li class="active"><a href="http://www.enetf.com/?c=Admin&a=getAllInnerStaffInfo"><i class="icon icon-group"></i> <span>业务员管理</span></a></li>
-	<li><a href="admin_investors.html"><i class="icon icon-briefcase"></i> <span>项目投资方管理</span></a></li>
-	<li><a href="admin_provider.html"><i class="icon icon-fire"></i> <span>项目提供方管理</span></a></li>
+	<li><a href="http://www.enetf.com/?c=Admin&a=getAllProjectInvestorInfo"><i class="icon icon-briefcase"></i> <span>项目投资方管理</span></a></li>
+	<li><a href="http://www.enetf.com/?c=Admin&a=getAllProjectProviderInfo"><i class="icon icon-fire"></i> <span>项目提供方管理</span></a></li>
 
   </ul>
 
@@ -109,23 +109,23 @@
               <div class="control-group">
                 <label class="control-label">业务员邮箱：</label>
                 <div class="controls">
-                  <input id="edit_email" type="text" name="required" id="required" value="{$userInfo[0]['email']}">
+                  <input id="edit_email" type="text" name="required"  value="{$userInfo[0]['email']}">
                 </div>
               </div>
               <div class="control-group">
                 <label class="control-label">业务员工号：</label>
                 <div class="controls">
-                  <input id="edit_code" type="text" name="email" id="email" value="{$userInfo[0]['code']}">
+                  <input id="edit_code" type="text" name="email"  value="{$userInfo[0]['code']}">
                 </div>
               </div>
               <div class="control-group">
                 <label class="control-label">业务员姓名：</label>
                 <div class="controls">
-                  <input id="edit_name" type="text" name="date" id="date" value="{$userInfo[0]['name']}">
+                  <input id="edit_name" type="text" name="date"  value="{$userInfo[0]['name']}">
                 </div>
               </div>
               <div class="form-actions" style="text-align:center">
-                <input id="edit_save"  type="submit" value="提交" class="btn btn-success">
+                <input id="edit_save" type="submit" value="提交" class="btn btn-success">
               </div>
             </div>
           </div>
