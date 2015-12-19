@@ -24,6 +24,18 @@ class AdminService extends Model{
         return $objManager[0];
     }
 
+    /**
+    **@auth qianqiang
+    **@breif 管理员注销
+    **@date 2015.12.19
+    **/
+	public function logoutService(){
+
+        setcookie("userName", $userName, time()-3600);
+        setcookie("mUserName", MD5(addToken($userName)), time()-3600);
+echo "@@@@"; exit;
+    }
+
 	/**
     **@auth qianqiang
     **@breif 修改密码
