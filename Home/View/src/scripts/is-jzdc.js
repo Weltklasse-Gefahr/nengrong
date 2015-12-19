@@ -5,22 +5,14 @@ $(function() {
 
 	require("common/erqi/customUpload");
 	require("lib/jquery.form");
-	
-	// 上传图片
-	$(".detail.part2 .item input[type=file]").customUpload({
-		bg_url: "upload.png",
-		uploadType: "image",
-		width: "120px",
-		height: "120px"
-	});
 
-	// 上传文件
-	$(".detail.part2 .finance input[type=file]").customUpload({
-		content: "+",
-		uploadType: "file",
-		width: "20px",
-		height: "38px"
-	});
+	// 上传附件
+	// $(".detail.part3 input[type=file]").customUpload({
+	// 	content: "+",
+	// 	uploadType: "file",
+	// 	width: "20px",
+	// 	height: "38px"
+	// });
 
 	// 保存资料
 	var options = {
