@@ -150,7 +150,7 @@ function isLogin($userName, $mUserName){
         echo "<script type='text/javascript'>alert('没有登录');location.href='?c=User&a=login'</script>";
         exit;
     }
-    if (!($mUserName == MD5($userName."ENFESDFSDNDLFJddddsssefOWEMDJDJ23392222KKSKSNF"))) {
+    if (!($mUserName == MD5(addToken($userName)))) {
         //登录信息错误，弹框提示，并且跳转到登陆页
         header('Content-Type: text/html; charset=utf-8');
         echo "<script type='text/javascript'>alert('登录信息错误');location.href='?c=User&a=login'</script>";
@@ -159,15 +159,60 @@ function isLogin($userName, $mUserName){
 }
 
 /**
+**@auth qiujinhan
+**@breif 管理员登陆状态判断
+**@param $userName 用户名
+**@param mUserName  加密后的用户名
+**@return 如果登陆了就返回true 如果没有登陆就弹框提示，并且跳转到登陆页面
+**@date 2015.12.17
+**/
+function isAdminLogin($userName, $mUserName){
+    // return true;
+    if (empty($userName) || empty($mUserName)) {
+        //没有登陆，弹框提示，并且跳转到登陆页
+        header('Content-Type: text/html; charset=utf-8');
+        echo "<script type='text/javascript'>alert('没有登录');location.href='?c=Admin&a=login'</script>";
+        exit;
+    }
+    if (!($mUserName == MD5(addToken($userName)))) {
+        //登录信息错误，弹框提示，并且跳转到登陆页
+        header('Content-Type: text/html; charset=utf-8');
+        echo "<script type='text/javascript'>alert('登录信息错误');location.href='?c=Admin&a=login'</script>";
+        exit;
+    }
+}
+
+/**
 **@auth qianqiang
 **@breif 判断必填资料是否填写完成
-**@param $userName 用户名
+**@param $email 用户邮箱
 **@return 如果填写了就返回true 如果没有没有填写就弹框提示，并且跳转到我的资料页面
 **@date 2015.12.12
 **/
-function isDataComplete($userName){
-    
+function isDataComplete($email){
+    $user = M("User");
+    $objUser = $user->where("email='".$email."'")->find();
+    dump($objUser);
+    //只有项目提供方有必填项：企业名称、联系人、联系人手机
+    if($objUser["user_type"] == 3){
+        if($objUser["company_name"] == NULL || $objUser["company_contacts"] == NULL || $objUser["company_contacts_phone"] == NULL){
+            header('Content-Type: text/html; charset=utf-8');
+            echo "<script type='text/javascript'>alert('请先完善个人资料');location.href='?c=ProjectProviderMyInfo&a=myInformation'</script>";
+            exit;
+        }
+    }
+    return true;
 }
 
+/**
+**@auth qianqiang
+**@breif 生成加密前的加密串
+**@param $str 需要加密的串
+**@return 返回需要加密的串
+**@date 2015.12.17
+**/
+function addToken($str){
+    return $str."ENFESDFSDNDLFJddddsssefOWEMDJDJ23392222KKSKSNF";
+}
 
 ?>

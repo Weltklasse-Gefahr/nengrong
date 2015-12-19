@@ -19,9 +19,21 @@ class AdminService extends Model{
         }
 
         setcookie("userName", $userName, time()+3600);
-        setcookie("mUserName", MD5($userName."ENFENF"), time()+3600);
+        setcookie("mUserName", MD5(addToken($userName)), time()+3600);
 
         return $objManager[0];
+    }
+
+    /**
+    **@auth qianqiang
+    **@breif 管理员注销
+    **@date 2015.12.19
+    **/
+	public function logoutService(){
+
+        setcookie("userName", $userName, time()-3600);
+        setcookie("mUserName", MD5(addToken($userName)), time()-3600);
+
     }
 
 	/**
@@ -29,17 +41,16 @@ class AdminService extends Model{
     **@breif 修改密码
     **@date 2015.12.09
     **/
-	public function changePassword($userName, $password, $newPwd){
+	public function changePasswordService($userName, $password, $newPwd){
 		$manager = M('Admin');
 		$objManager = $manager->where("user_name='%s' and password='%s'", array($userName, MD5($password)))->select();
-		if(sizeof($users) == 0){
-			echo '{"code":"-1","msg":"原密码错误!"}';
+		if(sizeof($objManager) == 0){
+			echo '{"code":"-1","msg":"old password error!"}';
 			exit;
 		}
 
-		$objManager->user_name = $userName;
-		$objManager->password = MD5($newPwd);
-		$objManager->save();
+		$data['password'] = MD5($newPwd);
+		$manager->where("user_name='".$userName."'")->save($data);
 
 		$objManager = $manager->where("user_name='%s' and password='%s'", array($userName, MD5($newPwd)))->select();
 		if (sizeof($objManager) != 1) {

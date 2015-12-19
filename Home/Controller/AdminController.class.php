@@ -26,10 +26,6 @@ class AdminController extends Controller
 
             $manager = D('Admin','Service');
             $objManager = $manager->loginService($userName, $password);
-            
-            // $user = D('User','Service');
-            // $users = $user->getAllInnerStaffService();
-            // $this->assign('listInfo',$users);
 
             if ($_GET['display'] == 'json') {
                 dump($objManager);
@@ -38,10 +34,21 @@ class AdminController extends Controller
             }
             
             echo '{"code":"0","msg":"登录成功！"}';
-            //$this->display("Admin:admin_inner_staff");
         }else {
             $this->display("Admin:admin_login");
         }
+    }
+
+    /**
+    **@auth qianqiang
+    **@breif 管理员注销
+    **@date 2015.12.19
+    **/
+    public function logout(){
+        isAdminLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
+        $manager = D('Admin','Service');
+        $objManager = $manager->logoutService();
+        $this->display("Admin:admin_login");
     }
 
     /**
@@ -51,55 +58,60 @@ class AdminController extends Controller
     **/
 	public function changePassword(){
         if($_POST['rtype'] == 1 || $_GET['rtype'] == 1){
-            isLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
+            isAdminLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
 
+            $userName = $_COOKIE['userName'];
             $pwd = $_POST['password'];
-            $newPwd = $_POST['newPassword'];
-            if (empty($pwd) || empty($newPwd)) {
-                echo '{"code":"-1","msg":"新旧密码为空！"}';
+            $newPwd = $_POST['newPwd'];
+            $confirmNewPwd = $_POST['confirmNewPwd'];
+            // $userName = "admin1";
+            // $pwd = "admin1";
+            // $newPwd = "admin1";
+            // $confirmNewPwd = "admin1";
+            if (empty($pwd) || empty($newPwd) || empty($confirmNewPwd)) {
+                echo '{"code":"-1","msg":"新旧密码为空"}';
+                exit;
+            }
+            if($newPwd != $confirmNewPwd){
+                echo '{"code":"-1","msg":"twice new password different"}';
                 exit;
             }
 
             $manager = D('Admin','Service');
-            $objManager = $manager->changePassword($userName, $pwd, $newPwd);
+            $objManager = $manager->changePasswordService($userName, $pwd, $newPwd);
             if ($_GET['display'] == 'json') {
                 dump($objManager);
-                //echo json_encode($objManager);
                 exit;
             }
-            $this->display(index);            
+            echo '{"code":"0","msg":"change password success"}';        
         }else{
-            $this->display();
+            $this->display("Admin:admin_change_pwd");
         }
     }
 
     /**
     **@auth qianqiang
-    **@breif 重置密码
+    **@breif 重置密码为原始密码
     **@date 2015.12.12
     **/
     public function resetPassword(){
-        if($_POST['rtype'] == 1 || $_GET['rtype'] == 1){
-            isLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
+        isAdminLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
 
-            $email = $_POST['email'];
-            $newPwd = $_POST['newPassword'];
-            if ( empty($email) || empty($newPwd) ) {
-                echo '{"code":"-1","msg":"邮箱或者新密码为空！"}';
-                exit;
-            }
-
-            $user = D('User','Service');
-            $objUser = $user->resetPasswordService($email, $newPwd);
-            if ($_GET['display'] == 'json') {
-                dump($objUser);
-                echo json_encode($objUser);
-                exit;
-            }
-            $this->display(index);        
-        }else{
-            $this->display();
+        $id = $_POST['id'];
+            // $id = 7;
+        if ( empty($id) ) {
+            echo '{"code":"-1","msg":"id为空！"}';
+            exit;
         }
+
+        $user = D('User','Service');
+        $objUser = $user->setOriginalPasswordService($id);
+        if ($_GET['display'] == 'json') {
+            dump($objUser);
+            echo json_encode($objUser);
+            exit;
+        }
+        echo '{"code":"0","msg":"修改成功"}';
     }
 
     /**
@@ -108,18 +120,18 @@ class AdminController extends Controller
     **@date 2015.12.12
     **/
     public function deleteUser(){
-        isLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
+        isAdminLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
 
-    	$email = $_POST['email'];
-    	if ( empty($email) ) {
+    	$id = $_POST['id'];
+    	if ( empty($id) ) {
     		echo '{"code":"-1","msg":"邮箱为空！"}';
     		exit;
     	}
 
     	$user = D('User','Service');
-    	$user->deleteUserService($email);
+    	$user->deleteUserService($id);
     	
-    	$this->display(index); 
+    	echo '{"code":"0","msg":"delete success"}';
     }
 
     /**
@@ -128,9 +140,14 @@ class AdminController extends Controller
     **@date 2015.12.12
     **/
     public function addInnerStaff(){
-        isLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
+        isAdminLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
 
     	$email = $_POST['email'];
+        $code = $_POST['code'];
+        $name = $_POST['name'];
+        // $email = "123abc";
+        // $code = "123";
+        // $name = "123";
     	$password = "123456";
     	$userType = 2;
     	if (empty($email)) {
@@ -140,14 +157,14 @@ class AdminController extends Controller
 
     	$user = D('User','Service');
     	$users = $user->registerService($email, $password, $userType);
+        $objUser = $user->changeInnerStaffByManager($users['id'], $email, $code, $name);
 
     	$display = $_GET['display'];
     	if ($display == 'json') {
-    		dump($users);
-    		echo json_encode($users);
+    		dump($objUser);
     		exit;
     	}
-    	$this->display(index);
+    	echo '{"code":"0","msg":"add user success"}';
     }
 
     /**
@@ -156,9 +173,10 @@ class AdminController extends Controller
     **@date 2015.12.12
     **/
     public function addProjectInvestor(){
-        isLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
+        isAdminLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
 
     	$email = $_POST['email'];
+        $companyName = $_POST['companyName'];
     	$password = "123456";
     	$userType = 4;
     	if (empty($email)) {
@@ -168,14 +186,14 @@ class AdminController extends Controller
 
     	$user = D('User','Service');
     	$users = $user->registerService($email, $password, $userType);
+        $objUser = $user->changeProjectInvestorByManager($users['id'], $email, $companyName);
 
     	$display = $_GET['display'];
     	if ($display == 'json') {
-    		dump($users);
-    		echo json_encode($users);
+    		dump($objUser);
     		exit;
     	}
-    	$this->display(index);
+    	echo '{"code":"0","msg":"add user success"}';
     }
 
     /**
@@ -184,21 +202,22 @@ class AdminController extends Controller
     **@date 2015.12.12
     **/
     public function changeProjectProviderInfo(){
-        isLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
-
+        isAdminLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
+        $id = $_POST['id'];
     	$email = $_POST['email'];
-    	$phone = $_POST['telephone'];
-        if (empty($email) || empty($phone)) {
+        $phone = $_POST['phone'];
+    	$telephone = $_POST['telephone'];
+        if (empty($email) || empty($phone) || empty($telephone)) {
         	echo '{"code":"-1","msg":"邮箱或者电话为空！"}';
+            exit;
         }
 
         $user = D('User','Service');
-    	$users = $user->changeProjectProviderByManager($email, $phone);
+    	$users = $user->changeProjectProviderByManager($id, $email, $phone, $telephone);
 
     	$display = $_GET['display'];
     	if ($display == 'json') {
     		dump($users);
-    		echo json_encode($users);
     		exit;
     	}
     	echo '{"code":"0","msg":"修改成功！"}';
@@ -210,8 +229,8 @@ class AdminController extends Controller
     **@date 2015.12.12
     **/
     public function changeProjectInvestorInfo(){
-        isLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
-
+        isAdminLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
+        $id = $_POST['id'];
     	$email = $_POST['email'];
     	$companyName = $_POST['companyName'];
         if (empty($email) || empty($companyName)) {
@@ -219,7 +238,7 @@ class AdminController extends Controller
         }
 
 		$user = D('User','Service');
-    	$users = $user->changeProjectInvestorByManager($email, $companyName);
+    	$users = $user->changeProjectInvestorByManager($id, $email, $companyName);
 
     	$display = $_GET['display'];
     	if ($display == 'json') {
@@ -236,7 +255,7 @@ class AdminController extends Controller
     **@date 2015.12.12
     **/
     public function changeInnerStaffInfo(){
-        isLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
+        isAdminLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
         $id = $_POST['id'];
     	$email = $_POST['email'];
     	$code = $_POST['code'];
@@ -267,22 +286,18 @@ class AdminController extends Controller
     **@date 2015.12.10
     **/
     public function getAllProjectProviderInfo(){
-        // if($_POST['rtype'] == 1 || $_GET['rtype'] == 1){
-            isLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
+        isAdminLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
 
-            $user = D('User','Service');
-            $users = $user->getAllProjectProviderService();
-            $this->assign('listInfo',$users);
+        $user = D('User','Service');
+        $users = $user->getAllProjectProviderService();
+        $this->assign('listInfo',$users);
 
         $display = $_GET['display'];
         if ($display == 'json') {
             dump($users);
             exit;
         }    
-            $this->display();
-        // }else{
-        //     $this->display();
-        // }
+        $this->display("admin:admin_provider");
     }
 
     /**
@@ -291,22 +306,18 @@ class AdminController extends Controller
     **@date 2015.12.10
     **/
     public function getAllProjectInvestorInfo(){
-        // if($_POST['rtype'] == 1 || $_GET['rtype'] == 1){
-        	isLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
+        isAdminLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
 
-            $user = D('User','Service');
-            $users = $user->getAllProjectInvestorService();
-            $this->assign('listInfo',$users);
+        $user = D('User','Service');
+        $users = $user->getAllProjectInvestorService();
+        $this->assign('listInfo',$users);
 
         $display = $_GET['display'];
         if ($display == 'json') {
             dump($users);
             exit;
         }    
-            $this->display();
-        // }else{
-        //     $this->display();
-        // }
+        $this->display("Admin:admin_investors");
     }
 
     /**
@@ -315,23 +326,19 @@ class AdminController extends Controller
     **@date 2015.12.10
     **/
     public function getAllInnerStaffInfo(){
-        //if($_POST['rtype'] == 1 || $_GET['rtype'] == 1){
-        	isLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
+        isAdminLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
 
-            $user = D('User','Service');
-            $users = $user->getAllInnerStaffService();
-            $this->assign('listInfo',$users);
+        $user = D('User','Service');
+        $users = $user->getAllInnerStaffService();
+        $this->assign('listInfo',$users);
 
         $display = $_GET['display'];
         if ($display == 'json') {
             dump($users);
             exit;
         }
-            //echo '{"code":"0","msg":"成功！"}';
-            $this->display("Admin:admin_inner_staff");
-        //}else{
-        //    $this->display("Admin:admin_inner_staff");
-        //}
+            
+        $this->display("Admin:admin_inner_staff");
     }
 
     /**
@@ -340,9 +347,9 @@ class AdminController extends Controller
     **@date 2015.12.13
     **/
     public function getEditUserInfo(){
-        isLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
+        isAdminLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
         $id = $_GET["id"];
-        // $id = 1;
+        // $id = 2;
         $user = D('User','Service');
         $users = $user->getUserINfoById($id);
         $this->assign('userInfo',$users);
@@ -352,8 +359,16 @@ class AdminController extends Controller
             dump($users);
             exit;
         }
-        $this->display("Admin:admin_inner_staff_edit");
-        // echo '{"code":"0","msg":""}';
+        
+        if(intval($users[0]["user_type"]) == 2){
+            $this->display("Admin:admin_inner_staff_edit");
+        }else if(intval($users[0]["user_type"]) == 3){
+            $this->display("Admin:admin_provider_edit");
+        }else if(intval($users[0]["user_type"]) == 4){
+            $this->display("Admin:admin_investors_edit");
+        }else{
+            echo '{"code":"-1","msg":"user type not exist"}';
+        }
     }
 
 
