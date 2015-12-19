@@ -33,7 +33,7 @@ class AdminService extends Model{
 
         setcookie("userName", $userName, time()-3600);
         setcookie("mUserName", MD5(addToken($userName)), time()-3600);
-echo "@@@@"; exit;
+
     }
 
 	/**
