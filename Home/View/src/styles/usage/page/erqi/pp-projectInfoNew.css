@@ -18,13 +18,27 @@
 .r-content form.housetop_build .housetop_build_item {
 	display: block;
 }
-/* 地面分布式/大型地面 未建 */
+/* 地面分布式 未建 */
 .r-content form.ground_nonBuild .ground_nonBuild_item {
 	display: block;
 }
-/* 地面分布式/大型地面 已建 */
+/* 地面分布式 已建 */
 .r-content form.ground_build .ground_build_item {
 	display: block;
+}
+/* 大型地面 未建 */
+.r-content form.bigground_nonBuild .ground_nonBuild_item, .r-content form.bigground_nonBuild .bigground_nonBuild_item  {
+	display: block;
+}
+.r-content form.bigground_nonBuild .ground_nonBuild_item.onlyground {
+	display: none;
+}
+/* 大型地面 已建 */
+.r-content form.bigground_build .ground_build_item, .r-content form.bigground_build .bigground_build_item {
+	display: block;
+}
+.r-content form.bigground_build .ground_build_item.onlyground {
+	display: none;
 }
 
 .r-content form .part1 li {
