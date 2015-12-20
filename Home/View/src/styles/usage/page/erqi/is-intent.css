@@ -1,0 +1,51 @@
+/* 客服左边栏和别的地方不一样 */
+.l-nav .back {
+	display: inline-block;
+	width: 100px;
+	text-align: center;
+	line-height: 35px;
+	border-radius: 5px;
+	background-color: #FD7940;
+	color: #fff;
+	border: 0;
+	margin: 0 auto 20px 30px;
+}
+
+.l-nav dl dd a:hover {
+	color: #FD7940;
+}
+
+.l-nav dl dd.active a {
+	background-color: #FD7940;
+	color: #fff;
+}
+
+.r-content {
+	width: 670px;
+}
+
+.r-content form .operator {
+	margin-top: 30px;
+	text-align: center;
+}
+
+.r-content form .operator input[type="submit"] {
+	width: 100px;
+	height: 30px;
+	border-radius: 5px;
+	background-color: #FD7940;
+	color: #fff;
+	border: 0;
+}
+
+.r-content form input[type="submit"]:hover {
+	background: #F1920C;
+}
+
+.r-content form input[type="submit"].disabled {
+	background-color: #ccc;
+}
+
+.r-content form .operator .save {
+	margin-right: 100px;
+}
