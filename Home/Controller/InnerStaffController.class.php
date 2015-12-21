@@ -31,12 +31,16 @@ class InnerStaffController extends Controller {
     	}elseif($rtype != 1){
     		$projectCode = $_COOKIE['projectCode'];
 
-    		$objProject  = D("Project","Service");
+    		$objProject  = D("Project", "Service");
     		$objProjectInfo = $objProject->getProjectInfo($projectCode);
     		$projectId = $objProjectInfo['id'];
     		$projectDetail = $objProject->getProjectDetail($projectId, $objProjectInfo['project_type']);
-//获取尽职调查表中的数据，显示
+			
+			$objEvaluation = D("Evaluation", "service");
+			$evaluationInfo = $objEvaluation->getEvaluationInfo($projectId);
+
     		$this->assign('projectDetail', $projectDetail);
+    		$this->assign('evaluationInfo', $evaluationInfo);
     		$this->display("InnerStaff:jzdc");
     	}
     }
