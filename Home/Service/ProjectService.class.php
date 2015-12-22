@@ -25,12 +25,12 @@ class ProjectService extends Model{
     public function getProjectDetail($projectId, $projectType){
         if($projectType == 1){
             $housetop = M("Housetop");
-            $housetopInfo = $housetop->where("project_id='%s' and status!=9999", $projectId)->find();
-            return $housetop;
+            $housetopInfo = $housetop->where("project_id='%s' and status!=9999", $projectId)->select();
+            return $housetop[0];
         }elseif($projectType == 2 || $projectType == 3){
             $ground = M("Ground");
-            $groundInfo = $ground->where("project_id='%s' and status!=9999", $projectId)->find();
-            return $groundInfo;
+            $groundInfo = $ground->where("project_id='%s' and status!=9999", $projectId)->select();
+            return $groundInfo[0];
         }
     }
 }
