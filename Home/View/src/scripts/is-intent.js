@@ -15,10 +15,12 @@ $(function() {
     });
     window.ue = ue;
 
+    require("common/erqi/dialog");
     ue.ready(function() {
     	var $form = $("form");
 
     	function saveOrSubmitIntent(opt) {
+    		opt = opt || {};
     		$.ajax({
 				url: $form.attr("action"),
 				type: "POST",
