@@ -166,7 +166,7 @@ class UserController extends Controller
 
     public function test1(){
         $area = D("Area", "Service");
-        $area->getAreaById("130229");
+        $area->getAreaById("1302");
         // $email = "qianqiang@qq.com";
         // isDataComplete($email);
         // echo "chenggong!";
