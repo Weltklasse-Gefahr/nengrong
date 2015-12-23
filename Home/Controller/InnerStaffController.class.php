@@ -7,10 +7,17 @@ class InnerStaffController extends Controller {
     
     /**
     **@auth qianqiang
-    **@breif 客服->项目提供方信息（账户向详细信息）入口
+    **@breif 客服->项目提供方信息（账户向详细信息）
     **@date 2015.12.19
     **/
     public function getProjectProviderInfo(){
+    	$projectCode = $_POST["projectCode"];
+    	$objProject = D("Project", "Service");
+    	$objProjectInfo = $objProject->getProjectInfo($projectCode);
+    	$providerId = $objProjectInfo['provider_id'];
+    	$userObj = D("User", "Service");
+    	$userInfo = $userObj->getUserINfoById($providerId);
+    	$this->assign('userInfo', $userInfo);
     	$this->display("InnerStaff:providerInfo");
     }
 
@@ -26,7 +33,7 @@ class InnerStaffController extends Controller {
         $rtype = $_POST['rtype'] ? $_POST['rtype']:$_GET['rtype'];
     	if($optype == "save" && $rtype == 1){
     		$projectCode = $_POST['projectCode'];
-    		$objProject  = D("Project", "Service");
+    		$objProject = D("Project", "Service");
     		$objProjectInfo = $objProject->getProjectInfo($projectCode);
     		$projectId = $objProjectInfo['id'];
 
