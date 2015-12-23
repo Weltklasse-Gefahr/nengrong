@@ -2,12 +2,14 @@ $(function($) {
 	$.fn.customUpload = function(option) {
 
 		option = option || {
-			img_url: "",
-			content: "+",
+			img_url: "attachment.png",
+			content: "上传附件",
 			uploadType: "file",
-			width: "20px",
-			height: "38px"
+			width: "80px",
+			height: "20px"
 		};
+
+		var suffix = "_hiddenId";
 
 		$.each(this, function(i, item) {
 
@@ -63,6 +65,7 @@ $(function($) {
 			// 编辑页预览附件
 			var url = $this.attr("data-url");
 			if(url) {
+				$this.after($('<input type="hidden" name="' + $this.attr("name") + suffix +'" value="' + ($this.attr("data-id") || "") + '" />'));
 				var name = $this.attr("data-name"),
 					alink = $preview.show().find("a");
 				if(uploadType === "image") {
@@ -78,6 +81,7 @@ $(function($) {
 			}
 
 			$this.change(function(e) {
+				$('[name=' + $this.attr("name") + suffix + ']').val("");
 
 				var	resultFile = this.files[0];
 
@@ -119,6 +123,7 @@ $(function($) {
 				} else {
 					$preview.hide().find("a").attr("href", "javascript:;").text("");
 				}
+				$('[name=' + $this.attr("name") + suffix + ']').val("");
 				
 				$inputWrap.show().find("input[type=file]").val("");
 				option.callback && option.callback.call(item, "delete");
