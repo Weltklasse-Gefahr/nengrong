@@ -165,22 +165,21 @@ class UserController extends Controller
     // }
 
     public function test1(){
-        $email = "qianqiang@qq.com";
-        isDataComplete($email);
-        echo "chenggong!";
-        exit;
-        $User = M("User");
-        $email = $User->where('id=3 and password=123')->getField('email');
-        echo json_encode($email);
-        $list = $User->getField('id,email');
-        dump($list);
-        echo json_encode(sizeof($list));
+        $area = D("Area", "Service");
+        $area->getAreaById("130229");
+        // $email = "qianqiang@qq.com";
+        // isDataComplete($email);
+        // echo "chenggong!";
+        // exit;
+        // $User = M("User");
+        // $email = $User->where('id=3 and password=123')->getField('email');
+        // echo json_encode($email);
+        // $list = $User->getField('id,email');
+        // dump($list);
+        // echo json_encode(sizeof($list));
         // $news = M('news');
         // $new = $news->select(1);
         // echo json_encode($new);
-        // $test_user = D('User');
-        // $test = $test_user->mytest();
-        // echo json_encode($test);
     }
 
     public function addUser(){

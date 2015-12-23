@@ -17,7 +17,12 @@ class InnerStaffController extends Controller {
     	$providerId = $objProjectInfo['provider_id'];
     	$userObj = D("User", "Service");
     	$userInfo = $userObj->getUserINfoById($providerId);
+
+    	$areaObj = D("Area", "Service");
+    	$areaStr = $areaObj->getAreaById($userInfo['company_area']);
+
     	$this->assign('userInfo', $userInfo);
+    	$this->assign('areaStr', $areaStr);
     	$this->display("InnerStaff:providerInfo");
     }
 
