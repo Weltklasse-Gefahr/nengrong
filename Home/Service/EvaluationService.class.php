@@ -48,6 +48,7 @@ class evaluationService extends Model(){
     **/ 
 	public function submitEvaluationInfo($evaluationInfo){
 		//存储，如果有save数据，进行删除
+        //如果没有保存记录，判断是否有提交记录，有则更新，无则添加
 	}
 
 	/**

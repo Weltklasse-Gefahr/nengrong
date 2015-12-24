@@ -143,16 +143,17 @@ class InnerStaffController extends Controller {
             $evaData['projectInvestSituation'] = $_POST['projectInvestSituation'];
             $evaData['projectEarningsSituation'] = $_POST['projectEarningsSituation'];
 
-            //提交后应该把保存的记录复制到提交的记录中，并将保存的记录删除
-            //如果没有保存记录，就直接存储
-
-            if ($res == true)
-            {
-                echo '{"code":"0","msg":"succ"}';
-            }
-            else
-            {
-                echo '{"code":"-1","msg":"更新失败！"}';
+			$res = $objProject->submitHousetopProject($proData);
+            if($res == true){
+            	$objEvaluation = D("Evaluation", "Service");
+            	$res = $objEvaluation->submitEvaluationInfo($evaData);
+            	if($res == true){
+            		echo '{"code":"0","msg":"success"}';
+            	}else{
+            		echo '{"code":"-1","msg":"更新失败！"}';
+            	}
+            }else{
+            	echo '{"code":"-1","msg":"更新失败！"}';
             }
     	}elseif($rtype != 1){
     		//带修改，每次进来应该把保存的记录读取出来，没有保存记录就读取提交记录

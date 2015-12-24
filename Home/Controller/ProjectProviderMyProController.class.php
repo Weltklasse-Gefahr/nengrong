@@ -75,5 +75,24 @@ class ProjectProviderMyProController extends Controller {
         $this->display("ProjectProvider:awaitingAssessment");
     }
 
+    /**
+    **@auth qianqiang
+    **@breif 项目提供方->已签意向书项目
+    **@date 2015.12.24
+    **/
+    public function aggrementProject()
+    {
+        $this->display("ProjectProvider:aggrementProject");
+    }
+
+    /**
+    **@auth qianqiang
+    **@breif 项目提供方->已签融资合同项目
+    **@date 2015.12.24
+    **/
+    public function xxxxx()
+    {
+        $this->display("ProjectProvider:aggrementProject");
+    }
 
 }

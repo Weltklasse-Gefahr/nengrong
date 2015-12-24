@@ -64,6 +64,11 @@ class ProjectService extends Model{
     **/ 
     public function submitHousetopProject($proData){
         //保存记录，如果有save数据，进行删除
+        //如果没有保存记录，判断是否有提交记录，有则更新，无则添加
+        $housetop = M("Housetop");
+        if($this->hasSaveHousetopProject($proData['projectId']) == 1){
+            
+        }
     }
 
     /**
