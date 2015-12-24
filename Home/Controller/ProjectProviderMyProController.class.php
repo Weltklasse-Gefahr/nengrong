@@ -72,6 +72,9 @@ class ProjectProviderMyProController extends Controller {
     **/
     public function awaitingAssessment()
     {
+        $objProject = D("Project", "Service");
+        $listProject = $objProject->getAggrementProject();
+        $this->assign('listProject', $listProject);
         $this->display("ProjectProvider:awaitingAssessment");
     }
 
@@ -82,6 +85,9 @@ class ProjectProviderMyProController extends Controller {
     **/
     public function aggrementProject()
     {
+        $objProject = D("Project", "Service");
+        $listProject = $objProject->getxxxxx();
+        $this->assign('listProject', $listProject);
         $this->display("ProjectProvider:aggrementProject");
     }
 

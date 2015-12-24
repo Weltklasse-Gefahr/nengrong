@@ -36,6 +36,28 @@ class ProjectService extends Model{
 
     /**
     **@auth qianqiang
+    **@breif 查询已签意向书项目
+    **@date 2015.12.24
+    **/ 
+    public function getAggrementProject(){
+        $project = D("Project");
+        $projectInfo = $project->where("status=21 or status=22")->select();
+        return $projectInfo; 
+    }
+
+    /**
+    **@auth qianqiang
+    **@breif 查询已签融资合同项目
+    **@date 2015.12.24
+    **/ 
+    public function getxxxxx(){
+        $project = D("Project");
+        $projectInfo = $project->where("status=31")->select();
+        return $projectInfo; 
+    }
+
+    /**
+    **@auth qianqiang
     **@breif 尽职调查保存时，保存项目信息
     **@return 保存成功返回true，失败返回false
     **@date 2015.12.23
@@ -67,7 +89,7 @@ class ProjectService extends Model{
         //如果没有保存记录，判断是否有提交记录，有则更新，无则添加
         $housetop = M("Housetop");
         if($this->hasSaveHousetopProject($proData['projectId']) == 1){
-            
+
         }
     }
 
@@ -86,5 +108,18 @@ class ProjectService extends Model{
             return true;
         else
             return false;
+    }
+
+    /**
+    **@auth qianqiang
+    **@breif 查询project表信息
+    **@param condition 数组，查询的条件
+    **@return 一个数组
+    **@date 2015.12.24
+    **/
+    public function getProjectsInfo($condition){
+        $objProject = new \Home\Model\ProjectModel(); 
+        $projectInfo = $objProject->where($condition)->select();
+        return $projectInfo;
     }
 }

@@ -74,7 +74,7 @@ create table ENF_Evaluation
    doc3                 varchar(20) comment '附件3对应的附件表id',
    create_date          datetime comment '创建时间',
    change_date          datetime comment '修改时间',
-   status               int not null default 0 comment '状态类型：0正常、1已激活、2未激活、11未提交、12已提交未查看（业务员界面高亮处理）、13已提交已查看、21签意向合同（可以推送）、22签意向合同、31签融资合同、41已推送、42未推送、51尽职调查已保存、52尽职调查已提交、9999删除',
+   status               int not null default 0 comment '状态类型：0正常、1已激活、2未激活、11未提交、12已提交未查看（业务员界面高亮处理）、13已提交已查看、21签意向合同（未查看）、22签意向合同（已查看）、31签融资合同、41已推送、42未推送、51尽职调查已保存、52尽职调查已提交、9999删除',
    primary key (id),
    INDEX `evaluation_project_id` (`project_id`)
 )ENGINE = InnoDB DEFAULT CHARSET = utf8;
@@ -147,7 +147,7 @@ create table ENF_Ground
    comment              varchar(500) comment '备注',
    create_date          datetime comment '创建时间',
    change_date          datetime comment '修改时间',
-   status               int not null default 0 comment '状态类型：0正常、1已激活、2未激活、11未提交、12已提交未查看（业务员界面高亮处理）、13已提交已查看、21签意向合同（可以推送）、22签意向合同、31签融资合同、41已推送、42未推送、51尽职调查已保存、52尽职调查已提交、9999删除',
+   status               int not null default 0 comment '状态类型：0正常、1已激活、2未激活、11未提交、12已提交未查看（业务员界面高亮处理）、13已提交已查看、21签意向合同（未查看）、22签意向合同（已查看）、31签融资合同、41已推送、42未推送、51尽职调查已保存、52尽职调查已提交、9999删除',
    primary key (id),
    INDEX `ground_project_id` (`project_id`)
 )ENGINE = InnoDB DEFAULT CHARSET = utf8;
@@ -224,7 +224,7 @@ create table ENF_Housetop
    comment              varchar(500) comment '备注',
    create_date          datetime comment '创建时间',
    change_date          datetime comment '修改时间',
-   status               int not null default 0 comment '状态类型：0正常、1已激活、2未激活、11未提交、12已提交未查看（业务员界面高亮处理）、13已提交已查看、21签意向合同（可以推送）、22签意向合同、31签融资合同、41已推送、42未推送、51尽职调查已保存、52尽职调查已提交、9999删除',
+   status               int not null default 0 comment '状态类型：0正常、1已激活、2未激活、11未提交、12已提交未查看（业务员界面高亮处理）、13已提交已查看、21签意向合同（未查看）、22签意向合同（已查看）、31签融资合同、41已推送、42未推送、51尽职调查已保存、52尽职调查已提交、9999删除',
    primary key (id),
    INDEX `housetop_project_id` (`project_id`)
 )ENGINE = InnoDB DEFAULT CHARSET = utf8;
@@ -245,7 +245,7 @@ create table ENF_Project
    provider_id			bigint comment '项目提供方id',
    create_date          datetime comment '创建时间',
    change_date          datetime comment '修改时间',
-   status               int not null default 0 comment '状态类型：0正常、1已激活、2未激活、11未提交、12已提交未查看（业务员界面高亮处理）、13已提交已查看、21签意向合同（可以推送）、22签意向合同、31签融资合同、41已推送、42未推送、51尽职调查已保存、52尽职调查已提交、9999删除',
+   status               int not null default 0 comment '状态类型：0正常、1已激活、2未激活、11未提交、12已提交未查看（业务员界面高亮处理）、13已提交已查看、21签意向合同（未查看）、22签意向合同（已查看）、31签融资合同、41已推送、42未推送、51尽职调查已保存、52尽职调查已提交、9999删除',
    primary key (id)
 )ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
@@ -258,7 +258,7 @@ create table ENF_PushProject
    email                varchar(100) comment '投资人邮箱',
    project_code         varchar(100) comment '项目编号',
    push_time            datetime comment '推送时间',
-   status               int not null default 0 comment '状态类型：0正常、1已激活、2未激活、11未提交、12已提交未查看（业务员界面高亮处理）、13已提交已查看、21签意向合同（可以推送）、22签意向合同、31签融资合同、41已推送、42未推送、51尽职调查已保存、52尽职调查已提交、9999删除',
+   status               int not null default 0 comment '状态类型：0正常、1已激活、2未激活、11未提交、12已提交未查看（业务员界面高亮处理）、13已提交已查看、21签意向合同（未查看）、22签意向合同（已查看）、31签融资合同、41已推送、42未推送、51尽职调查已保存、52尽职调查已提交、9999删除',
    primary key (id),
    INDEX `pushProject_email` (`email`)
 )ENGINE = InnoDB DEFAULT CHARSET = utf8;
@@ -297,7 +297,7 @@ create table ENF_User
    financial_audit      varchar(20) comment '财务审计报告的docID',
    create_date          datetime comment '创建时间',
    change_date          datetime comment '修改时间',
-   status               int not null default 0 comment '状态类型：0正常、1已激活、2未激活、11未提交、12已提交未查看（业务员界面高亮处理）、13已提交已查看、21签意向合同（可以推送）、22签意向合同、31签融资合同、41已推送、42未推送、51尽职调查已保存、52尽职调查已提交、9999删除',
+   status               int not null default 0 comment '状态类型：0正常、1已激活、2未激活、11未提交、12已提交未查看（业务员界面高亮处理）、13已提交已查看、21签意向合同（未查看）、22签意向合同（已查看）、31签融资合同、41已推送、42未推送、51尽职调查已保存、52尽职调查已提交、9999删除',
    primary key (id),
    INDEX `user_email` (`email`)
 )ENGINE = InnoDB DEFAULT CHARSET = utf8;

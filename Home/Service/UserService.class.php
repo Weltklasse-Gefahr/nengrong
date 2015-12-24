@@ -267,7 +267,7 @@ class UserService extends Model{
 
     /**
     **@auth qianqiang
-    **@breif 根据项目编码获取项目信息
+    **@breif 查询用户信息
     **@param condition 数组，查询的条件
     **@return 一个数组
     **@date 2015.12.05
