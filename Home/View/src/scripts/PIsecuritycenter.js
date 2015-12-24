@@ -1,5 +1,5 @@
 $(function(){
-	$(".l-nav").find(".PIsecuritycenter").addClass("active");
+	$(".l-nav").find(".securitycenter").addClass("active");
 
 	function warning() {
 		$("#warning").show();

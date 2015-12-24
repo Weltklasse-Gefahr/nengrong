@@ -2,6 +2,23 @@ $(function() {
 
 	$(".l-nav").find(".awaitingAssessment").addClass("active");
 
+	// 项目类型
+	$("input[name=project_type], input[name=build_state]").siblings("span").click(function() {
+
+		if($(this).hasClass("active")) {
+			return;
+		}
+
+		$(this).addClass("active").siblings().removeClass("active");
+		$(this).siblings("input").val($(this).data("filter"));
+		$form.find("li:hidden input, li:hidden select").prop("disabled", false);
+
+		$("#infoForm").attr("class", [
+			["housetop", "ground", "bigground"][$("input[name=project_type]").val()-1],
+			["nonBuild", "build"][$("input[name=build_state]").val()-1]
+		].join("_"));
+	});
+
 	// 省市区级联
 	require("common/erqi/AreaData");
 	require("common/erqi/cascadeSelect");
@@ -16,13 +33,20 @@ $(function() {
 		uploadType: "image",
 		width: "120px",
 		height: "120px",
-		callback: function() { // 添加或删除图片
+		callback: function(type) { // 添加或删除图片
 			// 显示或清除图片名称
 			var $prename = $(this).parent().siblings(".previewname");
-			if(this.files.length) {
+			if(type === "add") {
 				$prename.text(this.files[0].name);
 			} else {
 				$prename.text("");
+			}
+
+			// 增加或移除图片上传框，并更新索引
+			if(type === "add") {
+				
+			} else {
+				
 			}
 		}
 	});
@@ -34,6 +58,41 @@ $(function() {
 		uploadType: "file",
 		width: "80px",
 		height: "20px"
+	});
+
+	// 有无（附件）
+	$("select").filter(function(){
+		return $(this).data("withFile");
+	}).change(function(e) {
+		var $inputWrap = $(this).siblings(".input-wrap"),
+			$preview = $(this).siblings(".preview");
+		if(this.value === "1") { // 有
+			$inputWrap.show();
+		} else { // 无
+			$inputWrap.hide().find("input").val("");
+			$preview.hide().find("a").attr("href", "javascript:;").text("");
+		}
+	});
+
+	// 其他（可填写）
+	$("select").filter(function(){
+		return $(this).data("withOther");
+	}).change(function(e) {
+		var value = this.value;
+		if(value === "0") { // 其他
+			$(this).siblings(".other").show();
+		} else {
+			$(this).siblings(".other").hide().val("");
+		}
+	});
+
+	// 日期选择框
+	require("lib/jquery-ui");
+	$.datepicker.regional["zh-CN"] = { closeText: "关闭", prevText: "上月", nextText: "下月", currentText: "今天", monthNames: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"], monthNamesShort: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"], dayNames: ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"], dayNamesShort: ["周日", "周一", "周二", "周三", "周四", "周五", "周六"], dayNamesMin: ["日", "一", "二", "三", "四", "五", "六"], weekHeader: "周", dateFormat: "yy-mm-dd", firstDay: 1, isRTL: !1, showMonthAfterYear: !0, yearSuffix: "年" };
+	$.datepicker.setDefaults($.datepicker.regional['zh-CN']);
+	$("input[data-type=date]").datepicker({
+		changeMonth: true,
+      	changeYear: true
 	});
 
 	// 保存资料
@@ -53,18 +112,6 @@ $(function() {
 			return false;
 		}
 
-	   	//formData: 数组对象，提交表单时，Form插件会以Ajax方式自动提交这些数据，格式如：[{name:user,value:val },{name:pwd,value:pwd}]  
-	   	//jqForm:   jQuery对象，封装了表单的元素
-	   	//options:  options对象
-	   	var queryString = $.param(formData);   //name=1&address=2  
-	   	var formElement = jqForm[0];              //将jqForm转换为DOM对象  
-	   	var mobile = formElement.mobile.value.trim();
-
-	   	if(!mobile) {
-	   		alert("请输入联系人手机号");
-	   		return false;
-	   	}
-
 	   	$("#submit").addClass("disabled");
 
 	   	return true;
@@ -79,6 +126,35 @@ $(function() {
 		}
 	}
 
-	$("#infoForm").ajaxForm(options);
+	$form = $("#infoForm");
+	$form.find("input[type=submit]").click(function() {
+		var optype = $(this).data("optype");
+		if(optype === "delete") {
+			$.ajax({
+				type: $form.attr("method"),
+				url: $form.attr("action"),
+				data: {
+					optype: optype,
+					project_code: $form.find("[name=project_code]").val()
+				}
+			}).done(function(data) {
+				if(data.code == "0") {
+					alert("删除成功！");
+					location.href = "?c=ProjectProviderMyPro&a=awaitingAssessment";
+				} else {
+					alert("删除失败！");
+				}
+			}).fail(function() {
+				alert("删除失败！");
+			});
+			return false;
+		} else {
+			$form.find("[name=optype]").val(optype);
+			$form.find("li:hidden input, li:hidden select").prop("disabled", true);
+			return true;
+		}
+	});
+
+	$form.ajaxForm(options);
 
 });

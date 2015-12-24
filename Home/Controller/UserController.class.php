@@ -31,13 +31,15 @@ class UserController extends Controller
                 echo json_encode($users);
                 exit;
             }
-            
-            if($users->user_type == 2){
-                $this->display(index);
-            }else if($users->user_type == 3){
-                $this->display(index);
-            }else if($users->user_type == 4){
-                $this->display(index);
+
+            // $a = intval($users["user_type"]);
+            // echo $a;echo gettype($a);exit;
+            if($users["user_type"] == 2){
+                echo '{"code":"0","msg":"登录成功！","url":"?c=InnerStaff&a=search"}';
+            }else if($users["user_type"] == 3){
+                echo '{"code":"0","msg":"登录成功！","url":"?c=ProjectProviderMyPro&a=awaitingAssessment"}';
+            }else if($users["user_type"] == 4){
+                echo '{"code":"0","msg":"登录成功！","url":"?c=ProjectInvestorMyPro&a=recommendedProject"}';
             }
         }else {
             $this->display("User:login");
@@ -64,10 +66,9 @@ class UserController extends Controller
             $display = $_GET['display'];
             if ($display == 'json') {
                 dump($users);
-                echo json_encode($users);
                 exit;
             }
-            $this->display(index);
+            echo '{"code":"0","msg":"注册成功！","url":"?c=User&a=protocol"}';
         }else {
             $this->display("User:register");
         }
@@ -159,23 +160,26 @@ class UserController extends Controller
     // }
 
 
-    public function getDynamicCode(){
-        code();
-    }
+    // public function getDynamicCode(){
+    //     code();
+    // }
 
     public function test1(){
-        $User = M("User");
-        $email = $User->where('id=3 and password=123')->getField('email');
-        echo json_encode($email);
-        $list = $User->getField('id,email');
-        dump($list);
-        echo json_encode(sizeof($list));
+        $area = D("Area", "Service");
+        $area->getAreaById("1302");
+        // $email = "qianqiang@qq.com";
+        // isDataComplete($email);
+        // echo "chenggong!";
+        // exit;
+        // $User = M("User");
+        // $email = $User->where('id=3 and password=123')->getField('email');
+        // echo json_encode($email);
+        // $list = $User->getField('id,email');
+        // dump($list);
+        // echo json_encode(sizeof($list));
         // $news = M('news');
         // $new = $news->select(1);
         // echo json_encode($new);
-        // $test_user = D('User');
-        // $test = $test_user->mytest();
-        // echo json_encode($test);
     }
 
     public function addUser(){

@@ -1,6 +1,6 @@
 $(function() {
 
-	$(".l-nav").find(".PImyInformation").addClass("active");
+	$(".l-nav").find(".myInformation").addClass("active");
 	require("common/customInputFile");
 	require("lib/jquery.form");
 	

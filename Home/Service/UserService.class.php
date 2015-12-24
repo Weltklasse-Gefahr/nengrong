@@ -20,7 +20,7 @@ class UserService extends Model{
         }
 
         setcookie("email", $email, time()+3600);
-        setcookie("mEmail", MD5($email."ENFENF"), time()+3600);
+        setcookie("mEmail", MD5(addToken($email)), time()+3600);
 
         return $users[0];
 	}
@@ -72,10 +72,9 @@ class UserService extends Model{
 			exit;
 		}
 
-		$objUser->email = $email;
-		$objUser->password = MD5($newPwd);
-		$objUser->change_date = date("Y-m-d H:i:s",time());
-		$objUser->save();
+		$data['password'] = MD5($newPwd);
+		$data['change_date'] = date("Y-m-d H:i:s",time());
+		$user->where("email='".$email."'")->save($data);
 
 		$objUser = $user->where("email='%s' and password='%s' and status!=9999", array($email, MD5($newPwd)))->select();
 		if (sizeof($objUser) != 1) {
@@ -99,12 +98,34 @@ class UserService extends Model{
 			exit;
 		}
 
-        $user->email = $email;
-        $user->password = MD5($newPwd);
-        $user->change_date = date("Y-m-d H:i:s",time());
-        $user->save();
+		//$data['email'] = $email;
+		$data['password'] = MD5($newPwd);
+		$data['change_date'] = date("Y-m-d H:i:s",time());
+        $user->where("email='".$email."'")->save($data);
 
         $objUser = $user->where("email='%s' and password='%s' and status!=9999", array($email, MD5($newPwd)))->select();
+		if (sizeof($objUser) != 1) {
+			echo '{"code":"-1","msg":"mysql error!"}';
+			exit;
+		}
+
+		return $objUser[0];
+	}
+
+	/**
+    **@auth qianqiang
+    **@breif 还原初始密码123456
+    **@date 2015.12.14
+    **/
+	public function setOriginalPasswordService($id){
+		$user = M('User');
+
+		//$data['email'] = $email;
+		$data['password'] = MD5("123456");
+		$data['change_date'] = date("Y-m-d H:i:s",time());
+        $user->where("id='".$id."'")->save($data);
+
+        $objUser = $user->where("id='%d' and password='%s' and status!=9999", array($id, MD5("123456")))->select();
 		if (sizeof($objUser) != 1) {
 			echo '{"code":"-1","msg":"mysql error!"}';
 			exit;
@@ -151,20 +172,19 @@ class UserService extends Model{
     **@breif 删除用户
     **@date 2015.12.12
     **/
-	public function deleteUserService($email){
+	public function deleteUserService($id){
 		$user = M('User');
-		$objUser = $user->where("email='%s' and status!=9999", array($email))->select();
+		$objUser = $user->where("id='".$id."' and status!=9999")->select();
 		if(sizeof($objUser) == 0){
 			echo '{"code":"-1","msg":"用户不存在!"}';
 			exit;
 		}
 
-		$user->email = $email;
-        $user->status = 9999;
-        $user->change_date = date("Y-m-d H:i:s",time());
-        $user->save();
+		$data["status"] = 9999;
+        $data['change_date'] = date("Y-m-d H:i:s",time());
+        $user->where("id='".$id."'")->save($data);
 
-        $objUser = $user->where("email='%s' and status!=9999", array($email))->select();
+        $objUser = $user->where("id='".$id."' and status!=9999")->select();
 		if (sizeof($objUser) != 0) {
 			echo '{"code":"-1","msg":"mysql error!"}';
 			exit;
@@ -176,20 +196,15 @@ class UserService extends Model{
     **@breif 管理员修改项目提供方信息
     **@date 2015.12.12
     **/
-	public function changeProjectProviderByManager($email, $phone){
+	public function changeProjectProviderByManager($id, $email, $phone, $telephone){
 		$user = M('User');
-		$objUser = $user->where("email='%s' and status!=9999", array($email))->select();
-		if(sizeof($objUser) == 0){
-			echo '{"code":"-1","msg":"用户不存在!"}';
-			exit;
-		}
+		$data['email'] = $email;
+		$data['company_phone'] = $phone;
+		$data['company_telephone'] = $telephone;
+		$data['change_date'] = date("Y-m-d H:i:s",time());
+        $user->where("id='".$id."'")->save($data);
 
-		$user->email = $email;
-        $user->company_telephone = $phone;
-        $user->change_date = date("Y-m-d H:i:s",time());
-        $user->save();
-
-        $objUser = $user->where("email='%s' and company_telephone='%s' and status!=9999", array($email, $phone))->select();
+        $objUser = $user->where("email='%s' and company_phone='%s' and company_telephone='%s' and status!=9999", array($email, $phone, $telephone))->select();
 		if (sizeof($objUser) != 1) {
 			echo '{"code":"-1","msg":"mysql error!"}';
 			exit;
@@ -202,21 +217,15 @@ class UserService extends Model{
     **@breif 管理员修改项目投资方信息
     **@date 2015.12.12
     **/
-	public function changeProjectInvestorByManager($email, $companyName){
+	public function changeProjectInvestorByManager($id, $email, $companyName){
 		$user = M('User');
-		$objUser = $user->where("email='%s' and status!=9999", array($email))->select();
-		if(sizeof($objUser) == 0){
-			echo '{"code":"-1","msg":"用户不存在!"}';
-			exit;
-		}
-
-		$user->email = $email;
-        $user->company_name = $companyName;
-        $user->change_date = date("Y-m-d H:i:s",time());
-        $user->save();
+		$data['email'] = $email;
+		$data['company_name'] = $companyName;
+		$data['change_date'] = date("Y-m-d H:i:s",time());
+        $user->where("id='".$id."'")->save($data);
 
         $objUser = $user->where("email='%s' and company_name='%s' and status!=9999", array($email, $companyName))->select();
-		if (sizeof($objUser) != 0) {
+		if (sizeof($objUser) != 1) {
 			echo '{"code":"-1","msg":"mysql error!"}';
 			exit;
 		}
@@ -228,31 +237,37 @@ class UserService extends Model{
     **@breif 管理员修改项目业务人员信息
     **@date 2015.12.12
     **/
-	public function changeInnerStaffByManager($email, $code, $name){
+	public function changeInnerStaffByManager($id, $email, $code, $name){
 		$user = M('User');
-		$objUser = $user->where("email='%s' and status!=9999", array($email))->select();
-		if(sizeof($objUser) == 0){
-			echo '{"code":"-1","msg":"用户不存在!"}';
-			exit;
-		}
-
-		$user->email = $email;
-        $user->code = $code;
-        $user->name = $name;
-        $user->change_date = date("Y-m-d H:i:s",time());
-        $user->save();
+		$data['email'] = $email;
+		$data['code'] = $code;
+		$data['name'] = $name;
+		$data['change_date'] = date("Y-m-d H:i:s",time());
+        $user->where("id='".$id."'")->save($data);
 
         $objUser = $user->where("email='%s' and code='%s' and name='%s' and status!=9999", array($email, $code, $name))->select();
-		if (sizeof($objUser) != 0) {
+		if (sizeof($objUser) != 1) {
 			echo '{"code":"-1","msg":"mysql error!"}';
 			exit;
 		}
 		return $objUser[0];
 	}
 
+	/**
+    **@auth qianqiang
+    **@breif 根据用户id查询用户信息
+    **@date 2015.12.13
+    **/
+	public function getUserINfoById($id){
+		$condition["id"] = $id;
+		$condition["status"] = array('neq',9999);
+		$userInfo = $this->getUserInfo($condition);
+		return $userInfo;
+	}
+
     /**
     **@auth qianqiang
-    **@breif 根据项目编码获取项目信息
+    **@breif 查询用户信息
     **@param condition 数组，查询的条件
     **@return 一个数组
     **@date 2015.12.05

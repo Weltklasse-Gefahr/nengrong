@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes">
+	<title>项目提供方信息</title>
+	
+	<!-- Set render engine for 360 browser -->
+	<meta name="renderer" content="webkit">
+	
+	<!-- No Baidu Siteapp-->
+	<meta http-equiv="Cache-Control" content="no-siteapp" />
+	
+	<link rel="icon" type="image/png" href="/EnergyFe/img/i/favicon.png">
+	
+	<!-- Add to homescreen for Chrome on Android -->
+	<meta name="mobile-web-app-capable" content="yes">
+	<link rel="icon" sizes="192x192" href="/EnergyFe/img/i/favicon.png">
+	
+	<!-- Add to homescreen for Safari on iOS -->
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-title" content="Amaze UI" />
+	<link rel="apple-touch-icon-precomposed" href="/EnergyFe/img/i/favicon.png">
+	
+	<!-- Tile icon for Win8 (144x144 + tile color) -->
+	<meta name="msapplication-TileImage" content="/EnergyFe/img/i/favicon.png">
+	<meta name="msapplication-TileColor" content="#0e90d2">
+	<link rel="stylesheet" href="/EnergyFe/prd/styles/x-common@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/styles/x-common.css.ver';</php>.css">
+	<link rel="stylesheet" href="/EnergyFe/prd/styles/is-providerInfo@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/styles/is-providerInfo.css.ver';</php>.css">
+<body>
+	<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/hf/erqi/header.html';</php>
+
+	<div class="main clrfix">
+		<!-- 左侧导航栏 -->
+		<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/InnerStaff/InnerStaff_left.html';</php>
+		
+		<!-- 右侧布局 -->
+		<div class="r-content">
+			<div id="infoDiv" >
+				<p class="title">账户详细信息</p>
+				<div class="detail part1 clrfix">
+					<ul>
+						<li><span class="lb">E-mail</span>{$userInfo['email']}</li>
+						<li><span class="lb">联系人</span>{$userInfo['company_contacts']}</li>
+						<li><span class="lb">联系人手机</span>{$userInfo['company_contacts_phone']}</li>
+						<li class="area"><span class="lb">所在地区</span>
+							{$areaStr}
+						</li>
+						<li><span class="lb">详细地址</span>{$userInfo['company_address']}</li>
+						<li><span class="lb">企业注册资本</span>{$userInfo['company_capital']}&nbsp;万</li>
+					</ul>
+					<ul>
+						<li><span class="lb">企业名称</span>{$userInfo['company_name']}</li>
+						<li><span class="lb">企业类型</span>
+							{$userInfo['company_type']}
+						</li>
+						<li><span class="lb">公司传真</span>{$userInfo['company_fax']}</li>
+						<li><span class="lb">其他手机</span>{$userInfo['company_telephone']}</li>
+						<li><span class="lb">座机</span>{$userInfo['company_phone']}</li>
+						<li><span class="lb">企业法人</span>{$userInfo['company_person']}</li>
+					</ul>
+				</div>
+				<p class="title">上传的图片资料</p>
+				<div class="detail part2 clrfix">
+					<div class="item">
+						<p>公司营业执照</p>
+						<img name="business_license" style="width: 120px; height:120px" src="{$user['business_license']}" />
+					</div>
+					<div class="item">
+						<p>组织机构代码证</p>
+						<img name="organization_code" style="width: 120px; height:120px"src="{$user['organization_code']}"/>
+					</div>
+					<div class="item">
+						<p>国税登记证</p>
+						<img name="national_tax_certificate" style="width: 120px; height:120px" src="{$user['national_tax_certificate']}"/>
+					</div>
+					<div class="item">
+						<p>地税登记证</p>
+						<img name="local_tax_certificate" style="width: 120px; height:120px" src="{$user['local_tax_certificate']}"/>
+					</div>
+					<div class="item">
+						<p>法人身份证正面</p>
+						<img name="identity_card_front" style="width: 120px; height:120px" src="{$user['identity_card_front']}"/>
+					</div>
+					<div class="item">
+						<p>法人身份证反面</p>
+						<img name="identity_card_back" style="width: 120px; height:120px" src="{$user['identity_card_back']}"/>
+					</div>
+					<div class="finance clrfix"><p>财务审计报告</p><a href="{$user['financial_audit']}">{$user['financial_audit_name']}</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/hf/sub_footer.html';</php>
+	
+	<script src="/EnergyFe/prd/scripts/x-common@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/scripts/x-common.js.ver';</php>.js"></script>
+	<script src="/EnergyFe/prd/scripts/is-providerInfo@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/scripts/is-providerInfo.js.ver';</php>.js"></script>
+</body>
+</html>

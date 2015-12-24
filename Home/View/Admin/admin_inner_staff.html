@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+
+<html lang="zh">
+
+<head>
+
+<title>能融网管理系统</title>
+
+<meta charset="UTF-8" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="/EnergyFe/prd/styles/Admin/bootstrap.min.css">
+<link rel="stylesheet" href="/EnergyFe/prd/styles/Admin/bootstrap-responsive.min.css">
+<link rel="stylesheet" href="/EnergyFe/prd/styles/Admin/uniform@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/styles/Admin/uniform.css.ver';</php>.css">
+<link rel="stylesheet" href="/EnergyFe/prd/styles/Admin/select2<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/styles/Admin/select2.css.ver';</php>.css">
+<link rel="stylesheet" href="/EnergyFe/prd/styles/Admin/matrix-style<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/styles/Admin/matrix-style.css.ver';</php>.css">
+<link rel="stylesheet" href="/EnergyFe/prd/styles/Admin/matrix-media<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/styles/Admin/matrix-media.css.ver';</php>.css">
+<link rel="stylesheet" href="/EnergyFe/prd/styles/Admin/css/font-awesome<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/styles/Admin/css/font-awesome.css.ver';</php>.css">
+
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body>
+
+ 
+
+<!--Header-part-->
+
+<div id="header">
+
+  <h1><a href="admin_inner_staff.html">Matrix Admin</a></h1>
+
+</div>
+
+<!--close-Header-part-->
+
+ 
+
+<!--top-Header-menu-->
+
+<div id="user-nav" class="navbar navbar-inverse">
+
+  <ul class="nav">
+
+    <li  class="dropdown" id="profile-messages" ><a title="" href="#" data-toggle="dropdown" data-target="#profile-messages" class="dropdown-toggle"><i class="icon icon-user"></i>  <span class="text">Welcome Admin</span><b class="caret"></b></a>
+
+      <ul class="dropdown-menu">
+
+        <li><a href="http://www.enetf.com/?c=Admin&a=changePassword"><i class="icon-lock"></i> Change Password</a></li>
+
+        <li class="divider"></li>
+
+        <li><a href="http://www.enetf.com/?c=Admin&a=logout"><i class="icon-key"></i> Log Out</a></li>
+
+      </ul>
+
+    </li>
+
+  </ul>
+
+</div>
+
+<!--close-top-Header-menu-->
+
+<!--sidebar-menu-->
+
+ 
+
+<div id="sidebar"><a href="#" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
+
+  <ul>
+
+    <li class="active"><a href="http://www.enetf.com/?c=Admin&a=getAllInnerStaffInfo"><i class="icon icon-group"></i> <span>业务员管理</span></a></li>
+	<li><a href="http://www.enetf.com/?c=Admin&a=getAllProjectInvestorInfo"><i class="icon icon-briefcase"></i> <span>项目投资方管理</span></a></li>
+	<li><a href="http://www.enetf.com/?c=Admin&a=getAllProjectProviderInfo"><i class="icon icon-fire"></i> <span>项目提供方管理</span></a></li>
+
+  </ul>
+
+</div>
+
+ 
+
+<!--sidebar-menu-->
+
+ 
+
+<!--main-container-part-->
+
+<div id="content">
+
+  <div id="content-header">
+
+    <div id="breadcrumb"> <a href="#" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href="#" class="current">业务员管理</a> </div>
+
+    <h1>业务员管理</h1>
+
+  </div>
+
+  <div class="container-fluid">
+
+    <div class="row-fluid">
+
+      <div class="span12">
+
+        <div class="widget-box">
+
+          <div class="widget-title"> <span class="icon"><i class="icon-th"></i></span>
+
+            <h5>业务员列表</h5>
+				<div class="buttons"> 
+				<a id="add-event" data-toggle="modal" href="#modal-add-event" class="btn btn-inverse btn-mini"><i class="icon-plus icon-white"></i>添加新业务员</a>
+              <div aria-hidden="true" style="display: none;" class="modal hide" id="modal-add-event">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">×</button>
+                  <h3>添加新业务员</h3>
+                </div>
+				<div class="modal-body">
+				  <p>业务员邮箱:</p>
+                  <p>
+                    <input id="add_email" type="text">
+                  </p>
+                  <p>业务员工号:</p>
+                  <p>
+                    <input id="add_code" type="text">
+                  </p>
+                
+                  <p>业务员姓名:</p>
+                  <p>
+                    <input id="add_name" type="text">
+                  </p>
+                </div>
+                <div class="modal-footer"> <a href="#" class="btn" data-dismiss="modal">取消</a> <a href="#" id="add_inner_staff" class="btn btn-primary">添加</a> </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="widget-content nopadding">
+
+            <table class="table table-bordered data-table">
+
+              <thead>
+
+                <tr>
+
+				  <th>业务员邮箱</th>
+
+                  <th>业务员工号</th>
+
+                  <th>姓名</th>
+
+                  <th>更新日期</th>
+
+                  <th></th>
+
+                </tr>
+
+              </thead>
+
+              <tbody>
+
+				<foreach name="listInfo" item="inner_staff">
+					<tr data-id="{$inner_staff[id]}" class="gradeX">
+						<td>{$inner_staff[email]}</td>
+						<td>{$inner_staff[code]}</td>
+						<td>{$inner_staff[name]}</td>
+						<td>{$inner_staff[change_date]}</td>
+						<td class="action-td">
+								<button class="btn btn-info edit_id">编辑</button>
+								<a href="#myAlert_reset" data-toggle="modal" class="btn btn-warning reset_id">重置密码</a>
+								<a href="#myAlert_delete" data-toggle="modal" class="btn btn-danger delete_id">删除</a>
+						</td>
+					</tr>
+				</foreach>
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+<div id="myAlert_reset" class="modal hide">
+              <div class="modal-header">
+                <button data-dismiss="modal" class="close" type="button">×</button>
+                <h3>提示</h3>
+              </div>
+              <div class="modal-body">
+                <p>您确定要重置该用户的密码吗？</p>
+              </div>
+              <div class="modal-footer"> 
+				<a id="confirm_reset_id" data-dismiss="modal" class="btn btn-primary" href="#">重置</a> 
+				<a data-dismiss="modal" class="btn" href="#">取消</a> 
+			  </div>
+</div>
+<div id="myAlert_delete" class="modal hide">
+              <div class="modal-header">
+                <button data-dismiss="modal" class="close" type="button">×</button>
+                <h3>提示/h3>
+              </div>
+              <div class="modal-body">
+                <p>您确定要删除该用户吗？</p>
+              </div>
+              <div class="modal-footer"> 
+				<a id="confirm_delete_id" data-dismiss="modal" class="btn btn-primary" href="#">删除</a> 
+				<a data-dismiss="modal" class="btn" href="#">取消</a> 
+			  </div>
+</div>
+
+<div id="myAlert_reset_success" class="modal hide"  style="display: none;">
+              <div class="modal-header">
+                <button data-dismiss="modal" class="close myAlert_reset_success_closed" type="button">×</button>
+                <h3>提示</h3>
+              </div>
+              <div class="modal-body">
+                <p>重置密码成功！</p>
+              </div>
+              <div class="modal-footer"> 
+				<a data-dismiss="modal" class="btn myAlert_reset_success_closed" href="#">关闭</a> 
+			  </div>
+</div>
+<div id="myAlert_reset_failed" class="modal hide"  style="display: none;">
+              <div class="modal-header">
+                <button data-dismiss="modal" class="close myAlert_reset_failed_closed" type="button">×</button>
+                <h3>提示</h3>
+              </div>
+              <div class="modal-body">
+                <p>重置密码失败！</p>
+              </div>
+              <div class="modal-footer"> 
+				<a data-dismiss="modal" class="btn myAlert_reset_failed_closed" href="#">关闭</a> 
+			  </div>
+</div>
+
+<div id="myAlert_delete_success" class="modal hide"  style="display: none;">
+              <div class="modal-header">
+                <button data-dismiss="modal" class="close myAlert_delete_success_closed" type="button">×</button>
+                <h3>提示</h3>
+              </div>
+              <div class="modal-body">
+                <p>删除业务员成功！</p>
+              </div>
+              <div class="modal-footer"> 
+				<a data-dismiss="modal" class="btn myAlert_delete_success_closed" href="#">关闭</a> 
+			  </div>
+</div>
+<div id="myAlert_delete_failed" class="modal hide"  style="display: none;">
+              <div class="modal-header">
+                <button data-dismiss="modal" class="close myAlert_delete_failed_closed" type="button">×</button>
+                <h3>提示</h3>
+              </div>
+              <div class="modal-body">
+                <p>删除业务员失败！</p>
+              </div>
+              <div class="modal-footer"> 
+				<a data-dismiss="modal" class="btn myAlert_delete_failed_closed" href="#">关闭</a> 
+			  </div>
+</div>
+
+<div id="myAlert_add_success" class="modal hide"  style="display: none;">
+              <div class="modal-header">
+                <button data-dismiss="modal" class="close myAlert_add_success_closed" type="button">×</button>
+                <h3>提示</h3>
+              </div>
+              <div class="modal-body">
+                <p>添加业务员成功！</p>
+              </div>
+              <div class="modal-footer"> 
+				<a data-dismiss="modal" class="btn myAlert_add_success_closed" href="#">关闭</a> 
+			  </div>
+</div>
+<div id="myAlert_add_failed" class="modal hide"  style="display: none;">
+              <div class="modal-header">
+                <button data-dismiss="modal" class="close myAlert_add_failed_closed" type="button">×</button>
+                <h3>提示</h3>
+              </div>
+              <div class="modal-body">
+                <p>添加业务员失败！</p>
+              </div>
+              <div class="modal-footer"> 
+				<a data-dismiss="modal" class="btn myAlert_add_failed_closed" href="#">关闭</a> 
+			  </div>
+</div>
+<!--Footer-part-->
+
+<div class="row-fluid">
+
+  <div id="footer" class="span12"> 2013 &copy; Matrix Admin. Brought to you by <a href="http://themedesigner.in/">Themedesigner.in</a> </div>
+
+</div>
+
+<!--end-Footer-part-->
+
+
+<script src="/EnergyFe/prd/scripts/Admin/jquery.min.js"></script>
+<script src="/EnergyFe/prd/scripts/Admin/bootstrap.min.js"></script>
+<script src="/EnergyFe/prd/scripts/Admin/select2.min.js"></script>
+<script src="/EnergyFe/prd/scripts/Admin/jquery.dataTables.min.js"></script>
+<script src="/EnergyFe/prd/scripts/Admin/jquery.gritter.min.js"></script>
+<script src="/EnergyFe/prd/scripts/Admin/jquery.peity.min.js"></script>
+<script src="/EnergyFe/prd/scripts/Admin/jquery.ui.custom@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/scripts/Admin/jquery.ui.custom.js.ver';</php>.js"></script>
+<script src="/EnergyFe/prd/scripts/Admin/jquery.uniform@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/scripts/Admin/jquery.uniform.js.ver';</php>.js"></script>
+
+<script src="/EnergyFe/prd/scripts/Admin/matrix@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/scripts/Admin/matrix.js.ver';</php>.js"></script>
+
+<script src="/EnergyFe/prd/scripts/Admin/matrix.tables@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/scripts/Admin/matrix.tables.js.ver';</php>.js"></script>
+
+<script src="/EnergyFe/prd/scripts/Admin/matrix.interface@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/scripts/Admin/matrix.interface.js.ver';</php>.js"></script>
+
+<script src="/EnergyFe/prd/scripts/Admin/matrix.popover@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/scripts/Admin/matrix.popover.js.ver';</php>.js"></script>
+
+<script src="/EnergyFe/prd/scripts/Admin/admin/admin_inner_staff@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/scripts/Admin/admin/admin_inner_staff.js.ver';</php>.js"></script>
+
+</body>
+
+</html>

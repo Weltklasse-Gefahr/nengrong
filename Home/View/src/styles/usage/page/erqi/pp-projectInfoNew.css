@@ -6,6 +6,41 @@
 	margin-top: 60px;
 }
 
+/* 如果某项只在某一种项目类型下有，默认先隐藏这样的项 */
+.r-content form .notall {
+	display: none;
+}
+/* 屋顶分布式 未建 */
+.r-content form.housetop_nonBuild .housetop_nonBuild_item {
+	display: block;
+}
+/* 屋顶分布式 已建 */
+.r-content form.housetop_build .housetop_build_item {
+	display: block;
+}
+/* 地面分布式 未建 */
+.r-content form.ground_nonBuild .ground_nonBuild_item {
+	display: block;
+}
+/* 地面分布式 已建 */
+.r-content form.ground_build .ground_build_item {
+	display: block;
+}
+/* 大型地面 未建 */
+.r-content form.bigground_nonBuild .ground_nonBuild_item, .r-content form.bigground_nonBuild .bigground_nonBuild_item  {
+	display: block;
+}
+.r-content form.bigground_nonBuild .ground_nonBuild_item.onlyground {
+	display: none;
+}
+/* 大型地面 已建 */
+.r-content form.bigground_build .ground_build_item, .r-content form.bigground_build .bigground_build_item {
+	display: block;
+}
+.r-content form.bigground_build .ground_build_item.onlyground {
+	display: none;
+}
+
 .r-content form .part1 li {
 	margin-top: 20px;
 }
@@ -16,6 +51,7 @@
 }
 
 .r-content form .part1 .item {
+	width: 800px;
 	float: left;
 }
 
@@ -47,6 +83,11 @@
 	margin-left: 0;
 }
 
+.r-content form .part1 .item.area input {
+	height: 24px;
+	width: 500px;
+}
+
 .r-content form .part1 .item .demo {
 	display: inline-block;
 	text-align: center;
@@ -54,17 +95,19 @@
 }
 
 .r-content form .part1 .item .img-ct {
-	display: inline-block;
+	float: left;
 	text-align: center;
-	margin-right: 50px;
+	margin-right: 25px;
 }
 
-.r-content form .part1 .item .img-ct .previewname {
+.r-content form .part1 .item .img-ct p {
 	height: 20px;
 }
 
 .r-content form .part1 .item .img-ct + .tip {
 	margin-top: 10px;
+	width: 800px;
+	float: left;
 }
 
 .r-content form > .title {
@@ -126,7 +169,7 @@
 	width: auto;
 }
 
-.r-content form .part2 li .more-info {
+.r-content form .part2 li .other {
 	width: 120px;
 }
 
@@ -141,12 +184,13 @@
 	background-color: #FD7940;
 	color: #fff;
 	border: 0;
+	margin-right: 140px;
 }
 
-.r-content form input[type="submit"]:hover {
+.r-content form .operator input[type="submit"]:hover {
 	background: #F1920C;
 }
 
-.r-content form .operator .save {
-	margin-right: 140px;
+.r-content form .operator input[type="submit"].last {
+	margin-right: 0;
 }
