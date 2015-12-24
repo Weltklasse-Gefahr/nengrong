@@ -44,24 +44,24 @@
 				<p class="title">账户详细信息</p>
 				<div class="detail part1 clrfix">
 					<ul>
-						<li><span class="lb">E-mail</span>{$user['email']}</li>
-						<li><span class="lb">联系人</span>{$user['company_contacts']}</li>
-						<li><span class="lb">联系人手机</span>{$user['company_contacts_phone']}</li>
+						<li><span class="lb">E-mail</span>{$userInfo['email']}</li>
+						<li><span class="lb">联系人</span>{$userInfo['company_contacts']}</li>
+						<li><span class="lb">联系人手机</span>{$userInfo['company_contacts_phone']}</li>
 						<li class="area"><span class="lb">所在地区</span>
-							{$user['area']}
+							{$areaStr}
 						</li>
-						<li><span class="lb">详细地址</span>{$user['company_address']}</li>
-						<li><span class="lb">企业注册资本</span>{$user['company_capital']}&nbsp;万</li>
+						<li><span class="lb">详细地址</span>{$userInfo['company_address']}</li>
+						<li><span class="lb">企业注册资本</span>{$userInfo['company_capital']}&nbsp;万</li>
 					</ul>
 					<ul>
-						<li><span class="lb">企业名称</span>{$user['company_name']}</li>
+						<li><span class="lb">企业名称</span>{$userInfo['company_name']}</li>
 						<li><span class="lb">企业类型</span>
-							{$user['company_type']}
+							{$userInfo['company_type']}
 						</li>
-						<li><span class="lb">公司传真</span>{$user['company_fax']}</li>
-						<li><span class="lb">其他手机</span>{$user['company_telephone']}</li>
-						<li><span class="lb">座机</span>{$user['company_phone']}</li>
-						<li><span class="lb">企业法人</span>{$user['company_person']}</li>
+						<li><span class="lb">公司传真</span>{$userInfo['company_fax']}</li>
+						<li><span class="lb">其他手机</span>{$userInfo['company_telephone']}</li>
+						<li><span class="lb">座机</span>{$userInfo['company_phone']}</li>
+						<li><span class="lb">企业法人</span>{$userInfo['company_person']}</li>
 					</ul>
 				</div>
 				<p class="title">上传的图片资料</p>
