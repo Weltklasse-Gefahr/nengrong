@@ -39,9 +39,15 @@ class ProjectService extends Model{
     **@breif 查询已签意向书项目
     **@date 2015.12.24
     **/ 
-    public function getAggrementProject(){
-        $project = D("Project");
-        $projectInfo = $project->where("status=21 or status=22")->select();
+    public function getAgreementProject($email){
+        if(!empty($email)){
+            $user = D('User');
+            $userInfo = $user->where("email='".$email."'")->find();
+            $condition['provider_id'] = $userInfo['id'];
+        }
+        $condition['status'] = array('between','21,29');
+        //增加排序！！
+        $projectInfo = $this->getProjectsInfo($condition);
         return $projectInfo; 
     }
 
@@ -50,9 +56,14 @@ class ProjectService extends Model{
     **@breif 查询已签融资合同项目
     **@date 2015.12.24
     **/ 
-    public function getxxxxx(){
-        $project = D("Project");
-        $projectInfo = $project->where("status=31")->select();
+    public function getxxxxx($email){
+        if(!empty($email)){
+            $user = D('User');
+            $userInfo = $user->where("email='".$email."'")->find();
+            $condition['provider_id'] = $userInfo['id'];
+        }
+        $condition['status'] = array('between','31,39');
+        $projectInfo = $this->getProjectsInfo($condition);
         return $projectInfo; 
     }
 
@@ -119,6 +130,7 @@ class ProjectService extends Model{
     **/
     public function getProjectsInfo($condition){
         $objProject = new \Home\Model\ProjectModel(); 
+        //增加排序
         $projectInfo = $objProject->where($condition)->select();
         return $projectInfo;
     }
