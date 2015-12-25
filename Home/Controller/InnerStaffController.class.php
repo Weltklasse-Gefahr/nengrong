@@ -67,34 +67,35 @@ class InnerStaffController extends Controller {
     		$projectId = $objProjectInfo['id'];
 
     		$proData = array();
-    		$proData['projectId'] = $projectId;
-            $proData['housetopOwner'] = $_POST['housetopOwner']; 
-            $proData['companyType'] = $_POST['companyType'];
-            $proData['planBuildVolume'] = $_POST['planBuildVolume'];
+    		$proData['project_id'] = $projectId;
+            $proData['housetop_owner'] = $_POST['housetopOwner']; 
+            $proData['company_type'] = $_POST['companyType'];
+            $proData['plan_build_volume'] = $_POST['planBuildVolume'];
 
             // 项目地点是什么内容？？？
             $proData['project_area'] = $_POST['project_area'];
             $proData['project_address'] = $_POST['project_address'];
 
-            $proData['housetopType'] = $_POST['housetopType'];
-            $proData['synchronizeType'] = $_POST['synchronizeType'];
-            $proData['planFinancing'] = $_POST['planFinancing'];
-            $proData['financingType'] = $_POST['financingType'];
+            $proData['housetop_type'] = $_POST['housetopType'];
+            $proData['housetop_type_other'] = $_POST['housetop_type_other'];
+            $proData['synchronize_type'] = $_POST['synchronizeType'];
+            $proData['plan_financing'] = $_POST['planFinancing'];
+            $proData['financing_type'] = $_POST['financingType'];
 
             $evaData = array();
-            $evaData['projectId'] = $projectId;
+            $evaData['project_id'] = $projectId;
             $evaData['IRR'] = $_POST['IRR'];
-            $evaData['evaluationResult'] = $_POST['evaluationResult'];
-            $evaData['staticPaybackTime'] = $_POST['staticPaybackTime'];
-            $evaData['dynamicPaybackTime'] = $_POST['dynamicPaybackTime'];
+            $evaData['evaluation_result'] = $_POST['evaluationResult'];
+            $evaData['static_payback_time'] = $_POST['staticPaybackTime'];
+            $evaData['dynamic_payback_time'] = $_POST['dynamicPaybackTime'];
             $evaData['LCOE'] = $_POST['LCOE'];
             $evaData['npv'] = $_POST['npv'];
-            $evaData['powerAssetCurrentValue'] = $_POST['powerAssetCurrentValue'];
-            $evaData['evaluationContent'] = $_POST['evaluationContent'];
-            $evaData['documentReview'] = $_POST['documentReview'];
-            $evaData['projectQualitySituation'] = $_POST['projectQualitySituation'];
-            $evaData['projectInvestSituation'] = $_POST['projectInvestSituation'];
-            $evaData['projectEarningsSituation'] = $_POST['projectEarningsSituation'];
+            $evaData['power_asset_current_value'] = $_POST['powerAssetCurrentValue'];
+            $evaData['evaluation_content'] = $_POST['evaluationContent'];
+            $evaData['document_review'] = $_POST['documentReview'];
+            $evaData['project_quality_situation'] = $_POST['projectQualitySituation'];
+            $evaData['project_invest_situation'] = $_POST['projectInvestSituation'];
+            $evaData['project_earnings_situation'] = $_POST['projectEarningsSituation'];
 
             // $objProject = D("Project", "Service");
             $res = $objProject->saveHousetopProject($proData);

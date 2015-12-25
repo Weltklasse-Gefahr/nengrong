@@ -46,7 +46,6 @@ class ProjectService extends Model{
             $condition['provider_id'] = $userInfo['id'];
         }
         $condition['status'] = array('between','21,29');
-        //增加排序！！
         $projectInfo = $this->getProjectsInfo($condition);
         return $projectInfo; 
     }
@@ -75,8 +74,8 @@ class ProjectService extends Model{
     **/ 
     public function saveHousetopProject($proData){
         $housetop = M("Housetop");
-        if($this->hasSaveHousetopProject($proData['projectId']) == 1){
-            $housetop->where("project_id='".$proData['projectId']."' and status=51")->save($proData);
+        if($this->hasSaveHousetopProject($proData['project_id']) == 1){
+            $housetop->where("project_id='".$proData['project_id']."' and status=51")->save($proData);
         }else{
             $proData['status'] = 51;
             $proData['create_date'] = date("Y-m-d H:i:s",time());
@@ -96,12 +95,18 @@ class ProjectService extends Model{
     **@date 2015.12.23
     **/ 
     public function submitHousetopProject($proData){
-        //保存记录，如果有save数据，进行删除
-        //如果没有保存记录，判断是否有提交记录，有则更新，无则添加
+        //更新项目资料
+        //如果有save数据，进行删除
         $housetop = M("Housetop");
-        if($this->hasSaveHousetopProject($proData['projectId']) == 1){
-
+        $proData['status'] = 22;
+        $proData['change_date'] = date("Y-m-d H:i:s",time());
+        $housetopInfo = $housetop->where("project_id='".$proData['project_id']."' and status=21")->save($proData);
+        if($this->hasSaveHousetopProject($proData['project_id']) == 1){
+            $condition['project_id'] = $proData['project_id'];
+            $condition['status'] = 51;
+            $housetop->where($condition)->delete();
         }
+        return true;
     }
 
     /**
@@ -130,8 +135,7 @@ class ProjectService extends Model{
     **/
     public function getProjectsInfo($condition){
         $objProject = new \Home\Model\ProjectModel(); 
-        //增加排序
-        $projectInfo = $objProject->where($condition)->select();
+        $projectInfo = $objProject->where($condition)->order('highlight_flag desc')->select();
         return $projectInfo;
     }
 }

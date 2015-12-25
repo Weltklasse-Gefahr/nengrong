@@ -26,8 +26,8 @@ class evaluationService extends Model(){
     **/ 
 	public function saveEvaluationInfo($evaluationInfo){
 		$evaluation = M("Evaluation");
-        if($this->hasEvaluation($evaluationInfo['projectId']) == 1){
-            $evaluation->where("project_id='".$evaluationInfo['projectId']."' and status=51")->save($evaluationInfo);
+        if($this->hasEvaluation($evaluationInfo['project_id'], 51) == 1){
+            $evaluation->where("project_id='".$evaluationInfo['project_id']."' and status=51")->save($evaluationInfo);
         }else{
             $evaluationInfo['status'] = 51;
             $evaluationInfo['create_date'] = date("Y-m-d H:i:s",time());
@@ -47,8 +47,24 @@ class evaluationService extends Model(){
     **@date 2015.12.23
     **/ 
 	public function submitEvaluationInfo($evaluationInfo){
-		//存储，如果有save数据，进行删除
-        //如果没有保存记录，判断是否有提交记录，有则更新，无则添加
+		//如果没有保存记录，判断是否有提交记录，有则更新，无则添加
+		//如果有save数据，进行删除
+		$evaluation = M("Evaluation");
+		if($this->hasEvaluation($evaluationInfo['project_id'], 52) == 1){
+        	$evaluationInfo['change_date'] = date("Y-m-d H:i:s",time());
+        	$objEvaluation = $evaluation->where("project_id='".$evaluationInfo['project_id']."' and status=52")->save($evaluationInfo);
+		}else{
+			$evaluationInfo['status'] = 52;
+			$evaluationInfo['create_date'] = date("Y-m-d H:i:s",time());
+			$evaluationInfo['change_date'] = date("Y-m-d H:i:s",time());
+        	$objEvaluation = $evaluation->add($evaluationInfo);
+		}
+        if($this->hasEvaluation($evaluationInfo['project_id'], 51) == 1){
+            $condition['project_id'] = $evaluationInfo['project_id'];
+            $condition['status'] = 51;
+            $evaluation->where($condition)->delete();
+        }
+        return true;
 	}
 
 	/**
@@ -57,10 +73,10 @@ class evaluationService extends Model(){
     **@return 存在返回true，不存在返回false
     **@date 2015.12.23
     **/ 
-    public function hasEvaluation($projectId){
+    public function hasEvaluation($projectId, $status){
         $objEvaluation = D("Evaluation");
         $condition["project_id"] = $projectId;
-        $condition["status"] = 51;
+        $condition["status"] = $status;
         $evaluationInfo = $objEvaluation->where($condition)->select();
         if(sizeof($evaluationInfo) == 1)
             return true;
