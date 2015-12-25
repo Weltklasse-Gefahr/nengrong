@@ -243,9 +243,10 @@ create table ENF_Project
    project_address     	varchar(60) comment '项目详细地址',
    build_state          int comment '建设状态：1未建、2已建',
    provider_id			bigint comment '项目提供方id',
+   highlight_flag       int comment '高亮标记，0不高亮，1高亮',
+   status               int not null default 0 comment '状态类型：0正常、1已激活、2未激活、11未提交、12已提交未查看（业务员界面高亮处理）、13已提交已查看、21签意向合同（客服未查看）、22签意向合同（客服已查看）、23签意向合同（客服未提交尽职调查）、24签意向合同（客服已提交尽职调查，项目提供方未查看）、25签意向合同（客服已提交尽职调查，项目提供方已查看）、31签融资合同、41已推送、42未推送、51尽职调查已保存、52尽职调查已提交、9999删除',
    create_date          datetime comment '创建时间',
    change_date          datetime comment '修改时间',
-   status               int not null default 0 comment '状态类型：0正常、1已激活、2未激活、11未提交、12已提交未查看（业务员界面高亮处理）、13已提交已查看、21签意向合同（客服未查看）、22签意向合同（客服已查看）、23签意向合同（客服未提交尽职调查）、24签意向合同（客服已提交尽职调查，项目提供方未查看）、25签意向合同（客服已提交尽职调查，项目提供方已查看）、31签融资合同、41已推送、42未推送、51尽职调查已保存、52尽职调查已提交、9999删除',
    primary key (id)
 )ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
