@@ -26,11 +26,44 @@ class ProjectService extends Model{
         if($projectType == 1){
             $housetop = M("Housetop");
             $housetopInfo = $housetop->where("project_id='%s' and status!=9999", $projectId)->select();
-            return $housetop[0];
+            return $housetopInfo[0];
         }elseif($projectType == 2 || $projectType == 3){
             $ground = M("Ground");
             $groundInfo = $ground->where("project_id='%s' and status!=9999", $projectId)->select();
             return $groundInfo[0];
+        }
+    }
+
+    /**
+    **@auth qianqiang
+    **@breif 查看尽职调查中的项目信息，如果有保存的返回保存的数据，没有保存的返回正常数据
+    **@date 2015.12.25
+    **/ 
+    public function getProjectInEvaluation($projectId, $projectType){
+        if($projectType == 1){
+            $housetop = M("Housetop");
+            $condition['project_id'] = $projectId;
+            $condition['status'] = 51;
+            $housetopInfo = $housetop->where($condition)->select();
+            if(sizeof($housetopInfo) > 0) 
+                return $housetopInfo[0];
+            else{
+                $condition['status'] = array('between','21,29');
+                $housetopInfo = $housetop->where($condition)->select();
+                return $housetopInfo[0];
+            }
+        }elseif($projectType == 2 || $projectType == 3){
+            $ground = M("Ground");
+            $condition['project_id'] = $projectId;
+            $condition['status'] = 51;
+            $groupInfo = $ground->where($condition)->select();
+            if(sizeof($groupInfo) > 0) 
+                return $groupInfo[0];
+            else{
+                $condition['status'] = array('between','21,29');
+                $groupInfo = $ground->where($condition)->select();
+                return $groupInfo[0];
+            }
         }
     }
 

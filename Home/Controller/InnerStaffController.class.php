@@ -164,10 +164,10 @@ class InnerStaffController extends Controller {
     		$objProject  = D("Project", "Service");
     		$objProjectInfo = $objProject->getProjectInfo($projectCode);
     		$projectId = $objProjectInfo['id'];
-    		$projectDetail = $objProject->getProjectDetail($projectId, $objProjectInfo['project_type']);
+    		$projectDetail = $objProject->getProjectInEvaluation($projectId, $objProjectInfo['project_type']);
 			
 			$objEvaluation = D("Evaluation", "service");
-			$evaluationInfo = $objEvaluation->getEvaluationInfo($projectId);
+			$evaluationInfo = $objEvaluation->getEvaluation($projectId);
 
             if ($_GET['display'] == 'json') {
                 dump($users);

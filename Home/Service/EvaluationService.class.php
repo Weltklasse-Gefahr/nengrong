@@ -20,6 +20,19 @@ class evaluationService extends Model(){
 
 	/**
     **@auth qianqiang
+    **@breif 查看尽职调查信息，读取顺序：保存的、提交的、空
+    **@date 2015.12.25
+    **/ 
+	public function getEvaluation($projectId){
+		$objEvaluation = D("Evaluation");
+		$condition["project_id"] = $projectId;
+		$condition["status"] = array('between', 51, 52);
+		$evaluationInfo = $objEvaluation->where($condition)->order('status asc')->select();
+		return $evaluationInfo[0];
+	}
+
+	/**
+    **@auth qianqiang
     **@breif 保存尽职调查
     **@return 保存成功返回true，失败返回false
     **@date 2015.12.23
