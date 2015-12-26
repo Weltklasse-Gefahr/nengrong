@@ -265,6 +265,18 @@ class UserService extends Model{
 		return $userInfo;
 	}
 
+	/**
+    **@auth qianqiang
+    **@breif 根据用户email查询用户信息
+    **@date 2015.12.13
+    **/
+	public function getUserINfoByEmail($email){
+		$condition["email"] = $email;
+		$condition["status"] = array('neq',9999);
+		$userInfo = $this->getUserInfo($condition);
+		return $userInfo;
+	}
+
     /**
     **@auth qianqiang
     **@breif 查询用户信息

@@ -12,7 +12,6 @@ class InnerStaffController extends Controller {
     **/
     public function getProjectProviderInfo(){
         isLogin($_COOKIE['email'], $_COOKIE['mEmail']);
-
     	$projectCode = $_POST["projectCode"];
     	$objProject = D("Project", "Service");
     	$objProjectInfo = $objProject->getProjectInfo($projectCode);
@@ -74,7 +73,6 @@ class InnerStaffController extends Controller {
     **/
     public function dueDiligence(){
     	isLogin($_COOKIE['email'], $_COOKIE['mEmail']);
-    	
     	$optype = $_POST['optype'] ? $_POST['optype']:$_GET['optype'];
         $rtype = $_POST['rtype'] ? $_POST['rtype']:$_GET['rtype'];
         if($optype == "upload" && $rtype == 1){
@@ -220,8 +218,21 @@ class InnerStaffController extends Controller {
         isLogin($_COOKIE['email'], $_COOKIE['mEmail']);
         $projectCode = $_POST["projectCode"];
         $objProject = D("Project", "Service");
-        $objProjectInfo = $objProject->getProjectInfo($projectCode);
-        
-    	$this->display("InnerStaff:projectInfo");
+        $projectInfo = $objProject->getProjectInfo($projectCode);
+        $projectDetail = $objProject->getProjectDetail($projectInfo['id'], $projectInfo['project_type']);
+        $this->assign("projectDetail", $projectDetail);
+        if($projectInfo['project_type'] == 1){
+            if($projectInfo['build_state'] == 1){
+                $this->display("InnerStaff:housetop_nonbuild");
+            }elseif($projectInfo['build_state'] == 2){
+                $this->display("InnerStaff:housetop_build");
+            }
+        }elseif($projectInfo['project_type'] == 2 || $projectInfo['project_type'] == 3){
+            if($projectInfo['build_state'] == 1){
+                $this->display("InnerStaff:ground_nonbuild");
+            }elseif($projectInfo['build_state'] == 2){
+                $this->display("InnerStaff:ground_build");
+            }
+        }
     }
 }
