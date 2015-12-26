@@ -30,26 +30,28 @@ $(function() {
 
         'fileType' : '*',
 
-        'overrideEvents': ['onProgress', 'onUploadComplete'],
+        'overrideEvents': ['onProgress'],
 
         'onAddQueueItem': function(file) {
-        	alert(1);
+        	file.queueItem.find(".filesize").html("（" + $.bytesToSize(file.size) + "）");
+        	file.queueItem.find(".filesize").attr("title", file.name);
         },
 
         'onUploadComplete': function(file, data) {
+        	console.log("上传"+file.name+"完成！");
         	var obj = JSON.parse(data);
-	      	if (obj.img == "500") {
-	        	alert("系统异常！");
+	      	if (obj.code == "0") {
+
 	      	} else {
-	        	$("#frontSide").val(obj.img);
-	        	document.getElementById("submit").disabled = false;
+	      		alert("上传 " + file.name + "失败！");
+	        	// document.getElementById("submit").disabled = false;
       		}
         },
 
         onCancel: function(file) {
-       		$("#frontSide").val("");
+       		// $("#frontSide").val("");
       		/* 注意：取消后应重新设置uploadLimit */
-      		$data	= $(this).data('uploadifive'),
+      		$data = $(this).data('uploadifive'),
       		$data.settings.uploadLimit++;
       		alert(file.name + " 已取消上传~!");
     	},
@@ -58,7 +60,7 @@ $(function() {
       		alert("浏览器太老，该页面部分功能将无法使用,\n请使用现代浏览器访问，如chrome、firefox!");
     	},
     	'onUpload' : function(file) {
-    		$("#submit").addClass("disabled");
+    		// $("#submit").addClass("disabled");
     	}
     });
 
