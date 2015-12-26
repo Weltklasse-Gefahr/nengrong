@@ -5,6 +5,7 @@ $(function() {
 
 	// 上传附件
 	$(".part3 input[type=file]").uploadifive({
+		'auto': true,
 
 		'fileObjName': 'attachment',
 		//后台处理的页面
@@ -19,7 +20,7 @@ $(function() {
         //上传文件页面中，你想要用来作为文件队列的元素的id, 默认为false  自动生成,  不带#
         'queueID': 'fileQueue',
 
-        'itemTemplate': '<div class="uploadifive-queue-item error">\
+        'itemTemplate': '<div class="uploadifive-queue-item">\
 <a class="close" href="#">删除</a>\
 <div><img class="attachment-logo" src="/EnergyFe/img/attachment.png">\
 <span class="filename"></span>\
@@ -30,7 +31,7 @@ $(function() {
 
         'fileType' : '*',
 
-        'overrideEvents': ['onProgress'],
+        'overrideEvents': [],
 
         'onAddQueueItem': function(file) {
         	file.queueItem.find(".filesize").html("（" + $.bytesToSize(file.size) + "）");
@@ -49,7 +50,6 @@ $(function() {
         },
 
         onCancel: function(file) {
-       		// $("#frontSide").val("");
       		/* 注意：取消后应重新设置uploadLimit */
       		$data = $(this).data('uploadifive'),
       		$data.settings.uploadLimit++;
@@ -58,9 +58,6 @@ $(function() {
 
         'onFallback' : function() {
       		alert("浏览器太老，该页面部分功能将无法使用,\n请使用现代浏览器访问，如chrome、firefox!");
-    	},
-    	'onUpload' : function(file) {
-    		// $("#submit").addClass("disabled");
     	}
     });
 
