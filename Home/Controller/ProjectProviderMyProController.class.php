@@ -346,6 +346,13 @@ class ProjectProviderMyProController extends Controller {
     **/
     public function awaitingAssessment()
     {
+        $email = $_COOKIE['email'];
+        isLogin($email, $_COOKIE['mEmail']);
+        isDataComplete($email);
+
+        $objProject = D("Project", "Service");
+        $listProject = $objProject->getAwaitingAssessment($email);
+        $this->assign('listProject', $listProject);
         $this->display("ProjectProvider:awaitingAssessment");
     }
 

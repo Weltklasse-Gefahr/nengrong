@@ -45,7 +45,7 @@ Released under the UploadiFive Standard License <http://www.uploadify.com/upload
                     'dropTarget'      : false,              // Selector for the drop target
                     'fileObjName'     : 'Filedata',         // The name of the file object to use in your server-side script
                     'fileSizeLimit'   : 0,                  // Maximum allowed size of files to upload
-                    'fileType'        : false,              // Type of files allowed (image, etc), separate with a pipe character |
+                    'fileType'        : false,              // Type of files allowed (image, etc), separate with a pipe character ,
                     'formData'        : {},                 // Additional data to send to the upload script
                     'height'          : 30,                 // The height of the button
                     'itemTemplate'    : false,              // The HTML markup for the item in the queue
@@ -83,13 +83,13 @@ Released under the UploadiFive Standard License <http://www.uploadify.com/upload
 
                 // Calculate the file size limit
                 if (isNaN(settings.fileSizeLimit)) {
-                    var fileSizeLimitBytes = parseInt(settings.fileSizeLimit) * 1.024
+                    var fileSizeLimitBytes = parseInt(settings.fileSizeLimit);
                     if (settings.fileSizeLimit.indexOf('KB') > -1) {
-                        settings.fileSizeLimit = fileSizeLimitBytes * 1000;
+                        settings.fileSizeLimit = fileSizeLimitBytes * 1024;
                     } else if (settings.fileSizeLimit.indexOf('MB') > -1) {
-                        settings.fileSizeLimit = fileSizeLimitBytes * 1000000;
+                        settings.fileSizeLimit = fileSizeLimitBytes * 1024 * 1024;
                     } else if (settings.fileSizeLimit.indexOf('GB') > -1) {
-                        settings.fileSizeLimit = fileSizeLimitBytes * 1000000000;
+                        settings.fileSizeLimit = fileSizeLimitBytes * 1024 * 1024 * 1024;
                     }
                 } else {
                     settings.fileSizeLimit = settings.fileSizeLimit * 1024;
@@ -627,7 +627,7 @@ Released under the UploadiFive Standard License <http://www.uploadify.com/upload
 
                     // Add drag and drop functionality
                     if (settings.dnd) {
-                        var $dropTarget = settings.dropTarget ? $(settings.dropTarget) : $data.queueEl.get(0);
+                        var $dropTarget = settings.dropTarget ? $(settings.dropTarget).get(0) : $data.queueEl.get(0);
                         $dropTarget.addEventListener('dragleave', function(e) {
                             // Stop FireFox from opening the dropped file(s)
                             e.preventDefault();

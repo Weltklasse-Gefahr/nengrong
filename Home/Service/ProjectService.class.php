@@ -69,6 +69,22 @@ class ProjectService extends Model{
 
     /**
     **@auth qianqiang
+    **@breif 查询待评估项目
+    **@date 2015.12.26
+    **/ 
+    public function getAwaitingAssessment($email){
+        if(!empty($email)){
+            $user = D('User');
+            $userInfo = $user->where("email='".$email."'")->find();
+            $condition['provider_id'] = $userInfo['id'];
+        }
+        $condition['status'] = array('between','11,19');
+        $projectInfo = $this->getProjectsInfo($condition);
+        return $projectInfo; 
+    }
+
+    /**
+    **@auth qianqiang
     **@breif 查询已签意向书项目
     **@date 2015.12.24
     **/ 
@@ -107,7 +123,7 @@ class ProjectService extends Model{
     **/ 
     public function saveHousetopProject($proData){
         $housetop = M("Housetop");
-        if($this->hasSaveHousetopProject($proData['project_id']) == 1){
+        if($this->hasSaveHousetopProject($proData['project_id'])){
             $housetop->where("project_id='".$proData['project_id']."' and status=51")->save($proData);
         }else{
             $proData['status'] = 51;
@@ -168,7 +184,7 @@ class ProjectService extends Model{
         $proData['status'] = 22;
         $proData['change_date'] = date("Y-m-d H:i:s",time());
         $housetopInfo = $housetop->where("project_id='".$proData['project_id']."' and status=21")->save($proData);
-        if($this->hasSaveHousetopProject($proData['project_id']) == 1){
+        if($this->hasSaveHousetopProject($proData['project_id'])){
             $condition['project_id'] = $proData['project_id'];
             $condition['status'] = 51;
             $housetop->where($condition)->delete();
@@ -195,7 +211,7 @@ class ProjectService extends Model{
 
     /**
     **@auth qianqiang
-    **@breif 查询project表信息
+    **@breif 查询project表信息，并按照是否高亮显示排序
     **@param condition 数组，查询的条件
     **@return 一个数组
     **@date 2015.12.24

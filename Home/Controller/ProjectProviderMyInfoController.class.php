@@ -133,6 +133,7 @@ class ProjectProviderMyInfoController extends Controller {
                 dump($objUser);
                 exit;
             }
+            $user->logoutService();
             echo '{"code":"0","msg":"success"}';
         }else{
             $this->display("ProjectProvider:securityCenter");
