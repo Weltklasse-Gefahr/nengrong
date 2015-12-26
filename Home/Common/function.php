@@ -196,8 +196,8 @@ function isDataComplete($email){
     $user = M("User");
     $objUser = $user->where("email='".$email."'")->find();
     //dump($objUser);
-    //只有项目提供方有必填项：企业名称、联系人、联系人手机
-    if($objUser["user_type"] == 3){
+    //项目提供方/项目投资方有必填项：企业名称、联系人、联系人手机
+    if($objUser["user_type"] == 3 || $objUser["user_type"] == 4){
         if($objUser["company_name"] == NULL || $objUser["company_contacts"] == NULL || $objUser["company_contacts_phone"] == NULL){
             header('Content-Type: text/html; charset=utf-8');
             echo "<script type='text/javascript'>alert('请先完善个人资料');location.href='?c=ProjectProviderMyInfo&a=myInformation'</script>";

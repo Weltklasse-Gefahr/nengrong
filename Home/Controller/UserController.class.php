@@ -75,7 +75,7 @@ class UserController extends Controller
                 dump($users);
                 exit;
             }
-            echo '{"code":"0","msg":"注册成功！","url":"?c=User&a=protocol"}';
+            echo '{"code":"0","msg":"注册成功！","url":"?c=User&a=loginsus"}';
         }else {
             $this->display("User:register");
         }
@@ -133,15 +133,21 @@ class UserController extends Controller
         }
     }
 
-    //用户激活
+    /**
+    **@auth qianqiang
+    **@breif 用户激活
+    **@date 
+    **/ 
     public function activeUser(){
         $email = $_POST['email'];
         $mEmail = $_POST['mEmail'];
-        if (!($mEmail == MD5($email."ENFENF"))) {
+        if (!($mEmail == MD5(addToken($email)))) {
             echo '{"code":"-1","msg":"登录信息错误"}';
             exit;
         }
-        
+        $user = D('User','Service');
+        $user->activeService($email);
+        $this->display("User:activesus");
     }
 
     // //显示用户详细信息

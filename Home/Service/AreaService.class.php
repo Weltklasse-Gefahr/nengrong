@@ -7,7 +7,7 @@ class AreaService extends Model{
 
 	/**
     **@auth qianqiang
-    **@breif 根据id得到省市县字符串
+    **@breif 根据id得到省市县字符串,如：山东省济南市市中区
     **@date 2015.12.23
 	**/
 	public function getAreaById($areaId){
