@@ -180,7 +180,12 @@ class InnerStaffController extends Controller {
     	}
     }
 
-    public function informationgallery(){
-    	$this->display("InnerStaff:providerInfo");
+    /**
+    **@auth qianqiang
+    **@breif 客服->项目信息
+    **@date 2015.12.19
+    **/
+    public function projectInfo(){
+    	$this->display("InnerStaff:projectInfo");
     }
 }
