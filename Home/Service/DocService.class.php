@@ -40,7 +40,7 @@ class DocService extends Model{
     **@breif 上传图片或者文档
     **@param arrPhotosAndFile 数组，要上传的图片和文件名称
     **@param arrFile 数组，文档的名称
-    **@return 一个数组，里面是图片名对于的附件秒id，例如$arrDocId = array("business_license"=>"12","financial_audit"=>"13")
+    **@return 一个数组，里面是图片名对于的附件表id，例如$arrDocId = array("business_license"=>"12","financial_audit"=>"13")
     **@date 2015.12.05
     **/
     public function uploadFileAndPictrue($arrPhotosAndFile, $arrFile){

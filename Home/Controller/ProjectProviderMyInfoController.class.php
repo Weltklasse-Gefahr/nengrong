@@ -99,6 +99,7 @@ class ProjectProviderMyInfoController extends Controller {
                 $docInfo = $objUser->getDocInfo($condition);
                 $user[0][$val] = array();
                 $user[0][$val]["id"] = $docInfo[0]["id"];
+                $user[0][$val]["token"] = md5(addToken($docInfo[0]["id"]));
                 $user[0][$val]["name"] = $docInfo[0]["file_name"];
                 $user[0][$val]["url"] = $docInfo[0]["file_rename"];
 

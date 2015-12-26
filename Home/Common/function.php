@@ -89,7 +89,8 @@ function uploadPicOne($photo, $savePath = ''){
     $info   =   $upload->uploadOne($photo);
     if(!$info) {
          // 上传错误提示错误信息
-        return $upload->getError();
+        echo '{"code":"-1","msg":"更新失败！原因：'.$upload->getError().'"}';
+        exit;
     }
     else{
          // 上传成功 获取上传文件信息
@@ -126,7 +127,8 @@ function uploadFileOne($file, $savePath = ''){
     $info   =   $upload->uploadOne($file);
     if(!$info) {
          // 上传错误提示错误信息
-        return $upload->getError();
+        echo '{"code":"-1","msg":"更新失败！原因：'.$upload->getError().'"}';
+        exit;
     }
     else{
          // 上传成功 获取上传文件信息
