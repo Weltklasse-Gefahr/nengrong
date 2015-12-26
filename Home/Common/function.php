@@ -111,7 +111,7 @@ function uploadFileOne($file, $savePath = ''){
     // 设置附件上传大小
     $upload->maxSize   =     3145728 ;
     // 设置附件上传类型
-    $upload->exts      =     array('pdf', 'doc', 'excel');
+    $upload->exts      =     array('pdf', 'doc', 'excel', 'txt');
     // 设置附件上传根目录
     $dirNengrongUserDataDoc = dirname(dirname(dirname(__FILE__))).'/userdata/doc/'; 
     $upload->rootPath  =      $dirNengrongUserDataDoc; 

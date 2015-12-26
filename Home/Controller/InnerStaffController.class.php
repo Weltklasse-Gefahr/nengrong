@@ -76,11 +76,13 @@ class InnerStaffController extends Controller {
     	$optype = $_POST['optype'] ? $_POST['optype']:$_GET['optype'];
         $rtype = $_POST['rtype'] ? $_POST['rtype']:$_GET['rtype'];
         if($optype == "upload" && $rtype == 1){
-            $docFile['docId'] = $_POST('docFile');
+            $docFile = array(
+                "attachment",
+                );
             $doc = D("Doc", "Service");
             $docInfo = $doc->uploadFileAndPictrue($docFile, $docFile);
-            if(sizeof($docInfo) > 0){
-                echo '{"code":"0","msg":"success","id":"'.$docInfo['docId'].'"}';
+            if(!empty($docInfo)){
+                echo '{"code":"0","msg":"success","id":"'.$docInfo['attachment'].'"}';
             }else{
                 echo '{"code":"-1","msg":"上传失败！"}';
             }
