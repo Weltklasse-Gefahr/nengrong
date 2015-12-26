@@ -190,6 +190,7 @@ function isAdminLogin($userName, $mUserName){
 **@date 2015.12.12
 **/
 function isDataComplete($email){
+    return true;
     $user = M("User");
     $objUser = $user->where("email='".$email."'")->find();
     //dump($objUser);

@@ -9,8 +9,11 @@ class UserController extends Controller
     {
         $this->display();
     }
-
-    //登录
+    /**
+    **@auth qianqiang
+    **@breif 登录
+    **@date 
+    **/ 
     public function login(){
         if($_POST['rtype'] == 1 || $_GET['rtype'] == 1){
             $email = $_POST['email'];
@@ -46,7 +49,11 @@ class UserController extends Controller
         }
     }
 
-    //注册
+    /**
+    **@auth qianqiang
+    **@breif 注册
+    **@date 
+    **/ 
     public function register(){
         if($_POST['rtype'] == 1 || $_GET['rtype'] == 1){
             $email = $_POST['email'];

@@ -26,7 +26,7 @@ class ProjectService extends Model{
         if($projectType == 1){
             $housetop = M("Housetop");
             $housetopInfo = $housetop->where("project_id='%s' and status!=9999", $projectId)->select();
-            return $housetop[0];
+            return $housetopInfo[0];
         }elseif($projectType == 2 || $projectType == 3){
             $ground = M("Ground");
             $groundInfo = $ground->where("project_id='%s' and status!=9999", $projectId)->select();
@@ -36,12 +36,50 @@ class ProjectService extends Model{
 
     /**
     **@auth qianqiang
+    **@breif 查看尽职调查中的项目信息，如果有保存的返回保存的数据，没有保存的返回正常数据
+    **@date 2015.12.25
+    **/ 
+    public function getProjectInEvaluation($projectId, $projectType){
+        if($projectType == 1){
+            $housetop = M("Housetop");
+            $condition['project_id'] = $projectId;
+            $condition['status'] = 51;
+            $housetopInfo = $housetop->where($condition)->select();
+            if(sizeof($housetopInfo) > 0) 
+                return $housetopInfo[0];
+            else{
+                $condition['status'] = array('between','21,29');
+                $housetopInfo = $housetop->where($condition)->select();
+                return $housetopInfo[0];
+            }
+        }elseif($projectType == 2 || $projectType == 3){
+            $ground = M("Ground");
+            $condition['project_id'] = $projectId;
+            $condition['status'] = 51;
+            $groupInfo = $ground->where($condition)->select();
+            if(sizeof($groupInfo) > 0) 
+                return $groupInfo[0];
+            else{
+                $condition['status'] = array('between','21,29');
+                $groupInfo = $ground->where($condition)->select();
+                return $groupInfo[0];
+            }
+        }
+    }
+
+    /**
+    **@auth qianqiang
     **@breif 查询已签意向书项目
     **@date 2015.12.24
     **/ 
-    public function getAggrementProject(){
-        $project = D("Project");
-        $projectInfo = $project->where("status=21 or status=22")->select();
+    public function getAgreementProject($email){
+        if(!empty($email)){
+            $user = D('User');
+            $userInfo = $user->where("email='".$email."'")->find();
+            $condition['provider_id'] = $userInfo['id'];
+        }
+        $condition['status'] = array('between','21,29');
+        $projectInfo = $this->getProjectsInfo($condition);
         return $projectInfo; 
     }
 
@@ -50,9 +88,14 @@ class ProjectService extends Model{
     **@breif 查询已签融资合同项目
     **@date 2015.12.24
     **/ 
-    public function getxxxxx(){
-        $project = D("Project");
-        $projectInfo = $project->where("status=31")->select();
+    public function getxxxxx($email){
+        if(!empty($email)){
+            $user = D('User');
+            $userInfo = $user->where("email='".$email."'")->find();
+            $condition['provider_id'] = $userInfo['id'];
+        }
+        $condition['status'] = array('between','31,39');
+        $projectInfo = $this->getProjectsInfo($condition);
         return $projectInfo; 
     }
 
@@ -64,8 +107,8 @@ class ProjectService extends Model{
     **/ 
     public function saveHousetopProject($proData){
         $housetop = M("Housetop");
-        if($this->hasSaveHousetopProject($proData['projectId']) == 1){
-            $housetop->where("project_id='".$proData['projectId']."' and status=51")->save($proData);
+        if($this->hasSaveHousetopProject($proData['project_id']) == 1){
+            $housetop->where("project_id='".$proData['project_id']."' and status=51")->save($proData);
         }else{
             $proData['status'] = 51;
             $proData['create_date'] = date("Y-m-d H:i:s",time());
@@ -85,12 +128,18 @@ class ProjectService extends Model{
     **@date 2015.12.23
     **/ 
     public function submitHousetopProject($proData){
-        //保存记录，如果有save数据，进行删除
-        //如果没有保存记录，判断是否有提交记录，有则更新，无则添加
+        //更新项目资料
+        //如果有save数据，进行删除
         $housetop = M("Housetop");
-        if($this->hasSaveHousetopProject($proData['projectId']) == 1){
-
+        $proData['status'] = 22;
+        $proData['change_date'] = date("Y-m-d H:i:s",time());
+        $housetopInfo = $housetop->where("project_id='".$proData['project_id']."' and status=21")->save($proData);
+        if($this->hasSaveHousetopProject($proData['project_id']) == 1){
+            $condition['project_id'] = $proData['project_id'];
+            $condition['status'] = 51;
+            $housetop->where($condition)->delete();
         }
+        return true;
     }
 
     /**
@@ -119,7 +168,7 @@ class ProjectService extends Model{
     **/
     public function getProjectsInfo($condition){
         $objProject = new \Home\Model\ProjectModel(); 
-        $projectInfo = $objProject->where($condition)->select();
+        $projectInfo = $objProject->where($condition)->order('highlight_flag desc')->select();
         return $projectInfo;
     }
 }
