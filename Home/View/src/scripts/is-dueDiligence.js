@@ -90,6 +90,10 @@ application/zip,application/x-zip-compressed',
 	   	// resetForm: true,         //成功提交后，重置所有表单元素的值  
 	   	// timeout: 6000               //限制请求的时间，当请求大于3秒后，跳出请求
 	};
+
+	function check() {
+		return true;
+	}
 	  
 	function beforeSubmit(formData, jqForm, options){
 
@@ -102,12 +106,10 @@ application/zip,application/x-zip-compressed',
 	   	//options:  options对象
 	   	var queryString = $.param(formData);   //name=1&address=2  
 	   	var formElement = jqForm[0];              //将jqForm转换为DOM对象  
-	   	var mobile = $.trim(formElement.company_contacts_phone.value);
-
-	   	// if(!mobile) {
-	   	// 	alert("请输入联系人手机号");
-	   	// 	return false;
-	   	// }
+	   	
+	   	if(!check()) {
+	   		return false;
+	   	}
 
 	   	$("#submit").addClass("disabled");
 
@@ -124,5 +126,14 @@ application/zip,application/x-zip-compressed',
 		}
 	}
 
-	$("#infoForm").ajaxForm(options);
+	$form = $("#infoForm");
+	$form.find("input[type=submit]").click(function() {
+		var optype = $(this).data("optype");
+		
+		$form.find("[name=optype]").val(optype);
+		$form.find("li:hidden input, li:hidden select").prop("disabled", true);
+		return true;
+	});
+
+	$form.ajaxForm(options);
 });
