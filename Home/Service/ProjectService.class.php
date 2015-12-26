@@ -122,6 +122,40 @@ class ProjectService extends Model{
     }
 
     /**
+    **@auth qiujinhan
+    **@breif 更新Housetop，orGround 如果已经存在就更新，不存在就插入
+    **@return 保存成功返回true，失败返回false
+    **@date 2015.12.23
+    **/ 
+    public function saveHousetopOrGround($proData, $status, $table){
+        $housetoporGround = M("$table");
+        if($this->hasSavehousetoporGround($proData['project_id'], $table) == true){
+            $ret = $housetoporGround->where("project_id='".$proData['project_id'])->save($proData);
+        }else{
+            $proData['create_date'] = date("Y-m-d H:i:s",time());
+            $ret = $housetoporGround->add($proData);
+        }
+        return $ret;
+    }
+
+    /**
+    **@auth qiujinhan
+    **@breif 判断是否有保存的saveHousetopOrGround
+    **@return 存在返回true，不存在返回false
+    **@date 2015.12.23
+    **/ 
+    public function hasSaveHousetopProject($projectId, $table){
+        $objProject = D("$table");
+        $condition["project_id"] = $projectId;
+        $proInfo = $objProject->where($condition)->select();
+        if(empty($proInfo))
+            return false;
+        else
+            return true;
+    }
+
+
+    /**
     **@auth qianqiang
     **@breif 尽职调查提交时，提交项目信息
     **@return 提交成功返回true，失败返回false
@@ -171,4 +205,32 @@ class ProjectService extends Model{
         $projectInfo = $objProject->where($condition)->order('highlight_flag desc')->select();
         return $projectInfo;
     }
+
+    /**
+    **@auth qiujinhan
+    **@breif 添加一个新的项目，插入一条新的数据到project表中
+    **@return 保存成功返回project id，失败返回false
+    **@date 2015.12.23
+    **/ 
+    public function insertProject($proData){
+        $project = M("Project");
+        $project->add($proData);
+        $projectInfo = $project->where($proData)->where("status!=51")->select();
+        return !empty($projectInfo) ? $projectInfo[0]["id"]:false;
+    }
+
+    /**
+    **@auth qiujinhan
+    **@breif 更新project表信息
+    **@return 保存成功返回project id，失败返回false
+    **@date 2015.12.23
+    **/ 
+    public function saveProject($project_code, $proData){
+        $project = M("Project");
+        $ret = $project->where("project_code = ".$project_code)->save($proData);
+        $condition["project_code"] = $project_code;
+        $projectInfo = $project->where($condition)->where("status!=51")->select();
+        return !empty($projectInfo) ? $projectInfo[0]["id"]:false;
+    }
+
 }
