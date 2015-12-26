@@ -180,5 +180,12 @@ class InnerStaffController extends Controller {
     	}
     }
 
-
+    /**
+    **@auth qianqiang
+    **@breif 客服->项目信息
+    **@date 2015.12.19
+    **/
+    public function projectInfo(){
+    	$this->display("InnerStaff:projectInfo");
+    }
 }

@@ -1,0 +1,149 @@
+.r-content {
+	padding-top: 30px;
+}
+
+.r-content form {
+	margin-top: 60px;
+}
+
+/* 如果某项只在某一种项目类型下有，默认先隐藏这样的项 */
+.r-content form .notall {
+	display: none;
+}
+/* 屋顶分布式 未建 */
+.r-content form.housetop_nonBuild .housetop_nonBuild_item {
+	display: block;
+}
+/* 屋顶分布式 已建 */
+.r-content form.housetop_build .housetop_build_item {
+	display: block;
+}
+/* 地面分布式 未建 */
+.r-content form.ground_nonBuild .ground_nonBuild_item {
+	display: block;
+}
+/* 地面分布式 已建 */
+.r-content form.ground_build .ground_build_item {
+	display: block;
+}
+/* 大型地面 未建 */
+.r-content form.bigground_nonBuild .ground_nonBuild_item, .r-content form.bigground_nonBuild .bigground_nonBuild_item  {
+	display: block;
+}
+.r-content form.bigground_nonBuild .ground_nonBuild_item.onlyground {
+	display: none;
+}
+/* 大型地面 已建 */
+.r-content form.bigground_build .ground_build_item, .r-content form.bigground_build .bigground_build_item {
+	display: block;
+}
+.r-content form.bigground_build .ground_build_item.onlyground {
+	display: none;
+}
+
+.r-content form .part1 li {
+	margin-top: 20px;
+}
+
+.r-content form .part1 .lb {
+	width: 100px;
+	float: left;
+}
+
+.r-content form .part1 .item {
+	width: 800px;
+	float: left;
+}
+
+.r-content form .part1 .item .filter {
+	line-height: 26px;
+	height: 32px;
+}
+
+.r-content form .part1 .item .filter span {
+	display: inline-block;
+	width: 110px;
+	text-align: center;
+	cursor: pointer;
+}
+
+.r-content form .part1 .item .filter span.active {
+	border-radius: 5px;
+	background-color: #FD7940;
+	color: #fff;
+	border: 0;
+}
+
+.r-content form .part1 .item select {
+	height: 24px;
+	margin: 0 4px 0 26px;
+	width: 130px;
+}
+.r-content form .part1 .item select.first {
+	margin-left: 0;
+}
+
+.r-content form .part1 .item .demo {
+	display: inline-block;
+	text-align: center;
+	margin-right: 20px;
+}
+
+.r-content form .part1 .item .img-ct {
+	float: left;
+	text-align: center;
+	margin-right: 25px;
+}
+
+.r-content form .part1 .item .img-ct p {
+	height: 20px;
+}
+
+.r-content form .part1 .item .img-ct + .tip {
+	margin-top: 10px;
+	width: 800px;
+	float: left;
+}
+
+.r-content form > .title {
+	font-size: 18px;
+	margin: 20px 0;
+}
+
+.r-content form .part2 li {
+	line-height: 34px;
+}
+
+.r-content form .part2 li .lb {
+	color: #9b9b9b;
+	width: 200px;
+	display: inline-block;
+}
+
+.r-content form .part2 .preview {
+	display: inline-block;
+	line-height: 30px;
+	padding: 0 25px 0 10px;
+	border: 1px solid #eee;
+}
+
+.r-content form .part2 > .preview a:hover {
+	color: #2C586E;
+}
+
+.r-content form ul.part2 li .gray {
+	color: #9b9b9b;
+}
+
+.r-content form .part2 li .citem {
+	margin-right: 8px;
+}
+
+.r-content form .part2 li .other {
+	width: 120px;
+}
+
+.r-content form .operator {
+	margin-top: 30px;
+}
+
