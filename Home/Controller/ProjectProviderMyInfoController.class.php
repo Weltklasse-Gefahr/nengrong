@@ -48,51 +48,12 @@ class ProjectProviderMyInfoController extends Controller {
             $arrUser['company_phone'] = $_POST['company_phone'];//座机
             $arrUser['company_area'] = $_POST['province']."#".$_POST['city']."#".$_POST['county'];//省市区
 
-
-            //上传6图片资料上传,
-            $hiddenId = "_hiddenId";
-            foreach($arrPhotosAndFile as $val)
+            $objUser = D("Doc","Service");
+            $arrRes = $objUser->uploadFileAndPictrue($arrPhotosAndFile, $arrFile); 
+            foreach($arrRes as $key=>$val)
             {
-                //xxx_hiddenId是前端用来控制图片删除和改进状态的，可以见文件上传接口设计.jpg
-                if(!empty($_POST[$val.$hiddenId])) //business_license_hiddenId
-                {
-                    //xxx_hiddenId有值说明当前已经有图片存在，点击保存时候没有做任何操作
-                    continue;
-                }
-                if(empty($_POST[$val.$hiddenId])) //business_license_hiddenId
-                {
-                    $arrUser[$val] = "";
-                }
-                if(!empty($_FILES[$val]))  //business_license
-                {
-                    if(in_array($val, $arrFile))
-                    {
-                        //这个是处理文档的分支
-                        $res = uploadFileOne($_FILES[$val], "ProjectProvider".$email);
-                        //文档的保持路径url，中文名，和上传时间，保存到ENF_Doc表中
-                        $pictureUrl = "/userdata/file/".$res; 
-                        $pictureName =  $_FILES[$val]["name"];
-                        $objUser = D("Doc","Service");
-                        $returnId = $objUser->insert($pictureName, $pictureUrl);
-                    }
-                    else
-                    {
-                        //这个是处理图片的分支
-                        $res = uploadPicOne($_FILES[$val], "ProjectProvider".$email);
-                        //图片的保持路径url，中文名，和上传时间，保存到ENF_Doc表中
-                        $pictureUrl = "/userdata/img/".$res; 
-                        $pictureName =  $_FILES[$val]["name"];
-                        $objUser = D("Doc","Service");
-                        $returnId = $objUser->insert($pictureName, $pictureUrl);
-                    }
-                    if($returnId == false)
-                    {
-                        echo '{"code":"-1","msg":"更新失败！"}';
-                        exit;
-                    }
-                    $arrUser[$val] = $returnId;
-                }
-            } 
+                $arrUser[$key] = $val;
+            }
 
             //拼接插入数据
             $objUser = D("User","Service");
