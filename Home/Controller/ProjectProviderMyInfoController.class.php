@@ -70,8 +70,8 @@ class ProjectProviderMyInfoController extends Controller {
                         //这个是处理文档的分支
                         $res = uploadFileOne($_FILES[$val], "ProjectProvider".$email);
                         //文档的保持路径url，中文名，和上传时间，保存到ENF_Doc表中
-                        $fileUrl = "/userdata/file/".$res; 
-                        $fileName =  $_FILES[$val]["name"];
+                        $pictureUrl = "/userdata/file/".$res; 
+                        $pictureName =  $_FILES[$val]["name"];
                         $objUser = D("Doc","Service");
                         $returnId = $objUser->insert($pictureName, $pictureUrl);
                     }
@@ -142,7 +142,7 @@ class ProjectProviderMyInfoController extends Controller {
                 $user[0][$val]["url"] = $docInfo[0]["file_rename"];
 
             }
-	    	$this->assign('user',$user[0]);
+	    	$this->assign('data',$user[0]);
 	        $this->display("ProjectProvider:myInformation");
 	    }
     }
