@@ -88,6 +88,8 @@ create table ENF_Ground
 (
    id                   bigint not null auto_increment,
    project_id           bigint not null comment '归属项目id',
+   project_area         varchar(10) comment '项目地区',
+   project_address     	varchar(60) comment '项目详细地址',
    picture1             varchar(100) comment '图片1URL',
    picture2             varchar(100) comment '图片2URL',
    picture3             varchar(100) comment '图片3URL',
@@ -161,6 +163,8 @@ create table ENF_Housetop
 (
    id                   bigint not null auto_increment,
    project_id           bigint not null comment '归属项目id',
+   project_area         varchar(10) comment '项目地区',
+   project_address     	varchar(60) comment '项目详细地址',
    picture1             varchar(100) comment '图片1URL',
    picture2             varchar(100) comment '图片2URL',
    picture3             varchar(100) comment '图片3URL',
@@ -239,8 +243,6 @@ create table ENF_Project
    id                   bigint not null auto_increment,
    project_code         varchar(30) not null unique comment '项目编号',
    project_type         int comment '项目类型：1屋顶分布式、2地面分布式、3大型地面',
-   project_area         varchar(10) comment '项目地区',
-   project_address     	varchar(60) comment '项目详细地址',
    build_state          int comment '建设状态：1未建、2已建',
    provider_id			bigint comment '项目提供方id',
    highlight_flag       int comment '高亮标记，0不高亮，1高亮',

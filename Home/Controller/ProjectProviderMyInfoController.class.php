@@ -54,16 +54,16 @@ class ProjectProviderMyInfoController extends Controller {
             foreach($arrPhotosAndFile as $val)
             {
                 //xxx_hiddenId是前端用来控制图片删除和改进状态的，可以见文件上传接口设计.jpg
-                if(!empty($_POST[$val.$hiddenId]))
+                if(!empty($_POST[$val.$hiddenId])) //business_license_hiddenId
                 {
                     //xxx_hiddenId有值说明当前已经有图片存在，点击保存时候没有做任何操作
                     continue;
                 }
-                if(empty($_POST[$val.$hiddenId]))
+                if(empty($_POST[$val.$hiddenId])) //business_license_hiddenId
                 {
                     $arrUser[$val] = "";
                 }
-                if(!empty($_FILES[$val]))
+                if(!empty($_FILES[$val]))  //business_license
                 {
                     if(in_array($val, $arrFile))
                     {
