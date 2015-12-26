@@ -3,9 +3,12 @@ $(function() {
 	$(".l-nav").find(".dueDiligence").addClass("active")
 		.children("a").attr("href", "javascript:;");
 
+	$(".result-info .s").click(function(e) {
+		$("input[name=evaluation_result]").val(e.target.className.replace(/^s-/, "").toUpperCase());
+	});
+
 	// 上传附件
 	$(".part3 input[type=file]").uploadifive({
-		'auto': true,
 
 		'fileObjName': 'attachment',
 		//后台处理的页面
@@ -14,7 +17,9 @@ $(function() {
         'buttonClass': 'uploadifive-mf',
         'buttonText': '<img class="attachment-logo" src="/EnergyFe/img/attachment.png">上传附件',
 
-        'dnd': false,
+        'fileSizeLimit': '10MB',
+
+        'dropTarget': '.part3',
         'height': '34px',
        
         //上传文件页面中，你想要用来作为文件队列的元素的id, 默认为false  自动生成,  不带#
@@ -29,9 +34,13 @@ $(function() {
 <div class="progress"><div class="progress-bar"></div></div>\
 </div>',
 
-        'fileType' : '*',
+        'fileType' : 'image/*,\
+application/msword,application/vnd.ms-excel,application/vnd.ms-powerpoint,\
+.docx,xlsx,pptx,\
+text/plain,application/pdf,\
+application/zip,application/x-zip-compressed',
 
-        'overrideEvents': [],
+        'overrideEvents': ['onUploadComplete'],
 
         'onAddQueueItem': function(file) {
         	file.queueItem.find(".filesize").html("（" + $.bytesToSize(file.size) + "）");
@@ -39,12 +48,20 @@ $(function() {
         },
 
         'onUploadComplete': function(file, data) {
-        	console.log("上传"+file.name+"完成！");
+            file.queueItem.find('.progress-bar').css('width', '100%');
+            // file.queueItem.find('.fileinfo').html(' - Completed');
+            file.queueItem.find('.progress').slideUp(250);
+            file.queueItem.addClass('complete');
+        	
         	var obj = JSON.parse(data);
 	      	if (obj.code == "0") {
-
+	      		console.log && console.log("上传"+file.name+"完成！");
+	      		// file.queueItem.find('.fileinfo').html(' - 成功');
+	      		file.queueItem.find('.fileinfo').html('');
+	    		$(file.queueItem).append($('<input type="hidden" name="doc_mul" value="' + obj.id + '" />'));
 	      	} else {
-	      		alert("上传 " + file.name + "失败！");
+	      		alert("上传 " + file.name + "失败！\n" + obj.msg);
+	      		file.queueItem.find('.fileinfo').html('<span style="color: red;"> - 失败</span>');
 	        	// document.getElementById("submit").disabled = false;
       		}
         },
@@ -53,7 +70,7 @@ $(function() {
       		/* 注意：取消后应重新设置uploadLimit */
       		$data = $(this).data('uploadifive'),
       		$data.settings.uploadLimit++;
-      		alert(file.name + " 已取消上传~!");
+      		console.log && console.log(file.name + " 已取消上传~!");
     	},
 
         'onFallback' : function() {
