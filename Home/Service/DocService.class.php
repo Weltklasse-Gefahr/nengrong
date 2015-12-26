@@ -30,9 +30,9 @@ class DocService extends Model{
     **@date 2015.12.05
     **/
     public function getDocInfo($condition){
-        $objUser = M("Doc");
-        $userInfo = $objUser->where($condition)->select();
-        return $userInfo;
+        $objDoc = M("Doc");
+        $docInfo = $objDoc->where($condition)->select();
+        return $docInfo;
     }
 
 }

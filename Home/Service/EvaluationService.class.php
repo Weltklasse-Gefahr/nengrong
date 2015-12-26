@@ -3,7 +3,7 @@ namespace Home\Service;
 
 use Think\Model;
 
-class evaluationService extends Model(){
+class evaluationService extends Model{
 
     /**
     **@auth qianqiang
