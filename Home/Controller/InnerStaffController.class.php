@@ -55,12 +55,14 @@ class InnerStaffController extends Controller {
     **@breif 客服->尽职调查
     **@date 2015.12.19
     **/
-    public function doEvaluation(){
+    public function dueDiligence(){
     	isLogin($_COOKIE['email'], $_COOKIE['mEmail']);
     	
     	$optype = $_POST['optype'] ? $_POST['optype']:$_GET['optype'];
         $rtype = $_POST['rtype'] ? $_POST['rtype']:$_GET['rtype'];
-    	if($optype == "save" && $rtype == 1){
+        if($optype == "upload" && $rtype == 1){
+            //上传附件，返回附件id
+        }elseif($optype == "save" && $rtype == 1){
     		$projectCode = $_POST['project_code'];
     		$objProject = D("Project", "Service");
     		$objProjectInfo = $objProject->getProjectInfo($projectCode);
@@ -95,8 +97,8 @@ class InnerStaffController extends Controller {
             $evaData['project_quality_situation'] = $_POST['project_quality_situation'];
             $evaData['project_invest_situation'] = $_POST['project_invest_situation'];
             $evaData['project_earnings_situation'] = $_POST['project_earnings_situation'];
+            $evaData['doc_mul'] = $_POST['doc_mul'];
 
-            // $objProject = D("Project", "Service");
             $res = $objProject->saveHousetopProject($proData);
             if($res == true){
             	$objEvaluation = D("Evaluation", "Service");
@@ -144,6 +146,7 @@ class InnerStaffController extends Controller {
             $evaData['project_quality_situation'] = $_POST['project_quality_situation'];
             $evaData['project_invest_situation'] = $_POST['project_invest_situation'];
             $evaData['project_earnings_situation'] = $_POST['project_earnings_situation'];
+            $evaData['doc_mul'] = $_POST['doc_mul'];
 
 			$res = $objProject->submitHousetopProject($proData);
             if($res == true){
