@@ -3,16 +3,66 @@ $(function() {
 	$(".l-nav").find(".dueDiligence").addClass("active")
 		.children("a").attr("href", "javascript:;");
 
-	require("common/erqi/customUpload");
-	require("lib/jquery.form");
-
 	// 上传附件
-	// $(".detail.part3 input[type=file]").customUpload({
-	// 	content: "+",
-	// 	uploadType: "file",
-	// 	width: "20px",
-	// 	height: "38px"
-	// });
+	$(".part3 input[type=file]").uploadifive({
+
+		'fileObjName': 'attachment',
+		//后台处理的页面
+        'uploadScript': '?c=InnerStaff&a=dueDiligence&optype=upload&rtype=1',
+
+        'buttonClass': 'uploadifive-mf',
+        'buttonText': '<img class="attachment-logo" src="/EnergyFe/img/attachment.png">上传附件',
+
+        'dnd': false,
+        'height': '34px',
+       
+        //上传文件页面中，你想要用来作为文件队列的元素的id, 默认为false  自动生成,  不带#
+        'queueID': 'fileQueue',
+
+        'itemTemplate': '<div class="uploadifive-queue-item error">\
+<a class="close" href="#">删除</a>\
+<div><img class="attachment-logo" src="/EnergyFe/img/attachment.png">\
+<span class="filename"></span>\
+<span class="filesize"></span>\
+<span class="fileinfo"></span></div>\
+<div class="progress"><div class="progress-bar"></div></div>\
+</div>',
+
+        'fileType' : '*',
+
+        'overrideEvents': ['onProgress', 'onUploadComplete'],
+
+        'onAddQueueItem': function(file) {
+        	alert(1);
+        },
+
+        'onUploadComplete': function(file, data) {
+        	var obj = JSON.parse(data);
+	      	if (obj.img == "500") {
+	        	alert("系统异常！");
+	      	} else {
+	        	$("#frontSide").val(obj.img);
+	        	document.getElementById("submit").disabled = false;
+      		}
+        },
+
+        onCancel: function(file) {
+       		$("#frontSide").val("");
+      		/* 注意：取消后应重新设置uploadLimit */
+      		$data	= $(this).data('uploadifive'),
+      		$data.settings.uploadLimit++;
+      		alert(file.name + " 已取消上传~!");
+    	},
+
+        'onFallback' : function() {
+      		alert("浏览器太老，该页面部分功能将无法使用,\n请使用现代浏览器访问，如chrome、firefox!");
+    	},
+    	'onUpload' : function(file) {
+    		$("#submit").addClass("disabled");
+    	}
+    });
+
+	require("lib/jquery.form");
 
 	// 保存资料
 	var options = {
@@ -38,10 +88,10 @@ $(function() {
 	   	var formElement = jqForm[0];              //将jqForm转换为DOM对象  
 	   	var mobile = $.trim(formElement.company_contacts_phone.value);
 
-	   	if(!mobile) {
-	   		alert("请输入联系人手机号");
-	   		return false;
-	   	}
+	   	// if(!mobile) {
+	   	// 	alert("请输入联系人手机号");
+	   	// 	return false;
+	   	// }
 
 	   	$("#submit").addClass("disabled");
 
@@ -54,7 +104,7 @@ $(function() {
 			alert("上传成功！");
 			location.href="?c=ProjectProviderMyPro&a=awaitingAssessment";
 		} else {
-			alert("上传失败！\n"+data.msg);
+			alert(data.msg || "上传失败！");
 		}
 	}
 

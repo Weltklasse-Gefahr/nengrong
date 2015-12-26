@@ -30,6 +30,7 @@
 	<meta name="msapplication-TileImage" content="/EnergyFe/img/i/favicon.png">
 	<meta name="msapplication-TileColor" content="#0e90d2">
 	<link rel="stylesheet" href="/EnergyFe/prd/styles/x-common@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/styles/x-common.css.ver';</php>.css">
+	<link rel="stylesheet" href="/EnergyFe/uploadifive/uploadifive.css">
 	<link rel="stylesheet" href="/EnergyFe/prd/styles/is-dueDiligence@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/styles/is-dueDiligence.css.ver';</php>.css">
 <body>
 	<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/hf/erqi/header.html';</php>
@@ -258,7 +259,8 @@ D.项目经济收益情况</textarea>
 					</table>
 				</div>
 				<div class="part3">
-					<input type="file" multiple>上传资料
+					<div class="attachment-ct"><input type="file" id="mf" /></div>
+					<div class="fileQueue" id="fileQueue"></div>
 				</div>
 				<div class="operator">
 					<input class="save" type="submit" value="保存">
@@ -271,6 +273,7 @@ D.项目经济收益情况</textarea>
 	<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/hf/sub_footer.html';</php>
 	
 	<script src="/EnergyFe/prd/scripts/x-common@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/scripts/x-common.js.ver';</php>.js"></script>
+	<script src="/EnergyFe/uploadifive/jquery.uploadifive.js"></script>
 	<script src="/EnergyFe/prd/scripts/is-dueDiligence@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/scripts/is-dueDiligence.js.ver';</php>.js"></script>
 </body>
 </html>

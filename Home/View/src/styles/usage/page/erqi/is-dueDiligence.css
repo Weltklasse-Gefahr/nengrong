@@ -123,6 +123,7 @@
 .r-content form .part2 table.main-info > tbody > tr > td:first-child {
 	width: 140px;
 	background-color: #ccc;
+	border-bottom-color: #fff;
 }
 
 .r-content form .part2 table.base-info td {
@@ -228,6 +229,56 @@
 	background-color: #6D8BC0;
 }
 
+.r-content form .part3 .attachment-ct {
+	background-color: #ccc;
+}
+
+.r-content form .part3 .uploadifive-mf {
+	background: none;
+	border: 0;
+	cursor: pointer;
+	padding-left: 4px;
+	line-height: 34px;
+
+	font-weight: normal;
+	color: #6C68E9;
+	font-size: 14px;
+	text-decoration: underline;
+}
+
+.r-content form .part3 .uploadifive-mf input[type=file] { 
+	height: 36px;
+}
+
+.r-content form .part3 .uploadifive-mf img {
+	vertical-align: middle;
+	margin-right: 6px;
+}
+
+.r-content form .part3 .fileQueue {
+	padding: 30px 50px;
+	border: 1px solid #ccc;
+}
+
+.uploadifive-queue-item {
+	background: none;
+	border-radius: 0;
+	border-bottom: none;
+	width: 400px;
+}
+
+.uploadifive-queue-item .close {
+	background: none;
+	text-indent: 0;
+	width: auto;
+	color: #2C586E;
+	margin-right: 10px;
+}
+
+.r-content form .part3 .fileQueue .attachment-logo {
+	vertical-align: middle;
+	margin-right: 15px;
+}
 
 .r-content form .operator {
 	margin-top: 30px;
