@@ -44,7 +44,9 @@ class ProjectProviderMyProController extends Controller {
             $arrInfo['build_state'] = $_POST['build_state']; //1未建 or 2已建
 
             $objUser = D("Doc","Service");
-            //屋顶分布式a
+
+
+            //屋顶分布式
             if($arrInfo['project_type'] == 1)
             {
                 //上传图片和文件
@@ -57,6 +59,7 @@ class ProjectProviderMyProController extends Controller {
                     "power_manage_agreement", //合同能源管理协议
                     "project_proposal",//项目可研报告/项目建议书
                     "housetop_load_prove",//屋顶载荷证明
+
                 );
                 $arrFile = array(
                     "housetop_property_prove",         //屋顶产权证明
@@ -93,8 +96,6 @@ class ProjectProviderMyProController extends Controller {
                 $arrInfor['rent_pay'] = $_POST['rent_pay']; //租赁租金
                 $arrInfor['electricity_clear_type'] = $_POST['electricity_clear_type']; //电价结算方式
                 $arrInfor['electricity_clear'] = $_POST['electricity_clear']; //结算电价
-                $arrInfor['xxx'] = $_POST['xxxx']; //xxx
-                $arrInfor['xxx'] = $_POST['xxxx']; //xxx
                 
                 //未建
                 if ($arrInfo['build_state'] == 1)
@@ -102,15 +103,24 @@ class ProjectProviderMyProController extends Controller {
                     $arrInfor['plan_build_volume'] = $_POST['plan_build_volume']; //拟建设容量
                     $arrInfor['cooperation_type'] = $_POST['cooperation_type']; //与能融网合作方式（可多选）
                     $arrInfor['financing_type'] = $_POST['financing_type']; //融资方式
-                    $arrInfor['xxx'] = $_POST['xxxx']; //xxx
-                    $arrInfor['xxx'] = $_POST['xxxx']; //xxx
-                    $arrInfor['xxx'] = $_POST['xxxx']; //xxx
-                    $arrInfor['xxx'] = $_POST['xxxx']; //xxx
-                    $arrInfor['xxx'] = $_POST['xxxx']; //xxx
                 }
                 //已建
                 if ($arrInfo['build_state'] == 2)
                 {
+                    $arrPhotosAndFile = array(
+                        "completion_report",//竣工验收报告
+                        "completion_paper",//竣工图纸
+     
+                    );
+                    $arrFile = array(
+                        "completion_report",//竣工验收报告
+                        "completion_paper",//竣工图纸
+                    );
+                    $arrRes = $objUser->uploadFileAndPictrue($arrPhotosAndFile, $arrFile); 
+                    foreach($arrRes as $key=>$val)
+                    {
+                        $arrProInfo[$key] = $val;
+                    }
                     $arrInfor['housetop_waterproof_time'] = $_POST['housetop_waterproof_time']; //屋顶防水周期
                     $arrInfor['housetop_load'] = $_POST['housetop_load']; //屋顶活载荷
                     $arrInfor['has_shelter'] = $_POST['has_shelter']; //附近有无遮挡
@@ -123,8 +133,8 @@ class ProjectProviderMyProController extends Controller {
                     $arrInfor['synchronize_date'] = $_POST['synchronize_date']; //并网时间
                     $arrInfor['cooperation_type'] = $_POST['cooperation_type']; //与能融网合作方式（可多选）
                     $arrInfor['financing_type'] = $_POST['financing_type']; //融资方式
-
-                    $arrInfor['xxx'] = $_POST['xxxx']; //xxx
+                    $arrInfor['history_data'] = $_POST['history_data']; //历史发电量数据/辐照数据
+                    $arrInfor['electricity_bill'] = $_POST['electricity_bill']; //电费结算票据
 
                 }
 
@@ -137,17 +147,24 @@ class ProjectProviderMyProController extends Controller {
 
 
             //地面分布式
-            if($arrInfo['project_type'] == 2)
+            if($arrInfo['project_type'] == 2 || $arrInfo['project_type'] == 3)
             {
                 //上传图片和文件
                 $arrPhotosAndFile = array(
                     "picture_full",         //场地情况全景图
                     "picture_field",//场平照片
                     "picture_transformer",//变电站照片
+                    "ground_rent_agreement",    //土地租赁协议
+                    "ground_opinion",//土地预审意见
+                    "environment_assessment",//环评
+                    "project_report",//项目可研报告/项目建议书
  
                 );
                 $arrFile = array(
-                    "xxx",         //xxxx
+                    "ground_rent_agreement",    //土地租赁协议
+                    "ground_opinion",//土地预审意见
+                    "environment_assessment",//环评
+                    "project_report",//项目可研报告/项目建议书
 
                 $arrRes = $objUser->uploadFileAndPictrue($arrPhotosAndFile, $arrFile); 
                 foreach($arrRes as $key=>$val)
@@ -168,27 +185,37 @@ class ProjectProviderMyProController extends Controller {
                 $arrInfor['project_holder_type'] = $_POST['project_holder_type']; //项目支架类型
                 $arrInfor['ground_project_type'] = $_POST['ground_project_type']; //项目类型
                 $arrInfor['financing_type'] = $_POST['financing_type']; //融资方式
-                $arrInfor['xxx'] = $_POST['xxxx']; //electricity_distance
-                $arrInfor['xxx'] = $_POST['xxxx']; //electricity_distance
-                $arrInfor['xxx'] = $_POST['xxxx']; //electricity_distance
-                $arrInfor['xxx'] = $_POST['xxxx']; //electricity_distance
-                $arrInfor['xxx'] = $_POST['xxxx']; //electricity_distance
-                $arrInfor['xxx'] = $_POST['xxxx']; //electricity_distance
-                $arrInfor['xxx'] = $_POST['xxxx']; //electricity_distance
-
                 
                 //未建
                 if ($arrInfo['build_state'] == 1)
                 {
                     $arrInfor['plan_build_volume'] = $_POST['plan_build_volume']; //拟建设容量
                     $arrInfor['cooperation_type'] = $_POST['cooperation_type']; //与能融网合作方式（可多选）
-                    $arrInfor['xxx'] = $_POST['xxxx']; //xxx
-                    $arrInfor['xxx'] = $_POST['xxxx']; //xxx
                 }
                 //已建
                 if ($arrInfo['build_state'] == 2)
                 {
 
+                    $arrPhotosAndFile = array(
+                        "land_certificate",         //土地证
+                        "electricity_price_reply",//物价局电价批复
+                        "is_old_project",//是否进入当年省光伏项目目录
+                        "completion_report",//竣工验收报告
+                        "completion_paper",//竣工图纸
+     
+                    );
+                    $arrFile = array(
+                        "land_certificate",    //土地证
+                        "electricity_price_reply",//物价局电价批复
+                        "is_old_project",//是否进入当年省光伏项目目录
+                        "completion_report",//竣工验收报告
+                        "completion_paper",//竣工图纸
+                    );
+                    $arrRes = $objUser->uploadFileAndPictrue($arrPhotosAndFile, $arrFile); 
+                    foreach($arrRes as $key=>$val)
+                    {
+                        $arrProInfo[$key] = $val;
+                    }
                     $arrInfor['control_room_area'] = $_POST['control_room_area']; //中控室建筑面积
                     $arrInfor['sell_sum'] = $_POST['sell_sum']; //出让金额
                     $arrInfor['has_shelter'] = $_POST['has_shelter']; //附近有无遮挡
@@ -200,50 +227,10 @@ class ProjectProviderMyProController extends Controller {
                     $arrInfor['synchronize_date'] = $_POST['synchronize_date']; //并网时间
                     $arrInfor['cooperation_type'] = $_POST['cooperation_type']; //与能融网合作方式（可多选）
                     $arrInfor['financing_type'] = $_POST['financing_type']; //融资方式
-                    $arrInfor['xxx'] = $_POST['xxxx']; //xxx
-                    $arrInfor['xxx'] = $_POST['xxxx']; //xxx
+                    $arrInfor['history_data'] = $_POST['history_data']; //历史发电量数据/辐照数据
+                    $arrInfor['electricity_bill'] = $_POST['electricity_bill']; //电费结算票据
                 }
 
-            }
-
-
-
-
-            //大型地面
-            if($arrInfo['project_type'] == 3)
-            {
-                //上传图片和文件
-                $arrPhotosAndFile = array(
-                    "xxx",         //xxx
- 
-                );
-                $arrFile = array(
-                    "xxx",         //xxxx
-
-                $arrRes = $objUser->uploadFileAndPictrue($arrPhotosAndFile, $arrFile); 
-                foreach($arrRes as $key=>$val)
-                {
-                    $arrProInfo[$key] = $val;
-                }
-                //接收其他图片
-                //$arrInfor['picture_mul'] = $_POST['picture_mul']; //其他图片
-                //公用的
-                $arrInfor['xxx'] = $_POST['xxxx']; //xxx
-                $arrInfor['xxx'] = $_POST['xxxx']; //xxx
-                
-                //未建
-                if ($arrInfo['build_state'] == 1)
-                {
-                    $arrInfor['xxx'] = $_POST['xxxx']; //xxx
-                    $arrInfor['xxx'] = $_POST['xxxx']; //xxx
-                }
-                //已建
-                if ($arrInfo['build_state'] == 2)
-                {
-
-                    $arrInfor['xxx'] = $_POST['xxxx']; //xxx
-                    $arrInfor['xxx'] = $_POST['xxxx']; //xxx
-                }
             }
 
 
