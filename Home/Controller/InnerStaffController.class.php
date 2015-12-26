@@ -11,6 +11,7 @@ class InnerStaffController extends Controller {
     **@date 2015.12.19
     **/
     public function getProjectProviderInfo(){
+        isLogin($_COOKIE['email'], $_COOKIE['mEmail']);
     	$projectCode = $_POST["projectCode"];
     	$objProject = D("Project", "Service");
     	$objProjectInfo = $objProject->getProjectInfo($projectCode);
@@ -24,25 +25,40 @@ class InnerStaffController extends Controller {
     	$docObj = D("Doc", "Service");
     	$condition['id'] = $userInfo['business_license'];
     	$docInfo = $docObj->getDocInfo($condition);
-    	$docData['business_license'] = $docInfo[0]['file_rename'];
+    	$docData['business_license']['id'] = $docInfo[0]['id'];
+        $docData['business_license']['file_name'] = $docInfo[0]['file_name'];
+        $docData['business_license']['file_rename'] = $docInfo[0]['file_rename'];
     	$condition['id'] = $userInfo['organization_code'];
     	$docInfo = $docObj->getDocInfo($condition);
-    	$docData['organization_code'] = $docInfo[0]['file_rename'];
+        $docData['organization_code']['id'] = $docInfo[0]['id'];
+        $docData['organization_code']['file_name'] = $docInfo[0]['file_name'];
+        $docData['organization_code']['file_rename'] = $docInfo[0]['file_rename'];
     	$condition['id'] = $userInfo['national_tax_certificate'];
     	$docInfo = $docObj->getDocInfo($condition);
-    	$docData['national_tax_certificate'] = $docInfo[0]['file_rename'];
+        $docData['national_tax_certificate']['id'] = $docInfo[0]['id'];
+        $docData['national_tax_certificate']['file_name'] = $docInfo[0]['file_name'];
+        $docData['national_tax_certificate']['file_rename'] = $docInfo[0]['file_rename'];
     	$condition['id'] = $userInfo['local_tax_certificate'];
     	$docInfo = $docObj->getDocInfo($condition);
-    	$docData['local_tax_certificate'] = $docInfo[0]['file_rename'];
+        $docData['local_tax_certificate']['id'] = $docInfo[0]['id'];
+        $docData['local_tax_certificate']['file_name'] = $docInfo[0]['file_name'];
+        $docData['local_tax_certificate']['file_rename'] = $docInfo[0]['file_rename'];
     	$condition['id'] = $userInfo['identity_card_front'];
     	$docInfo = $docObj->getDocInfo($condition);
-    	$docData['identity_card_front'] = $docInfo[0]['file_rename'];
+        $docData['identity_card_front']['id'] = $docInfo[0]['id'];
+        $docData['identity_card_front']['file_name'] = $docInfo[0]['file_name'];
+        $docData['identity_card_front']['file_rename'] = $docInfo[0]['file_rename'];
     	$condition['id'] = $userInfo['identity_card_back'];
     	$docInfo = $docObj->getDocInfo($condition);
-    	$docData['identity_card_back'] = $docInfo[0]['file_rename'];
+        $docData['identity_card_back']['id'] = $docInfo[0]['id'];
+        $docData['identity_card_back']['file_name'] = $docInfo[0]['file_name'];
+        $docData['identity_card_back']['file_rename'] = $docInfo[0]['file_rename'];
     	$condition['id'] = $userInfo['financial_audit'];
     	$docInfo = $docObj->getDocInfo($condition);
-    	$docData['financial_audit'] = $docInfo[0]['file_rename'];
+        $docData['financial_audit']['id'] = $docInfo[0]['id'];
+        $docData['financial_audit']['file_name'] = $docInfo[0]['file_name'];
+        $docData['financial_audit']['file_rename'] = $docInfo[0]['file_rename'];
+        $docData['financial_audit']['token'] = md5(addToken($docInfo[0]["id"]));
 
     	$this->assign('userInfo', $userInfo);
     	$this->assign('areaStr', $areaStr);
@@ -57,11 +73,19 @@ class InnerStaffController extends Controller {
     **/
     public function dueDiligence(){
     	isLogin($_COOKIE['email'], $_COOKIE['mEmail']);
-    	
     	$optype = $_POST['optype'] ? $_POST['optype']:$_GET['optype'];
         $rtype = $_POST['rtype'] ? $_POST['rtype']:$_GET['rtype'];
         if($optype == "upload" && $rtype == 1){
-            //上传附件，返回附件id
+            $docFile = array(
+                "attachment",
+                );
+            $doc = D("Doc", "Service");
+            $docInfo = $doc->uploadFileAndPictrue($docFile, $docFile);
+            if(!empty($docInfo)){
+                echo '{"code":"0","msg":"success","id":"'.$docInfo['attachment'].'"}';
+            }else{
+                echo '{"code":"-1","msg":"上传失败！"}';
+            }
         }elseif($optype == "save" && $rtype == 1){
     		$projectCode = $_POST['project_code'];
     		$objProject = D("Project", "Service");
@@ -171,11 +195,16 @@ class InnerStaffController extends Controller {
 			$objEvaluation = D("Evaluation", "Service");
 			$evaluationInfo = $objEvaluation->getEvaluation($projectId);
 
+            $objDoc = D("Doc", "Service");
+            $condition['id'] = $projectDetail['picture_full'];
+            $docInfo = $objDoc->getDocInfo($condition);
+
             if ($_GET['display'] == 'json') {
                 dump($users);
                 exit;
             }
 
+            $this->assign('picture', $docInfo['file_rename']);
     		$this->assign('projectDetail', $projectDetail);
     		$this->assign('evaluationInfo', $evaluationInfo);
     		$this->display("InnerStaff:dueDiligence");
@@ -188,6 +217,24 @@ class InnerStaffController extends Controller {
     **@date 2015.12.26
     **/
     public function projectInfo(){
-    	$this->display("InnerStaff:projectInfo");
+        isLogin($_COOKIE['email'], $_COOKIE['mEmail']);
+        $projectCode = $_POST["projectCode"];
+        $objProject = D("Project", "Service");
+        $projectInfo = $objProject->getProjectInfo($projectCode);
+        $projectDetail = $objProject->getProjectDetail($projectInfo['id'], $projectInfo['project_type']);
+        $this->assign("projectDetail", $projectDetail);
+        if($projectInfo['project_type'] == 1){
+            if($projectInfo['build_state'] == 1){
+                $this->display("InnerStaff:housetop_nonbuild");
+            }elseif($projectInfo['build_state'] == 2){
+                $this->display("InnerStaff:housetop_build");
+            }
+        }elseif($projectInfo['project_type'] == 2 || $projectInfo['project_type'] == 3){
+            if($projectInfo['build_state'] == 1){
+                $this->display("InnerStaff:ground_nonbuild");
+            }elseif($projectInfo['build_state'] == 2){
+                $this->display("InnerStaff:ground_build");
+            }
+        }
     }
 }

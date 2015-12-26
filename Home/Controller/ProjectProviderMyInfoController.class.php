@@ -117,9 +117,8 @@ class ProjectProviderMyInfoController extends Controller {
     **/
     public function securityCenter()
     {
+        isLogin($_COOKIE['email'], $_COOKIE['mEmail']);
         if($_POST['rtype'] == 1 || $_GET['rtype'] == 1){
-            isLogin($_COOKIE['email'], $_COOKIE['mEmail']);
-
             $email = $_COOKIE['email'];
             $pwd = $_POST['password'];
             $newPwd = $_POST['newPassword'];
@@ -134,7 +133,7 @@ class ProjectProviderMyInfoController extends Controller {
                 dump($objUser);
                 exit;
             }
-            $this->display("ProjectProvider:securityCenter");            
+            echo '{"code":"0","msg":"success"}';
         }else{
             $this->display("ProjectProvider:securityCenter");
         }
