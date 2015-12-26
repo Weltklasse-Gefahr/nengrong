@@ -180,5 +180,7 @@ class InnerStaffController extends Controller {
     	}
     }
 
-
+    public function informationgallery(){
+    	$this->display("InnerStaff:providerInfo");
+    }
 }

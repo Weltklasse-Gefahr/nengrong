@@ -153,7 +153,6 @@ class ProjectProviderMyInfoController extends Controller {
     **@breif 项目提供方->个人中心->安全中心
     **@date 2015.12.05
     **/
-
     public function securityCenter()
     {
         if($_POST['rtype'] == 1 || $_GET['rtype'] == 1){
