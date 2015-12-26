@@ -72,8 +72,8 @@ function uploadPicOne($photo, $savePath = ''){
     $upload = new \Think\Upload();
     // 设置附件上传大小
     $upload->maxSize   =     3145728 ;
-    // 设置附件上传类型
-    $upload->exts      =     array('jpg', 'gif', 'png', 'jpeg');
+    // 设置附件上传类型 .jpg .jpeg .gif .png .bmp .psd
+    $upload->exts      =     array('jpg', 'gif', 'png', 'jpeg', 'bmp', 'psd');
     // 设置附件上传根目录
     $dirNengrongUserDataImg = dirname(dirname(dirname(__FILE__))).'/userdata/img/';
     $upload->rootPath  =      $dirNengrongUserDataImg; 
@@ -111,8 +111,8 @@ function uploadFileOne($file, $savePath = ''){
     $upload = new \Think\Upload();
     // 设置附件上传大小
     $upload->maxSize   =     3145728 ;
-    // 设置附件上传类型
-    $upload->exts      =     array('pdf', 'doc', 'excel', 'txt');
+    // 设置附件上传类型doc .docx .xls .xlsx .ppt .pptx .txt .pdf
+    $upload->exts      =     array('pdf', 'doc', 'excel', 'txt', 'docx', 'xlsx', 'xls', 'ppt', 'pptx');
     // 设置附件上传根目录
     $dirNengrongUserDataDoc = dirname(dirname(dirname(__FILE__))).'/userdata/doc/'; 
     $upload->rootPath  =      $dirNengrongUserDataDoc; 
