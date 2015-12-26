@@ -22,25 +22,25 @@ class InnerStaffController extends Controller {
     	$areaStr = $areaObj->getAreaById($userInfo['company_area']);
 
     	$docObj = D("Doc", "Service");
-    	$condition['id'] = $userInfo['business_license']
+    	$condition['id'] = $userInfo['business_license'];
     	$docInfo = $docObj->getDocInfo($condition);
-    	$docData['business_license'] = $docInfo['file_rename'];
-    	$condition['id'] = $userInfo['organization_code']
+    	$docData['business_license'] = $docInfo[0]['file_rename'];
+    	$condition['id'] = $userInfo['organization_code'];
     	$docInfo = $docObj->getDocInfo($condition);
     	$docData['organization_code'] = $docInfo['file_rename'];
-    	$condition['id'] = $userInfo['national_tax_certificate']
+    	$condition['id'] = $userInfo['national_tax_certificate'];
     	$docInfo = $docObj->getDocInfo($condition);
     	$docData['national_tax_certificate'] = $docInfo['file_rename'];
-    	$condition['id'] = $userInfo['local_tax_certificate']
+    	$condition['id'] = $userInfo['local_tax_certificate'];
     	$docInfo = $docObj->getDocInfo($condition);
     	$docData['local_tax_certificate'] = $docInfo['file_rename'];
-    	$condition['id'] = $userInfo['identity_card_front']
+    	$condition['id'] = $userInfo['identity_card_front'];
     	$docInfo = $docObj->getDocInfo($condition);
     	$docData['identity_card_front'] = $docInfo['file_rename'];
-    	$condition['id'] = $userInfo['identity_card_back']
+    	$condition['id'] = $userInfo['identity_card_back'];
     	$docInfo = $docObj->getDocInfo($condition);
     	$docData['identity_card_back'] = $docInfo['file_rename'];
-    	$condition['id'] = $userInfo['financial_audit']
+    	$condition['id'] = $userInfo['financial_audit'];
     	$docInfo = $docObj->getDocInfo($condition);
     	$docData['financial_audit'] = $docInfo['file_rename'];
 
@@ -183,7 +183,7 @@ class InnerStaffController extends Controller {
     /**
     **@auth qianqiang
     **@breif 客服->项目信息
-    **@date 2015.12.19
+    **@date 2015.12.26
     **/
     public function projectInfo(){
     	$this->display("InnerStaff:projectInfo");
