@@ -3,6 +3,23 @@ $(function() {
 	$(".l-nav").find(".dueDiligence").addClass("active")
 		.children("a").attr("href", "javascript:;");
 
+	// 省市区级联
+	require("common/erqi/AreaData");
+	require("common/erqi/cascadeSelect");
+	$(".base-info .area select").cascadeSelect(AreaData);
+
+	// 其他（可填写）
+	$("select").filter(function(){
+		return $(this).data("withOther");
+	}).change(function(e) {
+		var value = this.value;
+		if(value === "0") { // 其他
+			$(this).siblings(".other").show();
+		} else {
+			$(this).siblings(".other").hide().val("");
+		}
+	});
+
 	$(".result-info .s").click(function(e) {
 		$("input[name=evaluation_result]").val(e.target.className.replace(/^s-/, "").toUpperCase());
 	});
@@ -119,8 +136,8 @@ application/zip,application/x-zip-compressed',
 	function successCallback(data) {
 		$("#submit").removeClass("disabled");
 		if(data.code == "0") {
-			alert("上传成功！");
-			location.href="?c=ProjectProviderMyPro&a=awaitingAssessment";
+			alert("操作成功！");
+			location.reload();
 		} else {
 			alert(data.msg || "上传失败！");
 		}
