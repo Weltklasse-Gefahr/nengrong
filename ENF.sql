@@ -23,6 +23,10 @@ drop table if exists ENF_User;
 
 drop table if exists ENF_Admin;
 
+drop table if exists ENF_Component;
+
+drop table if exists ENF_Inverter;
+
 /*==============================================================*/
 /* Table: ENF_Area                                              */
 /*==============================================================*/
@@ -86,6 +90,7 @@ create table ENF_Ground
 (
    id                   bigint not null auto_increment,
    project_id           bigint not null comment '归属项目id',
+   project_intent       text comment '项目意向书',
    project_area         varchar(10) comment '项目地区',
    project_address     	varchar(60) comment '项目详细地址',
    picture_full         varchar(100) comment '地面全景',
@@ -115,10 +120,6 @@ create table ENF_Ground
    company_invest       double comment '单位投资',
    company_EPC          varchar(100) comment 'EPC厂家',
    capacity_level       varchar(50) comment '资质等级',
-   company_component    varchar(100) comment '组件厂家',
-   component_type       varchar(100) comment '组件规格型号及数量',
-   company_inverter     varchar(100) comment '逆变器厂家',
-   inverter_type        varchar(100) comment '逆变器规格型号及数量',
    synchronize_date     date comment '并网时间（date）',
    project_backup       varchar(20) comment '项目备案（附件ID）',
    electricity_backup   varchar(20) comment '电网接入备案（附件ID）',
@@ -153,6 +154,7 @@ create table ENF_Housetop
 (
    id                   bigint not null auto_increment,
    project_id           bigint not null comment '归属项目id',
+   project_intent       text comment '项目意向书',
    project_area         varchar(10) comment '项目地区',
    project_address     	varchar(60) comment '项目详细地址',
    picture_full         varchar(100) comment '屋顶全景',
@@ -186,10 +188,6 @@ create table ENF_Housetop
    company_invest       double comment '单位投资',
    company_EPC          varchar(100) comment 'EPC厂家',
    capacity_level       varchar(50) comment '资质等级',
-   company_component    varchar(100) comment '组件厂家',
-   component_type       varchar(100) comment '组件规格型号及数量',
-   company_inverter     varchar(100) comment '逆变器厂家',
-   inverter_type        varchar(100) comment '逆变器规格型号及数量',
    synchronize_date     date comment '并网时间',
    project_backup       varchar(20) comment '项目备案（附件ID）',
    electricity_backup   varchar(20) comment '电网接入备案（附件ID）',
@@ -226,7 +224,7 @@ create table ENF_Project
    project_type         int comment '项目类型：1屋顶分布式、2地面分布式、3大型地面',
    build_state          int comment '建设状态：1未建、2已建',
    provider_id			bigint comment '项目提供方id',
-   highlight_flag       int comment '高亮标记，0不高亮，1高亮',
+   highlight_flag       int default 0 comment '高亮标记，0不高亮，1高亮',
    status               int not null default 0 comment '状态类型：0正常、1已激活、2未激活、11项目未提交、12项目已提交（客服未提交意向书）、13项目已提交（客服已提交意向书）、21签意向合同（客服未提交尽职调查）、22签意向合同（客服已提交尽职调查）、31签融资合同、41已推送、42未推送、51尽职调查保存状态（尽职调查保存后项目状态）、52尽职调查提交状态、9999删除',
    create_date          datetime comment '创建时间',
    change_date          datetime comment '修改时间',
@@ -300,4 +298,36 @@ create table ENF_Admin
 )ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 alter table ENF_Admin comment '管理员表';
+
+/*==============================================================*/
+/* Table: ENF_Component                                           */
+/*==============================================================*/
+create table ENF_Component
+(
+   id                   bigint not null auto_increment,
+   project_id           bigint not null comment '项目id',
+   component_company    varchar(100) comment '组件厂家',
+   component_type       varchar(100) comment '组件规格型号',
+   component_count	    int comment '组件数量',
+   primary key (id),
+   INDEX `component_project` (`project_id`)
+)ENGINE = InnoDB DEFAULT CHARSET = utf8;
+
+alter table ENF_Component comment '组件表';
+
+/*==============================================================*/
+/* Table: ENF_Inverter                                           */
+/*==============================================================*/
+create table ENF_Inverter
+(
+   id                   bigint not null auto_increment,
+   project_id           bigint not null comment '项目id',
+   inverter_company     varchar(100) comment '逆变器厂家',
+   inverter_type        varchar(100) comment '逆变器规格型号',
+   inverter_count	    int comment '逆变器数量',
+   primary key (id),
+   INDEX `inverter_project` (`project_id`)
+)ENGINE = InnoDB DEFAULT CHARSET = utf8;
+
+alter table ENF_Inverter comment '逆变器表';
 

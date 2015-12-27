@@ -75,6 +75,7 @@ class InnerStaffController extends Controller {
     	isLogin($_COOKIE['email'], $_COOKIE['mEmail']);
     	$optype = $_POST['optype'] ? $_POST['optype']:$_GET['optype'];
         $rtype = $_POST['rtype'] ? $_POST['rtype']:$_GET['rtype'];
+        $projectCode = 'qwertyuio';
         if($optype == "upload" && $rtype == 1){
             $docFile = array(
                 "attachment",
@@ -87,7 +88,7 @@ class InnerStaffController extends Controller {
                 echo '{"code":"-1","msg":"上传失败！"}';
             }
         }elseif($optype == "save" && $rtype == 1){
-    		$projectCode = $_POST['project_code'];
+    		//$projectCode = $_POST['project_code'];
     		$objProject = D("Project", "Service");
     		$objProjectInfo = $objProject->getProjectInfo($projectCode);
     		$projectId = $objProjectInfo['id'];
@@ -135,8 +136,8 @@ class InnerStaffController extends Controller {
             }else{
             	echo '{"code":"-1","msg":"更新失败！"}';
             }
-    	}elseif($optype == "commit" && $rtype == 1){
-    		$projectCode = $_POST['project_code'];
+    	}elseif($optype == "submit" && $rtype == 1){
+    		//$projectCode = $_POST['project_code'];
     		$objProject  = D("Project", "Service");
     		$objProjectInfo = $objProject->getProjectInfo($projectCode);
     		$projectId = $objProjectInfo['id'];
@@ -185,7 +186,7 @@ class InnerStaffController extends Controller {
             	echo '{"code":"-1","msg":"更新失败！"}';
             }
     	}elseif($rtype != 1){
-    		$projectCode = $_POST['project_code'];
+    		//$projectCode = $_POST['project_code'];
 
     		$objProject  = D("Project", "Service");
     		$objProjectInfo = $objProject->getProjectInfo($projectCode);
@@ -203,6 +204,7 @@ class InnerStaffController extends Controller {
                 dump($users);
                 exit;
             }
+            //echo "start   :";dump($objProjectInfo);dump($projectDetail); exit;
 
             $this->assign('picture', $docInfo['file_rename']);
     		$this->assign('projectDetail', $projectDetail);

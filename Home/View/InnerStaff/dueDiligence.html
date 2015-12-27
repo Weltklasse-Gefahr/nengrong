@@ -41,7 +41,7 @@
 		
 		<!-- 右侧布局 -->
 		<div class="r-content">
-			<form id="infoForm" action="?c=InnerStaff&a=dueDiligence&optype=save&rtype=1" method="post"><input type="hidden" name="optype" value=""/>
+			<form id="infoForm" action="?c=InnerStaff&a=dueDiligence&rtype=1" method="post"><input type="hidden" name="optype" value=""/>
 				<div class="detail part1">
 					<p class="title">项目经济收益测算</p>
 					<div class="brief-info clrfix">
@@ -87,20 +87,20 @@
 										<tbody>
 											<tr>
 												<td class="c0">屋顶业主名称</td>
-												<td class="c1"><input type="text" /></td>
+												<td class="c1"><input name="housetop_owner" type="text" /></td>
 												<td class="c2">企业类型</td>
-												<td class="c3"><input type="text" /></td>
+												<td class="c3"><input name="company_type" type="text" /></td>
 											</tr>
 											<tr>
 												<td class="c0">拟建设容量</td>
-												<td class="c1"><input type="text" /><span>kw</span></td>
+												<td class="c1"><input name="plan_build_volume" type="text" /><span>kw</span></td>
 												<td class="c2">项目地点</td>
 												<td class="c3"><input type="text" /></td>
 											</tr>
 											<tr>
 												<td class="c0">屋顶类型</td>
 												<td class="c1">
-													<select>
+													<select name="housetop_type">
 														<option value="1">混凝土</option>
 														<option value="1">混凝土</option>
 													</select>
@@ -116,7 +116,7 @@
 											</tr>
 											<tr>
 												<td class="c0">拟融资金额</td>
-												<td class="c1"><input type="text" /><span>万元</span></td>
+												<td class="c1"><input name="plan_financing" type="text" /><span>万元</span></td>
 												<td class="c2">融资方式</td>
 												<td class="c3">
 													<select name="financing_type">
