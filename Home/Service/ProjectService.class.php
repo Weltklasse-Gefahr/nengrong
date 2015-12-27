@@ -160,7 +160,7 @@ class ProjectService extends Model{
     **@return 存在返回true，不存在返回false
     **@date 2015.12.23
     **/ 
-    public function hasSaveHousetopProject($projectId, $table){
+    public function hasSaveHousetopOrGround($projectId, $table){
         $objProject = D("$table");
         $condition["project_id"] = $projectId;
         $proInfo = $objProject->where($condition)->select();
