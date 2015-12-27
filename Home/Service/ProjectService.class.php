@@ -178,12 +178,16 @@ class ProjectService extends Model{
     **@date 2015.12.23
     **/ 
     public function submitHousetopProject($proData){
-        //更新项目资料
+        //更新项目资料housetop表project表
         //如果有save数据，进行删除
         $housetop = M("Housetop");
         $proData['status'] = 22;
         $proData['change_date'] = date("Y-m-d H:i:s",time());
         $housetopInfo = $housetop->where("project_id='".$proData['project_id']."' and status=21")->save($proData);
+        $project = M("Project");
+        $data['status'] = 22;
+        $data['change_date'] = date("Y-m-d H:i:s",time());
+        $projectInfo = $project->where("id='".$proData['project_id']."' and status=21")->save($data);
         if($this->hasSaveHousetopProject($proData['project_id'])){
             $condition['project_id'] = $proData['project_id'];
             $condition['status'] = 51;
