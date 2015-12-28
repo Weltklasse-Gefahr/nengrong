@@ -378,16 +378,16 @@ class ProjectProviderMyProController extends Controller {
     **@breif 项目提供方->已签融资合同项目
     **@date 2015.12.24
     **/
-    public function xxxxx()
+    public function contractProject()
     {
         $email = $_COOKIE['email'];
         isLogin($email, $_COOKIE['mEmail']);
         isDataComplete($email);
         
         $objProject = D("Project", "Service");
-        $listProject = $objProject->getxxxxx($email);
+        $listProject = $objProject->getContractProject($email);
         $this->assign('listProject', $listProject);
-        $this->display("ProjectProvider:aggrementProject");
+        $this->display("ProjectProvider:contractProject");
     }
 
 }

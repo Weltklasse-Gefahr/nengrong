@@ -237,4 +237,22 @@ class InnerStaffController extends Controller {
             }
         }
     }
+
+    /**
+    **@auth qianqiang
+    **@breif 客服->意向书
+    **@date 2015.12.28
+    **/
+    public function intent(){
+        isLogin($_COOKIE['email'], $_COOKIE['mEmail']);
+        $optype = $_POST['optype'] ? $_POST['optype']:$_GET['optype'];
+        $rtype = $_POST['rtype'] ? $_POST['rtype']:$_GET['rtype'];
+        if($optype == "save" && $rtype == 1){
+
+        }elseif($optype == "submit" && $rtype == 1){
+
+        }elseif($rtype != 1){
+            $this->display("InnerStaff:intent");
+        }
+    }
 }

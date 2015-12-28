@@ -104,7 +104,7 @@ class ProjectService extends Model{
     **@breif 查询已签融资合同项目
     **@date 2015.12.24
     **/ 
-    public function getxxxxx($email){
+    public function getContractProject($email){
         if(!empty($email)){
             $user = D('User');
             $userInfo = $user->where("email='".$email."'")->find();
