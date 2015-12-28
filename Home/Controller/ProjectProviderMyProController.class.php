@@ -340,9 +340,9 @@ class ProjectProviderMyProController extends Controller {
 
 
     /**
-    **@auth qiujinhan@gmail.com
-    **@breif 项目提供方->待评估项目入口
-    **@date 2015.12.13
+    **@auth qianqiang
+    **@breif 项目提供方->待评估项目
+    **@date 2015.12.24
     **/
     public function awaitingAssessment()
     {

@@ -255,4 +255,13 @@ class InnerStaffController extends Controller {
             $this->display("InnerStaff:intent");
         }
     }
+
+    /**
+    **@auth qianqiang
+    **@breif 客服->推送项目
+    **@date 2015.12.28
+    **/
+    public function pushProject(){
+        $this->display("InnerStaff:pushProject");
+    }
 }
