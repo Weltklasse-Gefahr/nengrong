@@ -179,7 +179,9 @@ class UserController extends Controller
 
     public function test1(){
         $area = D("Area", "Service");
-        $area->getAreaById("1302");
+        $res = $area->getAreaArrayById("150223");
+        header('Content-Type: text/html; charset=utf-8');
+        dump($res);
         // $email = "qianqiang@qq.com";
         // isDataComplete($email);
         // echo "chenggong!";

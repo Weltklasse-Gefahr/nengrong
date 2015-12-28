@@ -21,7 +21,6 @@ class InnerStaffController extends Controller {
 
     	$areaObj = D("Area", "Service");
     	$areaStr = $areaObj->getAreaById($userInfo['company_area']);
-
     	$docObj = D("Doc", "Service");
     	$condition['id'] = $userInfo['business_license'];
     	$docInfo = $docObj->getDocInfo($condition);
@@ -98,10 +97,8 @@ class InnerStaffController extends Controller {
             $proData['housetop_owner'] = $_POST['housetop_owner']; 
             $proData['company_type'] = $_POST['company_type'];
             $proData['plan_build_volume'] = $_POST['plan_build_volume'];
-
-            $proData['project_area'] = $_POST['project_area'];
+            $proData['project_area'] = $_POST['county'];
             $proData['project_address'] = $_POST['project_address'];
-
             $proData['housetop_type'] = $_POST['housetop_type'];
             $proData['housetop_type_other'] = $_POST['housetop_type_other'];
             $proData['synchronize_type'] = $_POST['synchronize_type'];
@@ -123,7 +120,7 @@ class InnerStaffController extends Controller {
             $evaData['project_invest_situation'] = $_POST['project_invest_situation'];
             $evaData['project_earnings_situation'] = $_POST['project_earnings_situation'];
             $evaData['doc_mul'] = $_POST['doc_mul'];
-
+// echo "start   :";dump($proData);dump($evaData);exit;
             $res = $objProject->saveHousetopProject($proData);
             if($res == true){
             	$objEvaluation = D("Evaluation", "Service");
@@ -131,10 +128,10 @@ class InnerStaffController extends Controller {
             	if($res == true){
             		echo '{"code":"0","msg":"success"}';
             	}else{
-            		echo '{"code":"-1","msg":"更新失败！"}';
+            		echo '{"code":"-1","msg":"Evaluation更新失败！"}';
             	}
             }else{
-            	echo '{"code":"-1","msg":"更新失败！"}';
+            	echo '{"code":"-1","msg":"Housetop更新失败！"}';
             }
     	}elseif($optype == "submit" && $rtype == 1){
     		//$projectCode = $_POST['project_code'];
@@ -147,16 +144,14 @@ class InnerStaffController extends Controller {
             $proData['housetop_owner'] = $_POST['housetop_owner']; 
             $proData['company_type'] = $_POST['company_type'];
             $proData['plan_build_volume'] = $_POST['plan_build_volume'];
-
-            $proData['project_area'] = $_POST['project_area'];
+            $proData['project_area'] = $_POST['county'];
             $proData['project_address'] = $_POST['project_address'];
-
             $proData['housetop_type'] = $_POST['housetop_type'];
             $proData['housetop_type_other'] = $_POST['housetop_type_other'];
             $proData['synchronize_type'] = $_POST['synchronize_type'];
             $proData['plan_financing'] = $_POST['plan_financing'];
             $proData['financing_type'] = $_POST['financing_type'];
-
+// echo $proData['project_area']; exit;
             $evaData = array();
             $evaData['project_id'] = $projectId;
             $evaData['IRR'] = $_POST['IRR'];
@@ -180,10 +175,10 @@ class InnerStaffController extends Controller {
             	if($res == true){
             		echo '{"code":"0","msg":"success"}';
             	}else{
-            		echo '{"code":"-1","msg":"更新失败！"}';
+            		echo '{"code":"-1","msg":"Evaluation更新失败！"}';
             	}
             }else{
-            	echo '{"code":"-1","msg":"更新失败！"}';
+            	echo '{"code":"-1","msg":"Housetop更新失败！"}';
             }
     	}elseif($rtype != 1){
     		//$projectCode = $_POST['project_code'];
@@ -192,6 +187,9 @@ class InnerStaffController extends Controller {
     		$objProjectInfo = $objProject->getProjectInfo($projectCode);
     		$projectId = $objProjectInfo['id'];
     		$projectDetail = $objProject->getProjectInEvaluation($projectId, $objProjectInfo['project_type']);
+
+            $area = D("Area", "Service");
+            $areaArray = $area->getAreaArrayById($projectDetail['project_area']);
 			
 			$objEvaluation = D("Evaluation", "Service");
 			$evaluationInfo = $objEvaluation->getEvaluation($projectId);
@@ -204,10 +202,10 @@ class InnerStaffController extends Controller {
                 dump($users);
                 exit;
             }
-            //echo "start   :";dump($objProjectInfo);dump($projectDetail); exit;
 
             $this->assign('picture', $docInfo['file_rename']);
     		$this->assign('projectDetail', $projectDetail);
+            $this->assign('areaArray', $areaArray);
     		$this->assign('evaluationInfo', $evaluationInfo);
     		$this->display("InnerStaff:dueDiligence");
     	}

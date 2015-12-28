@@ -124,17 +124,18 @@ class ProjectService extends Model{
     public function saveHousetopProject($proData){
         $housetop = M("Housetop");
         if($this->hasSaveHousetopProject($proData['project_id'])){
-            $housetop->where("project_id='".$proData['project_id']."' and status=51")->save($proData);
+            $proData['change_date'] = date("Y-m-d H:i:s",time());
+            $result = $housetop->where("project_id='".$proData['project_id']."' and status=51")->save($proData);
         }else{
             $proData['status'] = 51;
             $proData['create_date'] = date("Y-m-d H:i:s",time());
-            $housetop->add($proData);
+            $proData['change_date'] = date("Y-m-d H:i:s",time());
+            $result = $housetop->add($proData);
         }
-        $housetopInfo = $housetop->where($proData)->where("status=51")->select();
-        if(sizeof($housetopInfo) == 1)
-            return true;
-        else
+        if($result == false)
             return false;
+        else
+            return true;
     }
 
     /**
@@ -183,17 +184,23 @@ class ProjectService extends Model{
         $housetop = M("Housetop");
         $proData['status'] = 22;
         $proData['change_date'] = date("Y-m-d H:i:s",time());
-        $housetopInfo = $housetop->where("project_id='".$proData['project_id']."' and status=21")->save($proData);
-        $project = M("Project");
-        $data['status'] = 22;
-        $data['change_date'] = date("Y-m-d H:i:s",time());
-        $projectInfo = $project->where("id='".$proData['project_id']."' and status=21")->save($data);
-        if($this->hasSaveHousetopProject($proData['project_id'])){
-            $condition['project_id'] = $proData['project_id'];
-            $condition['status'] = 51;
-            $housetop->where($condition)->delete();
+        $housetopResult = $housetop->where("project_id='".$proData['project_id']."' and (status=21 or status=22)")->save($proData);
+        // echo "@@:".$housetopResult;exit;
+        if($housetopResult > 0){
+            $project = M("Project");
+            $data['status'] = 22;
+            $data['change_date'] = date("Y-m-d H:i:s",time());
+            $projectResult = $project->where("id='".$proData['project_id']."' and (status=21 or status=22)")->save($data);
+            if($this->hasSaveHousetopProject($proData['project_id'])){
+                $condition['project_id'] = $proData['project_id'];
+                $condition['status'] = 51;
+                $housetop->where($condition)->delete();
+            }
+            return true;
+        }else{
+            return false;
         }
-        return true;
+        
     }
 
     /**
