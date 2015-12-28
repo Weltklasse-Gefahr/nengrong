@@ -368,7 +368,7 @@ class ProjectProviderMyProController extends Controller {
         isDataComplete($email);
 
         $objProject = D("Project", "Service");
-        $listProject = $objProject->getAggrementProject($email);
+        $listProject = $objProject->getAgreementProject($email);
         $this->assign('listProject', $listProject);
         $this->display("ProjectProvider:aggrementProject");
     }
