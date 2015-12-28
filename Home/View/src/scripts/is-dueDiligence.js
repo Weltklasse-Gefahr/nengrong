@@ -3,16 +3,99 @@ $(function() {
 	$(".l-nav").find(".dueDiligence").addClass("active")
 		.children("a").attr("href", "javascript:;");
 
-	require("common/erqi/customUpload");
-	require("lib/jquery.form");
+	// 省市区级联
+	require("common/erqi/AreaData");
+	require("common/erqi/cascadeSelect");
+	$(".base-info .area select").cascadeSelect(AreaData);
+
+	// 其他（可填写）
+	$("select").filter(function(){
+		return $(this).data("withOther");
+	}).change(function(e) {
+		var value = this.value;
+		if(value === "0") { // 其他
+			$(this).siblings(".other").show();
+		} else {
+			$(this).siblings(".other").hide().val("");
+		}
+	});
+
+	$(".result-info .s").click(function(e) {
+		$("input[name=evaluation_result]").val(e.target.className.replace(/^s-/, "").toUpperCase());
+	});
 
 	// 上传附件
-	// $(".detail.part3 input[type=file]").customUpload({
-	// 	content: "+",
-	// 	uploadType: "file",
-	// 	width: "20px",
-	// 	height: "38px"
-	// });
+	$(".part3 input[type=file]").uploadifive({
+
+		'fileObjName': 'attachment',
+		//后台处理的页面
+        'uploadScript': '?c=InnerStaff&a=dueDiligence&optype=upload&rtype=1',
+
+        'buttonClass': 'uploadifive-mf',
+        'buttonText': '<img class="attachment-logo" src="/EnergyFe/img/attachment.png">上传附件',
+
+        'fileSizeLimit': '10MB',
+
+        'dropTarget': '.part3',
+        'height': '34px',
+       
+        //上传文件页面中，你想要用来作为文件队列的元素的id, 默认为false  自动生成,  不带#
+        'queueID': 'fileQueue',
+
+        'itemTemplate': '<div class="uploadifive-queue-item">\
+<a class="close" href="#">删除</a>\
+<div><img class="attachment-logo" src="/EnergyFe/img/attachment.png">\
+<span class="filename"></span>\
+<span class="filesize"></span>\
+<span class="fileinfo"></span></div>\
+<div class="progress"><div class="progress-bar"></div></div>\
+</div>',
+
+        'fileType' : 'image/*,\
+application/msword,application/vnd.ms-excel,application/vnd.ms-powerpoint,\
+.docx,xlsx,pptx,\
+text/plain,application/pdf,\
+application/zip,application/x-zip-compressed',
+
+        'overrideEvents': ['onUploadComplete'],
+
+        'onAddQueueItem': function(file) {
+        	file.queueItem.find(".filesize").html("（" + $.bytesToSize(file.size) + "）");
+        	file.queueItem.find(".filesize").attr("title", file.name);
+        },
+
+        'onUploadComplete': function(file, data) {
+            file.queueItem.find('.progress-bar').css('width', '100%');
+            // file.queueItem.find('.fileinfo').html(' - Completed');
+            file.queueItem.find('.progress').slideUp(250);
+            file.queueItem.addClass('complete');
+        	
+        	var obj = JSON.parse(data);
+	      	if (obj.code == "0") {
+	      		console.log && console.log("上传"+file.name+"完成！");
+	      		// file.queueItem.find('.fileinfo').html(' - 成功');
+	      		file.queueItem.find('.fileinfo').html('');
+	    		$(file.queueItem).append($('<input type="hidden" name="doc_mul" value="' + obj.id + '" />'));
+	      	} else {
+	      		alert("上传 " + file.name + "失败！\n" + obj.msg);
+	      		file.queueItem.find('.fileinfo').html('<span style="color: red;"> - 失败</span>');
+	        	// document.getElementById("submit").disabled = false;
+      		}
+        },
+
+        onCancel: function(file) {
+      		/* 注意：取消后应重新设置uploadLimit */
+      		$data = $(this).data('uploadifive'),
+      		$data.settings.uploadLimit++;
+      		console.log && console.log(file.name + " 已取消上传~!");
+    	},
+
+        'onFallback' : function() {
+      		alert("浏览器太老，该页面部分功能将无法使用,\n请使用现代浏览器访问，如chrome、firefox!");
+    	}
+    });
+
+	require("lib/jquery.form");
 
 	// 保存资料
 	var options = {
@@ -24,6 +107,10 @@ $(function() {
 	   	// resetForm: true,         //成功提交后，重置所有表单元素的值  
 	   	// timeout: 6000               //限制请求的时间，当请求大于3秒后，跳出请求
 	};
+
+	function check() {
+		return true;
+	}
 	  
 	function beforeSubmit(formData, jqForm, options){
 
@@ -36,10 +123,8 @@ $(function() {
 	   	//options:  options对象
 	   	var queryString = $.param(formData);   //name=1&address=2  
 	   	var formElement = jqForm[0];              //将jqForm转换为DOM对象  
-	   	var mobile = $.trim(formElement.company_contacts_phone.value);
-
-	   	if(!mobile) {
-	   		alert("请输入联系人手机号");
+	   	
+	   	if(!check()) {
 	   		return false;
 	   	}
 
@@ -51,12 +136,21 @@ $(function() {
 	function successCallback(data) {
 		$("#submit").removeClass("disabled");
 		if(data.code == "0") {
-			alert("上传成功！");
-			location.href="?c=ProjectProviderMyPro&a=awaitingAssessment";
+			alert("操作成功！");
+			location.reload();
 		} else {
-			alert("上传失败！\n"+data.msg);
+			alert(data.msg || "上传失败！");
 		}
 	}
 
-	$("#infoForm").ajaxForm(options);
+	$form = $("#infoForm");
+	$form.find("input[type=submit]").click(function() {
+		var optype = $(this).data("optype");
+		
+		$form.find("[name=optype]").val(optype);
+		$form.find("li:hidden input, li:hidden select").prop("disabled", true);
+		return true;
+	});
+
+	$form.ajaxForm(options);
 });

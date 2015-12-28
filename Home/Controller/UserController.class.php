@@ -9,8 +9,11 @@ class UserController extends Controller
     {
         $this->display();
     }
-
-    //登录
+    /**
+    **@auth qianqiang
+    **@breif 登录
+    **@date 
+    **/ 
     public function login(){
         if($_POST['rtype'] == 1 || $_GET['rtype'] == 1){
             $email = $_POST['email'];
@@ -46,7 +49,11 @@ class UserController extends Controller
         }
     }
 
-    //注册
+    /**
+    **@auth qianqiang
+    **@breif 注册
+    **@date 
+    **/ 
     public function register(){
         if($_POST['rtype'] == 1 || $_GET['rtype'] == 1){
             $email = $_POST['email'];
@@ -68,7 +75,7 @@ class UserController extends Controller
                 dump($users);
                 exit;
             }
-            echo '{"code":"0","msg":"注册成功！","url":"?c=User&a=protocol"}';
+            echo '{"code":"0","msg":"注册成功！","url":"?c=User&a=loginsus"}';
         }else {
             $this->display("User:register");
         }
@@ -126,15 +133,21 @@ class UserController extends Controller
         }
     }
 
-    //用户激活
+    /**
+    **@auth qianqiang
+    **@breif 用户激活
+    **@date 
+    **/ 
     public function activeUser(){
         $email = $_POST['email'];
         $mEmail = $_POST['mEmail'];
-        if (!($mEmail == MD5($email."ENFENF"))) {
+        if (!($mEmail == MD5(addToken($email)))) {
             echo '{"code":"-1","msg":"登录信息错误"}';
             exit;
         }
-        
+        $user = D('User','Service');
+        $user->activeService($email);
+        $this->display("User:activesus");
     }
 
     // //显示用户详细信息
@@ -166,7 +179,9 @@ class UserController extends Controller
 
     public function test1(){
         $area = D("Area", "Service");
-        $area->getAreaById("1302");
+        $res = $area->getAreaArrayById("150223");
+        header('Content-Type: text/html; charset=utf-8');
+        dump($res);
         // $email = "qianqiang@qq.com";
         // isDataComplete($email);
         // echo "chenggong!";

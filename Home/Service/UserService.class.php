@@ -48,6 +48,8 @@ class UserService extends Model{
             $data['user_type'] = $userType;
         }
         $data['create_date'] = date("Y-m-d H:i:s",time());
+        $data['change_date'] = date("Y-m-d H:i:s",time());
+        $data['status'] = 2;
         $userAdd->add($data);
 
         $users = $user->where("email='%s' and status!=9999", array($email) )->select();
@@ -58,6 +60,36 @@ class UserService extends Model{
         }
         return $users[0];
 	}
+
+	/**
+    **@auth qianqiang
+    **@breif 用户激活
+    **@date 2015.12.16
+    **/
+	public function activeService($email){
+		$user = M('user');
+		$data['status'] = 1;
+		$data['change_date'] = date("Y-m-d H:i:s",time());
+		$user->where("email='".$email."' and status=2")->save($data);
+
+		$objUser = $user->where("email='".$email."' and status=1")->select();
+		if (sizeof($objUser) != 1) {
+			echo '{"code":"-1","msg":"mysql error!"}';
+			exit;
+		}
+
+		return true;
+	}
+
+	/**
+    **@auth qianqiang
+    **@breif 用户注销
+    **@date 2015.12.26
+    **/
+	public function logoutService(){
+        setcookie("email", $email, time()-3600);
+        setcookie("mEmail", MD5(addToken($email)), time()-3600);
+    }
 
 	/**
     **@auth qianqiang
@@ -260,6 +292,18 @@ class UserService extends Model{
     **/
 	public function getUserINfoById($id){
 		$condition["id"] = $id;
+		$condition["status"] = array('neq',9999);
+		$userInfo = $this->getUserInfo($condition);
+		return $userInfo;
+	}
+
+	/**
+    **@auth qianqiang
+    **@breif 根据用户email查询用户信息
+    **@date 2015.12.13
+    **/
+	public function getUserINfoByEmail($email){
+		$condition["email"] = $email;
 		$condition["status"] = array('neq',9999);
 		$userInfo = $this->getUserInfo($condition);
 		return $userInfo;

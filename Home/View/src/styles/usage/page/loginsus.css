@@ -1,0 +1,51 @@
+.md {
+	border: 2px solid #E6E6E6;
+	width: 50%;
+	font-weight: bold;
+	margin: 150px auto 150px auto;
+}
+.md .title{
+	text-align: center;
+	width: 350px;
+	font-size: 22px;
+	margin: 20px auto 30px auto;
+}
+.md .part1{
+	width: 550px;
+	font-size: 16px;
+	padding-left: 10px;
+	margin: 30px 20px 30px 20px;
+}
+.md .part1 a{
+	font-size: 14px;
+	color:#FD7945;
+	font-weight: normal;
+}
+.md .part1 p{
+	margin-bottom: 10px;
+	margin-top: 10px;
+}
+.md .part2{
+	width: 550px;
+	font-size: 16px;
+	padding-left: 10px;
+	margin: 20px 20px 20px 20px;
+}
+.md .part2 dl{
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+.md .part3{
+	text-align: center;
+	width: 350px;
+	padding-left: 10px;
+	margin: 40px 20px 30px 20px;
+}
+.md .part3 a{
+	font-size: 14px;
+	color: #4D6EA8;
+	font-weight: normal;
+}
+
+
+

@@ -72,8 +72,8 @@ function uploadPicOne($photo, $savePath = ''){
     $upload = new \Think\Upload();
     // 设置附件上传大小
     $upload->maxSize   =     3145728 ;
-    // 设置附件上传类型
-    $upload->exts      =     array('jpg', 'gif', 'png', 'jpeg');
+    // 设置附件上传类型 .jpg .jpeg .gif .png .bmp .psd
+    $upload->exts      =     array('jpg', 'gif', 'png', 'jpeg', 'bmp', 'psd');
     // 设置附件上传根目录
     $dirNengrongUserDataImg = dirname(dirname(dirname(__FILE__))).'/userdata/img/';
     $upload->rootPath  =      $dirNengrongUserDataImg; 
@@ -89,7 +89,8 @@ function uploadPicOne($photo, $savePath = ''){
     $info   =   $upload->uploadOne($photo);
     if(!$info) {
          // 上传错误提示错误信息
-        return $upload->getError();
+        echo '{"code":"-1","msg":"更新失败！原因：'.$upload->getError().'"}';
+        exit;
     }
     else{
          // 上传成功 获取上传文件信息
@@ -110,8 +111,8 @@ function uploadFileOne($file, $savePath = ''){
     $upload = new \Think\Upload();
     // 设置附件上传大小
     $upload->maxSize   =     3145728 ;
-    // 设置附件上传类型
-    $upload->exts      =     array('pdf', 'doc', 'excel');
+    // 设置附件上传类型doc .docx .xls .xlsx .ppt .pptx .txt .pdf
+    $upload->exts      =     array('pdf', 'doc', 'excel', 'txt', 'docx', 'xlsx', 'xls', 'ppt', 'pptx');
     // 设置附件上传根目录
     $dirNengrongUserDataDoc = dirname(dirname(dirname(__FILE__))).'/userdata/doc/'; 
     $upload->rootPath  =      $dirNengrongUserDataDoc; 
@@ -126,7 +127,8 @@ function uploadFileOne($file, $savePath = ''){
     $info   =   $upload->uploadOne($file);
     if(!$info) {
          // 上传错误提示错误信息
-        return $upload->getError();
+        echo '{"code":"-1","msg":"更新失败！原因：'.$upload->getError().'"}';
+        exit;
     }
     else{
          // 上传成功 获取上传文件信息
@@ -190,11 +192,12 @@ function isAdminLogin($userName, $mUserName){
 **@date 2015.12.12
 **/
 function isDataComplete($email){
+    return true;
     $user = M("User");
     $objUser = $user->where("email='".$email."'")->find();
     //dump($objUser);
-    //只有项目提供方有必填项：企业名称、联系人、联系人手机
-    if($objUser["user_type"] == 3){
+    //项目提供方/项目投资方有必填项：企业名称、联系人、联系人手机
+    if($objUser["user_type"] == 3 || $objUser["user_type"] == 4){
         if($objUser["company_name"] == NULL || $objUser["company_contacts"] == NULL || $objUser["company_contacts_phone"] == NULL){
             header('Content-Type: text/html; charset=utf-8');
             echo "<script type='text/javascript'>alert('请先完善个人资料');location.href='?c=ProjectProviderMyInfo&a=myInformation'</script>";
