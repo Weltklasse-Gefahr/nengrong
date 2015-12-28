@@ -1,6 +1,6 @@
 $(function() {
 
-	$(".l-nav").find(".aggrementProject").addClass("active")
+	$(".l-nav").find(".contractProject").addClass("active")
 		.children("a").attr("href", "javascript:;");
 
 	require("common/erqi/list-opt.js");
