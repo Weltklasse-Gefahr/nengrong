@@ -178,11 +178,55 @@ class ProjectService extends Model{
             $projectDetails = $this->getProjectDetails($projectInfo['id'], 16, $projectInfo['project_type']);//16意向书保存状态（项目已提交）
         }else{
             $projectDetails = $this->getProjectDetails($projectInfo['id'], 12, $projectInfo['project_type']);//12项目已提交（客服未提交意向书）
+            $projectDetails['id'] = null;
         }
-        $projectDetails['id'] = null;
         $projectDetails['project_intent'] = $intentText;
         $result = $this->saveHousetopOrGround($projectDetails, 16, $projectInfo['project_type']);
         return $result;
+    }
+
+    /**
+    **@auth qianqiang
+    **@breif 提交意向书：更新housetop/ground、project表，如果有保存的意向书则删除
+    **@return 成功返回true，失败返回false
+    **@date 2015.12.29
+    **/ 
+    public function submitIntent($projectCode, $intentText){
+        $projectInfo = $this->getProjectInfo($projectCode);
+        $flag = $this->isIntentProject($projectInfo['id'], $projectInfo['project_type']);
+        if($flag === false){
+            echo '{"code":"-1","msg":"status error, cannot submit intent"}';
+            exit;
+        }
+        $projectDetails = $this->getProjectDetails($projectInfo['id'], 12, $projectInfo['project_type']);//12项目已提交（客服未提交意向书）
+        $projectDetails['project_intent'] = $intentText;
+        $projectDetails['status'] = 13;
+        $projectDetails['change_date'] = date("Y-m-d H:i:s",time());
+        if($projectInfo['project_type'] == 1){
+            $housetop = M('Housetop');
+            $housetopResult = $housetop->where("project_id='".$projectDetails['project_id']."' and status=12")->save($projectDetails);
+            if($housetopResult == 0) return false;
+            if($this->hasSaveHousetopOrGround($projectInfo['id'], 16, $projectInfo['project_type'])){
+                $condition['project_id'] = $projectDetails['project_id'];
+                $condition['status'] = 16;
+                $housetop->where($condition)->delete();
+            }
+        }elseif($projectInfo['project_type'] == 2 || $projectInfo['project_type'] == 3){
+            $ground = M('Ground');
+            $groundResult = $ground->where("project_id='".$projectDetails['project_id']."' and status=12")->save($projectDetails);
+            if($groundResult == 0) return false;
+            if($this->hasSaveHousetopOrGround($projectInfo['id'], 16, $projectInfo['project_type'])){
+                $condition['project_id'] = $projectDetails['project_id'];
+                $condition['status'] = 16;
+                $ground->where($condition)->delete();
+            }
+        }
+        $project = M("Project");
+        $data['status'] = 13;
+        $data['change_date'] = date("Y-m-d H:i:s",time());
+        $projectResult = $project->where("id='".$projectInfo['id']."' and status=12")->save($data);
+        if($projectResult == 0) return false;
+        return true;
     }
 
     /**
@@ -279,7 +323,7 @@ class ProjectService extends Model{
 
     /**
     **@auth qianqiang
-    **@breif 尽职调查提交时，提交项目信息
+    **@breif 提交尽职调查：更新housetop、project表，如果有保存的尽职调查则删除
     **@return 提交成功返回true，失败返回false
     **@date 2015.12.23
     **/ 
