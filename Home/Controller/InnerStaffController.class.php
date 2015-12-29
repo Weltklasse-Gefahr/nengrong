@@ -245,13 +245,31 @@ class InnerStaffController extends Controller {
     **/
     public function intent(){
         isLogin($_COOKIE['email'], $_COOKIE['mEmail']);
+        // $projectCode = $_POST['project_code'];
+        $projectCode = 'testintent';
         $optype = $_POST['optype'] ? $_POST['optype']:$_GET['optype'];
         $rtype = $_POST['rtype'] ? $_POST['rtype']:$_GET['rtype'];
         if($optype == "save" && $rtype == 1){
-
+            $intentText = $_POST["yixiangshu"];
+            $project = D("Project", "Service");
+            $result = $project->saveIntent($projectCode, $intentText);
+            if($result === true)
+                echo '{"code":"0","msg":"save success"}';
+            else
+                echo '{"code":"-1","msg":"save error"}';
         }elseif($optype == "submit" && $rtype == 1){
-
+            $intentText = $_POST["yixiangshu"];
+            $project = D("Project", "Service");
+            $result = $project->submitIntent($projectCode, $intentText);
+            if($result === true)
+                echo '{"code":"0","msg":"save success"}';
+            else
+                echo '{"code":"-1","msg":"save error"}';
         }elseif($rtype != 1){
+            $project = D("Project", "Service");
+            $projectInfo = $project->getIntent($projectCode);
+            // dump($projectInfo);exit;
+            $this->assign("projectInfo", $projectInfo);
             $this->display("InnerStaff:intent");
         }
     }

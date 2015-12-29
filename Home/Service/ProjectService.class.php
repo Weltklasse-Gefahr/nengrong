@@ -36,6 +36,27 @@ class ProjectService extends Model{
 
     /**
     **@auth qianqiang
+    **@breif 根据项目ID,项目类型和项目状态获取项目详细信息
+    **@date 2015.12.29
+    **/ 
+    public function getProjectDetails($projectId, $status, $projectType){
+        if($projectType == 1){
+            $housetop = M("Housetop");
+            $condition['project_id'] = $projectId;
+            $condition['status'] = $status;
+            $housetopInfo = $housetop->where($condition)->select();
+            return $housetopInfo[0];
+        }elseif($projectType == 2 || $projectType == 3){
+            $ground = M("Ground");
+            $condition['project_id'] = $projectId;
+            $condition['status'] = $status;
+            $groundInfo = $ground->where($condition)->select();
+            return $groundInfo[0];
+        }
+    }
+
+    /**
+    **@auth qianqiang
     **@breif 查看尽职调查中的项目信息，如果有保存的返回保存的数据，没有保存的返回正常数据
     **@date 2015.12.25
     **/ 
@@ -64,6 +85,31 @@ class ProjectService extends Model{
                 $groupInfo = $ground->where($condition)->select();
                 return $groupInfo[0];
             }
+        }
+    }
+
+    /**
+    **@auth qianqiang
+    **@breif 查看意向书，如果有保存的返回保存的数据
+    **@return 返回项目详细信息
+    **@date 2015.12.29
+    **/ 
+    public function getIntent($projectCode){
+        $projectInfo = $this->getProjectInfo($projectCode);
+        $condition['project_id'] = $projectInfo['id'];
+        $condition['status'] = 16;
+        if($projectInfo['project_type'] == 1){
+            $housetop = M('Housetop');
+            $resInfo = $housetop->where($condition)->find();
+        }elseif($projectInfo['project_type'] == 2 || $projectInfo['project_type'] == 3){
+            $ground = M('Ground');
+            $resInfo = $ground->where($condition)->find();
+        }
+        if(empty($resInfo)){
+            $resInfo = $this->getProjectDetail($projectInfo['id'], $projectInfo['project_type']);
+            return $resInfo;
+        }else{
+            return $resInfo;
         }
     }
 
@@ -117,6 +163,30 @@ class ProjectService extends Model{
 
     /**
     **@auth qianqiang
+    **@breif 保存意向书     先获取要存储的数据，然后将意向书存入要插入的数据中，保存
+    **@return 成功返回true，失败返回false
+    **@date 2015.12.29
+    **/ 
+    public function saveIntent($projectCode, $intentText){
+        $projectInfo = $this->getProjectInfo($projectCode);
+        $flag = $this->isIntentProject($projectInfo['id'], $projectInfo['project_type']);
+        if($flag === false){
+            echo '{"code":"-1","msg":"status error, cannot save intent"}';
+            exit;
+        }
+        if($this->hasSaveHousetopOrGround($projectInfo['id'], 16, $projectInfo['project_type'])){
+            $projectDetails = $this->getProjectDetails($projectInfo['id'], 16, $projectInfo['project_type']);//16意向书保存状态（项目已提交）
+        }else{
+            $projectDetails = $this->getProjectDetails($projectInfo['id'], 12, $projectInfo['project_type']);//12项目已提交（客服未提交意向书）
+        }
+        $projectDetails['id'] = null;
+        $projectDetails['project_intent'] = $intentText;
+        $result = $this->saveHousetopOrGround($projectDetails, 16, $projectInfo['project_type']);
+        return $result;
+    }
+
+    /**
+    **@auth qianqiang
     **@breif 尽职调查保存时，保存项目信息
     **@return 保存成功返回true，失败返回false
     **@date 2015.12.23
@@ -140,31 +210,66 @@ class ProjectService extends Model{
 
     /**
     **@auth qiujinhan
-    **@breif 更新Housetop，orGround 如果已经存在就更新，不存在就插入
+    **@breif 保存house或者ground（保存状态，包括保存尽职调查，保存意向书），如果已经存在就更新，不存在就插入
+    **@param $proData 保存的数据
+    **@param $status 保存的项目状态
+    **@param $projectType 项目类型
     **@return 保存成功返回true，失败返回false
-    **@date 2015.12.23
+    **@date 2015.12.29
     **/ 
-    public function saveHousetopOrGround($proData, $status, $table){
-        $housetoporGround = M("$table");
-        if($this->hasSavehousetoporGround($proData['project_id'], $table) == true){
-            $ret = $housetoporGround->where("project_id='".$proData['project_id'])->save($proData);
-        }else{
-            $proData['create_date'] = date("Y-m-d H:i:s",time());
-            $ret = $housetoporGround->add($proData);
+    public function saveHousetopOrGround($proData, $status, $projectType){
+        if($projectType == 1){
+            $housetop = M("Housetop");
+            if($this->hasSaveHousetopOrGround($proData['project_id'], $status, $projectType)){
+                $condition['project_id'] = $proData['project_id'];
+                $condition['status'] = $status;
+                $proData['change_date'] = date("Y-m-d H:i:s",time());
+                $result = $housetop->where($condition)->save($proData);
+            }else{
+                $proData['status'] = $status;
+                $proData['create_date'] = date("Y-m-d H:i:s",time());
+                $proData['change_date'] = date("Y-m-d H:i:s",time());
+                $result = $housetop->add($proData);
+            }
+        }elseif($projectType == 2 || $projectType == 3){
+            $ground = M("Ground");
+            if($this->hasSaveHousetopOrGround($proData['project_id'], $status, $projectType)){
+                $condition['project_id'] = $proData['project_id'];
+                $condition['status'] = $status;
+                $proData['change_date'] = date("Y-m-d H:i:s",time());
+                $result = $ground->where($condition)->save($proData);
+            }else{
+                $proData['status'] = $status;
+                $proData['create_date'] = date("Y-m-d H:i:s",time());
+                $proData['change_date'] = date("Y-m-d H:i:s",time());
+                $result = $ground->add($proData);
+            }
         }
-        return $ret;
+        if($result == false)
+            return false;
+        else
+            return true;
     }
 
     /**
     **@auth qiujinhan
-    **@breif 判断是否有保存的saveHousetopOrGround
+    **@breif 判断house表和ground表是否存在保存状态，如保存意向书、保存尽职调查
+    **@param $projectId 项目id
+    **@param $status 要查询的项目状态
+    **@param $projectType 项目类型
     **@return 存在返回true，不存在返回false
-    **@date 2015.12.23
+    **@date 2015.12.29
     **/ 
-    public function hasSaveHousetopOrGround($projectId, $table){
-        $objProject = D("$table");
+    public function hasSaveHousetopOrGround($projectId, $status, $projectType){
         $condition["project_id"] = $projectId;
-        $proInfo = $objProject->where($condition)->select();
+        $condition["status"] = $status;
+        if($projectType == 1){
+            $housetop = M("Housetop");
+            $proInfo = $housetop->where($condition)->select();
+        }elseif($projectType == 2 || $projectType == 3){
+            $ground = M("Ground");
+            $proInfo = $ground->where($condition)->select();
+        }
         if(empty($proInfo))
             return false;
         else
@@ -200,7 +305,6 @@ class ProjectService extends Model{
         }else{
             return false;
         }
-        
     }
 
     /**
@@ -218,6 +322,27 @@ class ProjectService extends Model{
             return true;
         else
             return false;
+    }
+
+    /**
+    **@auth qianqiang
+    **@breif 判断是否可以进行意向书操作（保存和提交）
+    **@return 可允许操作返回true，不允许返回false
+    **@date 2015.12.29
+    **/ 
+    public function isIntentProject($projectId, $projectType){
+        $condition['project_id'] = $projectId;
+        if($projectType == 1){
+            $housetop = M('Housetop');
+            $res = $housetop->where($condition)->where('status=16 or status=12')->find();
+        }elseif($projectType == 2 || $projectType == 3){
+            $ground = M('Ground');
+            $res = $ground->where($condition)->where('status=16 or status=12')->find();
+        }
+        if(empty($res))
+            return false;
+        else
+            return true;
     }
 
     /**

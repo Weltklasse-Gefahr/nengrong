@@ -370,7 +370,7 @@ class ProjectProviderMyProController extends Controller {
         $objProject = D("Project", "Service");
         $listProject = $objProject->getAgreementProject($email);
         $this->assign('listProject', $listProject);
-        $this->display("ProjectProvider:aggrementProject");
+        $this->display("ProjectProvider:agreementProject");
     }
 
     /**
