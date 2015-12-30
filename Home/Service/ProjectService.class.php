@@ -353,6 +353,40 @@ class ProjectService extends Model{
 
     /**
     **@auth qianqiang
+    **@breif 获取某项目的推送记录
+    **@date 2015.12.30
+    **/ 
+    public function getPushProjectByProCode($projectCode){
+        $pushProject = D("Pushproject");
+        $condition["project_code"] = $projectCode;
+        $condition["status"] = 41;
+        $proInfo = $pushProject->where($condition)->select();
+        return $proInfo;
+    }
+
+    /**
+    **@auth qianqiang
+    **@breif 推送项目
+    **@date 2015.12.30
+    **/ 
+    public function pushProject($projectCode, $investorList){
+        $pushProject = D("Pushproject");
+        $data = array();
+        $data['project_code'] = $projectCode;
+        $data['status'] = 41;
+        $data['push_time'] = date("Y-m-d H:i:s",time());
+        $i = 0;
+        while($investorList[$i]){
+            $data['investor_id'] = $investorList[$i]['id'];
+            $res = $pushProject->add($data);
+            if($res === false) return false;
+            $i += 1;
+        }
+        return true;
+    }
+
+    /**
+    **@auth qianqiang
     **@breif 判断是否有保存的屋顶项目
     **@return 存在返回true，不存在返回false
     **@date 2015.12.23

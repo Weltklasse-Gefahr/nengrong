@@ -237,7 +237,7 @@ create table ENF_Project
 create table ENF_PushProject
 (
    id                   bigint not null auto_increment,
-   email                varchar(100) comment '投资人邮箱',
+   investor_id          bigint comment '投资人id',
    project_code         varchar(100) comment '项目编号',
    push_time            datetime comment '推送时间',
    status               int not null default 0 comment '状态类型：0正常、1已激活、2未激活、11项目未提交、12项目已提交（客服未提交意向书）、13项目已提交（客服已提交意向书）、16意向书保存状态（项目已提交）、21签意向合同（客服未提交尽职调查）、22签意向合同（客服已提交尽职调查）、31签融资合同、41已推送、42未推送、51尽职调查保存状态（尽职调查保存后项目状态）、52尽职调查提交状态、9999删除',

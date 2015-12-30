@@ -201,7 +201,8 @@ class UserController extends Controller
         $user = M('User');
         $data['email'] = 'qianqiang@qq.com';
         $data['password'] = MD5("123456");
-        $data['user_type'] = 3;
+        $data['user_type'] = 4;
+        $data['status'] = 1;
         $user->add($data);
         echo '{"code":"0","msg":"添加用户"}';
     }
