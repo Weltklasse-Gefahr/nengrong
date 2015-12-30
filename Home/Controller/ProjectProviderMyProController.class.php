@@ -352,6 +352,12 @@ class ProjectProviderMyProController extends Controller {
 
         $objProject = D("Project", "Service");
         $listProject = $objProject->getAwaitingAssessment($email);
+        
+        if($_GET['display']=="json"){
+            header('Content-Type: text/html; charset=utf-8');
+            dump($listProject);
+            exit;
+        }
         $this->assign('listProject', $listProject);
         $this->display("ProjectProvider:awaitingAssessment");
     }
@@ -369,6 +375,12 @@ class ProjectProviderMyProController extends Controller {
 
         $objProject = D("Project", "Service");
         $listProject = $objProject->getAgreementProject($email);
+
+        if($_GET['display']=="json"){
+            header('Content-Type: text/html; charset=utf-8');
+            dump($listProject);
+            exit;
+        }
         $this->assign('listProject', $listProject);
         $this->display("ProjectProvider:agreementProject");
     }
@@ -386,6 +398,12 @@ class ProjectProviderMyProController extends Controller {
         
         $objProject = D("Project", "Service");
         $listProject = $objProject->getContractProject($email);
+
+        if($_GET['display']=="json"){
+            header('Content-Type: text/html; charset=utf-8');
+            dump($listProject);
+            exit;
+        }
         $this->assign('listProject', $listProject);
         $this->display("ProjectProvider:contractProject");
     }

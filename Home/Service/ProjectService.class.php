@@ -126,7 +126,8 @@ class ProjectService extends Model{
         }
         $condition['status'] = array('between','11,13');
         $projectInfo = $this->getProjectsInfo($condition);
-        return $projectInfo; 
+        $projectList = $this->formatProject($projectInfo);
+        return $projectList; 
     }
 
     /**
@@ -142,7 +143,8 @@ class ProjectService extends Model{
         }
         $condition['status'] = array('between','21,29');
         $projectInfo = $this->getProjectsInfo($condition);
-        return $projectInfo; 
+        $projectList = $this->formatProject($projectInfo);
+        return $projectList; 
     }
 
     /**
@@ -158,7 +160,41 @@ class ProjectService extends Model{
         }
         $condition['status'] = array('between','31,39');
         $projectInfo = $this->getProjectsInfo($condition);
-        return $projectInfo; 
+        $projectList = $this->formatProject($projectInfo);
+        return $projectList; 
+    }
+
+    /**
+    **@auth qianqiang
+    **@breif 将项目列表中的信息规范化显示
+    **@date 2015.12.30
+    **/ 
+    public function formatProject($projectList){
+        if(empty($projectList)) return $projectList;
+        $i = 0;
+        while($projectList[$i]){
+            //状态转换待完成
+            if($projectList[$i]['project_type'] == 1){
+                $projectList[$i]['type'] = "屋顶分布式";
+                $proObj = M('Housetop');
+            }
+            elseif($projectList[$i]['project_type'] == 2){
+                $projectList[$i]['type'] = "地面分布式";
+                $proObj = M('Ground');
+            }
+            elseif($projectList[$i]['project_type'] == 3){
+                $projectList[$i]['type'] = "大型地面";
+                $proObj = M('Ground');
+            }
+            $condition['project_id'] = $projectList[$i]['id'];
+            $condition['status'] = $projectList[$i]['status'];
+            $proDetails = $proObj->where($condition)->find();
+            $areaObj = D('Area', 'Service');
+            $areaStr = $areaObj->getAreaById($proDetails['project_area']);
+            $projectList[$i]['area'] = $areaStr.$proDetails['project_address'];
+            $i += 1;
+        }        
+        return $projectList; 
     }
 
     /**
