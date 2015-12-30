@@ -309,6 +309,33 @@ class UserService extends Model{
 		return $userInfo;
 	}
 
+	/**
+    **@auth qianqiang
+    **@breif 获取某一项目的所有项目投资方信息，已推送的push_flag为1，未推送push_flag为0
+    **@date 2015.12.30
+    **/
+	public function getInvestorPush($projectCode){
+		$condition['user_type'] = 4;
+		$condition["status"] = array('neq',9999);
+		$investorList = $this->getUserInfo($condition);
+		$projectObj = D('Project', 'Service');
+		$projectList = $projectObj->getPushProjectByProCode($projectCode);
+		$i = 0;
+		while($investorList[$i]){
+			$j = 0;
+			$investorList[$i]['push_flag'] = 0;
+			while($projectList[$j]){
+				if($projectList[$j]['investor_id'] == $investorList[$i]['id']){
+					$investorList[$i]['push_flag'] = 1;
+					break;
+				}
+				$j += 1;
+			}
+			$i += 1;
+		}
+		return $investorList;
+	}	
+
     /**
     **@auth qianqiang
     **@breif 查询用户信息
