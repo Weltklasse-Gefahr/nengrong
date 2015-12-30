@@ -277,7 +277,7 @@ class InnerStaffController extends Controller {
     /**
     **@auth qianqiang
     **@breif 客服->推送项目
-    **@date 2015.12.28
+    **@date 2015.12.30
     **/
     public function pushProject(){
         isLogin($_COOKIE['email'], $_COOKIE['mEmail']);

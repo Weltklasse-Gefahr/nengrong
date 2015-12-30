@@ -311,7 +311,7 @@ class UserService extends Model{
 
 	/**
     **@auth qianqiang
-    **@breif 获取某一项目的所有项目投资方信息，已推送的push_flag为1，未推送push_flag为0
+    **@breif 获取某一项目的所有项目投资方信息，推送状态push_flag
     **@date 2015.12.30
     **/
 	public function getInvestorPush($projectCode){
@@ -323,10 +323,10 @@ class UserService extends Model{
 		$i = 0;
 		while($investorList[$i]){
 			$j = 0;
-			$investorList[$i]['push_flag'] = 0;
+			$investorList[$i]['push_flag'] = "未推送";
 			while($projectList[$j]){
 				if($projectList[$j]['investor_id'] == $investorList[$i]['id']){
-					$investorList[$i]['push_flag'] = 1;
+					$investorList[$i]['push_flag'] = "已推送";
 					break;
 				}
 				$j += 1;
