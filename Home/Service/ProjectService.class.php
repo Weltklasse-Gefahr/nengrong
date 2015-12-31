@@ -118,13 +118,19 @@ class ProjectService extends Model{
     **@breif 查询待评估项目
     **@date 2015.12.26
     **/ 
-    public function getAwaitingAssessment($email){
+    public function getAwaitingAssessment($email, $optype){
         if(!empty($email)){
             $user = D('User');
             $userInfo = $user->where("email='".$email."'")->find();
             $condition['provider_id'] = $userInfo['id'];
         }
-        $condition['status'] = array('between','11,13');
+        if($optype == "all"){
+            $condition['status'] = array('between','11,13');
+        }elseif($optype == "submitted"){
+            $condition['status'] = array('between','12,13');
+        }elseif($optype == "notsubmit"){
+            $condition['status'] = 11;
+        }
         $projectInfo = $this->getProjectsInfo($condition);
         $projectList = $this->formatProject($projectInfo);
         return $projectList; 
