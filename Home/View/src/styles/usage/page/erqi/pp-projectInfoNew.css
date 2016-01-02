@@ -50,6 +50,15 @@
 	float: left;
 }
 
+.r-content form .required:after {
+	content: "*";
+	color: red;
+	font-size: 12px;
+	top: -3px;
+	left: 1px;
+	position: relative;
+}
+
 .r-content form .part1 .item {
 	width: 800px;
 	float: left;
@@ -123,6 +132,59 @@
 	color: #9b9b9b;
 	width: 200px;
 	display: inline-block;
+}
+
+.r-content form .part2 li.component .name {
+	width: 60px;
+	display: inline-block;
+}
+
+.r-content form .part2 li.component .add, .r-content form .part2 li.component .del {
+	color: #FD7940;
+}
+
+.r-content form .part2 li.component .item {
+	width: 490px;
+	height: 100px;
+	margin: 10px 0;
+	padding: 6px 10px;
+	border: 1px solid #ccc;
+	position: relative;
+}
+
+.r-content form .part2 li.component .item > div {
+	line-height: 45px;
+}
+
+.r-content form .part2 li.component .item .del {
+	position: absolute;
+	top: 6px;
+	right: 12px;
+}
+
+.r-content form .part2 li.component .item span.c0 {
+	display: inline-block;
+	width: 72px;
+}
+
+.r-content form .part2 li.component .item input.c0 {
+	width: 200px;
+}
+
+.r-content form .part2 li.component .item span.c1 {
+	display: inline-block;
+	width: 50px;
+	text-align: right;
+	margin-right: 2px;
+}
+
+.r-content form .part2 li.component .item input.c1 {
+	width: 100px;
+}
+
+.r-content form .part2 li.component .item input.c1 {
+	width: 100px;
+	margin-right: 10px;
 }
 
 .r-content form .part2 .input-wrap {

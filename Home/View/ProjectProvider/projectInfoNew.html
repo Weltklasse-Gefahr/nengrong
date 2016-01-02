@@ -49,7 +49,7 @@
 				<input type="hidden" name="optype" value=""/>
 				<ul class="detail part1">
 					<li class="clrfix">
-						<span class="lb">项目类型：</span>
+						<span class="lb required">项目类型</span>
 						<div class="item">
 							<div class="filter">
 								<input type="hidden" value="1" name="project_type" />
@@ -65,7 +65,7 @@
 						</div>
 					</li>
 					<li class="clrfix">
-						<span class="lb">选择位置：</span>
+						<span class="lb required">选择位置</span>
 						<div class="item area">
 							<select name="province" class="first">
 								<option value="">选择省</option>
@@ -79,13 +79,13 @@
 						</div>
 					</li>
 					<li class="clrfix">
-						<span class="lb">详细地址：</span>
+						<span class="lb required">详细地址</span>
 						<div class="item area">
 							<input name="project_address" value="" />
 						</div>
 					</li>
 					<li class="clrfix notall housetop_nonBuild_item housetop_build_item">
-						<span class="lb">上传图片：</span>
+						<span class="lb required">上传图片</span>
 						<div class="item clrfix">
 							<div class="img-ct">
 								<input type="file" accept="image/gif,image/jpeg,image/png" name="picture_full" style="visibility: hidden;" data-url="" data-name="" data-id="" />
@@ -103,7 +103,7 @@
 						</div>
 					</li>
 					<li class="clrfix notall ground_nonBuild_item ground_build_item">
-						<span class="lb">上传图片：</span>
+						<span class="lb required">上传图片</span>
 						<div class="item clrfix">
 							<div class="img-ct">
 								<input type="file" accept="image/gif,image/jpeg,image/png" name="picture_full" style="visibility: hidden;" data-url="" data-name="" data-id="" />
@@ -162,11 +162,11 @@
 				<p class="title notall housetop_nonBuild_item housetop_build_item">屋顶业主信息</p>
 				<ul class="detail part2 notall housetop_nonBuild_item housetop_build_item">
 					<li>
-						<span class="lb">屋顶业主名称</span>
+						<span class="lb required">屋顶业主名称</span>
 						<input name="housetop_owner" value="张三"><span class="gray">公司</span>
 					</li>
 					<li>
-						<span class="lb">企业类型</span>
+						<span class="lb required">企业类型</span>
 						<select name="company_type">
 							<option value="1">国企（上市公司）</option>
 							<option value="2" selected>外企（上市公司）</option>
@@ -177,11 +177,11 @@
 						</select>
 					</li>
 					<li>
-						<span class="lb">注册资本金</span>
+						<span class="lb required">注册资本金</span>
 						<input name="company_capital" value="200"><span class="gray">万</span>
 					</li>
 					<li>
-						<span class="lb">屋顶产权证明</span>
+						<span class="lb required">屋顶产权证明</span>
 						<select data-with-file="true">
 							<option value="1" selected>有</option>
 							<option value="2">无</option>
@@ -189,22 +189,22 @@
 						<input type="file" accept="application/pdf,application/msword,application/vnd.ms-powerpoint,aplication/zip" name="housetop_property_prove" style="visibility: hidden;" data-url="" data-name="" data-id="" />
 					</li>
 					<li>
-						<span class="lb">年用电量</span>
+						<span class="lb required">年用电量</span>
 						<input name="electricity_total" value="15.6"><span class="gray">万度</span>
 					</li>
 					<li>
-						<span class="lb">电费</span>
+						<span class="lb required">电费</span>
 						<input name="electricity_pay" value="66.3"><span class="gray">万元</span>
 					</li>
 					<li>
-						<span class="gray">电费单(最近一年)(备注：请上传近12个月，每月电费明细)</span>
+						<span class="gray required">电费单(最近一年)(备注：请上传近12个月，每月电费明细)</span>
 						<input type="file" accept="application/pdf,application/msword,application/vnd.ms-powerpoint,aplication/zip" name="electricity_pay_list" style="visibility: hidden;" />
 					</li>
 				</ul>
 				<p class="title notall housetop_nonBuild_item housetop_build_item">屋顶情况</p>
 				<ul class="detail part2 notall housetop_nonBuild_item housetop_build_item">
 					<li>
-						<span class="lb">屋顶类型</span>
+						<span class="lb required">屋顶类型</span>
 						<select name="housetop_type" data-with-other="true">
 							<option value="1">混凝土</option>
 							<option value="2">彩钢瓦</option>
@@ -213,19 +213,19 @@
 						<input class="other" name="housetop_type_other" style="display: none;" value="">
 					</li>
 					<li>
-						<span class="lb">屋顶面积</span>
+						<span class="lb required">屋顶面积</span>
 						<input name="housetop_area" value="666"><span class="gray">m<sup>2</sup></span>
 					</li>
 					<li class="notall housetop_build_item">
-						<span class="lb">屋顶防水周期</span>
+						<span class="lb required">屋顶防水周期</span>
 						<input name="housetop_waterproof_time" value="70"><span class="gray"年</span>
 					</li>
 					<li>
-						<span class="lb">屋顶使用寿命</span>
+						<span class="lb required">屋顶使用寿命</span>
 						<input name="housetop_age" value="70"><span class="gray">年</span>
 					</li>
 					<li>
-						<span class="lb">屋顶朝向</span>
+						<span class="lb required">屋顶朝向</span>
 						<select name="housetop_direction" data-with-other="true">
 							<option value="1">正南</option>
 							<option value="2">东西向</option>
@@ -234,18 +234,18 @@
 						<input class="other" name="housetop_direction_other" style="display: none;" value="">
 					</li>
 					<li class="notall housetop_build_item">
-						<span class="lb">屋顶活载荷</span>
+						<span class="lb required">屋顶活载荷</span>
 						<input name="housetop_load" value="666"><span class="gray">kN/m<sup>2</sup></span>
 					</li>
 					<li class="notall housetop_build_item">
-						<span class="lb">附近有无遮挡</span>
+						<span class="lb required">附近有无遮挡</span>
 						<select name="has_shelter">
 							<option value="1">有</option>
 							<option value="2">无</option>
 						</select>
 					</li>
 					<li class="notall housetop_build_item">
-						<span class="lb">有无污染源</span>
+						<span class="lb required">有无污染源</span>
 						<select name="has_pollution">
 							<option value="1">有</option>
 							<option value="2">无</option>
@@ -255,7 +255,7 @@
 				<p class="title notall ground_nonBuild_item ground_build_item">土地情况</p>
 				<ul class="detail part2 notall ground_nonBuild_item ground_build_item">
 					<li>
-						<span class="lb">土地性质</span>
+						<span class="lb required">土地性质</span>
 						<select name="ground_property" data-with-other="true">
 							<option value="1">一般农田</option>
 							<option value="2" selected>林地</option>
@@ -267,27 +267,27 @@
 						<input class="other" name="ground_property_other" style="display: none;" value="">
 					</li>
 					<li>
-						<span class="lb">租赁土地面积</span>
+						<span class="lb required">租赁土地面积</span>
 						<input name="ground_area" value="2"><span class="gray">m<sup>2</sup></span>
 					</li>
 					<li>
-						<span class="lb">租赁年限</span>
+						<span class="lb required">租赁年限</span>
 						<input name="rent_time" value="2"><span class="gray">年</span>
 					</li>
 					<li>
-						<span class="lb">租赁租金</span>
+						<span class="lb required">租赁租金</span>
 						<input name="rent_pay" value="2"><span class="gray">元/年</span>
 					</li>
 					<li class="notall ground_build_item">
-						<span class="lb">中控室建筑面积</span>
+						<span class="lb required">中控室建筑面积</span>
 						<input name="control_room_area" value="2"><span class="gray">m<sup>2</sup></span>
 					</li>
 					<li class="notall ground_build_item">
-						<span class="lb">出让金额</span>
+						<span class="lb required">出让金额</span>
 						<input name="sell_sum" value="2"><span class="gray">元</span>
 					</li>
 					<li>
-						<span class="lb">土地平整情况</span>
+						<span class="lb required">土地平整情况</span>
 						<select name="ground_condition">
 							<option value="1" selected>平地</option>
 							<option value="2">山坡</option>
@@ -295,14 +295,14 @@
 						</select>
 					</li>
 					<li class="notall ground_build_item">
-						<span class="lb">附近有无遮挡</span>
+						<span class="lb required">附近有无遮挡</span>
 						<select name="has_shelter">
 							<option value="1" selected>有</option>
 							<option value="2">无</option>
 						</select>
 					</li>
 					<li class="notall ground_build_item">
-						<span class="lb">有无污染源</span>
+						<span class="lb required">有无污染源</span>
 						<select name="has_pollute">
 							<option value="1" selected>有</option>
 							<option value="2">无</option>
@@ -312,19 +312,19 @@
 				<p class="title">电网接入</p>
 				<ul class="detail part2">
 					<li>
-						<span class="lb">上级变压器容量</span>
+						<span class="lb required">上级变压器容量</span>
 						<input name="transformer_capacity" value="100"><span class="gray">kVA</span>
 					</li>
 					<li>
-						<span class="lb">并网电压等级</span>
+						<span class="lb required">并网电压等级</span>
 						<input name="voltage_level" value="2"><span class="gray">kV</span>
 					</li>
 					<li class="notall housetop_build_item ground_nonBuild_item ground_build_item">
-						<span class="lb">电网接入点距离</span>
+						<span class="lb required">电网接入点距离</span>
 						<input name="electricity_distance" value="200"><span class="gray">m</span>
 					</li>
 					<li class="notall housetop_nonBuild_item housetop_build_item">
-						<span class="lb">并网方式</span>
+						<span class="lb required">并网方式</span>
 						<select name="synchronize_type">
 							<option value="1">自发自用</option>
 							<option value="2" selected>全额上网</option>
@@ -332,7 +332,7 @@
 						</select>
 					</li>
 					<li class="notall ground_nonBuild_item ground_build_item">
-						<span class="lb">计量点</span>
+						<span class="lb required">计量点</span>
 						<select name="measure_point">
 							<option value="1" selected>站内</option>
 							<option value="2">变电站</option>
@@ -342,35 +342,43 @@
 				<p class="title">项目情况</p>
 				<ul class="detail part2">
 					<li class="notall housetop_nonBuild_item ground_nonBuild_item">
-						<span class="lb">拟建设容量</span>
+						<span class="lb required">拟建设容量</span>
 						<input name="plan_build_volume" value="100"><span class="gray">kW</span>
 					</li>
 					<li class="notall housetop_build_item ground_build_item">
-						<span class="lb">建设容量</span>
+						<span class="lb required">建设容量</span>
 						<input name="plan_build_volume" value="100"><span class="gray">kW</span>
 					</li>
 					<li class="notall housetop_build_item ground_build_item">
-						<span class="lb">单位投资</span>
+						<span class="lb required">单位投资</span>
 						<input name="company_invest" value="100"><span class="gray">元/W</span>
 					</li>
 					<li class="notall housetop_build_item ground_build_item">
-						<span class="lb">EPC厂家</span>
+						<span class="lb required">EPC厂家</span>
 						<input name="company_EPC" value="100">
 					</li>
 					<li class="notall housetop_build_item ground_build_item">
-						<span class="lb">资质等级</span>
+						<span class="lb required">资质等级</span>
 						<input name="capacity_level" value="100">
 					</li>
-					<!-- <li class="notall housetop_build_item ground_build_item">
-						<span class="lb">组件：</span>
-						<input name="company_EPC" value="100">
+					<li class="notall housetop_build_item ground_build_item component">
+						<span class="name required">组件</span><a href="javascript:;" class="add">新增</a>
+						<div class="item"><input type="hidden" name="component_company_hiddenId" value="" />
+							<a href="javascript:;" class="del">删除</a>
+							<div><span class="c0">组件厂家</span><input class="c0" name="component_company"/></div>
+							<div><span class="c0">规格型号</span><input class="c0" name="component_type"/><span class="c1">数量</span><input class="c1" name="component_count"/>个</div>
+						</div>
+					</li>
+					<li class="notall housetop_build_item ground_build_item component inverter">
+						<span class="name required">逆变器</span><a href="javascript:;" class="add">新增</a>
+						<div class="item"><input type="hidden" name="inverter_xcompany_hiddenId" value="" />
+							<a href="javascript:;" class="del">删除</a>
+							<div><span class="c0">逆变器厂家</span><input class="c0" name="inverter_company"/></div>
+							<div><span class="c0">规格型号</span><input class="c0" name="inverter_type"/><span class="c1">数量</span><input class="c1" name="inverter_count"/>个</div>
+						</div>
 					</li>
 					<li class="notall housetop_build_item ground_build_item">
-						<span class="lb">逆变器：</span>
-						<input name="capacity_level" value="100">
-					</li> -->
-					<li class="notall housetop_build_item ground_build_item">
-						<span class="lb">并网时间</span>
+						<span class="lb required">并网时间</span>
 						<input name="synchronize_date" data-type="date" value="2015-12-19">
 					</li>
 					<!-- <li class="notall housetop_build_item ground_build_item">
@@ -378,7 +386,7 @@
 						<input name="electricity_data" value="100"><span class="gray">万度</span>
 					</li> -->
 					<li class="notall ground_nonBuild_item ground_build_item">
-						<span class="lb">项目支架类型</span>
+						<span class="lb required">项目支架类型</span>
 						<select name="project_holder_type">
 							<option value="1" selected>地面固定式</option>
 							<option value="2">单轴</option>
@@ -386,7 +394,7 @@
 						</select>
 					</li>
 					<li class="notall ground_nonBuild_item ground_build_item">
-						<span class="lb">项目类型</span>
+						<span class="lb required">项目类型</span>
 						<select name="ground_project_type">
 							<option value="1" selected>地面</option>
 							<option value="2">农光互补</option>
@@ -394,22 +402,22 @@
 						</select>
 					</li>
 					<li class="notall housetop_nonBuild_item ground_nonBuild_item">
-						<span class="lb">与能融网合作方式（可多选）</span>
-						<span class="citem"><input type="checkbox" name="cooperation_type" value="1"><span class="gray">EPC</span></span>
-						<span class="citem"><input type="checkbox" name="cooperation_type" value="2"><span class="gray">申请融资</span></span>
-						<span class="citem"><input type="checkbox" name="cooperation_type" value="3"><span class="gray">推介项目</span></span>
+						<span class="lb required">与能融网合作方式（可多选）</span>
+						<span class="citem"><input type="checkbox" name="cooperation_type" value="1" id="cooperation_type_nonBuild1"><label class="gray" for="cooperation_type_nonBuild1">EPC</label></span>
+						<span class="citem"><input type="checkbox" name="cooperation_type" value="2" id="cooperation_type_nonBuild2"><label class="gray" for="cooperation_type_nonBuild2">申请融资</label></span>
+						<span class="citem"><input type="checkbox" name="cooperation_type" value="3" id="cooperation_type_nonBuild3"><label class="gray" for="cooperation_type_nonBuild3">推介项目</label></span>
 					</li>
 					<li class="notall housetop_build_item ground_build_item">
-						<span class="lb">与能融网合作方式（可多选）</span>
-						<span class="citem"><input type="checkbox" name="cooperation_type" value="2"><span class="gray">申请融资</span></span>
-						<span class="citem"><input type="checkbox" name="cooperation_type" value="4"><span class="gray">转让</span></span>
+						<span class="lb required">与能融网合作方式（可多选）</span>
+						<span class="citem"><input type="checkbox" name="cooperation_type" value="2" id="cooperation_type_build1"><label class="gray" for="cooperation_type_build1">申请融资</label></span>
+						<span class="citem"><input type="checkbox" name="cooperation_type" value="4" id="cooperation_type_build2"><label class="gray" for="cooperation_type_build2">转让</label></span>
 					</li>
 					<li>
-						<span class="lb">拟融资金额</span>
+						<span class="lb required">拟融资金额</span>
 						<input name="plan_financing" value="100"><span class="gray">万元</span>
 					</li>
 					<li class="notall housetop_nonBuild_item ground_nonBuild_item">
-						<span class="lb">融资方式</span>
+						<span class="lb required">融资方式</span>
 						<select name="financing_type">
 							<option value="1">融资租赁（直租）</option>
 							<option value="2" selected>融资租赁（回租）</option>
@@ -417,7 +425,7 @@
 						</select>
 					</li>
 					<li class="notall housetop_build_item ground_build_item">
-						<span class="lb">融资方式</span>
+						<span class="lb required">融资方式</span>
 						<select name="financing_type">
 							<option value="2" selected>融资租赁（回租）</option>
 							<option value="3">股权融资</option>

@@ -16,8 +16,18 @@
 	transform: translate(-50%, -50%);
 }
 
+
+.layer-mask .layer .hd {
+	position: relative;
+	height: 50px;
+}
+
 .layer-mask .layer .hd .title {
-	width: 100%;
+	position: absolute;
+	width: 432px;
+	height: 50px;
+	left: -4px;
+	top: 7px;
 }
 
 .layer-mask .layer .bd {
@@ -28,13 +38,18 @@
 
 .layer-mask .layer .bd .content-wrap {
 	margin-bottom: 30px;
+	line-height: 47px;
 }
 
 .layer-mask .layer .bd .icon {
+	float: left;
 	width: 42px;
 	height: 47px;
 	vertical-align: middle;
 	margin-right: 30px;
+}
+.layer-mask .layer .bd .content {
+	float: left;
 }
 
 .layer-mask .layer .bd .control {

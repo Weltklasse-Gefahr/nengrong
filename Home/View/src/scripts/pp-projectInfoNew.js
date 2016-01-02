@@ -95,6 +95,28 @@ $(function() {
       	changeYear: true
 	});
 
+	// 组件、逆变器
+	$(".component").on("click", ".add", function() {
+		var $parent = $(this).parent();
+		$parent.append($parent.hasClass("inverter") ? '<div class="item">\
+<a href="javascript:;" class="del">删除</a>\
+<div><span class="c0">逆变器厂家</span><input class="c0" name="inverter_company"/></div>\
+<div><span class="c0">规格型号</span><input class="c0" name="inverter_type"/><span class="c1">数量</span><input class="c1" name="inverter_count"/>个</div>\
+</div>' : '<div class="item">\
+<a href="javascript:;" class="del">删除</a>\
+<div><span class="c0">组件厂家</span><input class="c0" name="component_company"/></div>\
+<div><span class="c0">规格型号</span><input class="c0" name="component_type"/><span class="c1">数量</span><input class="c1" name="component_count"/>个</div>\
+</div>');
+	}).on("click", ".del", function() {
+		var $parent = $(this).parent(),
+			items = $parent.siblings(".item");
+		if(items.length) {
+			$(this).parent().remove();
+		} else {
+			alert(($parent.parent().hasClass("inverter") ? "逆变器" : "组件" ) + "必须至少有一个");
+		}
+	});
+
 	// 保存资料
 	var options = {
 	   	// target: '#output',          //把服务器返回的内容放入id为output的元素中      
