@@ -349,11 +349,22 @@ class ProjectProviderMyProController extends Controller {
         $email = $_COOKIE['email'];
         isLogin($email, $_COOKIE['mEmail']);
         isDataComplete($email);
-
-        $objProject = D("Project", "Service");
-        $listProject = $objProject->getAwaitingAssessment($email);
-        $this->assign('listProject', $listProject);
-        $this->display("ProjectProvider:awaitingAssessment");
+        $optype = $_POST['optype'] ? $_POST['optype']:$_GET['optype'];
+        $rtype = $_POST['rtype'] ? $_POST['rtype']:$_GET['rtype'];
+        if($optype == "add" && $rtype == 1){
+            $this->display("ProjectProvider:projectInfoNew");
+        }else{
+            $objProject = D("Project", "Service");
+            $listProject = $objProject->getAwaitingAssessment($email, $optype);
+            
+            if($_GET['display']=="json"){
+                header('Content-Type: text/html; charset=utf-8');
+                dump($listProject);
+                exit;
+            }
+            $this->assign('listProject', $listProject);
+            $this->display("ProjectProvider:awaitingAssessment");
+        }        
     }
 
     /**
@@ -369,6 +380,12 @@ class ProjectProviderMyProController extends Controller {
 
         $objProject = D("Project", "Service");
         $listProject = $objProject->getAgreementProject($email);
+
+        if($_GET['display']=="json"){
+            header('Content-Type: text/html; charset=utf-8');
+            dump($listProject);
+            exit;
+        }
         $this->assign('listProject', $listProject);
         $this->display("ProjectProvider:agreementProject");
     }
@@ -386,6 +403,12 @@ class ProjectProviderMyProController extends Controller {
         
         $objProject = D("Project", "Service");
         $listProject = $objProject->getContractProject($email);
+
+        if($_GET['display']=="json"){
+            header('Content-Type: text/html; charset=utf-8');
+            dump($listProject);
+            exit;
+        }
         $this->assign('listProject', $listProject);
         $this->display("ProjectProvider:contractProject");
     }

@@ -118,15 +118,22 @@ class ProjectService extends Model{
     **@breif 查询待评估项目
     **@date 2015.12.26
     **/ 
-    public function getAwaitingAssessment($email){
+    public function getAwaitingAssessment($email, $optype){
         if(!empty($email)){
             $user = D('User');
             $userInfo = $user->where("email='".$email."'")->find();
             $condition['provider_id'] = $userInfo['id'];
         }
-        $condition['status'] = array('between','11,19');
+        if($optype == "all"){
+            $condition['status'] = array('between','11,13');
+        }elseif($optype == "submitted"){
+            $condition['status'] = array('between','12,13');
+        }elseif($optype == "notsubmit"){
+            $condition['status'] = 11;
+        }
         $projectInfo = $this->getProjectsInfo($condition);
-        return $projectInfo; 
+        $projectList = $this->formatProject($projectInfo);
+        return $projectList; 
     }
 
     /**
@@ -142,7 +149,8 @@ class ProjectService extends Model{
         }
         $condition['status'] = array('between','21,29');
         $projectInfo = $this->getProjectsInfo($condition);
-        return $projectInfo; 
+        $projectList = $this->formatProject($projectInfo);
+        return $projectList; 
     }
 
     /**
@@ -158,7 +166,41 @@ class ProjectService extends Model{
         }
         $condition['status'] = array('between','31,39');
         $projectInfo = $this->getProjectsInfo($condition);
-        return $projectInfo; 
+        $projectList = $this->formatProject($projectInfo);
+        return $projectList; 
+    }
+
+    /**
+    **@auth qianqiang
+    **@breif 将项目列表中的信息规范化显示
+    **@date 2015.12.30
+    **/ 
+    public function formatProject($projectList){
+        if(empty($projectList)) return $projectList;
+        $i = 0;
+        while($projectList[$i]){
+            //状态转换待完成
+            if($projectList[$i]['project_type'] == 1){
+                $projectList[$i]['type'] = "屋顶分布式";
+                $proObj = M('Housetop');
+            }
+            elseif($projectList[$i]['project_type'] == 2){
+                $projectList[$i]['type'] = "地面分布式";
+                $proObj = M('Ground');
+            }
+            elseif($projectList[$i]['project_type'] == 3){
+                $projectList[$i]['type'] = "大型地面";
+                $proObj = M('Ground');
+            }
+            $condition['project_id'] = $projectList[$i]['id'];
+            $condition['status'] = $projectList[$i]['status'];
+            $proDetails = $proObj->where($condition)->find();
+            $areaObj = D('Area', 'Service');
+            $areaStr = $areaObj->getAreaById($proDetails['project_area']);
+            $projectList[$i]['area'] = $areaStr.$proDetails['project_address'];
+            $i += 1;
+        }        
+        return $projectList; 
     }
 
     /**
@@ -349,6 +391,60 @@ class ProjectService extends Model{
         }else{
             return false;
         }
+    }
+
+    /**
+    **@auth qianqiang
+    **@breif 获取某项目的推送记录
+    **@date 2015.12.30
+    **/ 
+    public function getPushProjectByProCode($projectCode){
+        $pushProject = D("Pushproject");
+        $condition["project_code"] = $projectCode;
+        $condition["status"] = 41;
+        $proInfo = $pushProject->where($condition)->select();
+        return $proInfo;
+    }
+
+    /**
+    **@auth qianqiang
+    **@breif 推送项目
+    **@date 2015.12.30
+    **/ 
+    public function pushProject($projectCode, $investorList){
+        if($this->isPushProject($projectCode) == false){
+            echo '{"code":"-1","msg":"该项目不能进行推送操作"}';
+        }
+        $pushProject = D("Pushproject");
+        $data = array();
+        $data['project_code'] = $projectCode;
+        $data['status'] = 41;
+        $data['push_time'] = date("Y-m-d H:i:s",time());
+        $i = 0;
+        while($investorList[$i]){
+            $data['investor_id'] = $investorList[$i]['id'];
+            $res = $pushProject->add($data);
+            if($res === false) return false;
+            $i += 1;
+        }
+        return true;
+    }
+
+    /**
+    **@auth qianqiang
+    **@breif 判断项目是否可以进行推送
+    **@return 可以推送返回true，不可以推送返回false
+    **@date 2015.12.30
+    **/ 
+    public function isPushProject($projectCode){
+        $projectObj = M("Project");
+        $condition["project_code"] = $projectCode;
+        $condition["status"] = array('between','21,29');
+        $res = $projectObj->where($condition)->select();
+        if(empty($res)) 
+            return false;
+        else
+            return true;
     }
 
     /**

@@ -277,9 +277,27 @@ class InnerStaffController extends Controller {
     /**
     **@auth qianqiang
     **@breif 客服->推送项目
-    **@date 2015.12.28
+    **@date 2015.12.30
     **/
     public function pushProject(){
-        $this->display("InnerStaff:pushProject");
+        isLogin($_COOKIE['email'], $_COOKIE['mEmail']);
+        $rtype = $_POST['rtype'] ? $_POST['rtype']:$_GET['rtype'];
+        $projectCode = $_POST['project_code'];
+        // $projectCode = 'qwertyuio';
+        $investorList = $_POST['investorList'];
+        if($rtype == 1){
+            $projectObj = D('Project', 'Service');
+            $result = $projectObj->pushProject($projectCode, $investorList);
+            if($result === true)
+                echo '{"code":"0","msg":"push project success"}';
+            else
+                echo '{"code":"-1","msg":"push project error"}';
+        }else{
+            $investor = D('User', 'Service');
+            $investorList = $investor->getInvestorPush($projectCode);
+            // dump($investorList);exit;
+            $this->assign("investorList", $investorList);
+            $this->display("InnerStaff:pushProject");
+        }
     }
 }
