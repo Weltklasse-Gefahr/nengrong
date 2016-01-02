@@ -32,9 +32,10 @@ class ProjectProviderMyProController extends Controller {
     	//操作类型为1是插入和保存数据
     	$optype = $_POST['optype'] ? $_POST['optype']:$_GET['optype'];
         $rtype = $_POST['rtype'] ? $_POST['rtype']:$_GET['rtype'];
+        $objDoc  = D("Doc","Service");
         //保存or提交
     	if ( ($optype == "save" || $optype == "commit") && $rtype == 1)
-    	{
+    	{   
             
             //接收前端表单过来的参数，并且处理下
             $arrProInfo = array(); //ENF_Project信息
@@ -63,7 +64,7 @@ class ProjectProviderMyProController extends Controller {
                 "project_backup",        //项目备案
 
             );
-            $arrRes = $objUser->uploadFileAndPictrue($arrPhotosAndFile, $arrFile); 
+            $arrRes = $objDoc->uploadFileAndPictrue($arrPhotosAndFile, $arrFile); 
             foreach($arrRes as $key=>$val)
             {
                 $arrInfor[$key] = $val;
@@ -93,7 +94,7 @@ class ProjectProviderMyProController extends Controller {
                     "project_proposal",//项目可研报告/项目建议书
                     "housetop_load_prove",//屋顶载荷证明
                 );
-                $arrRes = $objUser->uploadFileAndPictrue($arrPhotosAndFile, $arrFile); 
+                $arrRes = $objDoc->uploadFileAndPictrue($arrPhotosAndFile, $arrFile); 
                 foreach($arrRes as $key=>$val)
                 {
                     $arrInfor[$key] = $val;
@@ -140,7 +141,7 @@ class ProjectProviderMyProController extends Controller {
                         "completion_report",//竣工验收报告
                         "completion_paper",//竣工图纸
                     );
-                    $arrRes = $objUser->uploadFileAndPictrue($arrPhotosAndFile, $arrFile); 
+                    $arrRes = $objDoc->uploadFileAndPictrue($arrPhotosAndFile, $arrFile); 
                     foreach($arrRes as $key=>$val)
                     {
                         $arrInfor[$key] = $val;
@@ -185,7 +186,7 @@ class ProjectProviderMyProController extends Controller {
                     "environment_assessment",//环评
                     "project_report",//项目可研报告/项目建议书
                 );
-                $arrRes = $objUser->uploadFileAndPictrue($arrPhotosAndFile, $arrFile); 
+                $arrRes = $obDoc->uploadFileAndPictrue($arrPhotosAndFile, $arrFile); 
                 foreach($arrRes as $key=>$val)
                 {
                     $arrInfor[$key] = $val;
@@ -230,7 +231,7 @@ class ProjectProviderMyProController extends Controller {
                         "completion_report",//竣工验收报告
                         "completion_paper",//竣工图纸
                     );
-                    $arrRes = $objUser->uploadFileAndPictrue($arrPhotosAndFile, $arrFile); 
+                    $arrRes = $objDoc->uploadFileAndPictrue($arrPhotosAndFile, $arrFile); 
                     foreach($arrRes as $key=>$val)
                     {
                         $arrInfor[$key] = $val;
@@ -270,7 +271,7 @@ class ProjectProviderMyProController extends Controller {
             if (empty($arrProInfo['project_code']))  
             {
                 //插入
-                $arrProInfo["project_code"] = '2323DDDDDDDDDDd'.time();  //之后需要加一下这个功能
+                $arrProInfo["project_code"] = '2323DDDDDDDDDDd'.time();  //之后需要加一下这个生成项目id的功能
                 $arrProInfo["provider_id"] = "1111111111";//之后需要加一下项目提供方的id
                 $arrProInfo["create_time"] = date("Y-m-d H:i:s" ,time());
                 $ret = $objProject->insertProject($arrProInfo);
@@ -280,6 +281,8 @@ class ProjectProviderMyProController extends Controller {
                      exit;
                 }
                 $arrInfor["project_id"] = $ret;
+                
+                
             }
             else   
             {
@@ -302,24 +305,24 @@ class ProjectProviderMyProController extends Controller {
             {
                 $table = 'Housetop';
             }
-            $ret = $objProject->saveHousetopOrGround($arrInfor, $table);
+            $ret = $objProject->saveHousetopOrGround($arrInfor, $arrInfor["status"], $arrProInfo['project_type']);
             if ($ret === false)
             {
                  echo '{"code":"-1","msg":"插入数据库失败！"}';
                  exit;
             }
-            
+            echo '{"code":"0","msg":"","id":"'.$arrProInfo["project_code"].'"}';
 
             //保持的处理，数据只保持到xxx_provider
 
             //提交的处理，这里数据只保持到xxx编码中，正式的
 	    }
-	    elseif ( $optype == "delete" && $rtype == 1)
+	    elseif ( $optype == "delete" && $rtype == 1)  //删除
 	    {
             //项目删除
             //这里删除以xxx开头的编号数据
 	    }
-        elseif($rtype != 1)
+        elseif($rtype != 1)  //显示
         {
             //这个分支是做数据的显示
             $projectCode = $_POST['project_code'] ? $_POST['project_code']:$_GET['project_code'];
@@ -328,12 +331,22 @@ class ProjectProviderMyProController extends Controller {
             $objProject  = D("Project","Service");
             $projectInfo = $objProject->getProjectInfo($projectCode);
             //在去Housetop，or  Ground 取一下数据
+            $projectInfoDetail = $objProject->getProjectDetail($projectInfo['id'], $projectInfo['project_type']);
+            $arr_project_area = explode("#",$projectInfoDetail["project_area"]);
+            $projectInfoDetail["cooperation_type"] = explode("&",$projectInfoDetail["cooperation_type"]);
+            $projectInfo["province"] = $arr_project_area[0];
+            $projectInfo["city"] = $arr_project_area[1];
+            $projectInfo["county"] = $arr_project_area[2];
+            foreach($projectInfoDetail as $k => $v)
+            {
+                $projectInfo[$k] = $v;
+            }
             if ($display=="json")
             {
                 echo json_encode($projectInfo);
                 exit;
             }
-            $this->assign('project',$projectInfo);
+            $this->assign('data',$projectInfo);
             $this->display("ProjectProvider:projectInfoNew");
         }
     }

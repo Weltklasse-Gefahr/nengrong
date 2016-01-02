@@ -120,7 +120,7 @@ $(function() {
 	function successCallback(data) {
 		if(data.code == "0") {
 			$("#submit").removeClass("disabled");
-			alert("上传成功！");
+			location.href = "?c=ProjectProviderMyPro&a=projectInfoEdit&project_code=" + data.id;
 		} else {
 			alert("上传失败！\n"+data.errmsg);
 		}
@@ -139,7 +139,6 @@ $(function() {
 				}
 			}).done(function(data) {
 				if(data.code == "0") {
-					alert("删除成功！");
 					location.href = "?c=ProjectProviderMyPro&a=awaitingAssessment";
 				} else {
 					alert("删除失败！");
