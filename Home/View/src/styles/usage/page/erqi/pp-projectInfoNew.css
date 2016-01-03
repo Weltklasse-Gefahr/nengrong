@@ -106,11 +106,18 @@
 .r-content form .part1 .item .img-ct {
 	float: left;
 	text-align: center;
-	margin-right: 25px;
+	margin-right: 16px;
+}
+
+.r-content form .part1 .item .img-ct:nth-of-type(6n) {
+	margin-right: 0;
 }
 
 .r-content form .part1 .item .img-ct p {
 	height: 20px;
+	width: 120px;
+	text-overflow: ellipsis;
+	overflow: hidden;
 }
 
 .r-content form .part1 .item .img-ct + .tip {

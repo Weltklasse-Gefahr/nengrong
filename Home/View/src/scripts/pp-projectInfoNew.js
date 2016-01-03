@@ -24,31 +24,64 @@ $(function() {
 	require("common/erqi/cascadeSelect");
 	$(".detail.part1 .area select").cascadeSelect(AreaData);
 
+
 	require("common/erqi/customUpload");
 	require("lib/jquery.form");
 	
 	// 上传图片
+	function uploadCallback(type) { // 添加或删除图片
+		// 显示或清除图片名称
+		var $prename = $(this).parent().siblings(".previewname");
+		if(type === "add") {
+			$prename.text(this.files[0].name).attr("title", this.files[0].name);
+		} else {
+			$prename.text("").attr("title", "");
+		}
+
+		var fileTpl = '<div class="img-ct">\
+<input type="file" data-type="mul" accept="image/gif,image/jpeg,image/png" name="picture_mul" style="visibility: hidden;" />\
+<p class="previewname"></p>\
+</div>';
+
+		// 增加或移除图片上传框，最多12张图片
+		if(type === "add") {
+			if(this.name === "picture_mul") {
+				var count = $(this).parents(".img-ct").siblings(".img-ct").length;
+				if(count < 11) {
+					$(this).parents(".img-ct").after(fileTpl).next().find('input[type=file]').customUpload({
+						bg_url: "upload.png",
+						uploadType: "image",
+						width: "120px",
+						height: "120px",
+						callback: uploadCallback
+					});
+				}
+			}
+		} else {
+			if(this.name === "picture_mul") {
+				var ct = $(this).parents(".item");
+				$(this).parents(".img-ct").remove();
+				var mul_items = ct.children(".img-ct").filter(function(){
+					return !!$(this).find('[data-type=mul]').length;
+				});
+				if(mul_items.last().find('[data-type=mul]').val()) {
+					mul_items.last().after(fileTpl).next().find('input[type=file]').customUpload({
+						bg_url: "upload.png",
+						uploadType: "image",
+						width: "120px",
+						height: "120px",
+						callback: uploadCallback
+					});
+				}
+			}
+		}
+	}
 	$(".detail.part1 input[type=file]").customUpload({
 		bg_url: "upload.png",
 		uploadType: "image",
 		width: "120px",
 		height: "120px",
-		callback: function(type) { // 添加或删除图片
-			// 显示或清除图片名称
-			var $prename = $(this).parent().siblings(".previewname");
-			if(type === "add") {
-				$prename.text(this.files[0].name);
-			} else {
-				$prename.text("");
-			}
-
-			// 增加或移除图片上传框，并更新索引
-			if(type === "add") {
-				
-			} else {
-				
-			}
-		}
+		callback: uploadCallback
 	});
 
 	// 上传文件
@@ -128,7 +161,7 @@ $(function() {
 	   	timeout: 6000               //限制请求的时间，当请求大于3秒后，跳出请求
 	};
 	  
-	function beforeSubmit(formData, jqForm, options){
+	function beforeSubmit(formData, jqForm, options) {
 
 		if($("#submit").hasClass("disabled")) {
 			return false;
@@ -144,7 +177,8 @@ $(function() {
 			$("#submit").removeClass("disabled");
 			location.href = "?c=ProjectProviderMyPro&a=projectInfoEdit&project_code=" + data.id;
 		} else {
-			alert("上传失败！\n"+data.errmsg);
+			$('[data-type=mul]').attr("name", "picture_mul");
+			alert(data.errmsg || "上传失败！");
 		}
 	}
 
@@ -172,6 +206,7 @@ $(function() {
 		} else {
 			$form.find("[name=optype]").val(optype);
 			$form.find("li:hidden input, li:hidden select").prop("disabled", true);
+			$form.find('[data-type=mul]').attr("name", "picture_mul[]");
 			return true;
 		}
 	});

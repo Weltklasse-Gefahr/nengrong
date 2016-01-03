@@ -99,8 +99,8 @@
 								<p>屋顶正南向照片</p>
 							</div>
 							<div class="img-ct">
-								<input type="file" accept="image/gif,image/jpeg,image/png" name="picture_mul" style="visibility: hidden;" data-url="{$data['picture_mul']['url']}" data-name="{$data['picture_mul']['name']}" data-id="{$data['picture_mul']['id']}" />
-								<p class="previewname"></p>
+								<input type="file" data-type="mul" accept="image/gif,image/jpeg,image/png" name="picture_mul" style="visibility: hidden;" data-url="{$data['picture_mul']['url']}" data-name="{$data['picture_mul']['name']}" data-id="{$data['picture_mul']['id']}" />
+								<p class="previewname" title="{$data['picture_mul']['name']}">{$data['picture_mul']['name']}</p>
 							</div>
 							<p class="tip">备注：请上传近期高清照片，从不同角度拍摄。</p>
 						</div>
@@ -121,8 +121,8 @@
 								<p>变电站照片</p>
 							</div>
 							<div class="img-ct">
-								<input type="file" accept="image/gif,image/jpeg,image/png" name="picture_mul" style="visibility: hidden;" data-url="{$data['picture_mul']['url']}" data-name="{$data['picture_mul']['name']}" data-id="{$data['picture_mul']['id']}" />
-								<p class="previewname"></p>
+								<input type="file" data-type="mul" accept="image/gif,image/jpeg,image/png" name="picture_mul" style="visibility: hidden;" data-url="{$data['picture_mul']['url']}" data-name="{$data['picture_mul']['name']}" data-id="{$data['picture_mul']['id']}" />
+								<p class="previewname" title="{$data['picture_mul']['name']}">{$data['picture_mul']['name']}</p>
 							</div>
 							<p class="tip">备注：请上传近期高清照片，从不同角度拍摄。</p>
 						</div>
@@ -370,20 +370,20 @@
 					<li class="notall housetop_build_item ground_build_item component">
 						<span class="name required">组件</span><a href="javascript:;" class="add">新增</a>
 						<foreach name="data.components" item="vo" key="k" >
-						    <div class="item"><input type="hidden" name="component_company_hiddenId" value="{$vo['id']}" />
+						    <div class="item"><input type="hidden" name="component_company_hiddenId[]" value="{$vo['id']}" />
 							    <a href="javascript:;" class="del">删除</a>
-							    <div><span class="c0">组件厂家</span><input class="c0" name="component_company" value="{$vo['component_company']}"/></div>
-							    <div><span class="c0">规格型号</span><input class="c0" name="component_type" value="{$vo['component_type']}"/><span class="c1">数量</span><input class="c1" name="component_count" value="{$vo['component_count']}"/>个</div>
+							    <div><span class="c0">组件厂家</span><input class="c0" name="component_company[]" value="{$vo['component_company']}"/></div>
+							    <div><span class="c0">规格型号</span><input class="c0" name="component_type[]" value="{$vo['component_type']}"/><span class="c1">数量</span><input class="c1" name="component_count[]" value="{$vo['component_count']}"/>个</div>
 						    </div>
 						</foreach>
 					</li>
 					<li class="notall housetop_build_item ground_build_item component inverter">
 						<span class="name required">逆变器</span><a href="javascript:;" class="add">新增</a>
 						<foreach name="data.inverters" item="vo" key="k" >
-						    <div class="item"><input type="hidden" name="inverter_company_hiddenId" value="{$vo['id']}" />
+						    <div class="item"><input type="hidden" name="inverter_company_hiddenId[]" value="{$vo['id']}" />
 							    <a href="javascript:;" class="del">删除</a>
-							    <div><span class="c0">逆变器厂家</span><input class="c0" name="inverter_company" value="{$vo['inverter_company']}"/></div>
-							   <div><span class="c0">规格型号</span><input class="c0" name="inverter_type" value="{$vo['inverter_type']}"/><span class="c1">数量</span><input class="c1" name="inverter_count" value="{$vo['inverter_count']}"/>个</div>
+							    <div><span class="c0">逆变器厂家</span><input class="c0" name="inverter_company[]" value="{$vo['inverter_company']}"/></div>
+							   <div><span class="c0">规格型号</span><input class="c0" name="inverter_type[]" value="{$vo['inverter_type']}"/><span class="c1">数量</span><input class="c1" name="inverter_count[]" value="{$vo['inverter_count']}"/>个</div>
 						    </div>
 						</foreach> 
 					</li>
