@@ -72,7 +72,7 @@ $(function() {
 			$inputWrap.hide().find("input").val("");
 			$preview.hide().find("a").attr("href", "javascript:;").text("");
 		}
-	});
+	}).change();
 
 	// 其他（可填写）
 	$("select").filter(function(){
@@ -84,7 +84,7 @@ $(function() {
 		} else {
 			$(this).siblings(".other").hide().val("");
 		}
-	});
+	}).change();
 
 	// 日期选择框
 	require("lib/jquery-ui");
