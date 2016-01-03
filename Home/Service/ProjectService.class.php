@@ -295,7 +295,7 @@ class ProjectService extends Model{
     }
 
     /**
-    **@auth qiujinhan 
+    **@auth qiujinhan  
     **@breif 保存house或者ground（保存状态，包括保存尽职调查，保存意向书），如果已经存在就更新，不存在就插入
     **@param $proData 保存的数据
     **@param $status 保存的项目状态
@@ -304,6 +304,7 @@ class ProjectService extends Model{
     **@date 2015.12.29
     **/ 
     public function saveHousetopOrGround($proData, $status, $projectType){
+        $result = false;
         if($projectType == 1){
             $housetop = M("Housetop");
             if($this->hasSaveHousetopOrGround($proData['project_id'], $status, $projectType)){
@@ -519,7 +520,7 @@ class ProjectService extends Model{
     **/ 
     public function saveProject($project_code, $proData){
         $project = M("Project");
-        $ret = $project->where("project_code = ".$project_code)->save($proData);
+        $ret = $project->where("project_code = '".$project_code."'")->save($proData);
         $condition["project_code"] = $project_code;
         $projectInfo = $project->where($condition)->where("status!=51")->select();
         return !empty($projectInfo) ? $projectInfo[0]["id"]:false;

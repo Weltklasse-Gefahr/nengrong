@@ -33,6 +33,49 @@ class ProjectProviderMyProController extends Controller {
     	$optype = $_POST['optype'] ? $_POST['optype']:$_GET['optype'];
         $rtype = $_POST['rtype'] ? $_POST['rtype']:$_GET['rtype'];
         $objDoc  = D("Doc","Service");
+        //屋顶分布式用到的附件
+        $arrPhotosAndFileInHousetop = array(
+            "picture_full",
+            "picture_south", 
+            "picture_mul",
+            "contract",
+            "housetop_property_prove",
+            "electricity_pay_list",
+            "project_backup",
+            "electricity_backup",
+            "house_rent_agreement",
+            "power_manage_agreement",
+            "project_proposal",
+            "project_report",
+            "housetop_load_prove",
+            "completion_report",
+            "completion_paper",
+            "history_data",
+            "electricity_bill",
+        );
+        //大型地面电站/地面分布式用到的附件
+        $arrPhotosAndFileInGround = array(
+             "picture_full",
+             "picture_field",
+             "picture_transformer",
+             "picture_mul",
+             "contract",
+             "project_backup",
+             "electricity_backup",
+             "ground_rent_agreement",
+             "ground_opinion",
+             "project_proposal",
+             "project_report",
+             "environment_assessment",
+             "land_certificate",
+             "electricity_price_reply",
+             "is_old_project",
+             "completion_report",
+             "completion_paper",
+             "history_data",
+             "electricity_bill",
+        );
+
         //保存or提交
     	if ( ($optype == "save" || $optype == "commit") && $rtype == 1)
     	{   
@@ -47,6 +90,7 @@ class ProjectProviderMyProController extends Controller {
 
             //共有的一些参数接收
             $arrInfor['project_area'] = $_POST['province']."#".$_POST['city']."#".$_POST['county'];//省市区
+            
             $arrInfor['project_address'] = $_POST['project_address'];  //详细地址
             $arrInfor['transformer_capacity'] = $_POST['transformer_capacity'];//上级变压器容量
             $arrInfor['voltage_level'] = $_POST['voltage_level'];//并网电压等级
@@ -337,9 +381,32 @@ class ProjectProviderMyProController extends Controller {
             $projectInfo["province"] = $arr_project_area[0];
             $projectInfo["city"] = $arr_project_area[1];
             $projectInfo["county"] = $arr_project_area[2];
+            $objUser = D("Doc","Service");
+            $arrPicAndfile = array();
+            //处理下文件和图片的信息
+            if ($projectInfo['project_type'] == 1)
+            {
+                 $arrPicAndfile = $arrPhotosAndFileInHousetop;
+            }
+            else
+            {
+                $arrPicAndfile = $arrPhotosAndFileInGround;
+            }
+            //var_dump($arrPicAndfile);exit;
             foreach($projectInfoDetail as $k => $v)
             {
                 $projectInfo[$k] = $v;
+            }
+            foreach($arrPicAndfile as $val)
+            {
+                
+                $condition["id"] = $projectInfoDetail[$val]; //picture_full
+                $docInfo = $objUser->getDocInfo($condition);
+                $projectInfo[$val] = array();
+                $projectInfo[$val]["id"] = $docInfo[0]["id"];
+                $projectInfo[$val]["token"] = md5(addToken($docInfo[0]["id"]));
+                $projectInfo[$val]["name"] = $docInfo[0]["file_name"];
+                $projectInfo[$val]["url"] = $docInfo[0]["file_rename"];
             }
             if ($display=="json")
             {
