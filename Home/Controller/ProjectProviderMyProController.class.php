@@ -171,6 +171,8 @@ class ProjectProviderMyProController extends Controller {
                 {
                     $arrInfor['plan_build_volume'] = $_POST['plan_build_volume']; //拟建设容量
                     $arrInfor['cooperation_type'] = $_POST['cooperation_type']; //与能融网合作方式（可多选）
+                    //var_dump($_POST['cooperation_type']);exit;
+                    $arrInfor['cooperation_type'] =  implode("&",$arrInfor['cooperation_type']);
                     $arrInfor['financing_type'] = $_POST['financing_type']; //融资方式
                 }
                 //已建
@@ -201,6 +203,7 @@ class ProjectProviderMyProController extends Controller {
                     $arrInfor['capacity_level'] = $_POST['capacity_level']; //资质等级
                     $arrInfor['synchronize_date'] = $_POST['synchronize_date']; //并网时间
                     $arrInfor['cooperation_type'] = $_POST['cooperation_type']; //与能融网合作方式（可多选）
+                    $arrInfor['cooperation_type'] =  implode("&",$arrInfor['cooperation_type']);
                     $arrInfor['financing_type'] = $_POST['financing_type']; //融资方式
                     $arrInfor['history_data'] = $_POST['history_data']; //历史发电量数据/辐照数据
                     $arrInfor['electricity_bill'] = $_POST['electricity_bill']; //电费结算票据
@@ -255,6 +258,7 @@ class ProjectProviderMyProController extends Controller {
                 {
                     $arrInfor['plan_build_volume'] = $_POST['plan_build_volume']; //拟建设容量
                     $arrInfor['cooperation_type'] = $_POST['cooperation_type']; //与能融网合作方式（可多选）
+                    $arrInfor['cooperation_type'] =  implode("&",$arrInfor['cooperation_type']);
                 }
                 //已建
                 if ($arrProInfo['build_state'] == 2)
@@ -290,6 +294,7 @@ class ProjectProviderMyProController extends Controller {
                     $arrInfor['capacity_level'] = $_POST['capacity_level']; //资质等级
                     $arrInfor['synchronize_date'] = $_POST['synchronize_date']; //并网时间
                     $arrInfor['cooperation_type'] = $_POST['cooperation_type']; //与能融网合作方式（可多选）
+                    $arrInfor['cooperation_type'] =  implode("&",$arrInfor['cooperation_type']);
                     $arrInfor['financing_type'] = $_POST['financing_type']; //融资方式
                     $arrInfor['history_data'] = $_POST['history_data']; //历史发电量数据/辐照数据
                     $arrInfor['electricity_bill'] = $_POST['electricity_bill']; //电费结算票据

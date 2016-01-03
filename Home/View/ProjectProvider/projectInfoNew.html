@@ -364,21 +364,28 @@
 						<span class="lb required">资质等级</span>
 						<input name="capacity_level" value="{$data['capacity_level']}">
 					</li>
+					<!--新增第一次进来什么都没有，就显示一项-->
+					<!--编辑页进来的话，有几项就显示几项-->
+					<!--component_company的数组-->
 					<li class="notall housetop_build_item ground_build_item component">
 						<span class="name required">组件</span><a href="javascript:;" class="add">新增</a>
-						<div class="item"><input type="hidden" name="component_company_hiddenId" value="" />
-							<a href="javascript:;" class="del">删除</a>
-							<div><span class="c0">组件厂家</span><input class="c0" name="component_company"/></div>
-							<div><span class="c0">规格型号</span><input class="c0" name="component_type"/><span class="c1">数量</span><input class="c1" name="component_count"/>个</div>
-						</div>
+						<foreach name="data.components" item="vo" key="k" >
+						    <div class="item"><input type="hidden" name="component_company_hiddenId" value="{$vo['id']}" />
+							    <a href="javascript:;" class="del">删除</a>
+							    <div><span class="c0">组件厂家</span><input class="c0" name="component_company" value="{$vo['component_company']}"/></div>
+							    <div><span class="c0">规格型号</span><input class="c0" name="component_type" value="{$vo['component_type']}"/><span class="c1">数量</span><input class="c1" name="component_count" value="{$vo['component_count']}"/>个</div>
+						    </div>
+						</foreach>
 					</li>
 					<li class="notall housetop_build_item ground_build_item component inverter">
 						<span class="name required">逆变器</span><a href="javascript:;" class="add">新增</a>
-						<div class="item"><input type="hidden" name="inverter_xcompany_hiddenId" value="" />
-							<a href="javascript:;" class="del">删除</a>
-							<div><span class="c0">逆变器厂家</span><input class="c0" name="inverter_company"/></div>
-							<div><span class="c0">规格型号</span><input class="c0" name="inverter_type"/><span class="c1">数量</span><input class="c1" name="inverter_count"/>个</div>
-						</div>
+						<foreach name="data.inverters" item="vo" key="k" >
+						    <div class="item"><input type="hidden" name="inverter_company_hiddenId" value="{$vo['id']}" />
+							    <a href="javascript:;" class="del">删除</a>
+							    <div><span class="c0">逆变器厂家</span><input class="c0" name="inverter_company" value="{$vo['inverter_company']}"/></div>
+							   <div><span class="c0">规格型号</span><input class="c0" name="inverter_type" value="{$vo['inverter_type']}"/><span class="c1">数量</span><input class="c1" name="inverter_count" value="{$vo['inverter_count']}"/>个</div>
+						    </div>
+						</foreach> 
 					</li>
 					<li class="notall housetop_build_item ground_build_item">
 						<span class="lb required">并网时间</span>
@@ -406,14 +413,14 @@
 					</li>
 					<li class="notall housetop_nonBuild_item ground_nonBuild_item">
 						<span class="lb required">与能融网合作方式（可多选）</span>
-						<span class="citem"><input type="checkbox" name="cooperation_type" value="1" id="cooperation_type_nonBuild1" <?php if(in_array(1, $data['cooperation_type'])) echo "checked";?>><label class="gray" for="cooperation_type_nonBuild1">EPC</label></span>
-						<span class="citem"><input type="checkbox" name="cooperation_type" value="2" id="cooperation_type_nonBuild2" <?php if(in_array(2, $data['cooperation_type'])) echo "checked";?>><label class="gray" for="cooperation_type_nonBuild2">申请融资</label></span>
-						<span class="citem"><input type="checkbox" name="cooperation_type" value="3" id="cooperation_type_nonBuild3" <?php if(in_array(3, $data['cooperation_type'])) echo "checked";?>><label class="gray" for="cooperation_type_nonBuild3">推介项目</label></span>
+						<span class="citem"><input type="checkbox" name="cooperation_type[]" value="1" id="cooperation_type_nonBuild1" <?php if(in_array(1, $data['cooperation_type'])) echo "checked";?>><label class="gray" for="cooperation_type_nonBuild1">EPC</label></span>
+						<span class="citem"><input type="checkbox" name="cooperation_type[]" value="2" id="cooperation_type_nonBuild2" <?php if(in_array(2, $data['cooperation_type'])) echo "checked";?>><label class="gray" for="cooperation_type_nonBuild2">申请融资</label></span>
+						<span class="citem"><input type="checkbox" name="cooperation_type[]" value="3" id="cooperation_type_nonBuild3" <?php if(in_array(3, $data['cooperation_type'])) echo "checked";?>><label class="gray" for="cooperation_type_nonBuild3">推介项目</label></span>
 					</li>
 					<li class="notall housetop_build_item ground_build_item">
 						<span class="lb required">与能融网合作方式（可多选）</span>
-						<span class="citem"><input type="checkbox" name="cooperation_type" value="2" id="cooperation_type_build1" <?php if(in_array(2, $data['cooperation_type'])) echo "checked";?>><label class="gray" for="cooperation_type_build1">申请融资</label></span>
-						<span class="citem"><input type="checkbox" name="cooperation_type" value="4" id="cooperation_type_build2" <?php if(in_array(4, $data['cooperation_type'])) echo "checked";?>><label class="gray" for="cooperation_type_build2">转让</label></span>
+						<span class="citem"><input type="checkbox" name="cooperation_type[]" value="2" id="cooperation_type_build1" <?php if(in_array(2, $data['cooperation_type'])) echo "checked";?>><label class="gray" for="cooperation_type_build1">申请融资</label></span>
+						<span class="citem"><input type="checkbox" name="cooperation_type[]" value="4" id="cooperation_type_build2" <?php if(in_array(4, $data['cooperation_type'])) echo "checked";?>><label class="gray" for="cooperation_type_build2">转让</label></span>
 					</li>
 					<li>
 						<span class="lb required">拟融资金额</span>
