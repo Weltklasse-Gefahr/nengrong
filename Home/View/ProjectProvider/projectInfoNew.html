@@ -403,14 +403,14 @@
 					</li>
 					<li class="notall housetop_nonBuild_item ground_nonBuild_item">
 						<span class="lb required">与能融网合作方式（可多选）</span>
-						<span class="citem"><input type="checkbox" name="cooperation_type" value="1" id="cooperation_type_nonBuild1" <in name="1" value="$data['cooperation_type']">checked</in>><label class="gray" for="cooperation_type_nonBuild1">EPC</label></span>
-						<span class="citem"><input type="checkbox" name="cooperation_type" value="2" id="cooperation_type_nonBuild2" <in name="2" value="$data['cooperation_type']">checked</in>><label class="gray" for="cooperation_type_nonBuild2">申请融资</label></span>
-						<span class="citem"><input type="checkbox" name="cooperation_type" value="3" id="cooperation_type_nonBuild3" <in name="3" value="$data['cooperation_type']">checked</in>><label class="gray" for="cooperation_type_nonBuild3">推介项目</label></span>
+						<span class="citem"><input type="checkbox" name="cooperation_type" value="1" id="cooperation_type_nonBuild1" <?php if(in_array(1, $data['cooperation_type'])) echo "checked";?>><label class="gray" for="cooperation_type_nonBuild1">EPC</label></span>
+						<span class="citem"><input type="checkbox" name="cooperation_type" value="2" id="cooperation_type_nonBuild2" <?php if(in_array(2, $data['cooperation_type'])) echo "checked";?>><label class="gray" for="cooperation_type_nonBuild2">申请融资</label></span>
+						<span class="citem"><input type="checkbox" name="cooperation_type" value="3" id="cooperation_type_nonBuild3" <?php if(in_array(3, $data['cooperation_type'])) echo "checked";?>><label class="gray" for="cooperation_type_nonBuild3">推介项目</label></span>
 					</li>
 					<li class="notall housetop_build_item ground_build_item">
 						<span class="lb required">与能融网合作方式（可多选）</span>
-						<span class="citem"><input type="checkbox" name="cooperation_type" value="2" id="cooperation_type_build1" <in name="2" value="$data['cooperation_type']">checked</in>><label class="gray" for="cooperation_type_build1">申请融资</label></span>
-						<span class="citem"><input type="checkbox" name="cooperation_type" value="4" id="cooperation_type_build2" <in name="4" value="$data['cooperation_type']">checked</in>><label class="gray" for="cooperation_type_build2">转让</label></span>
+						<span class="citem"><input type="checkbox" name="cooperation_type" value="2" id="cooperation_type_build1" <?php if(in_array(2, $data['cooperation_type'])) echo "checked";?>><label class="gray" for="cooperation_type_build1">申请融资</label></span>
+						<span class="citem"><input type="checkbox" name="cooperation_type" value="4" id="cooperation_type_build2" <?php if(in_array(4, $data['cooperation_type'])) echo "checked";?>><label class="gray" for="cooperation_type_build2">转让</label></span>
 					</li>
 					<li>
 						<span class="lb required">拟融资金额</span>
