@@ -2,9 +2,10 @@
 <div class="header">
 	<div class="hd">
 		<div class="c">
-			欢迎您，<span id="">XX公司</span>
+			欢迎您，<span id="">{$data.identityName}</span>
 			<span class="split">|</span>
 			<a id="logout" href="javascript:;">注销</a>
+			<if condition="($data.identity eq 'InnerStaff')"><span class="split">|</span><a href="?c=InnerStaff&a=securitycenter">修改密码</a></if>
 		</div>
 	</div>
 	<div class="bd">

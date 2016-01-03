@@ -426,4 +426,17 @@ class ProjectProviderMyProController extends Controller {
         $this->display("ProjectProvider:contractProject");
     }
 
+    /**
+    **@auth zhongqiu
+    **@breif 项目提供方->查看项目信息
+    **@date 2016.01.03
+    **/
+    public function projectInfoView()
+    {
+        //判断登陆，并且获取用户名的email
+        isLogin($_COOKIE['email'],$_COOKIE['mEmail']);
+        $this->display("ProjectProvider:projectInfoView");
+    }
+
+
 }
