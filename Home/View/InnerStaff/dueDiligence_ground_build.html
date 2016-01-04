@@ -87,10 +87,10 @@
 										<tbody>
 											<tr>
 												<td class="c0">项目名称</td>
-												<td class="c1"><input name="housetop_owner" /></td>
+												<td class="c1"><input name="project_name" value="{$projectDetail['project_name']}"/></td>
 												<td class="c2">项目类型</td>
 												<td class="c3">
-													<select name="ground_project_type">
+													<select name="ground_project_type" value="{$projectDetail['ground_project_type']}">
 														<option value="1">地面</option>
 														<option value="2" selected>农光互补</option>
 														<option value="3">鱼光互补</option>
@@ -118,16 +118,16 @@
 											</tr>
 											<tr>
 												<td class="c0">项目完工时间</td>
-												<td class="c1"><input name="xiangmu_wangongshijian" data-type="date" readonly value="2015-12-19"></td>
+												<td class="c1"><input name="project_finish_date" data-type="date" value="{$projectDetail['project_finish_date']}" readonly ></td>
 												<td class="c2">项目电价</td>
-												<td class="c3"><input name="xiangmu_dianjia" /><span>元/kWh</span></td>
+												<td class="c3"><input name="project_electricity_price" value="{$projectDetail['project_electricity_price']}"/><span>元/kWh</span></td>
 											</tr>
 											<tr>
 												<td class="c0">项目总投资</td>
-												<td class="c1"><input name="xiangmu_zongtouzi" value=""><span>万元</span></td>
+												<td class="c1"><input name="project_investment" value="{$projectDetail['project_investment']}"><span>万元</span></td>
 												<td class="c2">土地平整情况</td>
 												<td class="c3">
-													<select name="ground_condition">
+													<select name="ground_condition" value="{$projectDetail['ground_condition']}">
 														<option value="1" selected>平地</option>
 														<option value="2">山坡</option>
 														<option value="3">水面</option>
@@ -137,7 +137,7 @@
 											<tr>
 												<td class="c0">土地性质</td>
 												<td class="c1">
-													<select name="ground_property" data-with-other="true">
+													<select name="ground_property" value="{$projectDetail['ground_property']}" data-with-other="true">
 														<option value="1">一般农田</option>
 														<option value="2" selected>林地</option>
 														<option value="2">荒地</option>
@@ -145,11 +145,11 @@
 														<option value="2">基本农田</option>
 														<option value="0">其他</option>
 													</select>
-													<input class="other" name="ground_property_other" style="display: none;" value="">
+													<input class="other" name="ground_property_other" style="display: none;" value="{$projectDetail['ground_property_other']}">
 												</td>
 												<td class="c2">租赁土地面积</td>
 												<td class="c3">
-													<input name="ground_area" value="2"><span class="gray">m<sup>2</sup></span>
+													<input name="ground_area" value="{$projectDetail['ground_area']}"><span class="gray">m<sup>2</sup></span>
 												</td>
 											</tr>
 											<tr>
@@ -170,7 +170,7 @@
 							<tr>
 								<td>评价内容</td>
 								<td>
-									<textarea name="evaluation_content" value="{$projectDetail['evaluation_content']}" readonly>A.文件审查
+									<textarea name="evaluation_content" value="{$evaluationInfo['evaluation_content']}" readonly>A.文件审查
 B.工程建设质量和系统运行情况
 C.项目建设投资情况
 D.项目经济收益情况</textarea>
@@ -181,7 +181,7 @@ D.项目经济收益情况</textarea>
 								<td>
 									<div class="item">
 										<div class="hd">A、文件审查</div>
-										<div class="bd"><textarea name="document_review" value="{$projectDetail['document_review']}">1、电站核准文件齐全；
+										<div class="bd"><textarea name="document_review" value="{$evaluationInfo['document_review']}">1、电站核准文件齐全；
 2、电站电价0.95元/kWh，补贴20年；
 3、电站总投资45358.038万元，单位投资9163.24元/W；
 4、电站为全投资，尚无其他融资安排；
@@ -190,12 +190,12 @@ D.项目经济收益情况</textarea>
 									</div>
 									<div class="item">
 										<div class="hd">B、工程建设质量和系统运行情况</div>
-										<div class="bd"><textarea name="project_quality_situation">1、该项目过程文件齐全；
+										<div class="bd"><textarea name="project_quality_situation" value="{$evaluationInfo['project_quality_situation']}">1、该项目过程文件齐全；
 2、对该光伏电站现场12类项目进行了检查，合计67个子项</textarea></div>
 									</div>
 									<div class="item">
 										<div class="hd">C、项目建设投资情况</div>
-										<div class="bd"><textarea name="project_invest_situation">总投资（万元）           23000
+										<div class="bd"><textarea name="project_invest_situation" value="{$evaluationInfo['project_invest_situation']}">总投资（万元）           23000
 其中：关键设备（万元）      18000
 施工费（万元）           3770
 土地租赁及补偿费用（万元）   500
@@ -203,7 +203,7 @@ D.项目经济收益情况</textarea>
 									</div>
 									<div class="item">
 										<div class="hd">D、项目经济收益情况</div>
-										<div class="bd"><textarea name="project_earnings_situation">1、依据历史发电数据测算该项目年发电量为3342.6万度，交流侧等效年发电有效利用小时为1337小时。
+										<div class="bd"><textarea name="project_earnings_situation" value="{$evaluationInfo['project_earnings_situation']}">1、依据历史发电数据测算该项目年发电量为3342.6万度，交流侧等效年发电有效利用小时为1337小时。
 2、IRR=19.79%，静态回收期4.32059581142年，LCOE为。
 3.项目按收益法折现（折现率8%）后得到电站价格：31004.83万元。</textarea></div>
 									</div>

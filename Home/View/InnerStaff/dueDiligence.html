@@ -157,7 +157,7 @@
 							<tr>
 								<td>评价内容</td>
 								<td>
-									<textarea name="evaluation_content" value="{$projectDetail['evaluation_content']}" readonly>A.文件审查
+									<textarea name="evaluation_content" value="{$evaluationInfo['evaluation_content']}" readonly>A.文件审查
 B.工程建设质量和系统运行情况
 C.项目建设投资情况
 D.项目经济收益情况</textarea>
@@ -168,7 +168,7 @@ D.项目经济收益情况</textarea>
 								<td>
 									<div class="item">
 										<div class="hd">A、文件审查</div>
-										<div class="bd"><textarea name="document_review" value="{$projectDetail['document_review']}">1、电站核准文件齐全；
+										<div class="bd"><textarea name="document_review" value="{$evaluationInfo['document_review']}">1、电站核准文件齐全；
 2、电站电价0.95元/kWh，补贴20年；
 3、电站总投资45358.038万元，单位投资9163.24元/W；
 4、电站为全投资，尚无其他融资安排；
@@ -177,12 +177,12 @@ D.项目经济收益情况</textarea>
 									</div>
 									<div class="item">
 										<div class="hd">B、工程建设质量和系统运行情况</div>
-										<div class="bd"><textarea name="project_quality_situation">1、该项目过程文件齐全；
+										<div class="bd"><textarea name="project_quality_situation" value="{$evaluationInfo['project_quality_situation']}">1、该项目过程文件齐全；
 2、对该光伏电站现场12类项目进行了检查，合计67个子项</textarea></div>
 									</div>
 									<div class="item">
 										<div class="hd">C、项目建设投资情况</div>
-										<div class="bd"><textarea name="project_invest_situation">总投资（万元）           23000
+										<div class="bd"><textarea name="project_invest_situation" value="{$evaluationInfo['project_invest_situation']}">总投资（万元）           23000
 其中：关键设备（万元）      18000
 施工费（万元）           3770
 土地租赁及补偿费用（万元）   500
@@ -190,7 +190,7 @@ D.项目经济收益情况</textarea>
 									</div>
 									<div class="item">
 										<div class="hd">D、项目经济收益情况</div>
-										<div class="bd"><textarea name="project_earnings_situation">1、依据历史发电数据测算该项目年发电量为3342.6万度，交流侧等效年发电有效利用小时为1337小时。
+										<div class="bd"><textarea name="project_earnings_situation" value="{$evaluationInfo['project_earnings_situation']}">1、依据历史发电数据测算该项目年发电量为3342.6万度，交流侧等效年发电有效利用小时为1337小时。
 2、IRR=19.79%，静态回收期4.32059581142年，LCOE为。
 3.项目按收益法折现（折现率8%）后得到电站价格：31004.83万元。</textarea></div>
 									</div>

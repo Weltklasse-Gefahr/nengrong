@@ -93,18 +93,35 @@ class InnerStaffController extends Controller {
     		$projectId = $objProjectInfo['id'];
 
     		$proData = array();
-    		$proData['project_id'] = $projectId;
-            $proData['housetop_owner'] = $_POST['housetop_owner']; 
-            $proData['company_type'] = $_POST['company_type'];
-            $proData['plan_build_volume'] = $_POST['plan_build_volume'];
-            $proData['project_area'] = $_POST['county'];
-            $proData['project_address'] = $_POST['project_address'];
-            $proData['housetop_type'] = $_POST['housetop_type'];
-            $proData['housetop_type_other'] = $_POST['housetop_type_other'];
-            $proData['synchronize_type'] = $_POST['synchronize_type'];
-            $proData['plan_financing'] = $_POST['plan_financing'];
-            $proData['financing_type'] = $_POST['financing_type'];
-
+            if($objProjectInfo['project_type'] == 1){
+                $proData['project_id'] = $projectId;
+                $proData['housetop_owner'] = $_POST['housetop_owner']; 
+                $proData['company_type'] = $_POST['company_type'];
+                $proData['plan_build_volume'] = $_POST['plan_build_volume'];
+                $proData['project_area'] = $_POST['county'];
+                $proData['project_address'] = $_POST['project_address'];
+                $proData['housetop_type'] = $_POST['housetop_type'];
+                $proData['housetop_type_other'] = $_POST['housetop_type_other'];
+                $proData['synchronize_type'] = $_POST['synchronize_type'];
+                $proData['plan_financing'] = $_POST['plan_financing'];
+                $proData['financing_type'] = $_POST['financing_type'];
+            }elseif($objProjectInfo['project_type'] == 2 || $objProjectInfo['project_type'] == 3){
+                $proData['project_id'] = $projectId;
+                $proData['plan_build_volume'] = $_POST['plan_build_volume'];
+                $proData['project_area'] = $_POST['county'];
+                $proData['project_address'] = $_POST['project_address'];
+                $proData['project_name'] = $_POST['project_name'];
+                $proData['project_finish_date'] = $_POST['project_finish_date'];
+                $proData['project_electricity_price'] = $_POST['project_electricity_price'];
+                $proData['project_investment'] = $_POST['project_investment'];
+                $proData['ground_condition'] = $_POST['ground_condition'];
+                $proData['ground_property'] = $_POST['ground_property'];
+                $proData['ground_property_other'] = $_POST['ground_property_other'];
+                $proData['ground_area'] = $_POST['ground_area'];
+                $proData['plan_financing'] = $_POST['plan_financing'];
+                $proData['financing_type'] = $_POST['financing_type'];
+            }
+    		
             $evaData = array();
             $evaData['project_id'] = $projectId;
             $evaData['IRR'] = $_POST['IRR'];
@@ -140,18 +157,35 @@ class InnerStaffController extends Controller {
     		$projectId = $objProjectInfo['id'];
 
     		$proData = array();
-            $proData['project_id'] = $projectId;
-            $proData['housetop_owner'] = $_POST['housetop_owner']; 
-            $proData['company_type'] = $_POST['company_type'];
-            $proData['plan_build_volume'] = $_POST['plan_build_volume'];
-            $proData['project_area'] = $_POST['county'];
-            $proData['project_address'] = $_POST['project_address'];
-            $proData['housetop_type'] = $_POST['housetop_type'];
-            $proData['housetop_type_other'] = $_POST['housetop_type_other'];
-            $proData['synchronize_type'] = $_POST['synchronize_type'];
-            $proData['plan_financing'] = $_POST['plan_financing'];
-            $proData['financing_type'] = $_POST['financing_type'];
-// echo $proData['project_area']; exit;
+            if($objProjectInfo['project_type'] == 1){
+                $proData['project_id'] = $projectId;
+                $proData['housetop_owner'] = $_POST['housetop_owner']; 
+                $proData['company_type'] = $_POST['company_type'];
+                $proData['plan_build_volume'] = $_POST['plan_build_volume'];
+                $proData['project_area'] = $_POST['county'];
+                $proData['project_address'] = $_POST['project_address'];
+                $proData['housetop_type'] = $_POST['housetop_type'];
+                $proData['housetop_type_other'] = $_POST['housetop_type_other'];
+                $proData['synchronize_type'] = $_POST['synchronize_type'];
+                $proData['plan_financing'] = $_POST['plan_financing'];
+                $proData['financing_type'] = $_POST['financing_type'];
+            }elseif($objProjectInfo['project_type'] == 2 || $objProjectInfo['project_type'] == 3){
+                $proData['project_id'] = $projectId;
+                $proData['plan_build_volume'] = $_POST['plan_build_volume'];
+                $proData['project_area'] = $_POST['county'];
+                $proData['project_address'] = $_POST['project_address'];
+                $proData['project_name'] = $_POST['project_name'];
+                $proData['project_finish_date'] = $_POST['project_finish_date'];
+                $proData['project_electricity_price'] = $_POST['project_electricity_price'];
+                $proData['project_investment'] = $_POST['project_investment'];
+                $proData['ground_condition'] = $_POST['ground_condition'];
+                $proData['ground_property'] = $_POST['ground_property'];
+                $proData['ground_property_other'] = $_POST['ground_property_other'];
+                $proData['ground_area'] = $_POST['ground_area'];
+                $proData['plan_financing'] = $_POST['plan_financing'];
+                $proData['financing_type'] = $_POST['financing_type'];
+            }
+
             $evaData = array();
             $evaData['project_id'] = $projectId;
             $evaData['IRR'] = $_POST['IRR'];
@@ -211,8 +245,20 @@ class InnerStaffController extends Controller {
     		$this->assign('projectDetail', $projectDetail);
             $this->assign('areaArray', $areaArray);
     		$this->assign('evaluationInfo', $evaluationInfo);
-            //需要判断展示哪个界面
-    		$this->display("InnerStaff:dueDiligence");
+
+            if($objProjectInfo['project_type'] == 1){
+                if($objProjectInfo['build_state'] == 1){
+                    $this->display("InnerStaff:dueDiligence_housetop_nonbuild");
+                }elseif($objProjectInfo['build_state'] == 2){
+                    $this->display("InnerStaff:dueDiligence_housetop_build");
+                }
+            }elseif($objProjectInfo['project_type'] == 2 || $objProjectInfo['project_type'] == 3){
+                if($objProjectInfo['build_state'] == 1){
+                    $this->display("InnerStaff:dueDiligence_ground_nonbuild");
+                }elseif($objProjectInfo['build_state'] == 2){
+                    $this->display("InnerStaff:dueDiligence_ground_build");
+                }
+            }
     	}
     }
 
