@@ -91,7 +91,7 @@ create table ENF_Ground
    id                   bigint not null auto_increment,
    project_id           bigint not null comment '归属项目id',
    project_intent       text comment '项目意向书',
-   project_area         varchar(50) comment '项目地区',
+   project_area         varchar(10) comment '项目地区',
    project_address     	varchar(60) comment '项目详细地址',
    picture_full         varchar(100) comment '地面全景',
    picture_field        varchar(100) comment '场平图片',
@@ -156,7 +156,7 @@ create table ENF_Housetop
    id                   bigint not null auto_increment,
    project_id           bigint not null comment '归属项目id',
    project_intent       text comment '项目意向书',
-   project_area         varchar(50) comment '项目地区',
+   project_area         varchar(10) comment '项目地区',
    project_address     	varchar(60) comment '项目详细地址',
    picture_full         varchar(100) comment '屋顶全景',
    picture_south        varchar(100) comment '屋顶正南图片',
@@ -243,7 +243,8 @@ create table ENF_PushProject
    project_code         varchar(100) comment '项目编号',
    push_time            datetime comment '推送时间',
    status               int not null default 0 comment '状态类型：0正常、1已激活、2未激活、11项目未提交、12项目已提交（客服未提交意向书）、13项目已提交（客服已提交意向书）、16意向书保存状态（项目已提交）、21签意向合同（客服未提交尽职调查）、22签意向合同（客服已提交尽职调查）、31签融资合同、41已推送、42未推送、51尽职调查保存状态（尽职调查保存后项目状态）、52尽职调查提交状态、9999删除',
-   primary key (id)
+   primary key (id),
+   INDEX `pushProject_investor` (`investor_id`)
 )ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 alter table ENF_PushProject comment '推送到投资方的项目表';
@@ -266,7 +267,7 @@ create table ENF_User
    company_fax          varchar(20) comment '公司传真',
    company_phone        varchar(20) comment '座机',
    company_telephone    varchar(11) comment '其他手机',
-   company_area         varchar(50) comment '所在地区',
+   company_area         varchar(10) comment '所在地区',
    company_address      varchar(100) comment '详细地址',
    company_contacts     varchar(100) comment '联系人',
    company_contacts_phone varchar(11) comment '联系人手机',

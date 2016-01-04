@@ -199,7 +199,11 @@ class InnerStaffController extends Controller {
             $docInfo = $objDoc->getDocInfo($condition);
 
             if ($_GET['display'] == 'json') {
-                dump($users);
+                header('Content-Type: text/html; charset=utf-8');
+                dump($docInfo);
+                dump($projectDetail);
+                dump($areaArray);
+                dump($evaluationInfo);
                 exit;
             }
 
@@ -207,6 +211,7 @@ class InnerStaffController extends Controller {
     		$this->assign('projectDetail', $projectDetail);
             $this->assign('areaArray', $areaArray);
     		$this->assign('evaluationInfo', $evaluationInfo);
+            //需要判断展示哪个界面
     		$this->display("InnerStaff:dueDiligence");
     	}
     }
