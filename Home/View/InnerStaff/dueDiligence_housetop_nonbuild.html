@@ -187,16 +187,28 @@
 									</div>
 									<div class="item">
 										<div class="hd">B、工程建设可行性</div>
-										<div class="bd"><textarea name="project_quality_situation" value="{$evaluationInfo['project_quality_situation']}">1、屋顶为混凝土屋顶，组件安装荷载符合要求；
+										<div class="bd"><textarea name="project_quality_situation" value="">
+										<?php if($evaluationInfo['project_quality_situation']){ 
+										 echo $evaluationInfo['project_quality_situation'];
+										 }else{ ?>
+										1、屋顶为混凝土屋顶，组件安装荷载符合要求；
 2、企业年用电量为***万度，最低负荷为**MW，建议安装**MW光伏； 
 3、上级变压器容量为**MW，电网接入电压等级为**kV，接入距离为**m； 
-4、项目所在地交通便利，施工条件完善；</textarea></div>
+4、项目所在地交通便利，施工条件完善；
+										<?php } ?>
+										</textarea></div>
 									</div>
 									<div class="item">
 										<div class="hd">C、项目经济收益情况</div>
-										<div class="bd"><textarea name="project_earnings_situation" value="{$evaluationInfo['project_earnings_situation']}">1、依据历史发电数据测算该项目年发电量为3342.6万度，交流侧等效年发电有效利用小时为1337小时。
+										<div class="bd"><textarea name="project_earnings_situation" value="">
+										<?php if($evaluationInfo['project_earnings_situation']){ 
+										 echo $evaluationInfo['project_earnings_situation'];
+										 }else{ ?>
+										 1、依据历史发电数据测算该项目年发电量为3342.6万度，交流侧等效年发电有效利用小时为1337小时。
 2、IRR=19.79%，静态回收期4.32059581142年，LCOE为。
-3.项目按收益法折现（折现率8%）后得到电站价格：31004.83万元。</textarea></div>
+3.项目按收益法折现（折现率8%）后得到电站价格：31004.83万元。
+										<?php } ?>
+										</textarea></div>
 									</div>
 								</td>
 							</tr>

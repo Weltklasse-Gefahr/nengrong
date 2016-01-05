@@ -11,8 +11,8 @@ class ProjectInvestorMyProController extends Controller {
     **/
 	public function showPushProject(){
 		isLogin($_COOKIE['email'], $_COOKIE['mEmail']);
-		// $email = $_COOKIE['email'];
-		$email = 'qianqiang@qq.com';
+		$email = $_COOKIE['email'];
+		// $email = 'qianqiang@qq.com';
 		$objProject = D("Project", "Service");
         $listProject = $objProject->getPushProject($email);
 
@@ -22,7 +22,7 @@ class ProjectInvestorMyProController extends Controller {
             exit;
         }
         $this->assign('listProject', $listProject);
-        $this->display();
+        $this->display("InnerStaff:pushProject");
 	}
 
 	/**
