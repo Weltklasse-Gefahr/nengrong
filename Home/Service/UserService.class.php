@@ -314,10 +314,15 @@ class UserService extends Model{
     **@breif 获取某一项目的所有项目投资方信息，推送状态push_flag
     **@date 2015.12.30
     **/
-	public function getInvestorPush($projectCode){
+	public function getInvestorPush($projectCode, $page){
 		$condition['user_type'] = 4;
 		$condition["status"] = array('neq',9999);
-		$investorList = $this->getUserInfo($condition);
+		// $investorList = $this->getUserInfo($condition);
+		$objUser = M("User");
+		if($page == -1)
+			$investorList = $objUser->where($condition)->select();
+		else
+			$investorList = $objUser->where($condition)->page($page, 6)->select();
 		$projectObj = D('Project', 'Service');
 		$projectList = $projectObj->getPushProjectByProCode($projectCode);
 		$i = 0;

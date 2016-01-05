@@ -22,7 +22,7 @@ class ProjectInvestorMyProController extends Controller {
             exit;
         }
         $this->assign('listProject', $listProject);
-        $this->display("InnerStaff:pushProject");
+        $this->display("");
 	}
 
 	/**

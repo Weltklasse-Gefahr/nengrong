@@ -333,8 +333,8 @@ class InnerStaffController extends Controller {
     public function pushProject(){
         isLogin($_COOKIE['email'], $_COOKIE['mEmail']);
         $rtype = $_POST['rtype'] ? $_POST['rtype']:$_GET['rtype'];
-        $projectCode = $_POST['project_code'];
-        // $projectCode = 'qwertyuio';
+        // $projectCode = $_POST['project_code'];
+        $projectCode = 'qwertyuio';
         $investorList = $_POST['investorList'];
         if($rtype == 1){
             $projectObj = D('Project', 'Service');
@@ -344,10 +344,26 @@ class InnerStaffController extends Controller {
             else
                 echo '{"code":"-1","msg":"push project error"}';
         }else{
+            $page = $_GET['page'];
+            if(empty($page))    $page=1;
+            $pageSize = 6;
+            // $start = $page*$pageSize-$pageSize;
+            
             $investor = D('User', 'Service');
-            $investorList = $investor->getInvestorPush($projectCode);
-            // dump($investorList);exit;
-            $this->assign("investorList", $investorList);
+            $investorList = $investor->getInvestorPush($projectCode, $page);
+            $investorTotal = $investor->getInvestorPush($projectCode, -1);
+            $data = array();
+            $data["list"] = $investorList;
+            $data["page"] = $page;
+            $data["count"] = sizeof($investorTotal);
+            $data["totalPage"] = ceil($data["count"]/5+1);
+            $data["endPage"] = $data["totalPage"];
+            if($_GET['display']=="json"){
+                header('Content-Type: text/html; charset=utf-8');
+                dump($data);
+                exit;
+            }
+            $this->assign("arrData", $data);
             $this->display("InnerStaff:pushProject");
         }
     }

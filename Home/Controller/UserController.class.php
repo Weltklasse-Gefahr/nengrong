@@ -199,7 +199,7 @@ class UserController extends Controller
 
     public function addUser(){
         $user = M('User');
-        $data['email'] = 'qianqiang@qq.com';
+        $data['email'] = 'qianqiang1234567@qq.com';
         $data['password'] = MD5("123456");
         $data['user_type'] = 4;
         $data['status'] = 1;
