@@ -159,9 +159,15 @@
 							<tr>
 								<td>评价内容</td>
 								<td>
-									<textarea name="evaluation_content" value="{$evaluationInfo['evaluation_content']}" readonly>A.文件审查
-B.工程建设可行性
-C.项目经济收益情况</textarea>
+									<textarea name="evaluation_content" value="" readonly>
+									<?php if($evaluationInfo['evaluation_content']){
+									echo $evaluationInfo['evaluation_content'];
+									}else{ ?>
+									A、文件审查
+									B、工程建设可行性
+									C、项目经济收益情况
+									<?php } ?>
+									</textarea>
 								</td>
 							</tr>
 							<tr>
@@ -169,9 +175,15 @@ C.项目经济收益情况</textarea>
 								<td>
 									<div class="item">
 										<div class="hd">A、文件审查</div>
-										<div class="bd"><textarea name="document_review" value="{$evaluationInfo['document_review']}">1、电站备案文件齐全； 
-2、屋顶租赁合同及EMC合同完整有效； 
-3、本项目电价1.25元/kWh，其中自发自用电价**元/kWh，国家补贴**元/kWh，补贴20年；省补**元/kWh，补贴20年；市补贴**元/kWh，补贴5年；</textarea></div>
+										<div class="bd"><textarea name="document_review" value="">
+										<?php if($evaluationInfo['document_review']){ 
+										 echo $evaluationInfo['document_review'];
+										 }else{ ?>
+										1、电站备案文件齐全；
+										2、屋顶租赁合同及EMC合同完整有效；
+										3、本项目电价1'.'25元/kWh，其中自发自用电价**元/kWh，国家补贴**元/kWh，补贴20年；省补**元/kWh，补贴20年；市补贴**元/Wh，补贴5年；
+										<?php } ?>
+										</textarea></div>
 									</div>
 									<div class="item">
 										<div class="hd">B、工程建设可行性</div>

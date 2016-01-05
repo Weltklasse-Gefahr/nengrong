@@ -172,6 +172,47 @@ class ProjectService extends Model{
 
     /**
     **@auth qianqiang
+    **@breif 查询推荐项目
+    **@date 2016.1.5
+    **/ 
+    public function getPushProject($email){
+        if(!empty($email)){
+            $user = D('User');
+            $userInfo = $user->where("email='".$email."'")->find();
+            $condition['investor_id'] = $userInfo['id'];
+        }else{
+            return null;
+        }
+        $condition['status'] = array('neq',9999);
+        $pushPro = M('Pushproject');
+        $pushProInfo = $pushPro->where($condition)->select();
+        $projectInfo = $this->getProTypeListFromPushPro($pushProInfo);
+        $projectList = $this->formatProject($projectInfo);
+        return $projectList; 
+    }
+
+    /**
+    **@auth qianqiang
+    **@breif 获取推荐项目的项目类型，存入推荐项目列表中
+    **@date 2016.1.5
+    **/ 
+    public function getProTypeListFromPushPro($pushProInfo){
+        if(empty($pushProInfo)) return null;
+        $projectObj = M('Project');
+        $i = 0;
+        while($pushProInfo[$i]){
+            $condition['project_code'] = $pushProInfo[$i]['project_code'];
+            $condition['status'] = array('neq', 9999);
+            $projectInfo = $projectObj->where($condition)->find();
+            $pushProInfo[$i]['project_type'] = $projectInfo['project_type'];
+            $pushProInfo[$i]['status'] = $projectInfo['status'];
+            $i += 1;
+        }
+        return $pushProInfo;
+    }
+
+    /**
+    **@auth qianqiang
     **@breif 将项目列表中的信息规范化显示
     **@date 2015.12.30
     **/ 
