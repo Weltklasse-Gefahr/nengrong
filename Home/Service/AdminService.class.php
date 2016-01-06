@@ -20,6 +20,7 @@ class AdminService extends Model{
 
         setcookie("userName", $userName, time()+3600);
         setcookie("mUserName", MD5(addToken($userName)), time()+3600);
+        session_start();
 
         return $objManager[0];
     }
@@ -33,7 +34,7 @@ class AdminService extends Model{
 
         setcookie("userName", $userName, time()-3600);
         setcookie("mUserName", MD5(addToken($userName)), time()-3600);
-
+        session_destroy();
     }
 
 	/**

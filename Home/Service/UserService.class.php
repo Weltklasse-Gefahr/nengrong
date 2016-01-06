@@ -21,6 +21,7 @@ class UserService extends Model{
 
         setcookie("email", $email, time()+3600);
         setcookie("mEmail", MD5(addToken($email)), time()+3600);
+        session_start();
 
         return $users[0];
 	}
@@ -58,6 +59,9 @@ class UserService extends Model{
         	echo '{"code":"-1","msg":"mysql error!"}';
         	exit;
         }
+
+        // $r = think_send_mail('qianqiang1989@qq.com','qianqiang','test','testEmail');
+        // dump($r);exit;
         return $users[0];
 	}
 
@@ -89,6 +93,7 @@ class UserService extends Model{
 	public function logoutService(){
         setcookie("email", $email, time()-3600);
         setcookie("mEmail", MD5(addToken($email)), time()-3600);
+        session_destroy();
     }
 
 	/**
@@ -312,12 +317,13 @@ class UserService extends Model{
 	/**
     **@auth qianqiang
     **@breif 获取某一项目的所有项目投资方信息，推送状态push_flag
+    **@param $projectCode 项目编码
+    **@param $page 第几页，page=-1查询所有的
     **@date 2015.12.30
     **/
 	public function getInvestorPush($projectCode, $page){
 		$condition['user_type'] = 4;
 		$condition["status"] = array('neq',9999);
-		// $investorList = $this->getUserInfo($condition);
 		$objUser = M("User");
 		if($page == -1)
 			$investorList = $objUser->where($condition)->select();

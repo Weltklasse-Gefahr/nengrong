@@ -82,6 +82,11 @@ class InnerStaffController extends Controller {
             $doc = D("Doc", "Service");
             $docInfo = $doc->uploadFileAndPictrue($docFile, $docFile);
             if(!empty($docInfo)){
+                if(isset($_SESSION['doc_mul']))
+                    $_SESSION['doc_mul'] = $_SESSION['doc_mul'].",".$docInfo['attachment'];
+                else
+                    $_SESSION['doc_mul'] = $docInfo['attachment'];
+                echo $_SESSION['doc_mul'];
                 echo '{"code":"0","msg":"success","id":"'.$docInfo['attachment'].'"}';
             }else{
                 echo '{"code":"-1","msg":"上传失败！"}';
@@ -136,7 +141,7 @@ class InnerStaffController extends Controller {
             $evaData['project_quality_situation'] = $_POST['project_quality_situation'];
             $evaData['project_invest_situation'] = $_POST['project_invest_situation'];
             $evaData['project_earnings_situation'] = $_POST['project_earnings_situation'];
-            $evaData['doc_mul'] = $_POST['doc_mul'];
+            $evaData['doc_mul'] = $_SESSION['doc_mul'];
 // echo "start   :";dump($proData);dump($evaData);exit;
             $res = $objProject->saveHousetopProject($proData);
             if($res == true){
@@ -200,7 +205,7 @@ class InnerStaffController extends Controller {
             $evaData['project_quality_situation'] = $_POST['project_quality_situation'];
             $evaData['project_invest_situation'] = $_POST['project_invest_situation'];
             $evaData['project_earnings_situation'] = $_POST['project_earnings_situation'];
-            $evaData['doc_mul'] = $_POST['doc_mul'];
+            $evaData['doc_mul'] = $_SESSION['doc_mul'];
 
 			$res = $objProject->submitHousetopProject($proData);
             if($res == true){
@@ -356,7 +361,7 @@ class InnerStaffController extends Controller {
             $data["list"] = $investorList;
             $data["page"] = $page;
             $data["count"] = sizeof($investorTotal);
-            $data["totalPage"] = ceil($data["count"]/5+1);
+            $data["totalPage"] = ceil($data["count"]/$pageSize+1);
             $data["endPage"] = $data["totalPage"];
             if($_GET['display']=="json"){
                 header('Content-Type: text/html; charset=utf-8');
