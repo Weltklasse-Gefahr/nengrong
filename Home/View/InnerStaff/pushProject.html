@@ -45,7 +45,7 @@
 					<p class="c3" style="visibility:hidden"></p>
 					<p class="c5" style="visibility:hidden"></p>
 					<p class="c6" style="visibility:hidden"></p>
-					<p class="c5" align="center"><a id="push_selected" class="pushButton" href="?c=InnerStaff&a=search">推送选中</a></p>
+					<p class="c5" align="center"><a id="push_selected" class="pushButton" href="#">推送选中</a></p>
 					<p class="c5" style="visibility:hidden"></p>
 				</div>
 				<div class="hd">
@@ -58,40 +58,27 @@
 					<p class="c5">联系电话</p>
 				</div>
 				<div class="bd">
-					<foreach name="investorList" item="project">
+					<foreach name="arrData.list" item="project">
 						
-							<if condition="$project[flag] eq 1"> 
+							<if condition="$project[push_flag] eq 已推送"> 
 								<div class="div_grey" data-id="{$inner_staff[id]}">
 									<p class="c3"><input id="all_select" type="checkbox" value="checkbox"><span style="visibility:hidden">&nbsp&nbsp全选</span></p>
 									<p class="c5"><a href="javascript:;">{$project[company_name]}</a></p>
 									<p class="c6">{$project[push_flag]}</p>
-									<p class="c5" align="center"><a class="pushButton1" href="?c=InnerStaff&a=search">点击推送</a></p>
+									<p class="c5" align="center"><a class="pushButton_grey" href="#" >点击推送</a></p>
 									<p class="c5">{$project[company_contacts_phone]}</p>
 								</div>
 							<else /> 
-								<div class="div_grey" data-id="{$inner_staff[id]}">
+								<div data-id="{$inner_staff[id]}">
 									<p class="c3"><input id="all_select" type="checkbox" value="checkbox"><span style="visibility:hidden">&nbsp&nbsp全选</span></p>
 									<p class="c5"><a href="javascript:;">{$project[company_name]}</a></p>
 									<p class="c6">{$project[push_flag]}</p>
-									<p class="c5" align="center"><a class="pushButton1" href="?c=InnerStaff&a=search">点击推送</a></p>
+									<p class="c5" align="center"><a class="pushButton" href="#" >点击推送</a></p>
 									<p class="c5">{$project[company_contacts_phone]}</p>
 								</div>	
 							</if>
 					</foreach>
-					<div data-id="1">
-					<p class="c3"><input name="checkbox" type="checkbox" value="checkbox"><span style="visibility:hidden">&nbsp&nbsp全选</span></p>
-					<p class="c5">康富租赁</p>
-					<p class="c6">已推送</p>
-					<p class="c5" align="center"><a class="pushButton" href="#">点击推送</a></p>
-					<p class="c5">152XXXX XXXX</p>
-					</div>	
-					<div class="div_grey" data-id="2">	
-					<p class="c3"><input name="checkbox" type="checkbox" value="checkbox"><span style="visibility:hidden">&nbsp&nbsp全选</span></p>
-					<p class="c5">康富租赁1</p>
-					<p class="c6">已推送</p>
-					<p class="c5" align="center"><a class="pushButton_grey" href="#" >点击推送</a></p>
-					<p class="c5">152XXXX XXXX</p>
-					</div>	
+					
 				</div>
 			</div>
 			<div class="pager">
