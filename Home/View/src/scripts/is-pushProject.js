@@ -24,7 +24,7 @@ $(function() {
 	{
 		var str="";
 		$("[name='checkbox']:checked").each(function(){
-			str+=$(this).parent().parent().data("id")+"&";
+			str+=$(this).parent().parent().data("id")+",";
 		})
 		alert(str);
     });
@@ -43,13 +43,26 @@ $(function() {
 				'<p><span style="visibility:hidden">融资机构：</span><span>国银租赁</span></p>'+
 				'<p><span style="visibility:hidden">融资机构：</span><span>确认推送</span></p></div>').done(function()
 			{
+				var item_id="";
+				item_id += $(this).parent().parent().data("id")+",";
+				$.ajax({
+				type: "post",
+				url: "?c=InnerStaff&a=pushProject" ,
+				data: {
+					investors: item_id,
+					rtype : 1
+				},
+				dataType: "json"
+				}).done(function(data){
+					if (data.code== 0)
+						{alert('1');}
+					else 
+						{alert('0');}
+				});
 				
 			}).fail(function() {
 			});
 
-			var str="";
-			str+=$(this).parent().parent().data("id")+"&";
-			alert(str);
 		}
 	});
 
