@@ -6,7 +6,7 @@
 	<meta name="description" content="">
 	<meta name="keywords" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes">
-	<title>项目提供方信息</title>
+	<title>推送项目</title>
 	
 	<!-- Set render engine for 360 browser -->
 	<meta name="renderer" content="webkit">
@@ -45,7 +45,7 @@
 					<p class="c3" style="visibility:hidden"></p>
 					<p class="c5" style="visibility:hidden"></p>
 					<p class="c6" style="visibility:hidden"></p>
-					<p class="c5" align="center"><a class="pushButton" href="?c=InnerStaff&a=search">推送选中</a></p>
+					<p class="c5" align="center"><a id="push_selected" class="pushButton" href="?c=InnerStaff&a=search">推送选中</a></p>
 					<p class="c5" style="visibility:hidden"></p>
 				</div>
 				<div class="hd">
@@ -58,21 +58,52 @@
 					<p class="c5">联系电话</p>
 				</div>
 				<div class="bd">
-					<p class="c3"><input id="all_select" type="checkbox" value="checkbox"><span style="visibility:hidden">&nbsp&nbsp全选</span></p>
+					<foreach name="investorList" item="project">
+						
+							<if condition="$project[flag] eq 1"> 
+								<div class="div_grey" data-id="{$inner_staff[id]}">
+									<p class="c3"><input id="all_select" type="checkbox" value="checkbox"><span style="visibility:hidden">&nbsp&nbsp全选</span></p>
+									<p class="c5"><a href="javascript:;">{$project[company_name]}</a></p>
+									<p class="c6">{$project[push_flag]}</p>
+									<p class="c5" align="center"><a class="pushButton" href="?c=InnerStaff&a=search">点击推送</a></p>
+									<p class="c5">{$project[company_contacts_phone]}</p>
+								</div>
+							<else /> 
+								<div class="div_grey" data-id="{$inner_staff[id]}">
+									<p class="c3"><input id="all_select" type="checkbox" value="checkbox"><span style="visibility:hidden">&nbsp&nbsp全选</span></p>
+									<p class="c5"><a href="javascript:;">{$project[company_name]}</a></p>
+									<p class="c6">{$project[push_flag]}</p>
+									<p class="c5" align="center"><a class="pushButton" href="?c=InnerStaff&a=search">点击推送</a></p>
+									<p class="c5">{$project[company_contacts_phone]}</p>
+								</div>	
+							</if>
+					</foreach>
+					<div data-id="1">
+					<p class="c3"><input name="checkbox" type="checkbox" value="checkbox"><span style="visibility:hidden">&nbsp&nbsp全选</span></p>
 					<p class="c5">康富租赁</p>
 					<p class="c6">已推送</p>
-					<p class="c5" align="center"><a class="pushButton" href="?c=InnerStaff&a=search">点击推送</a></p>
+					<p class="c5" align="center"><a class="pushButton" href="#">点击推送</a></p>
 					<p class="c5">152XXXX XXXX</p>
+					</div>	
+					<div class="div_grey" data-id="2">	
+					<p class="c3"><input name="checkbox" type="checkbox" value="checkbox"><span style="visibility:hidden">&nbsp&nbsp全选</span></p>
+					<p class="c5">康富租赁1</p>
+					<p class="c6">已推送</p>
+					<p class="c5" align="center"><a class="pushButton_grey" href="#" >点击推送</a></p>
+					<p class="c5">152XXXX XXXX</p>
+					</div>	
 				</div>
 			</div>
 			<div class="pager">
-				<span data-page-index="1">&lt; 上一页</span>
-                <span data-page-index="1" class="active">1</span>
-                <span data-page-index="2" href="#">2</span>
-                <span data-page-index="3" href="#">3</span>
-                <span data-page-index="4" href="#">4</span>
-                <span data-page-index="5" href="#">5</span>
-                <span data-page-index="5" href="#">下一页 &gt;</span>
+					<a class="s" data-pageno="1" href="#">首页</a>
+                    <for start="1" end="$arrData.totalPage">
+                        <if condition="$arrData.page eq $i">
+                            <a class="n active" data-pageno="{$i}" href="#">{$i}</a>
+                        <else/>
+                            <a class="n" data-pageno="{$i}" href="#">{$i}</a>
+                        </if>
+                    </for>
+                    <a class="s" data-pageno="{$arrData.endPage}" href="#">尾页</a>
 			</div>
 		</div>
 	</div>

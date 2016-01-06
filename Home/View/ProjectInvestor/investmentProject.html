@@ -6,7 +6,7 @@
 	<meta name="description" content="">
 	<meta name="keywords" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes">
-	<title>已签意向书项目</title>
+	<title>已投资项目</title>
 	
 	<!-- Set render engine for 360 browser -->
 	<meta name="renderer" content="webkit">
@@ -29,14 +29,27 @@
 	<!-- Tile icon for Win8 (144x144 + tile color) -->
 	<meta name="msapplication-TileImage" content="/EnergyFe/img/i/favicon.png">
 	<meta name="msapplication-TileColor" content="#0e90d2">
-	<link rel="stylesheet" href="/EnergyFe/prd/styles/x-common@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/styles/x-common.css.ver';</php>.css">
-	<link rel="stylesheet" href="/EnergyFe/prd/styles/pp-agreementProject@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/styles/pp-agreementProject.css.ver';</php>.css">
+	<link rel="stylesheet" href="/EnergyFe/prd/styles/x-common@<php>include '/home/ubuntu/enetfPlatform/nengrong/Home/View/ver/styles/x-common.css.ver';</php>.css">
+	<link rel="stylesheet" href="/EnergyFe/prd/styles/PIsecuritycenter@<php>include '/home/ubuntu/enetfPlatform/nengrong/Home/View/ver/styles/PIinvestmentProject.css.ver';</php>.css">
 <body>
-	<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/hf/erqi/header.html';</php>
+	<php>include '/home/ubuntu/enetfPlatform/nengrong/Home/View/hf/header.html';</php>
+	<!-- 二期页面header -->
+	<div class="header">
+		<div class="hd">
+			<div class="c">
+				欢迎您，<span id="">XX公司</span>
+				<span class="split">|</span>
+				<a id="logout" href="javascript:;">注销</a>
+			</div>
+		</div>
+		<div class="bd">
+			<img src="/EnergyFe/img/x-logo.png">信息管理系统
+		</div>
+	</div>
 
 	<div class="main clrfix">
 		<!-- 左侧导航栏 -->
-		<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ProjectProvider/ProjectProvider_left.html';</php>
+		<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ProjectInvestor/ProjectInvestor_left.html';</php>
 		
 		<!-- 右侧布局 -->
 		<div class="r-content">
@@ -45,8 +58,7 @@
 					<p class="c0">项目编号</p>
 					<p class="c1">项目类型</p>
 					<p class="c2">位置</p>
-					<p class="c3">创建日期</p>
-					<p class="c4">状态</p>
+					<p class="c3">交易日期</p>
 				</div>
 				<div class="bd">
 					<foreach name="listProject" item="project">
@@ -56,7 +68,6 @@
 							<p class="c1">{$project[project_type]}</p>
 							<p class="c2">{$project[area]}</p>
 							<p class="c3">{$project[create_date]}</p>
-							<p class="c4">{$project[status]}</p>
 							</div>
 						<else /> 
 							<div>
@@ -64,7 +75,6 @@
 							<p class="c1">{$project[project_type]}</p>
 							<p class="c2">{$project[area]}</p>
 							<p class="c3">{$project[create_date]}</p>
-							<p class="c4">{$project[status]}</p>
 							</div>
 						</if>
 					</foreach>
@@ -74,21 +84,18 @@
 						<p class="c1">商业分布式</p>
 						<p class="c2">北京海淀区 路＊号</p>
 						<p class="c3">2015/10/11</p>
-						<p class="c4">已提交</p>
 					</div>
 					<div>
 						<p class="c0"><a href="javascript:;">LY0370-010K-E15-007001</a></p>
 						<p class="c1">商业分布式</p>
 						<p class="c2">北京海淀区 路＊号</p>
 						<p class="c3">2015/10/11</p>
-						<p class="c4">已提交</p>
 					</div>
 					<div>
 						<p class="c0"><a href="javascript:;">LY0370-010K-E15-007001</a></p>
 						<p class="c1">商业分布式</p>
 						<p class="c2">北京海淀区 路＊号</p>
 						<p class="c3">2015/10/11</p>
-						<p class="c4">已提交</p>
 					</div>
 				</div>
 			</div>
@@ -104,11 +111,21 @@
                     <a class="s" data-pageno="{$arrData.endPage}" href="#">尾页</a>
 			</div>
 		</div>
+		
+		
 	</div>
 
-	<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/hf/sub_footer.html';</php>
+	<php>include '/home/ubuntu/enetfPlatform/nengrong/Home/View/hf/sub_footer.html';</php>
+	<!-- 子页面footer:关于我们，联系方式 -->
+	<div class="sub-footer">
+		<a href="?c=AboutUs&a=company">关于我们</a> ｜ 
+		<a id="favorites" href="javascipt:void(0);">收藏我们</a> ｜ 
+		<a href="?c=AboutUs&a=contact">联系我们</a> ｜ 
+		<a href="?c=AboutUs&a=joinUs">加入我们</a>
+		<span href=""> ©2015 北京光辉普惠能源科技有限公司 All rights reserved</span>
+	</div>
 	
-	<script src="/EnergyFe/prd/scripts/x-common@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/scripts/x-common.js.ver';</php>.js"></script>
-	<script src="/EnergyFe/prd/scripts/pp-agreementProject@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/scripts/pp-agreementProject.js.ver';</php>.js"></script>
+	<script src="/EnergyFe/prd/scripts/x-common@<php>include '/home/ubuntu/enetfPlatform/nengrong/Home/View/ver/scripts/x-common.js.ver';</php>.js"></script>
+	<script src="/EnergyFe/prd/scripts/PIsecuritycenter@<php>include '/home/ubuntu/enetfPlatform/nengrong/Home/View/ver/scripts/PIinvestmentProject.js.ver';</php>.js"></script>
 </body>
 </html>

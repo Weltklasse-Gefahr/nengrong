@@ -130,3 +130,30 @@
 	color: #fff;
 	border: 0;
 }
+
+.pushButton_grey {
+	display: inline-block;
+	width: 100px;
+	text-align: center;
+	line-height: 35px;
+	border-radius: 5px;
+	background-color: #666;
+	color: #fff;
+	border: 0;
+}
+
+.r-content .list .bd p {
+    display: inline-block;
+    text-align: center;
+    line-height: 60px;
+    margin-right: 2px;
+}
+
+.div_grey
+{
+	color:#666;
+}
+
+.r-content .list .bd a:hover {
+	color: #fff;
+}
