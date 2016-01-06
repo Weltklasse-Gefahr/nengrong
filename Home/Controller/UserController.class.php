@@ -178,8 +178,12 @@ class UserController extends Controller
     // }
 
     public function test1(){
-        $r = think_send_mail('qianqiang1989@qq.com','qianqiang','test','testEmail');
-        dump($r);exit;
+        $investors = '123,456,789,';
+        $newstr = substr($investors,0,strlen($investors)-1); 
+        $investorList = explode(",",$newstr);
+        dump($investorList);exit;
+        // $r = think_send_mail('qianqiang1989@qq.com','qianqiang','test','testEmail');
+        // dump($r);exit;
         // $area = D("Area", "Service");
         // $res = $area->getAreaArrayById("150223");
         // header('Content-Type: text/html; charset=utf-8');

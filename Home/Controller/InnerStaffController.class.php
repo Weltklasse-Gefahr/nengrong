@@ -340,7 +340,9 @@ class InnerStaffController extends Controller {
         $rtype = $_POST['rtype'] ? $_POST['rtype']:$_GET['rtype'];
         // $projectCode = $_POST['project_code'];
         $projectCode = 'qwertyuio';
-        $investorList = $_POST['investorList'];
+        $investors = $_POST['investors'];
+        $investorStr = substr($investors,0,strlen($investors)-1); 
+        $investorList = explode(",",$investorStr);
         if($rtype == 1){
             $projectObj = D('Project', 'Service');
             $result = $projectObj->pushProject($projectCode, $investorList);
