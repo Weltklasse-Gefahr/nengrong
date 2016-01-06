@@ -61,16 +61,16 @@
 					<foreach name="arrData.list" item="project">
 						
 							<if condition="$project[push_flag] eq 已推送"> 
-								<div class="div_grey" data-id="{$inner_staff[id]}">
-									<p class="c3"><input id="all_select" type="checkbox" value="checkbox"><span style="visibility:hidden">&nbsp&nbsp全选</span></p>
+								<div class="div_grey" data-id="{$project[id]}">
+									<p class="c3"><input name="checkbox" type="checkbox" value="checkbox"><span style="visibility:hidden">&nbsp&nbsp全选</span></p>
 									<p class="c5"><a href="javascript:;">{$project[company_name]}</a></p>
 									<p class="c6">{$project[push_flag]}</p>
 									<p class="c5" align="center"><a class="pushButton_grey" href="#" >点击推送</a></p>
 									<p class="c5">{$project[company_contacts_phone]}</p>
 								</div>
 							<else /> 
-								<div data-id="{$inner_staff[id]}">
-									<p class="c3"><input id="all_select" type="checkbox" value="checkbox"><span style="visibility:hidden">&nbsp&nbsp全选</span></p>
+								<div data-id="{$project[id]}">
+									<p class="c3"><input name="checkbox" type="checkbox" value="checkbox"><span style="visibility:hidden">&nbsp&nbsp全选</span></p>
 									<p class="c5"><a href="javascript:;">{$project[company_name]}</a></p>
 									<p class="c6">{$project[push_flag]}</p>
 									<p class="c5" align="center"><a class="pushButton" href="#" >点击推送</a></p>
