@@ -60,8 +60,18 @@ class UserService extends Model{
         	exit;
         }
 
-        // $r = think_send_mail('qianqiang1989@qq.com','qianqiang','test','testEmail');
-        // dump($r);exit;
+        // 发送激活邮件
+        $key = $email.",".md5(addToken($email)).",".time();
+        $encryptKey = encrypt($key, getKey()); 
+        $url = "www.enetf.com/?c=User&a=activeUser&key=".$encryptKey;
+        $name = "能融网用户";
+        $subject = "验证您的电子邮箱地址";
+        $text = "激活邮件内容".$url;
+        $r = think_send_mail($email, $name, $subject, $text, null);
+        if($r == false){
+        	echo '{"code":"-1","msg":"send email error!"}';
+        	exit;
+        }
         return $users[0];
 	}
 
@@ -70,14 +80,28 @@ class UserService extends Model{
     **@breif 用户激活
     **@date 2015.12.16
     **/
-	public function activeService($email){
+	public function activeService($key){
+		$decryptKey = decrypt($key, getKey());
+		$keyList = explode(",",$decryptKey);
+		if(!($keyList[1] == md5(addToken($keyList[0])))){
+			echo '{"code":"-1","msg":"用户信息验证失败，激活失败!"}';
+			exit;
+		}
+		$zero1 = strtotime(date("Y-m-d H:i:s",time())); //当前时间
+		$zero2 = strtotime(date("Y-m-d H:i:s",$keyList[2])); //注册时间
+		$zero0 = ceil(($zero1-$zero2)/3600);
+		if($zero0 > 24){ //有效期24小时
+			echo '{"code":"-1","msg":"邮件已超时!"}';
+			exit;
+		}
+		// dump($zero1);dump($zero2);dump($zero0);exit;
+
 		$user = M('user');
 		$data['status'] = 1;
 		$data['change_date'] = date("Y-m-d H:i:s",time());
-		$user->where("email='".$email."' and status=2")->save($data);
+		$result = $user->where("email='".$keyList[0]."' and status=2")->save($data);
 
-		$objUser = $user->where("email='".$email."' and status=1")->select();
-		if (sizeof($objUser) != 1) {
+		if ($result == 0) {
 			echo '{"code":"-1","msg":"mysql error!"}';
 			exit;
 		}

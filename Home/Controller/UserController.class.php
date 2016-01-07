@@ -136,54 +136,31 @@ class UserController extends Controller
     /**
     **@auth qianqiang
     **@breif 用户激活
-    **@date 
+    **@date 2016.1.7
     **/ 
     public function activeUser(){
-        $email = $_POST['email'];
-        $mEmail = $_POST['mEmail'];
-        if (!($mEmail == MD5(addToken($email)))) {
-            echo '{"code":"-1","msg":"登录信息错误"}';
-            exit;
-        }
+        $key = $_GET['key'];
         $user = D('User','Service');
-        $user->activeService($email);
-        $this->display("User:activesus");
+        $user->activeService($key);
+        echo '{"code":"0","msg":"用户激活成功"}';
+        $this->display("User:login");
     }
-
-    // //显示用户详细信息
-    // public function userInfo(){
-    //     $email = $_POST['email'];
-    //     $mEmail = $_POST['mEmail'];
-    //     if (!($mEmail == MD5($email."ENFENF"))) {
-    //         echo '{"code":"-1","msg":"登录信息错误"}';
-    //         exit;
-    //     }
-
-    // }
-
-    // //修改资料
-    // public function changeUserInfo(){
-    //     $email = $_POST['email'];
-    //     $mEmail = $_POST['mEmail'];
-    //     if (!($mEmail == MD5($email."ENFENF"))) {
-    //         echo '{"code":"-1","msg":"登录信息错误"}';
-    //         exit;
-    //     }
-
-    // }
-
-
-    // public function getDynamicCode(){
-    //     code();
-    // }
 
     public function test1(){
         // $investors = '123,456,789,';
         // $newstr = substr($investors,0,strlen($investors)-1); 
         // $investorList = explode(",",$newstr);
         // dump($investorList);exit;
-        $r = think_send_mail('82563912@qq.com','qianqiang','test','testmail',null);
-        dump($r);exit;
+        $email = "82563912@qq.com";
+        $key = $email.",".md5(addToken($email)).",".time();
+        $encryptKey = encrypt($key, getKey()); 
+        $url = "www.enetf.com/?c=User&a=activeUser&key=".$encryptKey;
+        $name = "能融网用户";
+        $subject = "验证您的电子邮箱地址";
+        $text = "激活邮件内容".$url;
+        $r = think_send_mail($email, $name, $subject, $text, null);
+        dump($r);dump($key);dump($url);
+        exit;
         // $area = D("Area", "Service");
         // $res = $area->getAreaArrayById("150223");
         // header('Content-Type: text/html; charset=utf-8');
