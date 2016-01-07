@@ -341,7 +341,7 @@ class InnerStaffController extends Controller {
         // $projectCode = $_POST['project_code'];
         $projectCode = 'qwertyuio';
         $investors = $_POST['investors'];
-        $investorStr = substr($investors,0,strlen($investors)-1); 
+        $investorStr = substr($investors, 0, strlen($investors)-1); 
         $investorList = explode(",",$investorStr);
         if($rtype == 1){
             $projectObj = D('Project', 'Service');

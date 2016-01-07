@@ -1,6 +1,6 @@
 <?php 
-// require 'D:/workfile/xampp/htdocs/thinkphp_3.2.3_full/ThinkPHP/Extend/Vendor/PHPMailer/class.phpmailer.php';
-// require 'D:/workfile/xampp/htdocs/thinkphp_3.2.3_full/ThinkPHP/Extend/Vendor/PHPMailer/PHPMailerAutoload.php';
+require_once dirname(dirname(__FILE__)).'/library/class.phpmailer.php';
+require_once dirname(dirname(__FILE__)).'/library/PHPMailerAutoload.php';
 /**
  * 系统邮件发送函数
  * @param string $to    接收邮件者邮箱
@@ -9,6 +9,7 @@
  * @param string $body    邮件内容
  * @param string $attachment 附件列表
  * @return boolean 
+ * @date 2016.1.7
  */
  function think_send_mail($to, $name, $subject = '', $body = '', $attachment = null){
     $config = C('THINK_EMAIL');
