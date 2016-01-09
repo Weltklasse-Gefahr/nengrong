@@ -120,7 +120,6 @@ class ProjectProviderMyInfoController extends Controller {
     public function securityCenter()
     {
         isLogin($_COOKIE['email'], $_COOKIE['mEmail']);
-        isDataComplete($email);
         if($_POST['rtype'] == 1 || $_GET['rtype'] == 1){
             $email = $_COOKIE['email'];
             $pwd = $_POST['password'];
