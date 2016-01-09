@@ -1,10 +1,8 @@
 $(function() {
 
 	$(".l-nav").find(".myInformation").addClass("active");
-	require("common/customInputFile");
 	require("lib/jquery.form");
 	
-	$(".detail.part2 input[type=file]").customInputFile();
 
 	// 保存资料
 	var options = {

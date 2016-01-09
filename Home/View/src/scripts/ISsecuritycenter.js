@@ -25,7 +25,8 @@ $(function(){
 		    type: "post",
 		    url: "?c=ProjectInvestor&a=securityCenter" ,
 		    data: {
-		    	newpass: newpassval
+		    	newpass: newpassval,
+		    	rtype:1
 		    },
 			dataType: "json"
 		}).done(function(data){
