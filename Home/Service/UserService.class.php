@@ -13,12 +13,21 @@ class UserService extends Model{
 	public function loginService($email, $password){
 		$user = M("User");
         $users = $user->where("email='%s' and password='%s' and status!=9999", array($email, MD5($password)))->select();
-
         if (sizeof($users) != 1) {
         	echo '{"code":"-1","msg":"登录信息错误"}';
         	exit;
         }
 
+        if($users['user_type'] == 2){
+        	setcookie("userType", 2, time()+3600);
+        	setcookie("userName", "能融网客服", time()+3600);
+        }elseif($users['user_type'] == 3){
+        	setcookie("userType", 3, time()+3600);
+        	setcookie("userName", $users['company_name'], time()+3600);
+        }elseif($users['user_type'] == 4){
+        	setcookie("userType", 4, time()+3600);
+        	setcookie("userName", $users['company_name'], time()+3600);
+        }
         setcookie("email", $email, time()+3600);
         setcookie("mEmail", MD5(addToken($email)), time()+3600);
         session_start();

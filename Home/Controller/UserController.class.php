@@ -75,10 +75,22 @@ class UserController extends Controller
                 dump($users);
                 exit;
             }
-            echo '{"code":"0","msg":"注册成功！","url":"?c=User&a=loginsus"}';
+            echo '{"code":"0","msg":"注册成功！","url":"?c=User&a=login"}';
         }else {
             $this->display("User:register");
         }
+    }
+
+    /**
+    **@auth qianqiang
+    **@breif 用户注销
+    **@date 2015.1.9
+    **/
+    public function logout(){
+        isLogin($_COOKIE['email'],$_COOKIE['mEmail']);
+        $user = D('User','Service');
+        $objUser = $user->logoutService();
+        echo '{"code":"0","msg":"注销成功！"}';
     }
 
     // //修改密码
