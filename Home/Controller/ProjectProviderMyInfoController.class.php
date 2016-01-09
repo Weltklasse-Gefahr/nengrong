@@ -46,7 +46,7 @@ class ProjectProviderMyInfoController extends Controller {
             $arrUser['company_telephone'] = $_POST['company_telephone'];//其他手机
             $arrUser['company_person'] = $_POST['company_person'];//企业法人
             $arrUser['company_phone'] = $_POST['company_phone'];//座机
-            $arrUser['company_area'] = $_POST['province']."#".$_POST['city']."#".$_POST['county'];//省市区
+            $arrUser['company_area'] = $_POST['county'];//省市区
 
             $objUser = D("Doc","Service");
             $arrRes = $objUser->uploadFileAndPictrue($arrPhotosAndFile, $arrFile); 
@@ -86,7 +86,8 @@ class ProjectProviderMyInfoController extends Controller {
 	            echo json_encode($user[0]);
 	            exit;
 	        }
-	    	$arr_company_area = explode("#",$user[0]["company_area"]);
+            $areaObj = D("Area","Service");
+            $arr_company_area = $areaObj->getAreaArrayById($user[0]["company_area"]);
             $user[0]["province"] = $arr_company_area[0];
             $user[0]["city"] = $arr_company_area[1];
             $user[0]["county"] = $arr_company_area[2];

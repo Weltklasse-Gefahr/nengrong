@@ -14,6 +14,9 @@ class ProjectProviderMyProController extends Controller {
     {
         //判断登陆，并且获取用户名的email
         isLogin($_COOKIE['email'],$_COOKIE['mEmail']);
+        $projectInfo["components"] = array("0"=>"");
+        $projectInfo["inverters"]  = array("0"=>"");
+        $this->assign('data',$projectInfo);
     	$this->display("ProjectProvider:projectInfoNew");
     }
 
@@ -89,7 +92,7 @@ class ProjectProviderMyProController extends Controller {
             $arrProInfo['project_code'] = $_POST['project_code']; //项目编码
 
             //共有的一些参数接收
-            $arrInfor['project_area'] = $_POST['province']."#".$_POST['city']."#".$_POST['county'];//省市区
+            $arrInfor['project_area'] = $_POST['county'];//省市区
             
             $arrInfor['project_address'] = $_POST['project_address'];  //详细地址
             $arrInfor['transformer_capacity'] = $_POST['transformer_capacity'];//上级变压器容量
@@ -207,6 +210,8 @@ class ProjectProviderMyProController extends Controller {
                     $arrInfor['financing_type'] = $_POST['financing_type']; //融资方式
                     $arrInfor['history_data'] = $_POST['history_data']; //历史发电量数据/辐照数据
                     $arrInfor['electricity_bill'] = $_POST['electricity_bill']; //电费结算票据
+
+
 
                 }
 
@@ -345,7 +350,25 @@ class ProjectProviderMyProController extends Controller {
                 }
                 $arrInfor["project_id"] = $ret;
             }
+            //对于已建项目类型的，需要存好组件和逆变器
 
+            if ($arrProInfo['build_state'] == 2)
+            {
+                //根据项目id去存一下n个组件
+                $ret = $objProject->addComponent($arrInfor["project_id"]);
+                if ($ret === false)
+                {
+                     echo '{"code":"-1","msg":"组件插入数据库失败！"}';
+                     exit;
+                }
+                //根据项目id去存一下n个逆变器
+                $ret = $objProject->addInverter($arrInfor["project_id"]);
+                if ($ret === false)
+                {
+                     echo '{"code":"-1","msg":"逆变器插入数据库失败！"}';
+                     exit;
+                }
+            }
             if($arrProInfo['project_type'] == 2 || $arrProInfo['project_type'] == 3)
             {
                 $table = 'Ground';
@@ -381,7 +404,16 @@ class ProjectProviderMyProController extends Controller {
             $projectInfo = $objProject->getProjectInfo($projectCode);
             //在去Housetop，or  Ground 取一下数据
             $projectInfoDetail = $objProject->getProjectDetail($projectInfo['id'], $projectInfo['project_type']);
-            $arr_project_area = explode("#",$projectInfoDetail["project_area"]);
+            //获取组件信息
+            $ret = $objProject->getComponent($projectInfo['id']);
+            $projectInfo["components"] = $ret;
+            //获取逆变器信息
+            $ret = $objProject->getInverter($projectInfo['id']);
+            $projectInfo["inverters"] = $ret;
+
+            //$arr_project_area = explode("#",$projectInfoDetail["project_area"]);
+            $areaObj = D("Area","Service");
+            $arr_project_area = $areaObj->getAreaArrayById($projectInfoDetail["project_area"]);
             $projectInfoDetail["cooperation_type"] = explode("&",$projectInfoDetail["cooperation_type"]);
             $projectInfo["province"] = $arr_project_area[0];
             $projectInfo["city"] = $arr_project_area[1];
