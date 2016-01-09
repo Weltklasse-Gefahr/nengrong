@@ -201,15 +201,8 @@
 		</div>
 	</div>
 
-	<php>include '/home/ubuntu/enetfPlatform/nengrong/Home/View/hf/sub_footer.html';</php>
+	<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/hf/sub_footer.html';</php>
 	<!-- 子页面footer:关于我们，联系方式 -->
-	<div class="sub-footer">
-		<a href="?c=AboutUs&a=company">关于我们</a> ｜ 
-		<a id="favorites" href="javascipt:void(0);">收藏我们</a> ｜ 
-		<a href="?c=AboutUs&a=contact">联系我们</a> ｜ 
-		<a href="?c=AboutUs&a=joinUs">加入我们</a>
-		<span href=""> ©2015 北京光辉普惠能源科技有限公司 All rights reserved</span>
-	</div>
 	
 	<script src="/EnergyFe/prd/scripts/x-common@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/scripts/x-common.js.ver';</php>.js"></script>
 	<script src="/EnergyFe/prd/scripts/projectInfo@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/scripts/projectInfo.js.ver';</php>.js"></script>
