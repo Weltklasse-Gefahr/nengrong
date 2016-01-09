@@ -13,6 +13,7 @@ class ProjectInvestorMyProController extends Controller {
 		isLogin($_COOKIE['email'], $_COOKIE['mEmail']);
 		$email = $_COOKIE['email'];
 		// $email = 'qianqiang@qq.com';
+        isDataComplete($email);
 		$objProject = D("Project", "Service");
         $listProject = $objProject->getPushProject($email);
 
@@ -33,6 +34,7 @@ class ProjectInvestorMyProController extends Controller {
 	public function investmentProject(){
 		isLogin($_COOKIE['email'], $_COOKIE['mEmail']);
 		$email = $_COOKIE['email'];
+        isDataComplete($email);
 		//是否需要做？需要建立项目投资表还是加一个字段
 		$this->display("projectInvestor:investmentProject");
 	}

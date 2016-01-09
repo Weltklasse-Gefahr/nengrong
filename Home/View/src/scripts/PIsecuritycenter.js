@@ -24,7 +24,7 @@ $(function(){
 
 		$.ajax({
 		    type: "post",
-		    url: "?c=ProjectInvestor&a=securityCenter" ,
+		    url: "?c=ProjectInvestorMyInfo&a=securityCenter" ,
 		    data: {
 		    	newpass: newpassval
 		    },

@@ -47,7 +47,7 @@ class ProjectInvestorMyInfoController extends Controller {
 			dump($objUser);
 			exit;
 		}
-		$this->assign("userInfo", $userInfo[0]);
+		$this->assign("data", $userInfo[0]);
 		$this->display("ProjectInvestor:myInformation");
 	}
 }

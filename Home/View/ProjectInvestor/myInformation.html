@@ -46,14 +46,14 @@
 				<p class="title">账户详细信息</p>
 				<div class="detail part1 clrfix">
 					<ul>
-						<li><span class="lb">E-mail</span>project@jiaxun.com</li>
-						<li><span class="lb">联系人</span><input name="contact_name" value="张三"/></li>
-						<li><span class="lb">联系人手机</span><input name="mobile" value="13675438976"/></li>
+						<li><span class="lb">E-mail</span>{$data['email']}</li>
+						<li><span class="lb">联系人</span><input name="company_contacts" value="{$data['company_contacts']}"/></li>
+						<li><span class="lb">联系人手机</span><input name="company_contacts_phone" value="{$data['company_contacts_phone']}"/></li>
 					</ul>
 					<ul>
-						<li><span class="lb">企业名称</span>常州佳讯光电系统工程有限公司</li>
-						<li><span class="lb">联系人职务</span><input name="type" value="风险投资部负责人"/></li>
-						<li><span class="lb">座机</span><input name="company_fax" value="0451-8976-4563"/></li>
+						<li><span class="lb">企业名称<input name="company_name" value="{$data['company_name']}"/></li>
+						<li><span class="lb">联系人职务</span><input name="company_contacts_position" value="{$data['company_contacts_position']}"/></li>
+						<li><span class="lb">座机</span><input name="company_phone" value="{$data['company_phone']}"/></li>
 					</ul>
 				</div>
 				<input id="submit" type="submit" value="保存" />

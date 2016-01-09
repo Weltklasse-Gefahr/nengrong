@@ -26,7 +26,7 @@ $(function(){
 
 		$.ajax({
 		    type: "post",
-		    url: "?c=ProjectProvider&a=securityCenter" ,
+		    url: "?c=ProjectProviderMyInfo&a=securityCenter" ,
 		    data: {
 		    	newpass: newpassval
 		    },
