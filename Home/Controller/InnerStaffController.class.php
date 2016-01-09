@@ -235,18 +235,22 @@ class InnerStaffController extends Controller {
 
             $objDoc = D("Doc", "Service");
             $condition['id'] = $projectDetail['picture_full'];
-            $docInfo = $objDoc->getDocInfo($condition);
+            $picture = $objDoc->getDocInfo($condition);
+            $docList = explode(',', $evaluationInfo['doc_mul']);
+            $docListInfo = $objDoc->getAllDocInfo($docList);
 
             if ($_GET['display'] == 'json') {
                 header('Content-Type: text/html; charset=utf-8');
-                dump($docInfo);
+                dump($picture);
+                dump($docListInfo);
                 dump($projectDetail);
                 dump($areaArray);
                 dump($evaluationInfo);
                 exit;
             }
 
-            $this->assign('picture', 'http://www.enetf.com'.$docInfo[0]['file_rename']);
+            $this->assign('picture', 'http://www.enetf.com'.$picture[0]['file_rename']);
+            $this->assign('docListInfo', $docListInfo);
     		$this->assign('projectDetail', $projectDetail);
             $this->assign('areaArray', $areaArray);
     		$this->assign('evaluationInfo', $evaluationInfo);
