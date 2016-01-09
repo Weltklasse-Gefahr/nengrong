@@ -102,7 +102,7 @@ class UserService extends Model{
 		$result = $user->where("email='".$keyList[0]."' and status=2")->save($data);
 
 		if ($result == 0) {
-			echo '{"code":"-1","msg":"mysql error!"}';
+			echo '{"code":"-1","msg":"用户信息不存在!"}';
 			exit;
 		}
 

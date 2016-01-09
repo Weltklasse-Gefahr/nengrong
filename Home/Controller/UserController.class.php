@@ -147,20 +147,31 @@ class UserController extends Controller
     }
 
     public function test1(){
+        $a[0]['id']=1;
+        $a[0]['text']='1';
+        $a[1]['id']=2;
+        $a[1]['text']='2';
+        $b[0]['id']=3;
+        $b[0]['text']='3';
+        $b[0]['qwe']='3';
+        $c=array_merge($a,$b);
+        dump($c);
         // $investors = '123,456,789,';
         // $newstr = substr($investors,0,strlen($investors)-1); 
         // $investorList = explode(",",$newstr);
         // dump($investorList);exit;
-        $email = "82563912@qq.com";
-        $key = $email.",".md5(addToken($email)).",".time();
-        $encryptKey = encrypt($key, getKey()); 
-        $url = "www.enetf.com/?c=User&a=activeUser&key=".$encryptKey;
-        $name = "能融网用户";
-        $subject = "验证您的电子邮箱地址";
-        $text = "激活邮件内容".$url;
-        $r = think_send_mail($email, $name, $subject, $text, null);
-        dump($r);dump($key);dump($url);
-        exit;
+
+        // $email = "82563912@qq.com";
+        // $key = $email.",".md5(addToken($email)).",".time();
+        // $encryptKey = encrypt($key, getKey()); 
+        // $url = "www.enetf.com/?c=User&a=activeUser&key=".$encryptKey;
+        // $name = "能融网用户";
+        // $subject = "验证您的电子邮箱地址";
+        // $text = "激活邮件内容".$url;
+        // $r = think_send_mail($email, $name, $subject, $text, null);
+        // dump($r);dump($key);dump($url);
+        // exit;
+
         // $area = D("Area", "Service");
         // $res = $area->getAreaArrayById("150223");
         // header('Content-Type: text/html; charset=utf-8');

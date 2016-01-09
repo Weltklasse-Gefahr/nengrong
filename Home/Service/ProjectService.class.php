@@ -567,4 +567,99 @@ class ProjectService extends Model{
         return !empty($projectInfo) ? $projectInfo[0]["id"]:false;
     }
 
+    // /**
+    // **@auth qianqiang
+    // **@breif 查询所有项目
+    // **@date 2016.1.8
+    // **/
+    // public function getAllProject($page){
+    //     //将companyType拆分，拆分后判断项目详细表进行筛选
+    //     $objProject = new \Home\Model\ProjectModel(); 
+    //     $projectInfo = $objProject->where($condition)->order('highlight_flag desc')->select();
+    //     return $projectInfo;
+    // }
+
+    /**
+    **@auth qianqiang
+    **@breif 综合查询
+    **@param condition 数组，查询的条件
+    **@date 2016.1.8
+    **/
+    public function searchService($companyName, $companyType, $situation, $startDate, $endDate, $status, $cooperationType, $page){
+        //将companyType拆分，拆分后判断项目详细表进行筛选
+        $housetopSql = "";
+        $groundSql = "";
+        if($companyType == null || $companyType == '全部'){
+            $housetopSql = "select * from enf_project join enf_housetop on enf_project.id = enf_housetop.project_id";
+            $groundSql = "select * from enf_project join enf_ground on enf_project.id = enf_ground.project_id";
+        }else{
+            $typeArr = explode(" - ",$companyType);
+            if($typeArr[0] == '屋顶分布式'){
+                $housetopSql = "select * from enf_project join enf_housetop on enf_project.id = enf_housetop.project_id where enf_project.project_type=1";
+                if($typeArr[1] == '未建'){
+                    $housetopSql = $housetopSql." and enf_project.build_state=1";
+                }elseif($typeArr[1] == '已建'){
+                    $housetopSql = $housetopSql." and enf_project.build_state=2";
+                }
+            }elseif($typeArr[0] == '地面分布式'){
+                $groundSql = "select * from enf_project join enf_ground on enf_project.id = enf_ground.project_id where enf_project.project_type=2";
+                if($typeArr[1] == '未建'){
+                    $groundSql = $groundSql." and enf_project.build_state=1";
+                }elseif($typeArr[1] == '已建'){
+                    $groundSql = $groundSql." and enf_project.build_state=2";
+                }
+            }elseif($typeArr[0] == '大型地面'){
+                $groundSql = "select * from enf_project join enf_ground on enf_project.id = enf_ground.project_id where enf_project.project_type=3";
+                if($typeArr[1] == '未建'){
+                    $groundSql = $groundSql." and enf_project.build_state=1";
+                }elseif($typeArr[1] == '已建'){
+                    $groundSql = $groundSql." and enf_project.build_state=2";
+                }
+            }
+        }
+        if(!($companyName == null || $companyName == '全部')){
+            if($housetopSql != ""){
+                $housetopSql = $housetopSql." and enf_Housetop.build_state=1";
+            }
+            if($groundSql != ""){
+
+            }
+        }
+        if(!($situation == null || $situation == '全部')){
+            if($housetopSql != ""){
+
+            }
+            if($groundSql != ""){
+
+            }
+        }
+        if(!($status == null || $status == '全部')){
+            if($housetopSql != ""){
+
+            }
+            if($groundSql != ""){
+
+            }
+        }
+        if(!($cooperationType == null || $cooperationType == '全部')){
+            if($housetopSql != ""){
+
+            }
+            if($groundSql != ""){
+
+            }
+        }
+        if($startDate != null && $endDate != null){
+            if($housetopSql != ""){
+
+            }
+            if($groundSql != ""){
+
+            }
+        }
+
+
+        return $projectInfo;
+    }
+
 }

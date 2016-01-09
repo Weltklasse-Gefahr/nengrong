@@ -2,7 +2,8 @@
 require_once dirname(dirname(__FILE__)).'/library/class.phpmailer.php';
 require_once dirname(dirname(__FILE__)).'/library/PHPMailerAutoload.php';
 /**
- * 系统邮件发送函数
+ * @auth qianqiang
+ * @breif 系统邮件发送函数
  * @param string $to    接收邮件者邮箱
  * @param string $name  接收邮件者名称
  * @param string $subject 邮件主题 
@@ -212,7 +213,7 @@ function addToken($str){
 **@date 2015.12.17
 **/
 function getKey(){
-    return "ENFESDFSrwdsccxh3392222KKSKSNF";
+    return "ENFESDFSrwdsccxh33922@&@##22KKSKSNF";
 }
 
 /**

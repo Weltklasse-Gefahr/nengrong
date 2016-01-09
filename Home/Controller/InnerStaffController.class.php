@@ -352,10 +352,8 @@ class InnerStaffController extends Controller {
                 echo '{"code":"-1","msg":"push project error"}';
         }else{
             $page = $_GET['page'];
-            if(empty($page))    $page=1;
+            if(empty($page)) $page=1;
             $pageSize = 6;
-            // $start = $page*$pageSize-$pageSize;
-            
             $investor = D('User', 'Service');
             $investorList = $investor->getInvestorPush($projectCode, $page);
             $investorTotal = $investor->getInvestorPush($projectCode, -1);
@@ -373,5 +371,40 @@ class InnerStaffController extends Controller {
             $this->assign("arrData", $data);
             $this->display("InnerStaff:pushProject");
         }
+    }
+
+    /**
+    **@auth qianqiang
+    **@breif 客服->综合查询
+    **@date 2016.1.8
+    **/
+    public function search(){
+        isLogin($_COOKIE['email'], $_COOKIE['mEmail']);
+        $rtype = $_POST['rtype'] ? $_POST['rtype']:$_GET['rtype'];
+        $page = $_GET['page'];
+        if(empty($page)) $page=1;
+        $pageSize = 6;
+        if($rtype == 1){
+            $projectObj = D("Project", "Service");
+            $projectList = $projectObj->searchService($companyName, $companyType, $situation, $startDate, $endDate, $status, $cooperationType, $page);
+            $projectTotal = $projectObj->searchService($companyName, $companyType, $situation, $startDate, $endDate, $status, $cooperationType, -1);
+        }else{
+            // $projectObj = D("Project", "Service");
+            // $projectList = $projectObj->searchService(null, null, null, null, null, null, null, $page);
+            // $projectTotal = $projectObj->searchService(null, null, null, null, null, null, null, -1);
+        }
+        $data = array();
+        $data["list"] = $projectList;
+        $data["page"] = $page;
+        $data["count"] = sizeof($projectTotal);
+        $data["totalPage"] = ceil($data["count"]/$pageSize+1);
+        $data["endPage"] = $data["totalPage"];
+        if($_GET['display']=="json"){
+            header('Content-Type: text/html; charset=utf-8');
+            dump($data);
+            exit;
+        }
+        $this->assign("arrData", $data);
+        $this->display("InnerStaff:search");
     }
 }
