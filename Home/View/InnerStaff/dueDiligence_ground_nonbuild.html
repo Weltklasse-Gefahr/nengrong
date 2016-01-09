@@ -41,6 +41,7 @@
 		
 		<!-- 右侧布局 -->
 		<div class="r-content">
+		<?php if($evaluationInfo['status'] != 52){ ?>
 			<form id="infoForm" action="?c=InnerStaff&a=dueDiligence&rtype=1" method="post"><input type="hidden" name="optype" value=""/>
 				<div class="detail part1">
 					<p class="title">项目经济收益测算</p>
@@ -309,7 +310,7 @@ C.项目经济收益情况<?php } ?>
 					<input data-optype="submit" type="submit" value="提交" class="last">
 				</div>
 			</form>
-
+		<?php }else{ ?>
 			<form>
 				<div class="detail part1">
 					<p class="title">项目经济收益测算</p>
@@ -438,6 +439,7 @@ C.项目经济收益情况<?php } ?>
 					</div>
 				</div>
 			</form>
+		<?php } ?>
 		</div>
 	</div>
 

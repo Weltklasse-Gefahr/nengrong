@@ -17,10 +17,15 @@ class UserService extends Model{
         	echo '{"code":"-1","msg":"登录信息错误"}';
         	exit;
         }
+        if($users[0]['status'] == 2){
+        	echo '{"code":"-1","msg":"用户未激活,请查收激活邮件"}';
+        	exit;
+        }
 
         if($users['user_type'] == 2){
         	setcookie("userType", 2, time()+3600);
-        	setcookie("userName", "能融网客服", time()+3600);
+        	$innerName = urlencode("能融网客服");
+        	setcookie("userName", $innerName, time()+3600);
         }elseif($users['user_type'] == 3){
         	setcookie("userType", 3, time()+3600);
         	setcookie("userName", $users['company_name'], time()+3600);
