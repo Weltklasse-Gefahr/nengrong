@@ -1,3 +1,3 @@
 $(function(){
-	$(".l-nav").find(".informationgallery").addClass("active");
+	$(".l-nav").find(".projectInfo").addClass("active");
 });

@@ -6,7 +6,7 @@
 	<meta name="description" content="">
 	<meta name="keywords" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes">
-	<title>注册成功</title>
+	<title>注册成功提示</title>
 	
 	<!-- Set render engine for 360 browser -->
 	<meta name="renderer" content="webkit">
@@ -30,7 +30,7 @@
 	<meta name="msapplication-TileImage" content="/EnergyFe/img/i/favicon.png">
 	<meta name="msapplication-TileColor" content="#0e90d2">
 	<link rel="stylesheet" href="/View/prd/styles/x-common@ttrrr.css">
-	<link rel="stylesheet" href="/View/prd/styles/loginsus@ttt.css">
+	<link rel="stylesheet" href="/View/prd/styles/loginsusprompt@ttt.css">
 <body>
 	<php>include '/home/ubuntu/enetfPlatform/nengrong/Home/View/hf/header.html';</php>
 	<!-- 二期页面header -->
@@ -52,12 +52,19 @@
 		<div class="md">
 			<p class="title">您已注册成功！</p>
 			<div class="part1">
-				<span>账号注册成功</span>
+				<span>请<a href="">打开邮箱(XXX@XXX.com)收取账号激活邮件</a>，</span>
+				<p>并点击邮箱中的激活链接，方可使用账号。</p>
 			</div>
-			<div class="part2">				
-				<span>系统将在3秒后自动跳转到：</span>
-				<a href="?c=ProjectInvestorMyPro&a=investmentProject">http//www.enetf.com/EneryInfo/projectList.php</a>			
-			</div>		
+			<div class="part2">
+				<dl>
+					<dt>如果您一直收不到激活邮件，请检查：</dt>
+					<dl>1.请确认是否填写正确的邮箱地址：XXX@XXX.com</dl>
+					<dl>2.请注意查看您邮箱中的垃圾邮件，可能oschaina的邮件被误杀了</dl>
+				</dl>
+			</div>
+			<div class="part3">
+				<a href="">进入登录界面>></a>
+			</div>			
 		</div>
 		
 	</div>
@@ -73,6 +80,6 @@
 	</div>
 	
 	<script src="/View/prd/scripts/x-common@.js"></script>
-	<script src="/View/prd/scripts/loginsus@.js"></script>
+	<script src="/View/prd/scripts/loginsusprompt@.js"></script>
 </body>
 </html>

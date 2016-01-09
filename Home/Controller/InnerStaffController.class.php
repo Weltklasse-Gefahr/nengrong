@@ -21,6 +21,7 @@ class InnerStaffController extends Controller {
 
     	$areaObj = D("Area", "Service");
     	$areaStr = $areaObj->getAreaById($userInfo['company_area']);
+
     	$docObj = D("Doc", "Service");
     	$condition['id'] = $userInfo['business_license'];
     	$docInfo = $docObj->getDocInfo($condition);

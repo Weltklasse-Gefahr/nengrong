@@ -6,7 +6,7 @@
 	<meta name="description" content="">
 	<meta name="keywords" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes">
-	<title>注册成功</title>
+	<title>修改密码</title>
 	
 	<!-- Set render engine for 360 browser -->
 	<meta name="renderer" content="webkit">
@@ -29,8 +29,8 @@
 	<!-- Tile icon for Win8 (144x144 + tile color) -->
 	<meta name="msapplication-TileImage" content="/EnergyFe/img/i/favicon.png">
 	<meta name="msapplication-TileColor" content="#0e90d2">
-	<link rel="stylesheet" href="/View/prd/styles/x-common@ttrrr.css">
-	<link rel="stylesheet" href="/View/prd/styles/loginsus@ttt.css">
+	<link rel="stylesheet" href="/EnergyFe/prd/styles/x-common@<php>include '/home/ubuntu/enetfPlatform/nengrong/Home/View/ver/styles/x-common.css.ver';</php>.css">
+	<link rel="stylesheet" href="/EnergyFe/prd/styles/ISsecuritycenter@<php>include '/home/ubuntu/enetfPlatform/nengrong/Home/View/ver/styles/ISsecuritycenter.css.ver';</php>.css">
 <body>
 	<php>include '/home/ubuntu/enetfPlatform/nengrong/Home/View/hf/header.html';</php>
 	<!-- 二期页面header -->
@@ -43,21 +43,27 @@
 			</div>
 		</div>
 		<div class="bd">
-			<img src="/View/img/x-logo.png">信息管理系统
+			<img src="/EnergyFe/img/x-logo.png">信息管理系统
 		</div>
 	</div>
 
 	<div class="main clrfix">
+		
 		<!-- 右侧布局 -->
-		<div class="md">
-			<p class="title">您已注册成功！</p>
-			<div class="part1">
-				<span>账号注册成功</span>
+		<div class="r-content">
+			<p class="title">密码管理</p>
+			<div class="md">
+				<p id="warning" style="display: none;">你的新旧密码一样，请重新输入</p>
+				<p id="warning2" style="display: none;">确认密码不一致，请重新输入</p>
+				<ul>	
+					<li><span class="lb">原密码</span><input id="oldpassinput" name="oldpass" type="password"/></li>
+					<li><span class="lb">新密码</span><input id="newpassinput" name="newpass" type="password"/></li>
+					<li><span class="lb">确认密码</span><input id="repeatpassinput" name="repeatpass" type="password"/></li>
+				</ul>
 			</div>
-			<div class="part2">				
-				<span>系统将在3秒后自动跳转到：</span>
-				<a href="?c=ProjectInvestorMyPro&a=investmentProject">http//www.enetf.com/EneryInfo/projectList.php</a>			
-			</div>		
+			<div class="button">
+				<button id="changebtn" type="submit";>确认修改</button>
+			</div>
 		</div>
 		
 	</div>
@@ -72,7 +78,7 @@
 		<span href=""> ©2015 北京光辉普惠能源科技有限公司 All rights reserved</span>
 	</div>
 	
-	<script src="/View/prd/scripts/x-common@.js"></script>
-	<script src="/View/prd/scripts/loginsus@.js"></script>
+	<script src="/EnergyFe/prd/scripts/x-common@<php>include '/home/ubuntu/enetfPlatform/nengrong/Home/View/ver/scripts/x-common.js.ver';</php>.js"></script>
+	<script src="/EnergyFe/prd/scripts/ISsecuritycenter@<php>include '/home/ubuntu/enetfPlatform/nengrong/Home/View/ver/scripts/ISsecuritycenter.js.ver';</php>.js"></script>
 </body>
 </html>
