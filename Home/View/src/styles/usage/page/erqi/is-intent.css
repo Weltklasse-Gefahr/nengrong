@@ -22,6 +22,7 @@
 
 .r-content {
 	width: 670px;
+	position: relative;
 }
 
 .r-content form .operator {
@@ -48,4 +49,17 @@
 
 .r-content form .operator .save {
 	margin-right: 100px;
+}
+
+.r-content .signed {
+	position: absolute;
+	right: -130px;
+	top: 100px;
+	width: 100px;
+	line-height: 100px;
+	text-align: center;
+	background-color: #ccc;
+	border-radius: 100%;
+	color: #fff;
+	display: none;
 }

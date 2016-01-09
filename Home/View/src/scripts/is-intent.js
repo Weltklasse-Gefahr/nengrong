@@ -57,6 +57,7 @@ $(function() {
 						successCallback: function() {
 							ue.disable(true);
 							$("input[type=submit]").addClass("disabled").prop("disabled", true);
+							$(".signed").show();
 						}
 					});
 				}).fail(function() {
