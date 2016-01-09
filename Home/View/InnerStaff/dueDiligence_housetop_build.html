@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes">
+	<title>尽职调查</title>
+	
+	<!-- Set render engine for 360 browser -->
+	<meta name="renderer" content="webkit">
+	
+	<!-- No Baidu Siteapp-->
+	<meta http-equiv="Cache-Control" content="no-siteapp" />
+	
+	<link rel="icon" type="image/png" href="/EnergyFe/img/i/favicon.png">
+	
+	<!-- Add to homescreen for Chrome on Android -->
+	<meta name="mobile-web-app-capable" content="yes">
+	<link rel="icon" sizes="192x192" href="/EnergyFe/img/i/favicon.png">
+	
+	<!-- Add to homescreen for Safari on iOS -->
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-title" content="Amaze UI" />
+	<link rel="apple-touch-icon-precomposed" href="/EnergyFe/img/i/favicon.png">
+	
+	<!-- Tile icon for Win8 (144x144 + tile color) -->
+	<meta name="msapplication-TileImage" content="/EnergyFe/img/i/favicon.png">
+	<meta name="msapplication-TileColor" content="#0e90d2">
+	<link rel="stylesheet" href="/EnergyFe/prd/styles/x-common@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/styles/x-common.css.ver';</php>.css">
+	<link rel="stylesheet" href="/EnergyFe/uploadifive/uploadifive.css">
+	<link rel="stylesheet" href="/EnergyFe/prd/styles/is-dueDiligence@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/styles/is-dueDiligence.css.ver';</php>.css">
+<body>
+	<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/hf/erqi/header.html';</php>
+
+	<div class="main clrfix">
+		<!-- 左侧导航栏 -->
+		<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/InnerStaff/InnerStaff_left.html';</php>
+		
+		<!-- 右侧布局 -->
+		<div class="r-content">
+			<form id="infoForm" action="?c=InnerStaff&a=dueDiligence&rtype=1" method="post"><input type="hidden" name="optype" value=""/>
+				<div class="detail part1">
+					<p class="title">项目经济收益测算</p>
+					<div class="brief-info clrfix">
+						<img class="l" src="/EnergyFe/img/demo1.jpg" />
+						<div class="r">
+							<div class="top">
+								<span>内部收益率IRR<input name="IRR" value="{$evaluationInfo['irr']}" maxlength="10" /></span>
+								<!-- <span class="last">评价结果<input name="evaluation_result" maxlength="10" /></span> -->
+								<input name="evaluation_result" value="{$evaluationInfo['evaluation_result']}" type="hidden" />
+							</div>
+							<div class="middle clrfix">
+								<div class="item">
+									<img src="/EnergyFe/img/IM1.jpg"/>
+									<div><input name="static_payback_time" value="{$evaluationInfo['static_payback_time']}" maxlength="10" /></div>
+									<span>静态投资回收年</span>
+								</div>
+								<div class="item">
+									<img src="/EnergyFe/img/IM1.jpg"/>
+									<div><input name="dynamic_payback_time" value="{$evaluationInfo['dynamic_payback_time']}" maxlength="10" /></div>
+									<span>动态投资回收年</span>
+								</div>
+								<div class="item">
+									<img src="/EnergyFe/img/IM1.jpg"/>
+									<div><input name="LCOE" value="{$evaluationInfo['lcoe']}" maxlength="10" /></div>
+									<span>LCOE</span>
+								</div>
+							</div>
+							<div class="bottom">
+								<span>净现值npv<input name="npv" value="{$evaluationInfo['npv']}" maxlength="10" /></span>
+								<span class="last">电站资产累计现值<input  name="power_asset_current_value" value="{$evaluationInfo['power_asset_current_value']}" maxlength="10" /></span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="detail part2">
+					<p class="title">评估报告及项目评级报表</p>
+					<table class="main-info">
+						<tbody>
+							<tr>
+								<td>基本信息</td>
+								<td>
+									<table class="base-info">
+										<tbody>
+											<tr>
+												<td class="c0">屋顶业主名称</td>
+												<td class="c1"><input name="housetop_owner" value="{$projectDetail['housetop_owner']}"/></td>
+												<td class="c2">企业类型</td>
+												<td class="c3">
+													<select name="company_type" value="{$projectDetail['company_type']}" >
+														<option value="1">国企（上市公司）</option>
+														<option value="2" selected>外企（上市公司）</option>
+														<option value="3">私企（上市公司）</option>
+														<option value="4">国企（非上市公司）</option>
+														<option value="5">外企（非上市公司）</option>
+														<option value="6">私企（非上市公司）</option>
+													</select>
+												</td>
+											</tr>
+											<tr>
+												<td class="c0">建设容量</td>
+												<td class="c1"><input name="plan_build_volume" value="{$projectDetail['plan_build_volume']}" /><span>kW</span></td>
+												<td class="c2">项目地点</td>
+												<td class="c3 area">
+													<div>
+														<select name="province" class="first" data-code="{$areaArray[0]}">
+															<option value="">选择省</option>
+														</select>省
+														<select name="city" data-code="{$areaArray[1]}">
+															<option value="">选择市</option>
+														</select>市
+														<select name="county" data-code="{$areaArray[2]}">
+															<option value="">选择区</option>
+														</select>区
+													</div>
+													<input name="project_address" value="{$projectDetail['project_address']}" />
+												</td>
+											</tr>
+											<tr>
+												<td class="c0">屋顶类型</td>
+												<td class="c1">
+													<select name="housetop_type" value="{$projectDetail['housetop_type']}" data-with-other="true">
+														<option value="1">混凝土</option>
+														<option value="2">彩钢瓦</option>
+														<option value="0">其他（可填写）</option>
+													</select>
+													<input class="other" name="housetop_type_other" value="{$projectDetail['housetop_type_other']}" style="display: none;" value="">
+												</td>
+												<td class="c2">并网方式</td>
+												<td class="c3">
+													<select name="synchronize_type" value="{$projectDetail['synchronize_type']}">
+														<option value="1">自发自用</option>
+														<option value="2" selected>全额上网</option>
+														<option value="3">自发自用,全额上网</option>
+													</select>
+												</td>
+											</tr>
+											<tr>
+												<td class="c0">拟融资金额</td>
+												<td class="c1"><input name="plan_financing" value="{$projectDetail['plan_financing']}"><span>万元</span></td>
+												<td class="c2">融资方式</td>
+												<td class="c3">
+													<select name="financing_type" value="{$projectDetail['financing_type']}">
+														<option value="2" selected>融资租赁（回租）</option>
+														<option value="3">股权融资</option>
+													</select>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</td>
+							</tr>
+							<tr>
+								<td>评价内容</td>
+								<td>
+									<textarea name="evaluation_content" value="" readonly>
+									<?php if($evaluationInfo['evaluation_content']){ 
+										 echo $evaluationInfo['evaluation_content'];
+										 }else{ ?>
+									A.文件审查
+B.工程建设质量和系统运行情况
+C.项目建设投资情况
+D.项目经济收益情况
+									<?php } ?>
+									</textarea>
+								</td>
+							</tr>
+							<tr>
+								<td>评价情况</td>
+								<td>
+									<div class="item">
+										<div class="hd">A、文件审查</div>
+										<div class="bd"><textarea name="document_review" value="">
+										<?php if($evaluationInfo['document_review']){ 
+										 echo $evaluationInfo['document_review'];
+										 }else{ ?>
+										1、电站核准文件齐全；
+2、电站电价0.95元/kWh，补贴20年；
+3、电站总投资45358.038万元，单位投资9163.24元/W；
+4、电站为全投资，尚无其他融资安排；
+5、电费收入已到位0.68元/kWh，国家0.57元/kWh补贴 尚未结算；
+6、电费每月结算一次；
+										<?php } ?>
+										</textarea></div>
+									</div>
+									<div class="item">
+										<div class="hd">B、工程建设质量和系统运行情况</div>
+										<div class="bd"><textarea name="project_quality_situation" value="">
+										<?php if($evaluationInfo['project_quality_situation']){ 
+										 echo $evaluationInfo['project_quality_situation'];
+										 }else{ ?>
+										1、该项目过程文件齐全；
+2、对该光伏电站现场12类项目进行了检查，合计67个子项
+										<?php } ?>
+										</textarea></div>
+									</div>
+									<div class="item">
+										<div class="hd">C、项目建设投资情况</div>
+										<div class="bd"><textarea name="project_invest_situation" value="">
+										<?php if($evaluationInfo['project_invest_situation']){ 
+										 echo $evaluationInfo['project_invest_situation'];
+										 }else{ ?>
+										总投资（万元）           23000
+其中：关键设备（万元）      18000
+施工费（万元）           3770
+土地租赁及补偿费用（万元）   500
+其他费用（万元）          300
+										<?php } ?>
+										</textarea></div>
+									</div>
+									<div class="item">
+										<div class="hd">D、项目经济收益情况</div>
+										<div class="bd"><textarea name="project_earnings_situation" value="">
+										<?php if($evaluationInfo['project_earnings_situation']){ 
+										 echo $evaluationInfo['project_earnings_situation'];
+										 }else{ ?>
+										1、依据历史发电数据测算该项目年发电量为3342.6万度，交流侧等效年发电有效利用小时为1337小时。
+2、IRR=19.79%，静态回收期4.32059581142年，LCOE为。
+3.项目按收益法折现（折现率8%）后得到电站价格：31004.83万元。
+										}else{ ?>
+										</textarea></div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td>评价结果</td>
+								<td>
+									<table class="result-info">
+										<tr>
+											<td class="t" style="width: 82px;">P\IRR</td>
+											<td class="t">&lt;9%</td>
+											<td class="t">9%</td>
+											<td class="t">10%</td>
+											<td class="t">11%</td>
+											<td class="t">12%</td>
+											<td class="t">13%</td>
+											<td class="t">14%</td>
+											<td class="t">&gt;15%</td>
+										</tr>
+										<tr>
+											<td class="t">&gt;95%</td>
+											<td class="s"><div class="s-cc">CC</div></td>
+											<td class="s"><div class="s-ccc">CCC</div></td>
+											<td class="s"><div class="s-b">B</div></td>
+											<td class="s"><div class="s-bb">BB</div></td>
+											<td class="s"><div class="s-bbb">BBB</div></td>
+											<td class="s"><div class="s-a">A</div></td>
+											<td class="s"><div class="s-aa">AA</div></td>
+											<td class="s"><div class="s-aaa">AAA</div></td>
+										</tr>
+										<tr>
+											<td class="t">&gt;90%</td>
+											<td class="s"><div class="s-cc">CC</div></td>
+											<td class="s"><div class="s-cc">CC</div></td>
+											<td class="s"><div class="s-b">B</div></td>
+											<td class="s"><div class="s-bb">BB</div></td>
+											<td class="s"><div class="s-bbb">BBB</div></td>
+											<td class="s"><div class="s-a">A</div></td>
+											<td class="s"><div class="s-aa">AA</div></td>
+											<td class="s"><div class="s-aa">AA</div></td>
+										</tr>
+										<tr>
+											<td class="t">&gt;80%</td>
+											<td class="s"><div class="s-cc">CC</div></td>
+											<td class="s"><div class="s-cc">CC</div></td>
+											<td class="s"><div class="s-b">B</div></td>
+											<td class="s"><div class="s-bb">BB</div></td>
+											<td class="s"><div class="s-bbb">BBB</div></td>
+											<td class="s"><div class="s-a">A</div></td>
+											<td class="s"><div class="s-a">A</div></td>
+											<td class="s"><div class="s-a">A</div></td>
+										</tr>
+										<tr>
+											<td class="t">&gt;70%</td>
+											<td class="s"><div class="s-c">C</div></td>
+											<td class="s"><div class="s-c">C</div></td>
+											<td class="s"><div class="s-b">B</div></td>
+											<td class="s"><div class="s-bb">BB</div></td>
+											<td class="s"><div class="s-bbb">BBB</div></td>
+											<td class="s"><div class="s-bbb">BBB</div></td>
+											<td class="s"><div class="s-bbb">BBB</div></td>
+											<td class="s"><div class="s-bbb">BBB</div></td>
+										</tr>
+										<tr>
+											<td class="t">&gt;60%</td>
+											<td class="s"><div class="s-c">C</div></td>
+											<td class="s"><div class="s-c">C</div></td>
+											<td class="s"><div class="s-b">B</div></td>
+											<td class="s"><div class="s-bb">BB</div></td>
+											<td class="s"><div class="s-bb">BB</div></td>
+											<td class="s"><div class="s-bb">BB</div></td>
+											<td class="s"><div class="s-bb">BB</div></td>
+											<td class="s"><div class="s-bb">BB</div></td>
+										</tr>
+										<tr>
+											<td class="t">&lt;=60%</td>
+											<td class="s"><div class="s-c">C</div></td>
+											<td class="s"><div class="s-c">C</div></td>
+											<td class="s"><div class="s-b">B</div></td>
+											<td class="s"><div class="s-b">B</div></td>
+											<td class="s"><div class="s-b">B</div></td>
+											<td class="s"><div class="s-b">B</div></td>
+											<td class="s"><div class="s-b">B</div></td>
+											<td class="s"><div class="s-b">B</div></td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="part3">
+					<div class="attachment-ct"><input type="file" id="mf" /></div>
+					<div class="fileQueue" id="fileQueue"></div>
+				</div>
+				<div class="operator">
+					<input class="save" data-optype="save" type="submit" value="保存">
+					<input class="submit" data-optype="submit" type="submit" value="提交">
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/hf/sub_footer.html';</php>
+	
+	<script src="/EnergyFe/prd/scripts/x-common@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/scripts/x-common.js.ver';</php>.js"></script>
+	<script src="/EnergyFe/uploadifive/jquery.uploadifive.js"></script>
+	<script src="/EnergyFe/prd/scripts/is-dueDiligence@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/scripts/is-dueDiligence.js.ver';</php>.js"></script>
+</body>
+</html>

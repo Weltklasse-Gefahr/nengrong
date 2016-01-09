@@ -1,0 +1,52 @@
+.step {
+    width: 627px;
+    line-height: 30px;
+    text-align: center;
+    color: #fff;
+}
+
+.step .s1, .step .s2, .step .s3, .step .s4 {
+    float: right;
+}
+
+.step i {
+    font-size: 20px;
+    margin-right: 6px;
+    font-style: normal;
+    font-family: 'ArialMT', 'Arial';
+}
+
+.step .s1, .step .s2, .step .s3 {
+    margin-right: -10px;
+}
+
+
+.step .s4 {
+    width: 177px;
+    background: url(/EnergyFe/img/step/step177_disabled.png) left center no-repeat;
+}
+
+.step .s1, .step .s2, .step .s3 {
+    width: 160px;
+    background: url(/EnergyFe/img/step/step160_disabled.png) left center no-repeat;
+}
+
+.step1 .s1 {
+    cursor: pointer;
+    background: url(/EnergyFe/img/step/step160.png) left center no-repeat;
+}
+
+.step2 .s1, .step2 .s2 {
+    cursor: pointer;
+    background: url(/EnergyFe/img/step/step160.png) left center no-repeat;
+}
+
+.step3 .s1, .step3 .s2, .step3 .s3 {
+    cursor: pointer;
+    background: url(/EnergyFe/img/step/step160.png) left center no-repeat;
+}
+
+.step4 .s1, .step4 .s2, .step4 .s3, .step4 .s4 {
+    cursor: pointer;
+    background: url(/EnergyFe/img/step/step160.png) left center no-repeat;
+}

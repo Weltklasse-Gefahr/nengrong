@@ -1,63 +1,46 @@
 <?php 
+require_once dirname(dirname(__FILE__)).'/library/class.phpmailer.php';
+require_once dirname(dirname(__FILE__)).'/library/PHPMailerAutoload.php';
 /**
- * code()是验证码函数
- * @access public
- * @param int $_width 验证码的长度：如果要6位长度推荐75+50；如果要8位，推荐75+50+50，依次类推
- * @param int $_height 验证码的高度
- * @param int $_rnd_code 验证码的位数
- * @param bool $_flag 验证码是否需要边框：true有边框， false无边框（默认）
- * @return void 这个函数执行后产生一个验证码
+ * @auth qianqiang
+ * @breif 系统邮件发送函数
+ * @param string $to    接收邮件者邮箱
+ * @param string $name  接收邮件者名称
+ * @param string $subject 邮件主题 
+ * @param string $body    邮件内容
+ * @param string $attachment 附件列表
+ * @return boolean 
+ * @date 2016.1.7
  */
-function code($_width = 75,$_height = 25,$_rnd_code = 4,$_flag = false) {
-    //创建随机码
-    for ($i=0;$i<$_rnd_code;$i++) {
-        $_nmsg .= dechex(mt_rand(0,15));
+ function think_send_mail($to, $name, $subject = '', $body = '', $attachment = null){
+    $config = C('THINK_EMAIL');
+    //vendor('PHPMailer.class#phpmailer'); //从PHPMailer目录导class.phpmailer.php类文件
+    $mail             = new PHPMailer(); //PHPMailer对象
+    $mail->CharSet    = 'UTF-8'; //设定邮件编码，默认ISO-8859-1，如果发中文此项必须设置，否则乱码
+    $mail->IsSMTP();  // 设定使用SMTP服务
+    $mail->SMTPDebug  = 0;                     // 关闭SMTP调试功能
+                                               // 1 = errors and messages
+                                               // 2 = messages only
+    $mail->SMTPAuth   = true;                  // 启用 SMTP 验证功能
+    $mail->SMTPSecure = 'ssl';                 // 使用安全协议
+    $mail->Host       = $config['SMTP_HOST'];  // SMTP 服务器
+    $mail->Port       = $config['SMTP_PORT'];  // SMTP服务器的端口号
+    $mail->Username   = $config['SMTP_USER'];  // SMTP服务器用户名
+    $mail->Password   = $config['SMTP_PASS'];  // SMTP服务器密码
+    $mail->SetFrom($config['FROM_EMAIL'], $config['FROM_NAME']);
+    $replyEmail       = $config['REPLY_EMAIL']?$config['REPLY_EMAIL']:$config['FROM_EMAIL'];
+    $replyName        = $config['REPLY_NAME']?$config['REPLY_NAME']:$config['FROM_NAME'];
+    $mail->AddReplyTo($replyEmail, $replyName);
+    $mail->Subject    = $subject;
+    $mail->MsgHTML($body);
+    $mail->AddAddress($to, $name);
+    if(is_array($attachment)){ // 添加附件
+        foreach ($attachment as $file){
+            is_file($file) && $mail->AddAttachment($file);
+        }
     }
-    //保存在session
-    //$_SESSION['code'] = $_nmsg;
-    //把加密后的动态码保存到cookie
-    $mDynamicCode = MD5($_nmsg."ENFENF");
-    setcookie("mDynamicCode", $email, time()+3600);
-    
-
-    //创建一张图像
-    $_img = imagecreatetruecolor($_width,$_height);
-    //白色
-    $_white = imagecolorallocate($_img,255,255,255);
-    //填充
-    imagefill($_img,0,0,$_white);
-    if ($_flag) {
-        //黑色,边框
-        $_black = imagecolorallocate($_img,0,0,0);
-        imagerectangle($_img,0,0,$_width-1,$_height-1,$_black);
-    }
-    //随即画出6个线条
-    for ($i=0;$i<6;$i++) {
-        $_rnd_color = imagecolorallocate($_img,mt_rand(0,255),mt_rand(0,255),mt_rand(0,255));
-        imageline($_img,mt_rand(0,$_width),mt_rand(0,$_height),mt_rand(0,$_width),mt_rand(0,$_height),$_rnd_color);
-    }
-    //随即雪花
-    for ($i=0;$i<100;$i++) {
-        $_rnd_color = imagecolorallocate($_img,mt_rand(200,255),mt_rand(200,255),mt_rand(200,255));
-        imagestring($_img,1,mt_rand(1,$_width),mt_rand(1,$_height),'*',$_rnd_color);
-    }
-    //输出验证码
-    for ($i=0;$i<strlen($_SESSION['code']);$i++) {
-        $_rnd_color = imagecolorallocate($_img,mt_rand(0,100),mt_rand(0,150),mt_rand(0,200));
-        imagestring($_img,5,$i*$_width/$_rnd_code+mt_rand(1,10),mt_rand(1,$_height/2),$_SESSION['code'][$i],$_rnd_color);
-    }
-    //输出图像
-    // 建立 PNG 图型。
-    // int imagepng(int im, string [filename]);
-    // 本函数用来建立一张 PNG 格式图形。参数 im 为使用 ImageCreate() 所建立的图片代码。
-    // 参数 filename 可省略，若无本参数 filename，则会将图片指接送到浏览器端，
-    // 记得在送出图片之前要先送出使用 Content-type: image/png 的标头字符串 (header) 到浏览器端，以顺利传输图片。
-    header('Content-Type: image/png');
-    imagepng($_img);
-    //销毁
-    imagedestroy($_img);
-
-}
+    return $mail->Send() ? true : $mail->ErrorInfo;
+ }
 
 /**
 **@auth qiujinhan
@@ -72,8 +55,8 @@ function uploadPicOne($photo, $savePath = ''){
     $upload = new \Think\Upload();
     // 设置附件上传大小
     $upload->maxSize   =     3145728 ;
-    // 设置附件上传类型
-    $upload->exts      =     array('jpg', 'gif', 'png', 'jpeg');
+    // 设置附件上传类型 .jpg .jpeg .gif .png .bmp .psd
+    $upload->exts      =     array('jpg', 'gif', 'png', 'jpeg', 'bmp', 'psd');
     // 设置附件上传根目录
     $dirNengrongUserDataImg = dirname(dirname(dirname(__FILE__))).'/userdata/img/';
     $upload->rootPath  =      $dirNengrongUserDataImg; 
@@ -89,7 +72,8 @@ function uploadPicOne($photo, $savePath = ''){
     $info   =   $upload->uploadOne($photo);
     if(!$info) {
          // 上传错误提示错误信息
-        return $upload->getError();
+        echo '{"code":"-1","msg":"更新失败！原因：'.$upload->getError().'"}';
+        exit;
     }
     else{
          // 上传成功 获取上传文件信息
@@ -110,8 +94,8 @@ function uploadFileOne($file, $savePath = ''){
     $upload = new \Think\Upload();
     // 设置附件上传大小
     $upload->maxSize   =     3145728 ;
-    // 设置附件上传类型
-    $upload->exts      =     array('pdf', 'doc', 'excel');
+    // 设置附件上传类型doc .docx .xls .xlsx .ppt .pptx .txt .pdf
+    $upload->exts      =     array('pdf', 'doc', 'excel', 'txt', 'docx', 'xlsx', 'xls', 'ppt', 'pptx');
     // 设置附件上传根目录
     $dirNengrongUserDataDoc = dirname(dirname(dirname(__FILE__))).'/userdata/doc/'; 
     $upload->rootPath  =      $dirNengrongUserDataDoc; 
@@ -126,7 +110,8 @@ function uploadFileOne($file, $savePath = ''){
     $info   =   $upload->uploadOne($file);
     if(!$info) {
          // 上传错误提示错误信息
-        return $upload->getError();
+        echo '{"code":"-1","msg":"更新失败！原因：'.$upload->getError().'"}';
+        exit;
     }
     else{
          // 上传成功 获取上传文件信息
@@ -194,11 +179,17 @@ function isDataComplete($email){
     $user = M("User");
     $objUser = $user->where("email='".$email."'")->find();
     //dump($objUser);
-    //只有项目提供方有必填项：企业名称、联系人、联系人手机
+    //项目提供方/项目投资方有必填项：企业名称、联系人、联系人手机
     if($objUser["user_type"] == 3){
         if($objUser["company_name"] == NULL || $objUser["company_contacts"] == NULL || $objUser["company_contacts_phone"] == NULL){
             header('Content-Type: text/html; charset=utf-8');
             echo "<script type='text/javascript'>alert('请先完善个人资料');location.href='?c=ProjectProviderMyInfo&a=myInformation'</script>";
+            exit;
+        }
+    }elseif($objUser["user_type"] == 4){
+        if($objUser["company_name"] == NULL || $objUser["company_contacts"] == NULL || $objUser["company_contacts_phone"] == NULL){
+            header('Content-Type: text/html; charset=utf-8');
+            echo "<script type='text/javascript'>alert('请先完善个人资料');location.href='?c=ProjectInvestorMyInfo&a=myInformation'</script>";
             exit;
         }
     }
@@ -214,6 +205,67 @@ function isDataComplete($email){
 **/
 function addToken($str){
     return $str."ENFESDFSDNDLFJddddsssefOWEMDJDJ23392222KKSKSNF";
+}
+
+/**
+**@auth qianqiang
+**@breif 获取加密秘钥
+**@date 2015.12.17
+**/
+function getKey(){
+    return "ENFESDFSrwdsccxh33922@&@##22KKSKSNF";
+}
+
+/**
+**@auth qianqiang
+**@breif 加密
+**@date 2016.1.7
+**/
+function encrypt($data, $key){
+    $key = md5($key);
+    $x = 0;
+    $len = strlen($data);
+    $l = strlen($key);
+    for ($i = 0; $i < $len; $i++){
+        if ($x == $l){
+            $x = 0;  
+        }
+        $char .= $key{$x};
+        $x++;
+    }
+    for ($i = 0; $i < $len; $i++){
+        $str .= chr(ord($data{$i}) + (ord($char{$i})) % 256);
+    }
+    return base64_encode($str);
+}
+
+/**
+**@auth qianqiang
+**@breif 解密
+**@date 2016.1.7
+**/
+function decrypt($data, $key){
+    $key = md5($key);
+    $x = 0;
+    $data = base64_decode($data);
+    $len = strlen($data);
+    $l = strlen($key);
+    for ($i = 0; $i < $len; $i++){
+        if($x == $l){
+            $x = 0;
+        }
+        $char .= substr($key, $x, 1);
+        $x++;
+    }
+    for ($i = 0; $i < $len; $i++){
+        if (ord(substr($data, $i, 1)) < ord(substr($char, $i, 1))){
+            $str .= chr((ord(substr($data, $i, 1)) + 256) - ord(substr($char, $i, 1)));
+        }
+        else{
+            $str .= chr(ord(substr($data, $i, 1)) - ord(substr($char, $i, 1)));
+        }
+    }
+    return $str;
 }
 
 ?>

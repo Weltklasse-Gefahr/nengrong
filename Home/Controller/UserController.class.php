@@ -75,7 +75,7 @@ class UserController extends Controller
                 dump($users);
                 exit;
             }
-            echo '{"code":"0","msg":"注册成功！","url":"?c=User&a=protocol"}';
+            echo '{"code":"0","msg":"注册成功！","url":"?c=User&a=loginsus"}';
         }else {
             $this->display("User:register");
         }
@@ -133,47 +133,49 @@ class UserController extends Controller
         }
     }
 
-    //用户激活
+    /**
+    **@auth qianqiang
+    **@breif 用户激活
+    **@date 2016.1.7
+    **/ 
     public function activeUser(){
-        $email = $_POST['email'];
-        $mEmail = $_POST['mEmail'];
-        if (!($mEmail == MD5($email."ENFENF"))) {
-            echo '{"code":"-1","msg":"登录信息错误"}';
-            exit;
-        }
-        
+        $key = $_GET['key'];
+        $user = D('User','Service');
+        $user->activeService($key);
+        echo '{"code":"0","msg":"用户激活成功"}';
+        $this->display("User:login");
     }
 
-    // //显示用户详细信息
-    // public function userInfo(){
-    //     $email = $_POST['email'];
-    //     $mEmail = $_POST['mEmail'];
-    //     if (!($mEmail == MD5($email."ENFENF"))) {
-    //         echo '{"code":"-1","msg":"登录信息错误"}';
-    //         exit;
-    //     }
-
-    // }
-
-    // //修改资料
-    // public function changeUserInfo(){
-    //     $email = $_POST['email'];
-    //     $mEmail = $_POST['mEmail'];
-    //     if (!($mEmail == MD5($email."ENFENF"))) {
-    //         echo '{"code":"-1","msg":"登录信息错误"}';
-    //         exit;
-    //     }
-
-    // }
-
-
-    // public function getDynamicCode(){
-    //     code();
-    // }
-
     public function test1(){
-        $area = D("Area", "Service");
-        $area->getAreaById("1302");
+        $a[0]['id']=1;
+        $a[0]['text']='1';
+        $a[1]['id']=2;
+        $a[1]['text']='2';
+        $b[0]['id']=3;
+        $b[0]['text']='3';
+        $b[0]['qwe']='3';
+        $c=array_merge($a,$b);
+        dump($c);
+        // $investors = '123,456,789,';
+        // $newstr = substr($investors,0,strlen($investors)-1); 
+        // $investorList = explode(",",$newstr);
+        // dump($investorList);exit;
+
+        // $email = "82563912@qq.com";
+        // $key = $email.",".md5(addToken($email)).",".time();
+        // $encryptKey = encrypt($key, getKey()); 
+        // $url = "www.enetf.com/?c=User&a=activeUser&key=".$encryptKey;
+        // $name = "能融网用户";
+        // $subject = "验证您的电子邮箱地址";
+        // $text = "激活邮件内容".$url;
+        // $r = think_send_mail($email, $name, $subject, $text, null);
+        // dump($r);dump($key);dump($url);
+        // exit;
+
+        // $area = D("Area", "Service");
+        // $res = $area->getAreaArrayById("150223");
+        // header('Content-Type: text/html; charset=utf-8');
+        // dump($res);
         // $email = "qianqiang@qq.com";
         // isDataComplete($email);
         // echo "chenggong!";
@@ -191,9 +193,10 @@ class UserController extends Controller
 
     public function addUser(){
         $user = M('User');
-        $data['email'] = 'qianqiang@qq.com';
+        $data['email'] = 'qianqiang1234567@qq.com';
         $data['password'] = MD5("123456");
-        $data['user_type'] = 3;
+        $data['user_type'] = 4;
+        $data['status'] = 1;
         $user->add($data);
         echo '{"code":"0","msg":"添加用户"}';
     }

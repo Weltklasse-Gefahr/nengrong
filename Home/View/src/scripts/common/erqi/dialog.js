@@ -11,9 +11,9 @@ $(function($) {
 					<img class="title" src="/EnergyFe/img/dialog/title.png" />\
 				</div>\
 				<div class="bd">\
-					<div class="content-wrap">\
+					<div class="content-wrap clrfix">\
 						<img class="icon" src="/EnergyFe/img/dialog/icon.png" />\
-						<span class="content"></span>\
+						<div class="content"></div>\
 					</div>\
 					<div class="control"></div>\
 				</div>\

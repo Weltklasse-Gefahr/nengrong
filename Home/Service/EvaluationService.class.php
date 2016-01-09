@@ -3,7 +3,7 @@ namespace Home\Service;
 
 use Think\Model;
 
-class evaluationService extends Model(){
+class evaluationService extends Model{
 
     /**
     **@auth qianqiang
@@ -26,7 +26,7 @@ class evaluationService extends Model(){
 	public function getEvaluation($projectId){
 		$objEvaluation = D("Evaluation");
 		$condition["project_id"] = $projectId;
-		$condition["status"] = array('between', 51, 52);
+		$condition["status"] = array('between', '51,52');
 		$evaluationInfo = $objEvaluation->where($condition)->order('status asc')->select();
 		return $evaluationInfo[0];
 	}
@@ -40,17 +40,18 @@ class evaluationService extends Model(){
 	public function saveEvaluationInfo($evaluationInfo){
 		$evaluation = M("Evaluation");
         if($this->hasEvaluation($evaluationInfo['project_id'], 51) == 1){
-            $evaluation->where("project_id='".$evaluationInfo['project_id']."' and status=51")->save($evaluationInfo);
+            $evaluationInfo['change_date'] = date("Y-m-d H:i:s",time());
+            $result = $evaluation->where("project_id='".$evaluationInfo['project_id']."' and status=51")->save($evaluationInfo);
         }else{
             $evaluationInfo['status'] = 51;
             $evaluationInfo['create_date'] = date("Y-m-d H:i:s",time());
-            $evaluation->add($evaluationInfo);
+            $evaluationInfo['change_date'] = date("Y-m-d H:i:s",time());
+            $result = $evaluation->add($evaluationInfo);
         }
-        $evaInfo = $evaluation->where($evaluationInfo)->where("status=51")->select();
-        if(sizeof($evaInfo) == 1)
-            return true;
-        else
+        if($result == false)
             return false;
+        else
+            return true;
 	}
 
 	/**
@@ -64,21 +65,25 @@ class evaluationService extends Model(){
 		//如果有save数据，进行删除
 		$evaluation = M("Evaluation");
 		if($this->hasEvaluation($evaluationInfo['project_id'], 52) == 1){
-        	$evaluationInfo['change_date'] = date("Y-m-d H:i:s",time());
-        	$objEvaluation = $evaluation->where("project_id='".$evaluationInfo['project_id']."' and status=52")->save($evaluationInfo);
-		}else{
-			$evaluationInfo['status'] = 52;
-			$evaluationInfo['create_date'] = date("Y-m-d H:i:s",time());
-			$evaluationInfo['change_date'] = date("Y-m-d H:i:s",time());
-        	$objEvaluation = $evaluation->add($evaluationInfo);
-		}
-        if($this->hasEvaluation($evaluationInfo['project_id'], 51) == 1){
-            $condition['project_id'] = $evaluationInfo['project_id'];
-            $condition['status'] = 51;
-            $evaluation->where($condition)->delete();
+            $evaluationInfo['change_date'] = date("Y-m-d H:i:s",time());
+            $result = $objEvaluation = $evaluation->where("project_id='".$evaluationInfo['project_id']."' and status=52")->save($evaluationInfo);
+        }else{
+            $evaluationInfo['status'] = 52;
+            $evaluationInfo['create_date'] = date("Y-m-d H:i:s",time());
+            $evaluationInfo['change_date'] = date("Y-m-d H:i:s",time());
+            $result = $objEvaluation = $evaluation->add($evaluationInfo);
         }
-        return true;
-	}
+        if($result == true){
+            if($this->hasEvaluation($evaluationInfo['project_id'], 51) == 1){
+                $condition['project_id'] = $evaluationInfo['project_id'];
+                $condition['status'] = 51;
+                $evaluation->where($condition)->delete();
+            }
+            return true;
+        }else{
+            return false;
+        }
+    }
 
 	/**
     **@auth qianqiang

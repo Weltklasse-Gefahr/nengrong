@@ -1,6 +1,6 @@
 $(function() {
 
-	$(".l-nav").find(".awaitingAssessment").addClass("active")
+	$(".l-nav").find(".recommendedProject").addClass("active")
 		.children("a").attr("href", "javascript:;");
 
 	require("common/erqi/list-opt.js");

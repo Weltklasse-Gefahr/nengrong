@@ -21,6 +21,7 @@ class UserService extends Model{
 
         setcookie("email", $email, time()+3600);
         setcookie("mEmail", MD5(addToken($email)), time()+3600);
+        session_start();
 
         return $users[0];
 	}
@@ -48,6 +49,8 @@ class UserService extends Model{
             $data['user_type'] = $userType;
         }
         $data['create_date'] = date("Y-m-d H:i:s",time());
+        $data['change_date'] = date("Y-m-d H:i:s",time());
+        $data['status'] = 2;
         $userAdd->add($data);
 
         $users = $user->where("email='%s' and status!=9999", array($email) )->select();
@@ -56,8 +59,66 @@ class UserService extends Model{
         	echo '{"code":"-1","msg":"mysql error!"}';
         	exit;
         }
+
+        // 发送激活邮件
+        $key = $email.",".md5(addToken($email)).",".time();
+        $encryptKey = encrypt($key, getKey()); 
+        $url = "www.enetf.com/?c=User&a=activeUser&key=".$encryptKey;
+        $name = "能融网用户";
+        $subject = "验证您的电子邮箱地址";
+        $text = "激活邮件内容".$url;
+        $r = think_send_mail($email, $name, $subject, $text, null);
+        if($r == false){
+        	echo '{"code":"-1","msg":"send email error!"}';
+        	exit;
+        }
         return $users[0];
 	}
+
+	/**
+    **@auth qianqiang
+    **@breif 用户激活
+    **@date 2015.12.16
+    **/
+	public function activeService($key){
+		$decryptKey = decrypt($key, getKey());
+		$keyList = explode(",",$decryptKey);
+		if(!($keyList[1] == md5(addToken($keyList[0])))){
+			echo '{"code":"-1","msg":"用户信息验证失败，激活失败!"}';
+			exit;
+		}
+		$zero1 = strtotime(date("Y-m-d H:i:s",time())); //当前时间
+		$zero2 = strtotime(date("Y-m-d H:i:s",$keyList[2])); //注册时间
+		$zero0 = ceil(($zero1-$zero2)/3600);
+		if($zero0 > 24){ //有效期24小时
+			echo '{"code":"-1","msg":"邮件已超时!"}';
+			exit;
+		}
+		// dump($zero1);dump($zero2);dump($zero0);exit;
+
+		$user = M('user');
+		$data['status'] = 1;
+		$data['change_date'] = date("Y-m-d H:i:s",time());
+		$result = $user->where("email='".$keyList[0]."' and status=2")->save($data);
+
+		if ($result == 0) {
+			echo '{"code":"-1","msg":"用户信息不存在!"}';
+			exit;
+		}
+
+		return true;
+	}
+
+	/**
+    **@auth qianqiang
+    **@breif 用户注销
+    **@date 2015.12.26
+    **/
+	public function logoutService(){
+        setcookie("email", $email, time()-3600);
+        setcookie("mEmail", MD5(addToken($email)), time()-3600);
+        session_destroy();
+    }
 
 	/**
     **@auth qianqiang
@@ -264,6 +325,51 @@ class UserService extends Model{
 		$userInfo = $this->getUserInfo($condition);
 		return $userInfo;
 	}
+
+	/**
+    **@auth qianqiang
+    **@breif 根据用户email查询用户信息
+    **@date 2015.12.13
+    **/
+	public function getUserINfoByEmail($email){
+		$condition["email"] = $email;
+		$condition["status"] = array('neq',9999);
+		$userInfo = $this->getUserInfo($condition);
+		return $userInfo;
+	}
+
+	/**
+    **@auth qianqiang
+    **@breif 获取某一项目的所有项目投资方信息，推送状态push_flag
+    **@param $projectCode 项目编码
+    **@param $page 第几页，page=-1查询所有的
+    **@date 2015.12.30
+    **/
+	public function getInvestorPush($projectCode, $page){
+		$condition['user_type'] = 4;
+		$condition["status"] = array('neq',9999);
+		$objUser = M("User");
+		if($page == -1)
+			$investorList = $objUser->where($condition)->select();
+		else
+			$investorList = $objUser->where($condition)->page($page, 6)->select();
+		$projectObj = D('Project', 'Service');
+		$projectList = $projectObj->getPushProjectByProCode($projectCode);
+		$i = 0;
+		while($investorList[$i]){
+			$j = 0;
+			$investorList[$i]['push_flag'] = "未推送";
+			while($projectList[$j]){
+				if($projectList[$j]['investor_id'] == $investorList[$i]['id']){
+					$investorList[$i]['push_flag'] = "已推送";
+					break;
+				}
+				$j += 1;
+			}
+			$i += 1;
+		}
+		return $investorList;
+	}	
 
     /**
     **@auth qianqiang

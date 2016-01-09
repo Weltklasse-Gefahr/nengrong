@@ -123,6 +123,7 @@
 .r-content form .part2 table.main-info > tbody > tr > td:first-child {
 	width: 140px;
 	background-color: #ccc;
+	border-bottom-color: #fff;
 }
 
 .r-content form .part2 table.base-info td {
@@ -130,20 +131,20 @@
 }
 
 .r-content form .part2 table.base-info td.c0 {
-	width: 125px;
+	width: 110px;
 }
 .r-content form .part2 table.base-info td.c1 {
-	width: 280px;
+	width: 265px;
 	text-align: left;
-	padding-left: 35px;
+	padding-left: 10px;
 }
 .r-content form .part2 table.base-info td.c2 {
-	width: 80px;
+	width: 92px;
 }
 .r-content form .part2 table.base-info td.c3 {
-	width: 214px;
+	width: 232px;
 	text-align: left;
-	padding-left: 40px;
+	padding-left: 13px;
 }
 
 .r-content form .part2 table.base-info input, .r-content form .part2 table.base-info select {
@@ -151,6 +152,22 @@
 	width: 160px;
 	height: 24px;
 	margin-right: 5px;
+}
+
+.r-content form .part2 table.base-info .other {
+	width: 75px;
+}
+
+.r-content form .part2 table.base-info td.area {
+	padding-left: 2px;
+	padding-right: 2px;
+}
+.r-content form .part2 table.base-info .area select {
+	width: 53px;
+}
+
+.r-content form .part2 table.base-info .area input {
+	width: 100%;
 }
 
 .r-content form .part2 table.main-info textarea {
@@ -191,12 +208,12 @@
 	color: #fff;
 }
 
-.r-content form .part2 table .result-info td.s > div:hover {
+.r-content form .part2 table .result-info td.s.active > div, .r-content form .part2 table .result-info td.s > div:hover {
 	width: 88px;
 	height: 50px;
+	font-size: 24px;
 	top: -5px;
 	left: -5px;
-	padding-top: 15px;
 	z-index: 1;
 }
 
@@ -228,6 +245,70 @@
 	background-color: #6D8BC0;
 }
 
+.r-content form .part3 .attachment-ct {
+	background-color: #ccc;
+}
+
+.r-content form .part3 .uploadifive-mf {
+	background: none;
+	border: 0;
+	cursor: pointer;
+	padding-left: 4px;
+	line-height: 34px;
+
+	font-weight: normal;
+	color: #6C68E9;
+	font-size: 14px;
+	text-decoration: underline;
+}
+
+.r-content form .part3 .uploadifive-mf input[type=file] { 
+	height: 36px;
+}
+
+.r-content form .part3 .uploadifive-mf img {
+	vertical-align: middle;
+	margin-right: 6px;
+}
+
+.r-content form .part3 .fileQueue {
+	padding: 30px 50px;
+	border: 1px solid #ccc;
+}
+
+.uploadifive-queue-item {
+	background: none;
+	border-radius: 0;
+	border-bottom: none;
+	width: 425px;
+}
+
+.uploadifive-queue-item .close {
+	background: none;
+	text-indent: 0;
+	width: auto;
+	color: #2C586E;
+	margin-right: 10px;
+	transform: translateY(3px);
+}
+
+.r-content form .part3 .fileQueue .attachment-logo {
+	vertical-align: middle;
+	margin-right: 15px;
+}
+.r-content form .part3 .fileQueue .filename {
+	margin-right: 5px;
+	display: inline-block;
+	max-width: 205px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	transform: translateY(4px);
+	white-space: nowrap;
+}
+
+.r-content form .part3 .fileQueue .filesize {
+	color: #2C586E;
+}
 
 .r-content form .operator {
 	margin-top: 30px;

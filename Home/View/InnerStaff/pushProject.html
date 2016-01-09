@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes">
+	<title>推送项目</title>
+	
+	<!-- Set render engine for 360 browser -->
+	<meta name="renderer" content="webkit">
+	
+	<!-- No Baidu Siteapp-->
+	<meta http-equiv="Cache-Control" content="no-siteapp" />
+	
+	<link rel="icon" type="image/png" href="/EnergyFe/img/i/favicon.png">
+	
+	<!-- Add to homescreen for Chrome on Android -->
+	<meta name="mobile-web-app-capable" content="yes">
+	<link rel="icon" sizes="192x192" href="/EnergyFe/img/i/favicon.png">
+	
+	<!-- Add to homescreen for Safari on iOS -->
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-title" content="Amaze UI" />
+	<link rel="apple-touch-icon-precomposed" href="/EnergyFe/img/i/favicon.png">
+	
+	<!-- Tile icon for Win8 (144x144 + tile color) -->
+	<meta name="msapplication-TileImage" content="/EnergyFe/img/i/favicon.png">
+	<meta name="msapplication-TileColor" content="#0e90d2">
+	<link rel="stylesheet" href="/EnergyFe/prd/styles/x-common@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/styles/x-common.css.ver';</php>.css">
+	<link rel="stylesheet" href="/EnergyFe/prd/styles/is-pushProject@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/styles/is-pushProject.css.ver';</php>.css">
+<body>
+	<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/hf/erqi/header.html';</php>
+
+	<div class="main clrfix">
+		<!-- 左侧导航栏 -->
+		<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/InnerStaff/InnerStaff_left.html';</php>
+		
+		<!-- 右侧布局 -->
+		<div class="r-content">
+			<div class="list">
+				<div style="height:50px">
+					<p class="c3" style="visibility:hidden"></p>
+					<p class="c5" style="visibility:hidden"></p>
+					<p class="c6" style="visibility:hidden"></p>
+					<p class="c5" align="center"><a id="push_selected" class="pushButton" href="#">推送选中</a></p>
+					<p class="c5" style="visibility:hidden"></p>
+				</div>
+				<div class="hd">
+					<p class="c3"><input id="all_select" type="checkbox" value="checkbox"
+					style="vertical-align:middle">
+					<span>&nbsp全选</span></p>
+					<p class="c5">融资机构</p>
+					<p class="c6">推送状态</p>
+					<p class="c5">进行推送</p>
+					<p class="c5">联系电话</p>
+				</div>
+				<div class="bd">
+					<foreach name="arrData.list" item="project">
+						
+							<if condition="$project[push_flag] eq 已推送"> 
+								<div class="div_grey" data-id="{$project[id]}">
+									<p class="c3"><input name="checkbox" type="checkbox" value="checkbox"><span style="visibility:hidden">&nbsp&nbsp全选</span></p>
+									<p class="c5"><a href="javascript:;">{$project[company_name]}</a></p>
+									<p class="c6">{$project[push_flag]}</p>
+									<p class="c5" align="center"><a class="pushButton_grey" href="#" >点击推送</a></p>
+									<p class="c5">{$project[company_contacts_phone]}</p>
+								</div>
+							<else /> 
+								<div data-id="{$project[id]}">
+									<p class="c3"><input name="checkbox" type="checkbox" value="checkbox"><span style="visibility:hidden">&nbsp&nbsp全选</span></p>
+									<p class="c5"><a href="javascript:;">{$project[company_name]}</a></p>
+									<p class="c6">{$project[push_flag]}</p>
+									<p class="c5" align="center"><a class="pushButton" href="#" >点击推送</a></p>
+									<p class="c5">{$project[company_contacts_phone]}</p>
+								</div>	
+							</if>
+					</foreach>
+					
+				</div>
+			</div>
+			<div class="pager">
+					<a class="s" data-pageno="1" href="#">首页</a>
+                    <for start="1" end="$arrData.totalPage">
+                        <if condition="$arrData.page eq $i">
+                            <a class="n active" data-pageno="{$i}" href="#">{$i}</a>
+                        <else/>
+                            <a class="n" data-pageno="{$i}" href="#">{$i}</a>
+                        </if>
+                    </for>
+                    <a class="s" data-pageno="{$arrData.endPage}" href="#">尾页</a>
+			</div>
+		</div>
+	</div>
+
+	<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/hf/sub_footer.html';</php>
+	
+	<script src="/EnergyFe/prd/scripts/x-common@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/scripts/x-common.js.ver';</php>.js"></script>
+	<script src="/EnergyFe/prd/scripts/is-pushProject@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/scripts/is-pushProject.js.ver';</php>.js"></script>
+</body>
+</html>

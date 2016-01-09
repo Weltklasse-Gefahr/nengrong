@@ -27,7 +27,7 @@ $(function() {
 				dataType: "json",
 	            data: {
 	            	yixiangshu: ue.getContent(),
-	            	optype: $(this).data("optype")
+	            	optype: opt.optype
 	            }
 			}).done(function(data) {
 				if(data.code == "0") {
@@ -47,13 +47,17 @@ $(function() {
 
 			var optype = $(this).data("optype");
 			if(optype === "save") {
-				saveOrSubmitIntent();
+				saveOrSubmitIntent({
+					optype: optype
+				});
 			} else {
 				$.confirm("提交后无法修改，是否确认提交？").done(function() {
 					saveOrSubmitIntent({
+						optype: optype,
 						successCallback: function() {
 							ue.disable(true);
 							$("input[type=submit]").addClass("disabled").prop("disabled", true);
+							$(".signed").show();
 						}
 					});
 				}).fail(function() {

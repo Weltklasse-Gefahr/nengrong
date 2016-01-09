@@ -24,31 +24,64 @@ $(function() {
 	require("common/erqi/cascadeSelect");
 	$(".detail.part1 .area select").cascadeSelect(AreaData);
 
+
 	require("common/erqi/customUpload");
 	require("lib/jquery.form");
 	
 	// 上传图片
+	function uploadCallback(type) { // 添加或删除图片
+		// 显示或清除图片名称
+		var $prename = $(this).parent().siblings(".previewname");
+		if(type === "add") {
+			$prename.text(this.files[0].name).attr("title", this.files[0].name);
+		} else {
+			$prename.text("").attr("title", "");
+		}
+
+		var fileTpl = '<div class="img-ct">\
+<input type="file" data-type="mul" accept="image/gif,image/jpeg,image/png" name="picture_mul" style="visibility: hidden;" />\
+<p class="previewname"></p>\
+</div>';
+
+		// 增加或移除图片上传框，最多12张图片
+		if(type === "add") {
+			if(this.name === "picture_mul") {
+				var count = $(this).parents(".img-ct").siblings(".img-ct").length;
+				if(count < 11) {
+					$(this).parents(".img-ct").after(fileTpl).next().find('input[type=file]').customUpload({
+						bg_url: "upload.png",
+						uploadType: "image",
+						width: "120px",
+						height: "120px",
+						callback: uploadCallback
+					});
+				}
+			}
+		} else {
+			if(this.name === "picture_mul") {
+				var ct = $(this).parents(".item");
+				$(this).parents(".img-ct").remove();
+				var mul_items = ct.children(".img-ct").filter(function(){
+					return !!$(this).find('[data-type=mul]').length;
+				});
+				if(mul_items.last().find('[data-type=mul]').val()) {
+					mul_items.last().after(fileTpl).next().find('input[type=file]').customUpload({
+						bg_url: "upload.png",
+						uploadType: "image",
+						width: "120px",
+						height: "120px",
+						callback: uploadCallback
+					});
+				}
+			}
+		}
+	}
 	$(".detail.part1 input[type=file]").customUpload({
 		bg_url: "upload.png",
 		uploadType: "image",
 		width: "120px",
 		height: "120px",
-		callback: function(type) { // 添加或删除图片
-			// 显示或清除图片名称
-			var $prename = $(this).parent().siblings(".previewname");
-			if(type === "add") {
-				$prename.text(this.files[0].name);
-			} else {
-				$prename.text("");
-			}
-
-			// 增加或移除图片上传框，并更新索引
-			if(type === "add") {
-				
-			} else {
-				
-			}
-		}
+		callback: uploadCallback
 	});
 
 	// 上传文件
@@ -72,7 +105,7 @@ $(function() {
 			$inputWrap.hide().find("input").val("");
 			$preview.hide().find("a").attr("href", "javascript:;").text("");
 		}
-	});
+	}).change();
 
 	// 其他（可填写）
 	$("select").filter(function(){
@@ -84,7 +117,7 @@ $(function() {
 		} else {
 			$(this).siblings(".other").hide().val("");
 		}
-	});
+	}).change();
 
 	// 日期选择框
 	require("lib/jquery-ui");
@@ -93,6 +126,28 @@ $(function() {
 	$("input[data-type=date]").datepicker({
 		changeMonth: true,
       	changeYear: true
+	});
+
+	// 组件、逆变器
+	$(".component").on("click", ".add", function() {
+		var $parent = $(this).parent();
+		$parent.append($parent.hasClass("inverter") ? '<div class="item">\
+<a href="javascript:;" class="del">删除</a>\
+<div><span class="c0">逆变器厂家</span><input class="c0" name="inverter_company"/></div>\
+<div><span class="c0">规格型号</span><input class="c0" name="inverter_type"/><span class="c1">数量</span><input class="c1" name="inverter_count"/>个</div>\
+</div>' : '<div class="item">\
+<a href="javascript:;" class="del">删除</a>\
+<div><span class="c0">组件厂家</span><input class="c0" name="component_company"/></div>\
+<div><span class="c0">规格型号</span><input class="c0" name="component_type"/><span class="c1">数量</span><input class="c1" name="component_count"/>个</div>\
+</div>');
+	}).on("click", ".del", function() {
+		var $parent = $(this).parent(),
+			items = $parent.siblings(".item");
+		if(items.length) {
+			$(this).parent().remove();
+		} else {
+			alert(($parent.parent().hasClass("inverter") ? "逆变器" : "组件" ) + "必须至少有一个");
+		}
 	});
 
 	// 保存资料
@@ -106,7 +161,7 @@ $(function() {
 	   	timeout: 6000               //限制请求的时间，当请求大于3秒后，跳出请求
 	};
 	  
-	function beforeSubmit(formData, jqForm, options){
+	function beforeSubmit(formData, jqForm, options) {
 
 		if($("#submit").hasClass("disabled")) {
 			return false;
@@ -120,9 +175,10 @@ $(function() {
 	function successCallback(data) {
 		if(data.code == "0") {
 			$("#submit").removeClass("disabled");
-			alert("上传成功！");
+			location.href = "?c=ProjectProviderMyPro&a=projectInfoEdit&project_code=" + data.id;
 		} else {
-			alert("上传失败！\n"+data.errmsg);
+			$('[data-type=mul]').attr("name", "picture_mul");
+			alert(data.errmsg || "上传失败！");
 		}
 	}
 
@@ -139,7 +195,6 @@ $(function() {
 				}
 			}).done(function(data) {
 				if(data.code == "0") {
-					alert("删除成功！");
 					location.href = "?c=ProjectProviderMyPro&a=awaitingAssessment";
 				} else {
 					alert("删除失败！");
@@ -151,6 +206,7 @@ $(function() {
 		} else {
 			$form.find("[name=optype]").val(optype);
 			$form.find("li:hidden input, li:hidden select").prop("disabled", true);
+			$form.find('[data-type=mul]').attr("name", "picture_mul[]");
 			return true;
 		}
 	});
