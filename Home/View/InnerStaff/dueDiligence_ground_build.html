@@ -91,7 +91,7 @@
 												<td class="c3">{$projectDetail['ground_project_type']}</td>
 											</tr>
 											<tr>
-												<td class="c0">拟建设容量</td>
+												<td class="c0">建设容量</td>
 												<td class="c1"><input name="plan_build_volume" value="{$projectDetail['plan_build_volume']}" /><span>kW</span></td>
 												<td class="c2">项目地点</td>
 												<td class="c3 area">
@@ -450,8 +450,18 @@ D.项目经济收益情况<?php } ?>
 					<div class="attachment-ct">
 						<div class="uploadifive-mf-view"><img class="attachment-logo" src="/EnergyFe/img/attachment.png">附件（3个）</div>
 					</div>
+
 					<div class="fileQueue">
-						<div class="uploadifive-queue-item complete"><a class="close" href="#">下载</a><div><img class="attachment-logo" src="/EnergyFe/img/attachment.png"><span class="filename" title="彭九元第四次课批注.doc">彭九元第四iuyouyiouiouopuioiuou次课批注.doc</span><span class="filesize">（1.74 MB）</span></div></div>
+						<foreach name="docListInfo" item="vo" >
+						<div class="uploadifive-queue-item complete">
+						    <a class="close" href="#">下载</a>
+						    <div>
+						        <img class="attachment-logo" src="/EnergyFe/img/attachment.png">
+						        <span class="filename" title="{$vo[0]['file_name']}">{$vo[0]['file_name']}</span>
+						        <span class="filesize">（{$vo[0]['file_size']} MB）</span>
+						    </div>
+						</div>
+						</foreach>
 					</div>
 				</div>
 			</form>

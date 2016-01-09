@@ -1,5 +1,11 @@
 $(function() {
 
+	// 判断身份，更新顶部信息
+	$(".header .identityName").html($.getCookie("userName"));
+	if($.getCookie("userType") == "2") {
+		$(".header .innerStaff").show();
+	}
+
 	$("#logout").click(function() {
 		$.ajax({
 			url: "?c=User&a=logout&rtype=1",

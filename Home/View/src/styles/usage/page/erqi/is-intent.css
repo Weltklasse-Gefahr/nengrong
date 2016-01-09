@@ -37,18 +37,19 @@
 	background-color: #FD7940;
 	color: #fff;
 	border: 0;
+	margin-right: 100px;
 }
 
-.r-content form input[type="submit"]:hover {
+.r-content form .operator input[type="submit"].last {
+	margin-right: 0;
+}
+
+.r-content form .operator input[type="submit"]:hover {
 	background: #F1920C;
 }
 
-.r-content form input[type="submit"].disabled {
+.r-content form .operator input[type="submit"].disabled {
 	background-color: #ccc;
-}
-
-.r-content form .operator .save {
-	margin-right: 100px;
 }
 
 .r-content .signed {
