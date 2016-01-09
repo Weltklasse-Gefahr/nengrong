@@ -1,6 +1,6 @@
 $(function(){
 	function warning() {
-		$("#warning").show();
+		$("#warning").show().html()
 	}
 
 	$("#loginbtn").click(function(){ 
@@ -8,12 +8,12 @@ $(function(){
 		var passval= $.trim($("#passinput").val());
 
 		if (!mailval || !/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(mailval)) {
-			warning();
+			warning("用户名格式错误");
 			return ;
 		};
 
 		if(!passval ) {
-			warning();
+			warning("密码不能为空");
 			return ;
 		}
 
@@ -27,8 +27,12 @@ $(function(){
 		    },
 			dataType: "json"
 		}).done(function(data){
-			if (data.code== 0) {};
-			location.href=data.url;
+			if (data.code== 0) {
+				location.href=data.url;
+			}
+			else{
+				warning(data.msg || "登录失败");
+			}
 		});
 	});
 });
