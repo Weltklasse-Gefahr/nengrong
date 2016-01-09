@@ -137,6 +137,93 @@ class ProjectService extends Model{
     }
 
     /**
+    **@auth qiujinhan
+    **@breif 删除旧的组件信息，然后重新插入
+    **@param project_id 项目id
+    **@date 2015.12.24
+    **/ 
+    public function addComponent($project_id){
+        //删除旧的组件信息
+        $obj = M("Component");
+        $condition['project_id'] = $project_id;
+        $obj->where($condition)->delete();
+
+        //重新插入新的组件信息
+        $arrHiddenId = $_POST['component_company_hiddenId'];
+        $index = 0;
+        $ArrCompany = $_POST['component_company'];
+        $ArrType    = $_POST['component_type'];
+        $ArrCount   = $_POST['component_count'];
+        //var_dump($arrHiddenId);var_dump($ArrType);
+        foreach($ArrCompany as $value)
+        {
+            $data['project_id'] = $project_id;
+            $data['component_company'] = $ArrCompany[$index];
+            $data['component_type'] = $ArrType[$index];
+            $data['component_count'] = $ArrCount[$index];
+            $result = $obj->add($data);
+        }
+        return $result;
+    }  
+
+    /**
+    **@auth qiujinhan
+    **@breif 获取组件信息
+    **@param project_id 项目id
+    **@date 2015.12.24
+    **/ 
+    public function getComponent($project_id){
+        //删除旧的组件信息
+        $obj = M("Component");
+        $condition['project_id'] = $project_id;
+        $ret = $obj->where($condition)->select();
+        return $ret;
+    }  
+    /**
+    **@auth qiujinhan
+    **@breif 获取逆变器信息
+    **@param project_id 项目id
+    **@date 2015.12.24
+    **/ 
+    public function getInverter($project_id){
+        //删除旧的组件信息
+        $obj = M("Inverter");
+        $condition['project_id'] = $project_id;
+        $ret = $obj->where($condition)->select();
+        return $ret;
+    }  
+
+
+    /**
+    **@auth qiujinhan
+    **@breif 删除旧的逆变器信息，然后重新插入
+    **@param project_id 项目id
+    **@date 2015.12.24
+    **/ 
+    public function addInverter($project_id){
+        //删除旧的组件信息
+        $obj = M("Inverter");
+        $condition['project_id'] = $project_id;
+        $obj->where($condition)->delete();
+
+        //重新插入新的组件信息
+        $arrHiddenId = $_POST['inverter_company_hiddenId'];
+        $index = 0;
+        $ArrCompany = $_POST['inverter_company'];
+        $ArrType    = $_POST['inverter_type'];
+        $ArrCount   = $_POST['inverter_count'];
+        foreach($ArrCompany as $value)
+        {
+            $data['project_id'] = $project_id;
+            $data['inverter_company'] = $ArrCompany[$index];
+            $data['inverter_type'] = $ArrType[$index];
+            $data['inverter_count'] = $ArrCount[$index];
+            $result = $obj->add($data);
+        }
+        return $result;
+    }   
+
+    /**
     **@auth qianqiang
     **@breif 查询已签意向书项目
     **@date 2015.12.24
