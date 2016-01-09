@@ -307,6 +307,9 @@ class InnerStaffController extends Controller {
         $rtype = $_POST['rtype'] ? $_POST['rtype']:$_GET['rtype'];
         if($optype == "save" && $rtype == 1){
             $intentText = $_POST["yixiangshu"];
+            if($intentText == "" || $intentText == null){
+                echo '{"code":"-1","msg":"意向书不能为空"}';
+            }
             $project = D("Project", "Service");
             $result = $project->saveIntent($projectCode, $intentText);
             if($result === true)
@@ -315,6 +318,9 @@ class InnerStaffController extends Controller {
                 echo '{"code":"-1","msg":"save error"}';
         }elseif($optype == "submit" && $rtype == 1){
             $intentText = $_POST["yixiangshu"];
+            if($intentText == "" || $intentText == null){
+                echo '{"code":"-1","msg":"意向书不能为空"}';
+            }
             $project = D("Project", "Service");
             $result = $project->submitIntent($projectCode, $intentText);
             if($result === true)
@@ -325,6 +331,11 @@ class InnerStaffController extends Controller {
             $project = D("Project", "Service");
             $projectInfo = $project->getIntent($projectCode);
             // dump($projectInfo);exit;
+            if($_GET['display']=="json"){
+                header('Content-Type: text/html; charset=utf-8');
+                dump($projectInfo);
+                exit;
+            }
             $this->assign("projectInfo", $projectInfo);
             $this->display("InnerStaff:intent");
         }
