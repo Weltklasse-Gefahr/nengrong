@@ -246,7 +246,7 @@ class InnerStaffController extends Controller {
                 exit;
             }
 
-            $this->assign('picture', $docInfo['file_rename']);
+            $this->assign('picture', 'http://www.enetf.com'.$docInfo[0]['file_rename']);
     		$this->assign('projectDetail', $projectDetail);
             $this->assign('areaArray', $areaArray);
     		$this->assign('evaluationInfo', $evaluationInfo);
