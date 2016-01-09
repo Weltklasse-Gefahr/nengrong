@@ -18,7 +18,7 @@ $(function() {
 		} else {
 			$(this).siblings(".other").hide().val("");
 		}
-	});
+	}).change();
 
 	// 日期选择框
 	require("lib/jquery-ui");
@@ -101,7 +101,7 @@ application/zip,application/x-zip-compressed',
       		console.log && console.log(file.name + " 已取消上传~!");
     	},
 
-        'onFallback' : function() {
+        onFallback: function() {
       		alert("浏览器太老，该页面部分功能将无法使用,\n请使用现代浏览器访问，如chrome、firefox!");
     	}
     });
@@ -146,11 +146,17 @@ application/zip,application/x-zip-compressed',
 
 	function successCallback(data) {
 		$("#submit").removeClass("disabled");
+		var optype = $form.find("[name=optype]").val(),
+			optext = optype === "save" ? "保存" : "提交";
 		if(data.code == "0") {
-			alert("操作成功！");
-			location.reload();
+			alert(optext+"成功！");
+			if(optype === "save") {
+				$(".operator .tips").css("visibility", "visible");
+			} else {
+				location.reload();
+			}
 		} else {
-			alert(data.msg || "上传失败！");
+			alert(data.msg || (optext+"失败！"));
 		}
 	}
 
@@ -160,13 +166,22 @@ application/zip,application/x-zip-compressed',
 		return false;
 	});
 
+	require("common/erqi/dialog");
+
 	$form = $("#infoForm");
 	$form.find("input[type=submit]").click(function() {
 		var optype = $(this).data("optype");
 		
 		$form.find("[name=optype]").val(optype);
-		return true;
-	});
 
-	$form.ajaxForm(options);
+		if(optype === "save") {
+			$form.ajaxSubmit(options);
+		} else {
+			$.confirm("提交后无法修改，是否确认提交？").done(function() {
+				$form.ajaxSubmit(options);
+			});
+		}
+
+		return false;
+	});
 });
