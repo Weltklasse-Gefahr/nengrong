@@ -12,58 +12,57 @@ class InnerStaffController extends Controller {
     **/
     public function getProjectProviderInfo(){
         isLogin($_COOKIE['email'], $_COOKIE['mEmail']);
-    	$projectCode = $_POST["projectCode"];
-    	$objProject = D("Project", "Service");
-    	$objProjectInfo = $objProject->getProjectInfo($projectCode);
-    	$providerId = $objProjectInfo['provider_id'];
-    	$userObj = D("User", "Service");
-    	$userInfo = $userObj->getUserINfoById($providerId);
+        $projectCode = $_POST["projectCode"];
+        $objProject = D("Project", "Service");
+        $objProjectInfo = $objProject->getProjectInfo($projectCode);
+        $providerId = $objProjectInfo['provider_id'];
+        $userObj = D("User", "Service");
+        $userInfo = $userObj->getUserINfoById($providerId);
 
-    	$areaObj = D("Area", "Service");
-    	$areaStr = $areaObj->getAreaById($userInfo['company_area']);
-
-    	$docObj = D("Doc", "Service");
-    	$condition['id'] = $userInfo['business_license'];
-    	$docInfo = $docObj->getDocInfo($condition);
-    	$docData['business_license']['id'] = $docInfo[0]['id'];
+        $areaObj = D("Area", "Service");
+        $areaStr = $areaObj->getAreaById($userInfo['company_area']);
+        $docObj = D("Doc", "Service");
+        $condition['id'] = $userInfo['business_license'];
+        $docInfo = $docObj->getDocInfo($condition);
+        $docData['business_license']['id'] = $docInfo[0]['id'];
         $docData['business_license']['file_name'] = $docInfo[0]['file_name'];
         $docData['business_license']['file_rename'] = $docInfo[0]['file_rename'];
-    	$condition['id'] = $userInfo['organization_code'];
-    	$docInfo = $docObj->getDocInfo($condition);
+        $condition['id'] = $userInfo['organization_code'];
+        $docInfo = $docObj->getDocInfo($condition);
         $docData['organization_code']['id'] = $docInfo[0]['id'];
         $docData['organization_code']['file_name'] = $docInfo[0]['file_name'];
         $docData['organization_code']['file_rename'] = $docInfo[0]['file_rename'];
-    	$condition['id'] = $userInfo['national_tax_certificate'];
-    	$docInfo = $docObj->getDocInfo($condition);
+        $condition['id'] = $userInfo['national_tax_certificate'];
+        $docInfo = $docObj->getDocInfo($condition);
         $docData['national_tax_certificate']['id'] = $docInfo[0]['id'];
         $docData['national_tax_certificate']['file_name'] = $docInfo[0]['file_name'];
         $docData['national_tax_certificate']['file_rename'] = $docInfo[0]['file_rename'];
-    	$condition['id'] = $userInfo['local_tax_certificate'];
-    	$docInfo = $docObj->getDocInfo($condition);
+        $condition['id'] = $userInfo['local_tax_certificate'];
+        $docInfo = $docObj->getDocInfo($condition);
         $docData['local_tax_certificate']['id'] = $docInfo[0]['id'];
         $docData['local_tax_certificate']['file_name'] = $docInfo[0]['file_name'];
         $docData['local_tax_certificate']['file_rename'] = $docInfo[0]['file_rename'];
-    	$condition['id'] = $userInfo['identity_card_front'];
-    	$docInfo = $docObj->getDocInfo($condition);
+        $condition['id'] = $userInfo['identity_card_front'];
+        $docInfo = $docObj->getDocInfo($condition);
         $docData['identity_card_front']['id'] = $docInfo[0]['id'];
         $docData['identity_card_front']['file_name'] = $docInfo[0]['file_name'];
         $docData['identity_card_front']['file_rename'] = $docInfo[0]['file_rename'];
-    	$condition['id'] = $userInfo['identity_card_back'];
-    	$docInfo = $docObj->getDocInfo($condition);
+        $condition['id'] = $userInfo['identity_card_back'];
+        $docInfo = $docObj->getDocInfo($condition);
         $docData['identity_card_back']['id'] = $docInfo[0]['id'];
         $docData['identity_card_back']['file_name'] = $docInfo[0]['file_name'];
         $docData['identity_card_back']['file_rename'] = $docInfo[0]['file_rename'];
-    	$condition['id'] = $userInfo['financial_audit'];
-    	$docInfo = $docObj->getDocInfo($condition);
+        $condition['id'] = $userInfo['financial_audit'];
+        $docInfo = $docObj->getDocInfo($condition);
         $docData['financial_audit']['id'] = $docInfo[0]['id'];
         $docData['financial_audit']['file_name'] = $docInfo[0]['file_name'];
         $docData['financial_audit']['file_rename'] = $docInfo[0]['file_rename'];
         $docData['financial_audit']['token'] = md5(addToken($docInfo[0]["id"]));
 
-    	$this->assign('userInfo', $userInfo);
-    	$this->assign('areaStr', $areaStr);
-    	$this->assign('docData', $docData);
-    	$this->display("InnerStaff:providerInfo");
+        $this->assign('userInfo', $userInfo);
+        $this->assign('areaStr', $areaStr);
+        $this->assign('docData', $docData);
+        $this->display("InnerStaff:providerInfo");
     }
 
     /**
