@@ -172,8 +172,8 @@
 
 .r-content form .part2 table.main-info textarea {
 	width: 100%;
-	height: 300px;
 	padding-left: 20px;
+	padding-top: 5px;
 	height: 110px;
 	border: 0;
 	resize: none;

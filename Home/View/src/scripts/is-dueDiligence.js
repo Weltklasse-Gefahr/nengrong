@@ -68,14 +68,14 @@ application/msword,application/vnd.ms-excel,application/vnd.ms-powerpoint,\
 text/plain,application/pdf,\
 application/zip,application/x-zip-compressed',
 
-        'overrideEvents': ['onUploadComplete'],
+        overrideEvents: ['onUploadComplete'],
 
-        'onAddQueueItem': function(file) {
+        onAddQueueItem: function(file) {
         	file.queueItem.find(".filesize").html("（" + $.bytesToSize(file.size) + "）");
-        	file.queueItem.find(".filesize").attr("title", file.name);
+        	file.queueItem.find(".filename").attr("title", file.name);
         },
 
-        'onUploadComplete': function(file, data) {
+        onUploadComplete: function(file, data) {
             file.queueItem.find('.progress-bar').css('width', '100%');
             // file.queueItem.find('.fileinfo').html(' - Completed');
             file.queueItem.find('.progress').slideUp(250);
@@ -86,7 +86,7 @@ application/zip,application/x-zip-compressed',
 	      		console.log && console.log("上传"+file.name+"完成！");
 	      		// file.queueItem.find('.fileinfo').html(' - 成功');
 	      		file.queueItem.find('.fileinfo').html('');
-	    		$(file.queueItem).append($('<input type="hidden" name="doc_mul" value="' + obj.id + '" />'));
+	    		$(file.queueItem).append($('<input type="hidden" name="doc_mul[]" value="' + obj.id + '" />'));
 	      	} else {
 	      		alert("上传 " + file.name + "失败！\n" + obj.msg);
 	      		file.queueItem.find('.fileinfo').html('<span style="color: red;"> - 失败</span>');
@@ -123,7 +123,7 @@ application/zip,application/x-zip-compressed',
 		return true;
 	}
 	  
-	function beforeSubmit(formData, jqForm, options){
+	function beforeSubmit(formData, jqForm, options) {
 
 		if($("#submit").hasClass("disabled")) {
 			return false;
@@ -154,12 +154,17 @@ application/zip,application/x-zip-compressed',
 		}
 	}
 
+	// 编辑页删除之前已上传的附件
+	$(".uploadifive-queue-item-init .close").click(function() {
+		$(this).parent().remove();
+		return false;
+	});
+
 	$form = $("#infoForm");
 	$form.find("input[type=submit]").click(function() {
 		var optype = $(this).data("optype");
 		
 		$form.find("[name=optype]").val(optype);
-		$form.find("li:hidden input, li:hidden select").prop("disabled", true);
 		return true;
 	});
 

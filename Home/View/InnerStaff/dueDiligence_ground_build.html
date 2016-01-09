@@ -45,7 +45,7 @@
 				<div class="detail part1">
 					<p class="title">项目经济收益测算</p>
 					<div class="brief-info clrfix">
-						<img class="l" src="/EnergyFe/img/demo1.jpg" />
+						<img class="l" src="{$picture}" />
 						<div class="r">
 							<div class="top">
 								<span>内部收益率IRR<input name="IRR" value="{$evaluationInfo['irr']}" maxlength="10" /></span>
@@ -170,15 +170,12 @@
 							<tr>
 								<td>评价内容</td>
 								<td>
-									<textarea name="evaluation_content" value="" readonly>
-									<?php if($evaluationInfo['evaluation_content']){ 
+									<textarea name="evaluation_content" readonly><?php if($evaluationInfo['evaluation_content']){ 
 										 echo $evaluationInfo['evaluation_content'];
-										 }else{ ?>
-									A.文件审查
+										 }else{ ?>A.文件审查
 B.工程建设质量和系统运行情况
 C.项目建设投资情况
-D.项目经济收益情况
-									<?php } ?>
+D.项目经济收益情况<?php } ?>
 									</textarea>
 								</td>
 							</tr>
@@ -187,54 +184,42 @@ D.项目经济收益情况
 								<td>
 									<div class="item">
 										<div class="hd">A、文件审查</div>
-										<div class="bd"><textarea name="document_review" value="">
-										<?php if($evaluationInfo['document_review']){ 
+										<div class="bd"><textarea name="document_review"><?php if($evaluationInfo['document_review']){ 
 										 echo $evaluationInfo['document_review'];
-										 }else{ ?>
-										1、电站核准文件齐全；
+										 }else{ ?>1、电站核准文件齐全；
 2、电站电价0.95元/kWh，补贴20年；
 3、电站总投资45358.038万元，单位投资9163.24元/W；
 4、电站为全投资，尚无其他融资安排；
 5、电费收入已到位0.68元/kWh，国家0.57元/kWh补贴 尚未结算；
-6、电费每月结算一次；
-										<?php } ?>
+6、电费每月结算一次；<?php } ?>
 										</textarea></div>
 									</div>
 									<div class="item">
 										<div class="hd">B、工程建设质量和系统运行情况</div>
-										<div class="bd"><textarea name="project_quality_situation" value="">
-										<?php if($evaluationInfo['project_quality_situation']){ 
+										<div class="bd"><textarea name="project_quality_situation"><?php if($evaluationInfo['project_quality_situation']){ 
 										 echo $evaluationInfo['project_quality_situation'];
-										 }else{ ?>
-										1、该项目过程文件齐全；
-2、对该光伏电站现场12类项目进行了检查，合计67个子项
-										<?php } ?>
+										 }else{ ?>1、该项目过程文件齐全；
+2、对该光伏电站现场12类项目进行了检查，合计67个子项<?php } ?>
 										</textarea></div>
 									</div>
 									<div class="item">
 										<div class="hd">C、项目建设投资情况</div>
-										<div class="bd"><textarea name="project_invest_situation" value="">
-										<?php if($evaluationInfo['project_invest_situation']){ 
+										<div class="bd"><textarea name="project_invest_situation"><?php if($evaluationInfo['project_invest_situation']){ 
 										 echo $evaluationInfo['project_invest_situation'];
-										 }else{ ?>
-										总投资（万元）           23000
+										 }else{ ?>总投资（万元）           23000
 其中：关键设备（万元）      18000
 施工费（万元）           3770
 土地租赁及补偿费用（万元）   500
-其他费用（万元）          300
-										<?php } ?>
+其他费用（万元）          300<?php } ?>
 										</textarea></div>
 									</div>
 									<div class="item">
 										<div class="hd">D、项目经济收益情况</div>
-										<div class="bd"><textarea name="project_earnings_situation" value="">
-										<?php if($evaluationInfo['project_earnings_situation']){ 
+										<div class="bd"><textarea name="project_earnings_situation"><?php if($evaluationInfo['project_earnings_situation']){ 
 										 echo $evaluationInfo['project_earnings_situation'];
-										 }else{ ?>
-										1、依据历史发电数据测算该项目年发电量为3342.6万度，交流侧等效年发电有效利用小时为1337小时。
+										 }else{ ?>1、依据历史发电数据测算该项目年发电量为3342.6万度，交流侧等效年发电有效利用小时为1337小时。
 2、IRR=19.79%，静态回收期4.32059581142年，LCOE为。
-3.项目按收益法折现（折现率8%）后得到电站价格：31004.83万元。
-										<?php } ?>
+3.项目按收益法折现（折现率8%）后得到电站价格：31004.83万元。<?php } ?>
 										</textarea></div>
 									</div>
 								</td>
@@ -328,7 +313,19 @@ D.项目经济收益情况
 				</div>
 				<div class="part3">
 					<div class="attachment-ct"><input type="file" id="mf" /></div>
-					<div class="fileQueue" id="fileQueue"></div>
+					<div class="fileQueue" id="fileQueue">
+						<foreach name="docListInfo" item="vo" >
+						<div class="uploadifive-queue-item complete uploadifive-queue-item-init">
+						    <a class="close" href="#">删除</a>
+						    <div>
+						        <img class="attachment-logo" src="/EnergyFe/img/attachment.png">
+						        <span class="filename" title="{$vo[0]['file_name']}">{$vo[0]['file_name']}</span>
+						        <span class="filesize">（{$vo[0]['file_size']} MB）</span>
+						    </div>
+						    <input type="hidden" name="doc_mul[]" value="{$vo[0]['id']}">
+						</div>
+						</foreach>
+					</div>
 				</div>
 				<div class="operator">
 					<input class="save" data-optype="save" type="submit" value="保存">

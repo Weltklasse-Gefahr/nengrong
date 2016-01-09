@@ -12,58 +12,57 @@ class InnerStaffController extends Controller {
     **/
     public function getProjectProviderInfo(){
         isLogin($_COOKIE['email'], $_COOKIE['mEmail']);
-    	$projectCode = $_POST["projectCode"];
-    	$objProject = D("Project", "Service");
-    	$objProjectInfo = $objProject->getProjectInfo($projectCode);
-    	$providerId = $objProjectInfo['provider_id'];
-    	$userObj = D("User", "Service");
-    	$userInfo = $userObj->getUserINfoById($providerId);
+        $projectCode = $_POST["projectCode"];
+        $objProject = D("Project", "Service");
+        $objProjectInfo = $objProject->getProjectInfo($projectCode);
+        $providerId = $objProjectInfo['provider_id'];
+        $userObj = D("User", "Service");
+        $userInfo = $userObj->getUserINfoById($providerId);
 
-    	$areaObj = D("Area", "Service");
-    	$areaStr = $areaObj->getAreaById($userInfo['company_area']);
-
-    	$docObj = D("Doc", "Service");
-    	$condition['id'] = $userInfo['business_license'];
-    	$docInfo = $docObj->getDocInfo($condition);
-    	$docData['business_license']['id'] = $docInfo[0]['id'];
+        $areaObj = D("Area", "Service");
+        $areaStr = $areaObj->getAreaById($userInfo['company_area']);
+        $docObj = D("Doc", "Service");
+        $condition['id'] = $userInfo['business_license'];
+        $docInfo = $docObj->getDocInfo($condition);
+        $docData['business_license']['id'] = $docInfo[0]['id'];
         $docData['business_license']['file_name'] = $docInfo[0]['file_name'];
         $docData['business_license']['file_rename'] = $docInfo[0]['file_rename'];
-    	$condition['id'] = $userInfo['organization_code'];
-    	$docInfo = $docObj->getDocInfo($condition);
+        $condition['id'] = $userInfo['organization_code'];
+        $docInfo = $docObj->getDocInfo($condition);
         $docData['organization_code']['id'] = $docInfo[0]['id'];
         $docData['organization_code']['file_name'] = $docInfo[0]['file_name'];
         $docData['organization_code']['file_rename'] = $docInfo[0]['file_rename'];
-    	$condition['id'] = $userInfo['national_tax_certificate'];
-    	$docInfo = $docObj->getDocInfo($condition);
+        $condition['id'] = $userInfo['national_tax_certificate'];
+        $docInfo = $docObj->getDocInfo($condition);
         $docData['national_tax_certificate']['id'] = $docInfo[0]['id'];
         $docData['national_tax_certificate']['file_name'] = $docInfo[0]['file_name'];
         $docData['national_tax_certificate']['file_rename'] = $docInfo[0]['file_rename'];
-    	$condition['id'] = $userInfo['local_tax_certificate'];
-    	$docInfo = $docObj->getDocInfo($condition);
+        $condition['id'] = $userInfo['local_tax_certificate'];
+        $docInfo = $docObj->getDocInfo($condition);
         $docData['local_tax_certificate']['id'] = $docInfo[0]['id'];
         $docData['local_tax_certificate']['file_name'] = $docInfo[0]['file_name'];
         $docData['local_tax_certificate']['file_rename'] = $docInfo[0]['file_rename'];
-    	$condition['id'] = $userInfo['identity_card_front'];
-    	$docInfo = $docObj->getDocInfo($condition);
+        $condition['id'] = $userInfo['identity_card_front'];
+        $docInfo = $docObj->getDocInfo($condition);
         $docData['identity_card_front']['id'] = $docInfo[0]['id'];
         $docData['identity_card_front']['file_name'] = $docInfo[0]['file_name'];
         $docData['identity_card_front']['file_rename'] = $docInfo[0]['file_rename'];
-    	$condition['id'] = $userInfo['identity_card_back'];
-    	$docInfo = $docObj->getDocInfo($condition);
+        $condition['id'] = $userInfo['identity_card_back'];
+        $docInfo = $docObj->getDocInfo($condition);
         $docData['identity_card_back']['id'] = $docInfo[0]['id'];
         $docData['identity_card_back']['file_name'] = $docInfo[0]['file_name'];
         $docData['identity_card_back']['file_rename'] = $docInfo[0]['file_rename'];
-    	$condition['id'] = $userInfo['financial_audit'];
-    	$docInfo = $docObj->getDocInfo($condition);
+        $condition['id'] = $userInfo['financial_audit'];
+        $docInfo = $docObj->getDocInfo($condition);
         $docData['financial_audit']['id'] = $docInfo[0]['id'];
         $docData['financial_audit']['file_name'] = $docInfo[0]['file_name'];
         $docData['financial_audit']['file_rename'] = $docInfo[0]['file_rename'];
         $docData['financial_audit']['token'] = md5(addToken($docInfo[0]["id"]));
 
-    	$this->assign('userInfo', $userInfo);
-    	$this->assign('areaStr', $areaStr);
-    	$this->assign('docData', $docData);
-    	$this->display("InnerStaff:providerInfo");
+        $this->assign('userInfo', $userInfo);
+        $this->assign('areaStr', $areaStr);
+        $this->assign('docData', $docData);
+        $this->display("InnerStaff:providerInfo");
     }
 
     /**
@@ -83,11 +82,11 @@ class InnerStaffController extends Controller {
             $doc = D("Doc", "Service");
             $docInfo = $doc->uploadFileAndPictrue($docFile, $docFile);
             if(!empty($docInfo)){
-                if(isset($_SESSION['doc_mul']))
-                    $_SESSION['doc_mul'] = $_SESSION['doc_mul'].",".$docInfo['attachment'];
-                else
-                    $_SESSION['doc_mul'] = $docInfo['attachment'];
-                echo $_SESSION['doc_mul'];
+                // if(isset($_SESSION['doc_mul']))
+                //     $_SESSION['doc_mul'] = $_SESSION['doc_mul'].",".$docInfo['attachment'];
+                // else
+                //     $_SESSION['doc_mul'] = $docInfo['attachment'];
+                // echo $_SESSION['doc_mul'];
                 echo '{"code":"0","msg":"success","id":"'.$docInfo['attachment'].'"}';
             }else{
                 echo '{"code":"-1","msg":"上传失败！"}';
@@ -142,8 +141,8 @@ class InnerStaffController extends Controller {
             $evaData['project_quality_situation'] = $_POST['project_quality_situation'];
             $evaData['project_invest_situation'] = $_POST['project_invest_situation'];
             $evaData['project_earnings_situation'] = $_POST['project_earnings_situation'];
-            $evaData['doc_mul'] = $_SESSION['doc_mul'];
-// echo "start   :";dump($proData);dump($evaData);exit;
+            $evaData['doc_mul'] = implode(",", $_POST['doc_mul']);
+// echo "start   :";dump($evaData['doc_mul']);exit;
             $res = $objProject->saveHousetopProject($proData);
             if($res == true){
             	$objEvaluation = D("Evaluation", "Service");
@@ -206,7 +205,7 @@ class InnerStaffController extends Controller {
             $evaData['project_quality_situation'] = $_POST['project_quality_situation'];
             $evaData['project_invest_situation'] = $_POST['project_invest_situation'];
             $evaData['project_earnings_situation'] = $_POST['project_earnings_situation'];
-            $evaData['doc_mul'] = $_SESSION['doc_mul'];
+            $evaData['doc_mul'] = implode(",", $_POST['doc_mul']);
 
 			$res = $objProject->submitHousetopProject($proData);
             if($res == true){
@@ -227,7 +226,8 @@ class InnerStaffController extends Controller {
     		$objProjectInfo = $objProject->getProjectInfo($projectCode);
     		$projectId = $objProjectInfo['id'];
     		$projectDetail = $objProject->getProjectInEvaluation($projectId, $objProjectInfo['project_type']);
-
+            $projectDetail['state_type'] = $objProject->getTypeAndStateStr($objProjectInfo['project_type'], $objProjectInfo['build_state']);
+            
             $area = D("Area", "Service");
             $areaArray = $area->getAreaArrayById($projectDetail['project_area']);
 			
@@ -236,18 +236,22 @@ class InnerStaffController extends Controller {
 
             $objDoc = D("Doc", "Service");
             $condition['id'] = $projectDetail['picture_full'];
-            $docInfo = $objDoc->getDocInfo($condition);
+            $picture = $objDoc->getDocInfo($condition);
+            $docList = explode(',', $evaluationInfo['doc_mul']);
+            $docListInfo = $objDoc->getAllDocInfo($docList);
 
             if ($_GET['display'] == 'json') {
                 header('Content-Type: text/html; charset=utf-8');
-                dump($docInfo);
+                dump($picture);
+                dump($docListInfo);
                 dump($projectDetail);
                 dump($areaArray);
                 dump($evaluationInfo);
                 exit;
             }
 
-            $this->assign('picture', $docInfo['file_rename']);
+            $this->assign('picture', $picture[0]['file_rename']);
+            $this->assign('docListInfo', $docListInfo);
     		$this->assign('projectDetail', $projectDetail);
             $this->assign('areaArray', $areaArray);
     		$this->assign('evaluationInfo', $evaluationInfo);
