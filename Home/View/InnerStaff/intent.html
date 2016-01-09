@@ -58,7 +58,11 @@
 					<?php } ?>
 				</div>
 			</form>
+			<?php if($projectInfo['status'] == 12){  ?>
 			<div class="signed">已签</div>
+			<?php }elseif($projectInfo['status'] == 13){ ?>
+			<div class="signed" style="display: block;">已签</div>
+			<?php } ?>
 		</div>
 	</div>
 
