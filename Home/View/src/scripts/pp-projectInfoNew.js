@@ -133,12 +133,12 @@ $(function() {
 		var $parent = $(this).parent();
 		$parent.append($parent.hasClass("inverter") ? '<div class="item">\
 <a href="javascript:;" class="del">删除</a>\
-<div><span class="c0">逆变器厂家</span><input class="c0" name="inverter_company"/></div>\
-<div><span class="c0">规格型号</span><input class="c0" name="inverter_type"/><span class="c1">数量</span><input class="c1" name="inverter_count"/>个</div>\
+<div><span class="c0">逆变器厂家</span><input class="c0" name="inverter_company[]"/></div>\
+<div><span class="c0">规格型号</span><input class="c0" name="inverter_type[]"/><span class="c1">数量</span><input class="c1" name="inverter_count[]"/>个</div>\
 </div>' : '<div class="item">\
 <a href="javascript:;" class="del">删除</a>\
-<div><span class="c0">组件厂家</span><input class="c0" name="component_company"/></div>\
-<div><span class="c0">规格型号</span><input class="c0" name="component_type"/><span class="c1">数量</span><input class="c1" name="component_count"/>个</div>\
+<div><span class="c0">组件厂家</span><input class="c0" name="component_company[]"/></div>\
+<div><span class="c0">规格型号</span><input class="c0" name="component_type[]"/><span class="c1">数量</span><input class="c1" name="component_count[]"/>个</div>\
 </div>');
 	}).on("click", ".del", function() {
 		var $parent = $(this).parent(),
