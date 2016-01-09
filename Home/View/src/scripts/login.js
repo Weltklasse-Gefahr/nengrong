@@ -1,6 +1,6 @@
 $(function(){
-	function warning() {
-		$("#warning").show().html()
+	function warning(temp) {
+		$("#warning").show().html(temp);
 	}
 
 	$("#loginbtn").click(function(){ 
@@ -10,7 +10,7 @@ $(function(){
 		if (!mailval || !/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(mailval)) {
 			warning("用户名格式错误");
 			return ;
-		};
+		}
 
 		if(!passval ) {
 			warning("密码不能为空");
