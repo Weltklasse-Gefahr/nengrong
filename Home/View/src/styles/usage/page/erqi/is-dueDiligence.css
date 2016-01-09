@@ -65,6 +65,12 @@
 	float: left;
 }
 
+.r-content form .part1 .brief-info .rec {
+	position: absolute;
+	top: -5px;
+	right: -5px;
+}
+
 .r-content form .part1 .brief-info .top, .r-content form .part1 .brief-info .bottom {
 	background-color: #eee;
 	text-align: center;
@@ -315,6 +321,13 @@
 	text-align: center;
 }
 
+.r-content form .operator .tips {
+	visibility: hidden;
+	font-size: 13px;
+	color: #F57929;
+	margin-right: 20px;
+}
+
 .r-content form .operator input[type="submit"] {
 	width: 100px;
 	height: 30px;
@@ -322,12 +335,33 @@
 	background-color: #FD7940;
 	color: #fff;
 	border: 0;
+	margin-right: 80px;
 }
 
-.r-content form input[type="submit"]:hover {
+.r-content form .operator input[type="submit"]:hover {
 	background: #F1920C;
 }
 
-.r-content form .operator .save {
-	margin-right: 100px;
+.r-content form .operator input[type="submit"].last {
+	margin-right: 0;
+}
+
+/* 尽职调查, 提交后查看 */
+.r-content .result {
+	color: #FD7940;
+}
+
+.r-content .uploadifive-mf-view {
+	line-height: 34px;
+	overflow: hidden;
+	position: relative;
+	text-align: center;
+	width: 140px;
+	text-decoration: none;
+	color: #000;
+}
+
+.r-content .uploadifive-mf-view img {
+	vertical-align: middle;
+	margin-right: 6px;
 }

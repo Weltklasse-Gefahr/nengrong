@@ -29,8 +29,8 @@
 	<!-- Tile icon for Win8 (144x144 + tile color) -->
 	<meta name="msapplication-TileImage" content="/EnergyFe/img/i/favicon.png">
 	<meta name="msapplication-TileColor" content="#0e90d2">
-	<link rel="stylesheet" href="/View/prd/styles/x-common@ttrrr.css">
-	<link rel="stylesheet" href="/View/prd/styles/loginsusprompt@ttt.css">
+	<link rel="stylesheet" href="/EnergyFe/prd/styles/x-common@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/styles/x-common.css.ver';</php>.css">
+	<link rel="stylesheet" href="/EnergyFe/prd/styles/loginsusprompt@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/styles/loginsusprompt.css.ver';</php>.css">
 <body>
 	<php>include '/home/ubuntu/enetfPlatform/nengrong/Home/View/hf/header.html';</php>
 	<!-- 二期页面header -->
@@ -63,7 +63,7 @@
 				</dl>
 			</div>
 			<div class="part3">
-				<a href="">进入登录界面>></a>
+				<a href="?c=User&a=login">进入登录界面>></a>
 			</div>			
 		</div>
 		
@@ -79,7 +79,6 @@
 		<span href=""> ©2015 北京光辉普惠能源科技有限公司 All rights reserved</span>
 	</div>
 	
-	<script src="/View/prd/scripts/x-common@.js"></script>
-	<script src="/View/prd/scripts/loginsusprompt@.js"></script>
+	<script src="/EnergyFe/prd/scripts/common@<php>include './nengrong/Home/View/ver/scripts/common.js.ver';</php>.js"></script>
 </body>
 </html>

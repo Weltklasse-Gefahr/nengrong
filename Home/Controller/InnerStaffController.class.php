@@ -141,8 +141,8 @@ class InnerStaffController extends Controller {
             $evaData['project_quality_situation'] = $_POST['project_quality_situation'];
             $evaData['project_invest_situation'] = $_POST['project_invest_situation'];
             $evaData['project_earnings_situation'] = $_POST['project_earnings_situation'];
-            $evaData['doc_mul'] = $_POST['doc_mul'];
-// echo "start   :";dump($proData);dump($evaData);exit;
+            $evaData['doc_mul'] = implode(",", $_POST['doc_mul']);
+// echo "start   :";dump($evaData['doc_mul']);exit;
             $res = $objProject->saveHousetopProject($proData);
             if($res == true){
             	$objEvaluation = D("Evaluation", "Service");
@@ -205,7 +205,7 @@ class InnerStaffController extends Controller {
             $evaData['project_quality_situation'] = $_POST['project_quality_situation'];
             $evaData['project_invest_situation'] = $_POST['project_invest_situation'];
             $evaData['project_earnings_situation'] = $_POST['project_earnings_situation'];
-            $evaData['doc_mul'] = $_POST['doc_mul'];
+            $evaData['doc_mul'] = implode(",", $_POST['doc_mul']);
 
 			$res = $objProject->submitHousetopProject($proData);
             if($res == true){
@@ -226,7 +226,8 @@ class InnerStaffController extends Controller {
     		$objProjectInfo = $objProject->getProjectInfo($projectCode);
     		$projectId = $objProjectInfo['id'];
     		$projectDetail = $objProject->getProjectInEvaluation($projectId, $objProjectInfo['project_type']);
-
+            $projectDetail['state_type'] = $objProject->getTypeAndStateStr($objProjectInfo['project_type'], $objProjectInfo['build_state']);
+            
             $area = D("Area", "Service");
             $areaArray = $area->getAreaArrayById($projectDetail['project_area']);
 			
@@ -235,18 +236,22 @@ class InnerStaffController extends Controller {
 
             $objDoc = D("Doc", "Service");
             $condition['id'] = $projectDetail['picture_full'];
-            $docInfo = $objDoc->getDocInfo($condition);
+            $picture = $objDoc->getDocInfo($condition);
+            $docList = explode(',', $evaluationInfo['doc_mul']);
+            $docListInfo = $objDoc->getAllDocInfo($docList);
 
             if ($_GET['display'] == 'json') {
                 header('Content-Type: text/html; charset=utf-8');
-                dump($docInfo);
+                dump($picture);
+                dump($docListInfo);
                 dump($projectDetail);
                 dump($areaArray);
                 dump($evaluationInfo);
                 exit;
             }
 
-            $this->assign('picture', 'http://www.enetf.com'.$docInfo[0]['file_rename']);
+            $this->assign('picture', $picture[0]['file_rename']);
+            $this->assign('docListInfo', $docListInfo);
     		$this->assign('projectDetail', $projectDetail);
             $this->assign('areaArray', $areaArray);
     		$this->assign('evaluationInfo', $evaluationInfo);

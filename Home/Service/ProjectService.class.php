@@ -654,6 +654,20 @@ class ProjectService extends Model{
         return !empty($projectInfo) ? $projectInfo[0]["id"]:false;
     }
 
+    /**
+    **@auth qianqiang
+    **@breif 项目状态和建设情况拼接
+    **@date 2016.1.9
+    **/
+    public function getTypeAndStateStr($projectType, $buildState){
+        if($projectType == 1) $type = "屋顶分布式";
+        elseif($projectType == 2) $type = "地面分布式";
+        elseif($projectType == 3) $type = "大型地面";
+        if($buildState == 1) $state = "未建";
+        elseif($buildState == 2) $state = "已建";
+        return $state."-".$type;
+    }
+
     // /**
     // **@auth qianqiang
     // **@breif 查询所有项目

@@ -92,4 +92,23 @@ class DocService extends Model{
         return $arrDocId;
     }
 
+    /**
+    **@auth qianqiang
+    **@breif 获取附件数组
+    **@param docList附件id数组
+    **@return 一个数组
+    **@date 2016.1.9
+    **/
+    public function getAllDocInfo($docList){
+        $i = 0;
+        while($docList[$i]){
+            $condition['id'] = $docList[$i];
+            $objDoc = M("Doc");
+            $docInfo = $objDoc->where($condition)->select();
+            $docListInfo[$i] = $docInfo;
+            $i += 1;
+        }
+        return $docListInfo;
+    }
+
 }
