@@ -177,8 +177,10 @@ $(function() {
 			$("#submit").removeClass("disabled");
 			location.href = "?c=ProjectProviderMyPro&a=projectInfoEdit&project_code=" + data.id;
 		} else {
-			$('[data-type=mul]').attr("name", "picture_mul");
-			alert(data.errmsg || "上传失败！");
+			$form.find('[data-type="mul"]').each(function() {
+				$(this).attr("name", $(this).attr("name").replace(/^([^\[\]]*)\[\]$/, "$1"));
+			});
+			alert(data.errmsg || "操作失败！");
 		}
 	}
 
@@ -206,7 +208,9 @@ $(function() {
 		} else {
 			$form.find("[name=optype]").val(optype);
 			$form.find("li:hidden input, li:hidden select").prop("disabled", true);
-			$form.find('[data-type=mul]').attr("name", "picture_mul[]");
+			$form.find('[data-type="mul"]').each(function() {
+				$(this).attr("name", $(this).attr("name").replace(/^(.*)$/, "$1[]"));
+			});
 			return true;
 		}
 	});
