@@ -64,10 +64,10 @@ $(function() {
 	function successCallback(data) {
 		$("#submit").removeClass("disabled");
 		if(data.code == "0") {
-			alert("上传成功！");
+			alert("保存成功！");
 			location.href="?c=ProjectProviderMyPro&a=awaitingAssessment";
 		} else {
-			alert("上传失败！\n"+data.msg);
+			alert(data.msg || "保存失败！");
 		}
 	}
 
