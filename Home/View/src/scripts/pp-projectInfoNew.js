@@ -194,7 +194,8 @@ $(function() {
 				data: {
 					optype: optype,
 					project_code: $form.find("[name=project_code]").val()
-				}
+				},
+				dataType: "json"
 			}).done(function(data) {
 				if(data.code == "0") {
 					location.href = "?c=ProjectProviderMyPro&a=awaitingAssessment";

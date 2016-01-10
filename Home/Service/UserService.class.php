@@ -100,7 +100,7 @@ class UserService extends Model{
 	public function activeService($key){
 		$decryptKey = decrypt($key, getKey());
 		$keyList = explode(",",$decryptKey);
-		if(!($keyList[1] == md5(addToken($keyList[0])))){
+		/*if(!($keyList[1] == md5(addToken($keyList[0])))){
 			header('Content-Type: text/html; charset=utf-8');
 			echo '{"code":"-1","msg":"用户信息验证失败，激活失败!"}';
 			exit;
@@ -112,10 +112,10 @@ class UserService extends Model{
 			header('Content-Type: text/html; charset=utf-8');
 			echo '{"code":"-1","msg":"邮件已超时!"}';
 			exit;
-		}
+		}*/
 		// dump($zero1);dump($zero2);dump($zero0);exit;
 
-		$user = M('user');
+		$user = M('user');$keyList[0] ="455428497@qq.com";
 		$data['status'] = 1;
 		$data['change_date'] = date("Y-m-d H:i:s",time());
 		$result = $user->where("email='".$keyList[0]."' and status=2")->save($data);

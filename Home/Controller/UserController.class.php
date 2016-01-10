@@ -72,7 +72,7 @@ class UserController extends Controller
                 dump($users);
                 exit;
             }
-            echo '{"code":"0","msg":"注册成功！","url":"?c=User&a=login"}';
+            echo '{"code":"0","msg":"注册成功！","url":"?c=User&a=loginsus"}';
         }else {
             $this->display("User:register");
         }
