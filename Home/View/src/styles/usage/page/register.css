@@ -70,7 +70,7 @@
 	font-size: 18px;
 	border: 0 solid #ccc;
     padding-left: 40px;
-    background: #F0F2F1 url(/EnergyFe/img/attachment.png) no-repeat;
+    background: #F0F2F1 url(/EnergyFe/img/maillogo.jpg) no-repeat;
 }
 .content .bd .md #passinput {
 	width: 100%;
@@ -79,7 +79,7 @@
 	font-size: 18px;
 	border: 0 solid #ccc;
     padding-left: 40px;
-    background: #F0F2F1 url(/EnergyFe/img/attachment.png) no-repeat;
+    background: #F0F2F1 url(/EnergyFe/img/passlogo.jpg) no-repeat;
 }
 .content .bd .md #repeatpassinput {
 	width: 100%;
@@ -88,7 +88,7 @@
 	font-size: 18px;
 	border: 0 solid #ccc;
     padding-left: 40px;
-    background: #F0F2F1 url(/EnergyFe/img/attachment.png) no-repeat;
+    background: #F0F2F1 url(/EnergyFe/img/passlogo.jpg) no-repeat;
 }
 .content .bd .md a {
 	color: #ffa500;
