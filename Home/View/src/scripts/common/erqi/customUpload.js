@@ -60,12 +60,14 @@ $(function($) {
 			$this.css("visibility", "visible");
 
 			var $inputWrap = $this.parent(),
+				$hiddenId = $(),
 				$preview = $inputWrap.siblings(".preview");
 
 			// 编辑页预览附件
 			var url = $this.attr("data-url");
 			if(url) {
-				$this.after($('<input type="hidden"' + ($this.data("type") === "mul" ?' data-type="mul"' : '') + ' name="' + $this.attr("name") + suffix +'" value="' + ($this.attr("data-id") || "") + '" />'));
+				$hiddenId = $('<input type="hidden"' + ($this.data("type") === "mul" ?' data-type="mul"' : '') + ' name="' + $this.attr("name") + suffix +'" value="' + ($this.attr("data-id") || "") + '" />');
+				$this.after($hiddenId);
 				var name = $this.attr("data-name"),
 					alink = $preview.show().find("a");
 				if(uploadType === "image") {
@@ -81,7 +83,7 @@ $(function($) {
 			}
 
 			$this.change(function(e) {
-				$('[name=' + $this.attr("name") + suffix + ']').val("");
+				$hiddenId.val("");
 
 				var	resultFile = this.files[0];
 
@@ -123,7 +125,7 @@ $(function($) {
 				} else {
 					$preview.hide().find("a").attr("href", "javascript:;").text("");
 				}
-				$('[name=' + $this.attr("name") + suffix + ']').val("");
+				$hiddenId.val("");
 				
 				$inputWrap.show().find("input[type=file]").val("");
 				option.callback && option.callback.call(item, "delete");
