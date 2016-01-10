@@ -104,6 +104,7 @@ class DocService extends Model{
         $hiddenId = "_hiddenId";
         $arrDocId = array();
         $arrPhotosAndFile = $_FILES['picture_mul'];
+        //echo json_decode($_POST['picture_mul_hiddenId']);exit;
         
         foreach($arrPhotosAndFile as $k=>$v)
         {
