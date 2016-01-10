@@ -400,17 +400,21 @@ class InnerStaffController extends Controller {
         $page = $_GET['page'];
         if(empty($page)) $page=1;
         $pageSize = 6;
+        $projectObj = D("Project", "Service");
+        $userObj = D("User", "Service");
         if($rtype == 1){
-            $projectObj = D("Project", "Service");
             $projectList = $projectObj->searchService($companyName, $companyType, $situation, $startDate, $endDate, $status, $cooperationType, $page);
             $projectTotal = $projectObj->searchService($companyName, $companyType, $situation, $startDate, $endDate, $status, $cooperationType, -1);
         }else{
             // $projectObj = D("Project", "Service");
             // $projectList = $projectObj->searchService(null, null, null, null, null, null, null, $page);
             // $projectTotal = $projectObj->searchService(null, null, null, null, null, null, null, -1);
+
         }
+        $companyNameList = $userObj->getAllCompanyName();
         $data = array();
         $data["list"] = $projectList;
+        $data["campanyName"] = $companyNameList;
         $data["page"] = $page;
         $data["count"] = sizeof($projectTotal);
         $data["totalPage"] = ceil($data["count"]/$pageSize+1);

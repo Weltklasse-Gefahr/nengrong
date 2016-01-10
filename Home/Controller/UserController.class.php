@@ -156,15 +156,11 @@ class UserController extends Controller
     }
 
     public function test1(){
-        $a[0]['id']=1;
-        $a[0]['text']='1';
-        $a[1]['id']=2;
-        $a[1]['text']='2';
-        $b[0]['id']=3;
-        $b[0]['text']='3';
-        $b[0]['qwe']='3';
-        $c=array_merge($a,$b);
-        dump($c);
+        $user = D("User", "Service");
+        $userInfo = $user->getAllCompanyName();
+        dump($userInfo);
+        // $c=array_merge($a,$b);
+
         // $investors = '123,456,789,';
         // $newstr = substr($investors,0,strlen($investors)-1); 
         // $investorList = explode(",",$newstr);

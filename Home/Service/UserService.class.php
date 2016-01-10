@@ -353,6 +353,18 @@ class UserService extends Model{
 
 	/**
     **@auth qianqiang
+    **@breif 得到所有用户的公司名称
+    **@date 2016.1.10
+    **/
+	public function getAllCompanyName(){
+		$userObj = M('User');
+		$sql = "select distinct company_name from enf_user where company_name is not null and company_name != '';";
+		$companyName = $userObj->query($sql);
+		return $companyName;
+	}
+
+	/**
+    **@auth qianqiang
     **@breif 获取某一项目的所有项目投资方信息，推送状态push_flag
     **@param $projectCode 项目编码
     **@param $page 第几页，page=-1查询所有的
