@@ -3,11 +3,8 @@ $(function(){
 	$(".l-nav").find(".securityCenter").addClass("active")
 		.children("a").attr("href", "javascript:;");
 
-	function warning() {
-		$("#warning").show();
-	}
-	function warning2() {
-		$("#warning2").show();
+	function warning(temp) {
+		$("#warning").show().html(temp);
 	}
 
 	$("#changebtn").click(function(){ 
@@ -16,11 +13,11 @@ $(function(){
 		var repeatpassval= $.trim($("#repeatpassinput").val());
 
 		if(oldpassval== newpassval) {
-			warning1();
+			warning("新旧用户名不能一样");
 			return ;
 		}
 		if(newpassval!== repeatpassval) {
-			warning2();
+			warning("确认密码不一致");
 			return ;
 		}
 
@@ -33,7 +30,12 @@ $(function(){
 		    },
 			dataType: "json"
 		}).done(function(data){
-			location.href="http://www.enetf.com";
+			if (data.code== 0) {
+				warning(data.msg || "修改成功");
+			}
+			else{
+				warning(data.msg || "修改失败");
+			}
 		});
 	});
 });
