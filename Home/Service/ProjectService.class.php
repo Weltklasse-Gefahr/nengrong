@@ -556,6 +556,7 @@ class ProjectService extends Model{
     public function pushProject($projectCode, $investorList){
         if($this->isPushProject($projectCode) == false){
             echo '{"code":"-1","msg":"该项目不能进行推送操作"}';
+            exit;
         }
         $pushProject = D("Pushproject");
         $data = array();
@@ -799,11 +800,13 @@ class ProjectService extends Model{
             }
         }
         if($page != -1){
+            $pageSize = 6;
+            $start = ($page-1)*$pageSize;
             if($housetopSql != ""){
-                $housetopSql = $housetopSql." ";
+                $housetopSql = $housetopSql." limit ".$start.","."";
             }
             if($groundSql != ""){
-                $groundSql = $groundSql." ";
+                $groundSql = $groundSql." limit".$start.","."";
             }
         }
 
