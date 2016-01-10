@@ -1,12 +1,6 @@
 $(function(){
-	function warning() {
-		$("#warning").show();
-	}
-	function warning2() {
-		$("#warning2").show();
-	}
-	function warning3() {
-		$("#warning3").show();
+	function warning(temp) {
+		$("#warning").show().html(temp);
 	}
 
 	$("#registerbtn").click(function(){ 
@@ -15,15 +9,15 @@ $(function(){
 		var repeatpassval= $.trim($("#repeatpassinput").val());
 
 		if (!mailval || !/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(mailval)) {
-			warning();
+			warning("用户名格式错误");
 			return ;
 		};
 		if (!passval) {
-			warning3();
+			warning("密码不能为空");
 			return ;
 		};
 		if(passval!== repeatpassval) {
-			warning2();
+			warning("密码不一直");
 			return ;
 		}
 
@@ -37,7 +31,12 @@ $(function(){
 		    },
 			dataType: "json"
 		}).done(function(data){
-			location.href=data.url;
+			if (data.code== 0) {
+				location.href=data.url;
+			}
+			else{
+				warning(data.msg || "注册失败");
+			}
 		});
 	});
 });
