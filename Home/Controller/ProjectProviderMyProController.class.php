@@ -577,6 +577,9 @@ class ProjectProviderMyProController extends Controller {
     {
         //判断登陆，并且获取用户名的email
         isLogin($_COOKIE['email'],$_COOKIE['mEmail']);
+        $json = '{step:{state:"dueDiligence",substate:"signed"},projectInfo:{},intent:{},dueDiligence:{}}';
+        $arr = json_decode($json);
+        $this->assign('data', $arr);
         $this->display("ProjectProvider:projectInfoView");
     }
 
