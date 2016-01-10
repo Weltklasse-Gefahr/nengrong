@@ -324,7 +324,7 @@ class ProjectProviderMyProController extends Controller {
                 $arrProInfo["status"] = "11";  //项目未提交状态
                 $arrInfor["status"] = "11";  //项目未提交状态
             }
-            if($optype == "commit")
+            if($optype == "submit")
             {
                 $arrProInfo["status"] = "12";  //项目提交状态
                 $arrInfor["status"] = "12";  //项目未提交状态
