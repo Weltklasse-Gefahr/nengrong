@@ -105,10 +105,12 @@
 								<input type="file" accept="image/gif,image/jpeg,image/png" name="picture_south" style="visibility: hidden;" data-url="{$data['picture_south']['url']}" data-name="{$data['picture_south']['name']}" data-id="{$data['picture_south']['id']}" />
 								<p>屋顶正南向照片</p>
 							</div>
+							<foreach name="data.picture_mul" item="vo" key="k" >
 							<div class="img-ct">
-								<input type="file" data-type="mul" accept="image/gif,image/jpeg,image/png" name="picture_mul" style="visibility: hidden;" data-url="{$data['picture_mul']['url']}" data-name="{$data['picture_mul']['name']}" data-id="{$data['picture_mul']['id']}" />
-								<p class="previewname" title="{$data['picture_mul']['name']}">{$data['picture_mul']['name']}</p>
+								<input type="file" data-type="mul" accept="image/gif,image/jpeg,image/png" name="picture_mul" style="visibility: hidden;" data-url="{$vo['url']}" data-name="{$vo['name']}" data-id="{$vo['id']}" />
+								<p class="previewname" title="{$vo['name']}">{$vo['name']}</p>
 							</div>
+							</foreach>
 							<p class="tip">备注：请上传近期高清照片，从不同角度拍摄。</p>
 						</div>
 					</li>
@@ -127,10 +129,12 @@
 								<input type="file" accept="image/gif,image/jpeg,image/png" name="picture_transformer" style="visibility: hidden;" data-url="{$data['picture_transformer']['url']}" data-name="{$data['picture_transformer']['name']}" data-id="{$data['picture_transformer']['id']}" />
 								<p>变电站照片</p>
 							</div>
+							<foreach name="data.picture_mul" item="vo" key="k" >
 							<div class="img-ct">
-								<input type="file" data-type="mul" accept="image/gif,image/jpeg,image/png" name="picture_mul" style="visibility: hidden;" data-url="{$data['picture_mul']['url']}" data-name="{$data['picture_mul']['name']}" data-id="{$data['picture_mul']['id']}" />
-								<p class="previewname" title="{$data['picture_mul']['name']}">{$data['picture_mul']['name']}</p>
+								<input type="file" data-type="mul" accept="image/gif,image/jpeg,image/png" name="picture_mul" style="visibility: hidden;" data-url="{$vo['url']}" data-name="{$vo['name']}" data-id="{$vo['id']}" />
+								<p class="previewname" title="{$vo['name']}">{$vo['name']}</p>
 							</div>
+							</foreach>
 							<p class="tip">备注：请上传近期高清照片，从不同角度拍摄。</p>
 						</div>
 					</li>

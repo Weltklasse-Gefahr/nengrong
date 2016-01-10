@@ -16,6 +16,7 @@ class ProjectProviderMyProController extends Controller {
         isLogin($_COOKIE['email'],$_COOKIE['mEmail']);
         $projectInfo["components"] = array("0"=>"");
         $projectInfo["inverters"]  = array("0"=>"");
+        $projectInfo["picture_mul"]  = array("0"=>"");
         $this->assign('data',$projectInfo);
     	$this->display("ProjectProvider:projectInfoNew");
     }
@@ -146,8 +147,12 @@ class ProjectProviderMyProController extends Controller {
                 {
                     $arrInfor[$key] = $val;
                 }
-                //接收其他图片
+                //接收其他图片，直接调用函数上传n张图片，得到n个id,然后直接拼接picture_mul__hiddenId存数据库
+                $res = $objDoc->uploadFileAndPictrueMul();
+                $arrInfor['picture_mul'] = implode(',', $res);//echo jj;
+                //echo $arrInfor['picture_mul'];exit;
                 //$arrInfor['picture_mul'] = $_POST['picture_mul']; //其他图片
+                //获取到当前picture_mul__hiddenId
 
                 $arrInfor['housetop_owner'] = $_POST['housetop_owner']; //屋顶业主名称
                 $arrInfor['company_type'] = $_POST['company_type']; //企业类型
@@ -245,6 +250,9 @@ class ProjectProviderMyProController extends Controller {
                 }
                 //接收其他图片,这个先不做
                 //$arrInfor['picture_mul'] = $_POST['picture_mul']; //其他图片
+                //接收其他图片，直接调用函数上传n张图片，得到n个id,然后直接拼接picture_mul__hiddenId存数据库
+                $res = $objDoc->uploadFileAndPictrueMul();
+                $arrInfor['picture_mul'] = implode(',', $res);
                 //公用的
                 $arrInfor['ground_property'] = $_POST['ground_property']; //土地性质
                 $arrInfor['ground_property_other'] = $_POST['ground_property_other']; //土地性质其他可填入
@@ -437,13 +445,32 @@ class ProjectProviderMyProController extends Controller {
             foreach($arrPicAndfile as $val)
             {
                 
-                $condition["id"] = $projectInfoDetail[$val]; //picture_full
-                $docInfo = $objUser->getDocInfo($condition);
-                $projectInfo[$val] = array();
-                $projectInfo[$val]["id"] = $docInfo[0]["id"];
-                $projectInfo[$val]["token"] = md5(addToken($docInfo[0]["id"]));
-                $projectInfo[$val]["name"] = $docInfo[0]["file_name"];
-                $projectInfo[$val]["url"] = $docInfo[0]["file_rename"];
+                if ($val == "picture_mul")
+                {
+                    $projectInfo["picture_mul"] = array();
+                    $arrDocId = explode(',', $projectInfoDetail[$val]); //picture_full
+                    foreach ($arrDocId as $vid) {
+                        $condition["id"] = $vid;
+                        $docInfo = $objUser->getDocInfo($condition);
+                        $temp = array();
+                        $temp["id"] = $docInfo[0]["id"];
+                        $temp["token"] = md5(addToken($docInfo[0]["id"]));
+                        $temp["name"] = $docInfo[0]["file_name"];
+                        $temp["url"] = $docInfo[0]["file_rename"];
+                        $projectInfo["picture_mul"][] = $temp;
+                    }
+                    $projectInfo["picture_mul"][] = "";
+                }
+                else
+                {
+                    $condition["id"] = $projectInfoDetail[$val]; //picture_full
+                    $docInfo = $objUser->getDocInfo($condition);
+                    $projectInfo[$val] = array();
+                    $projectInfo[$val]["id"] = $docInfo[0]["id"];
+                    $projectInfo[$val]["token"] = md5(addToken($docInfo[0]["id"]));
+                    $projectInfo[$val]["name"] = $docInfo[0]["file_name"];
+                    $projectInfo[$val]["url"] = $docInfo[0]["file_rename"];
+                }           
             }
             if ($display=="json")
             {
