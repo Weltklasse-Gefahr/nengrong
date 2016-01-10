@@ -81,7 +81,7 @@ class ProjectProviderMyProController extends Controller {
         );
 
         //保存or提交
-    	if ( ($optype == "save" || $optype == "commit") && $rtype == 1)
+    	if ( ($optype == "save" || $optype == "submit") && $rtype == 1)
     	{   
             
             //接收前端表单过来的参数，并且处理下
@@ -149,7 +149,7 @@ class ProjectProviderMyProController extends Controller {
                 }
                 //接收其他图片，直接调用函数上传n张图片，得到n个id,然后直接拼接picture_mul__hiddenId存数据库
                 $res = $objDoc->uploadFileAndPictrueMul();
-                $arrInfor['picture_mul'] = implode(',', $res);//echo jj;
+                $arrInfor['picture_mul'] = implode(',', $res);//echo json_encode($res);exit;//echo jj;
                 //echo $arrInfor['picture_mul'];exit;
                 //$arrInfor['picture_mul'] = $_POST['picture_mul']; //其他图片
                 //获取到当前picture_mul__hiddenId
@@ -333,7 +333,9 @@ class ProjectProviderMyProController extends Controller {
             if (empty($arrProInfo['project_code']))  
             {
                 //插入
-                $arrProInfo["project_code"] = '2323DDDDDDDDDDd'.time();  //之后需要加一下这个生成项目id的功能
+                $getProjectCode = getProjectCode($_POST['project_type'], $_POST['financing_type'], $_POST['county'] );
+                $arrProInfo["project_code"] = $getProjectCode;
+                //$arrProInfo["project_code"] = '2323DDDDDDDDDDd'.time();  //之后需要加一下这个生成项目id的功能
                 $arrProInfo["provider_id"] = "1111111111";//之后需要加一下项目提供方的id
                 $arrProInfo["create_time"] = date("Y-m-d H:i:s" ,time());
                 $ret = $objProject->insertProject($arrProInfo);
@@ -401,6 +403,15 @@ class ProjectProviderMyProController extends Controller {
 	    {
             //项目删除
             //这里删除以xxx开头的编号数据
+            $projectCode = $_POST['project_code'] ? $_POST['project_code']:$_GET['project_code'];
+            $objProject  = D("Project","Service");
+            $res = $objProject->deleteProject($projectCode);//echo $res;
+            if ($ret === false)
+            {
+                 echo '{"code":"-1","msg":"删除项目失败失败！"}';
+                 exit;
+            }
+            echo '{"code":"0","msg":""}';
 	    }
         elseif($rtype != 1)  //显示
         {

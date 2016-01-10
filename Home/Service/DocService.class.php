@@ -104,8 +104,12 @@ class DocService extends Model{
         $hiddenId = "_hiddenId";
         $arrDocId = array();
         $arrPhotosAndFile = $_FILES['picture_mul'];
-        //echo json_decode($_POST['picture_mul_hiddenId']);exit;
-        
+        $hID = $_POST['picture_mul_hiddenId'];
+        //echo json_encode($_POST['picture_mul_hiddenId']);
+        foreach ($hID as $key => $value) {
+            if(empty($value)) unset($hID[$key]);
+        }
+        //echo json_encode($hID);eixt;
         foreach($arrPhotosAndFile as $k=>$v)
         {
              $index = 0;
@@ -136,11 +140,11 @@ class DocService extends Model{
                 $arrDocId[] = $returnId;//echo $returnId;eixt;
             }
         }
-        if(empty($_POST['picture_mul_hiddenId']))
+        if(empty($hID))
         {
             return $arrDocId;
         }
-        return array_merge($arrDocId,$_POST['picture_mul_hiddenId']);
+        return array_merge($hID,$arrDocId);
     }
 
     /**

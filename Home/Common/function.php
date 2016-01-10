@@ -121,6 +121,74 @@ function uploadFileOne($file, $savePath = ''){
 
 /**
 **@auth qiujinhan
+**@breif 生成项目编号
+**@param $projectType 项目类型
+**@param $area 地区  
+**@param $financingType 融资模式  
+**@return 更新成功返回文件的存储路径  上传失败返回false
+**@date 2015.12.05
+**/
+function getProjectCode($projectType, $area, $financingType){
+    //项目类型
+    if($projectType == 1) //屋顶
+    {
+        $proType = "R";
+    }
+    elseif($projectType == 2) //地面
+    {
+        $proType = "G";
+    }
+    elseif($projectType == 3) //大型
+    {
+        $proType = "L";
+    }
+    else
+    {
+        $proType = "X"; //其他
+    }
+    //行业
+    $industry = array(
+        '1' => "I", 
+        '2' => "C", 
+        '3' => "A", 
+        '4' => "R", 
+        '5' => "F", 
+        '6' => "X", 
+        );
+    $index = rand(1,6);
+    $industryType =  $industry[$index];
+    //地区
+    //$areaType = empty($area)?"0101":$area;
+    $areaType = rand(1000,9999);
+    //项目规模
+    $projectScale = rand(100,999)."K";
+    //年份
+    $year = substr(date('Y'),2,2);
+    //融资模式
+    if($financingType == 1) //直租
+    {
+        $proType = "D";
+    }
+    elseif($financingType == 2) //回租
+    {
+        $proType = "B";
+    }
+    elseif($financingType == 3) //股权融
+    {
+        $proType = "E";
+    }
+    else
+    {
+        $proType = "X"; //其他
+    }
+    //客户号yu 序列号
+    $mul = rand(100000,999999);
+    return $proType.$industryType.$areaType.'-'.$projectScale.'-'.$proType.$year.'-'.$mul;
+
+}
+
+/**
+**@auth qiujinhan
 **@breif 登陆状态判断
 **@param $userName 用户名
 **@param mUserName  加密后的用户名

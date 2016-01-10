@@ -165,6 +165,19 @@ class ProjectService extends Model{
         }
         return $result;
     }  
+    /**
+    **@auth qiujinhan
+    **@breif 删除项目
+    **@param projectCode 项目id
+    **@date 2015.12.24
+    **/ 
+    public function deleteProject($projectCode){
+        //删除旧的组件信息
+        $obj = M("Project");
+        $condition['project_code'] = $projectCode;
+        $res = $obj->where($condition)->delete();
+        return $res;
+    }
 
     /**
     **@auth qiujinhan
