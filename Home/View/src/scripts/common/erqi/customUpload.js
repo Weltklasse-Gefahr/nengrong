@@ -65,7 +65,7 @@ $(function($) {
 			// 编辑页预览附件
 			var url = $this.attr("data-url");
 			if(url) {
-				$this.after($('<input type="hidden" data-type="mul" name="' + $this.attr("name") + suffix +'" value="' + ($this.attr("data-id") || "") + '" />'));
+				$this.after($('<input type="hidden"' + ($this.data("type") === "mul" ?' data-type="mul"' : '') + ' name="' + $this.attr("name") + suffix +'" value="' + ($this.attr("data-id") || "") + '" />'));
 				var name = $this.attr("data-name"),
 					alink = $preview.show().find("a");
 				if(uploadType === "image") {
