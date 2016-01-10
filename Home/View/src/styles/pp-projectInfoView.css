@@ -1,3 +1,5 @@
 @import url(usage/module/erqi/customUpload.css);
 @import url(usage/module/erqi/step.css);
+@import url(usage/page/erqi/pp-projectInfoNew.css); /* 项目信息 */
+@import url(usage/page/erqi/is-dueDiligence.css); /* 尽职调查信息 */
 @import url(usage/page/erqi/pp-projectInfoView.css);
