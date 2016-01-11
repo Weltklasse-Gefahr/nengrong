@@ -20,16 +20,16 @@
 	color: #fff;
 }
 
-.r-content {
+.r-content.dueDiligence {
 	width: 840px;
 }
 
-.r-content form .detail {
+.r-content.dueDiligence form .detail {
 	border-top: 2px solid #ccc;
 	position: relative;
 }
 
-.r-content form .detail.part1 {
+.r-content.dueDiligence form .detail.part1 {
 	padding: 40px 30px;
 }
 

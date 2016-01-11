@@ -1,275 +1,52 @@
-.r-content {
-	padding-top: 30px;
-}
-
 /* 默认展示最后一步对应的内容 */
-.r-content .step1 > .content {
+.r-content .content {
 	display: none;
 }
 
-.r-content .step1 > .content1 {
+.r-content.step1 .content1 {
 	display: block;
 }
 
-.r-content .step2 > .content2 {
+.r-content.step2 .content2 {
 	display: block;
 }
 
-.r-content .step3 > .content3 {
+.r-content.step3 .content3 {
 	display: block;
 }
 
-.r-content form {
-	margin-top: 60px;
+.r-content.step1 .step, .r-content.step2 .step, .r-content.step3 .step {
+	margin: 0 auto;
 }
 
-/* 如果某项只在某一种项目类型下有，默认先隐藏这样的项 */
-.r-content form .notall {
-	display: none;
-}
-/* 屋顶分布式 未建 */
-.r-content form.housetop_nonBuild .housetop_nonBuild_item {
-	display: block;
-}
-/* 屋顶分布式 已建 */
-.r-content form.housetop_build .housetop_build_item {
-	display: block;
-}
-/* 地面分布式 未建 */
-.r-content form.ground_nonBuild .ground_nonBuild_item {
-	display: block;
-}
-/* 地面分布式 已建 */
-.r-content form.ground_build .ground_build_item {
-	display: block;
-}
-/* 大型地面 未建 */
-.r-content form.bigground_nonBuild .ground_nonBuild_item, .r-content form.bigground_nonBuild .bigground_nonBuild_item  {
-	display: block;
-}
-.r-content form.bigground_nonBuild .ground_nonBuild_item.onlyground {
-	display: none;
-}
-/* 大型地面 已建 */
-.r-content form.bigground_build .ground_build_item, .r-content form.bigground_build .bigground_build_item {
-	display: block;
-}
-.r-content form.bigground_build .ground_build_item.onlyground {
-	display: none;
-}
-
-.r-content form .part1 li {
-	margin-top: 20px;
-}
-
-.r-content form .part1 .lb {
-	width: 100px;
-	float: left;
-}
-
-.r-content form .required:after {
-	content: "*";
-	color: red;
-	font-size: 12px;
-	top: -3px;
-	left: 1px;
-	position: relative;
-}
-
-.r-content form .part1 .item {
-	width: 800px;
-	float: left;
-}
-
-.r-content form .part1 .item .filter {
-	line-height: 26px;
-	height: 32px;
-}
-
-.r-content form .part1 .item .filter span {
-	display: inline-block;
-	width: 110px;
+/* 等待意向书，等待尽职调查 */
+.r-content .content.wait p {
 	text-align: center;
-	cursor: pointer;
+	padding-top: 100px;
 }
 
-.r-content form .part1 .item .filter span.active {
-	border-radius: 5px;
-	background-color: #FD7940;
-	color: #fff;
-	border: 0;
-}
-
-.r-content form .part1 .item select {
-	height: 24px;
-	margin: 0 4px 0 26px;
-	width: 130px;
-}
-.r-content form .part1 .item select.first {
-	margin-left: 0;
-}
-
-.r-content form .part1 .item.area input {
-	height: 24px;
-	width: 500px;
-}
-
-.r-content form .part1 .item .demo {
-	display: inline-block;
-	text-align: center;
+.r-content .content.wait p img {
+	vertical-align: middle;
+	width: 42px;
 	margin-right: 20px;
 }
 
-.r-content form .part1 .item .img-ct {
-	float: left;
+/* 待签署意向书，已签署意向书 */
+.r-content .content.content2.submited {
+	padding-top: 40px;
+	width: 670px;
+	margin: 0 auto;
+}
+
+.r-content .content.content2.submited .title {
 	text-align: center;
-	margin-right: 25px;
+	font-weight: bold;
 }
 
-.r-content form .part1 .item .img-ct p {
-	height: 20px;
+.r-content .operator {
+	text-align: center;
 }
 
-.r-content form .part1 .item .img-ct + .tip {
-	margin-top: 10px;
-	width: 800px;
-	float: left;
-}
-
-.r-content form > .title {
-	font-size: 18px;
-	margin: 20px 0;
-}
-
-.r-content form .part2 li {
-	line-height: 34px;
-}
-
-.r-content form .part2 li .lb {
-	color: #9b9b9b;
-	width: 200px;
-	display: inline-block;
-}
-
-.r-content form .part2 li.component .name {
-	width: 60px;
-	display: inline-block;
-}
-
-.r-content form .part2 li.component .add, .r-content form .part2 li.component .del {
-	color: #FD7940;
-}
-
-.r-content form .part2 li.component .item {
-	width: 490px;
-	height: 100px;
-	margin: 10px 0;
-	padding: 6px 10px;
-	border: 1px solid #ccc;
-	position: relative;
-}
-
-.r-content form .part2 li.component .item > div {
-	line-height: 45px;
-}
-
-.r-content form .part2 li.component .item .del {
-	position: absolute;
-	top: 6px;
-	right: 12px;
-}
-
-.r-content form .part2 li.component .item span.c0 {
-	display: inline-block;
-	width: 72px;
-}
-
-.r-content form .part2 li.component .item input.c0 {
-	width: 200px;
-}
-
-.r-content form .part2 li.component .item span.c1 {
-	display: inline-block;
-	width: 50px;
-	text-align: right;
-	margin-right: 2px;
-}
-
-.r-content form .part2 li.component .item input.c1 {
-	width: 100px;
-}
-
-.r-content form .part2 li.component .item input.c1 {
-	width: 100px;
-	margin-right: 10px;
-}
-
-.r-content form .part2 .input-wrap {
-	display: inline-block;
-	color: #2C586E;
-	margin-right: 5px;
-	transform: translateY(5px);
-}
-
-.r-content form .part2 .preview {
-	display: inline-block;
-	line-height: 30px;
-	padding: 0 25px 0 10px;
-	border: 1px solid #eee;
-}
-
-.r-content form .part2 > .preview a:hover {
-	color: #2C586E;
-}
-
-.r-content form ul.part2 li .gray {
-	color: #9b9b9b;
-}
-
-.r-content form ul.part2 input, .r-content form ul.part2 select {
-	font-size: 14px;
-	padding-left: 2px;
-	width: 240px;
-	height: 24px;
-}
-
-.r-content form .part2 li .lb + input, .r-content form .part2 li .lb + select {
-	margin-right: 5px;
-}
-
-.r-content form .part2 li .citem {
-	margin-right: 8px;
-}
-
-.r-content form .part2 li .citem input[type="checkbox"] {
-	top: 7px;
-	position: relative;
-	margin-right: 3px;
-	width: auto;
-}
-
-.r-content form .part2 li .other {
-	width: 120px;
-}
-
-.r-content form .operator {
-	margin-top: 30px;
-}
-
-.r-content form .operator input[type="submit"] {
-	width: 100px;
-	height: 30px;
-	border-radius: 5px;
-	background-color: #FD7940;
-	color: #fff;
-	border: 0;
-	margin-right: 140px;
-}
-
-.r-content form .operator input[type="submit"]:hover {
-	background: #F1920C;
-}
-
-.r-content form .operator input[type="submit"].last {
-	margin-right: 0;
+.r-content .content.content2.signed .operator input[type="submit"]:hover {
+	background: #FD7940;
 }

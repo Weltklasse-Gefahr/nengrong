@@ -242,11 +242,11 @@
 	width: 120px;
 }
 
-.r-content form .operator {
+.r-content .operator {
 	margin-top: 30px;
 }
 
-.r-content form .operator input[type="submit"] {
+.r-content .operator input[type="submit"] {
 	width: 100px;
 	height: 30px;
 	border-radius: 5px;
@@ -256,10 +256,10 @@
 	margin-right: 140px;
 }
 
-.r-content form .operator input[type="submit"]:hover {
+.r-content .operator input[type="submit"]:hover {
 	background: #F1920C;
 }
 
-.r-content form .operator input[type="submit"].last {
+.r-content .operator input[type="submit"].last {
 	margin-right: 0;
 }

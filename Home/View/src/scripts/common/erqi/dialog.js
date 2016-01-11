@@ -34,6 +34,9 @@ $(function($) {
 
 			init();
 
+			if(opt.width) {
+				dialog.find("img.title").css("width", (parseInt(opt.width) + 9) + "px");
+			}
 			dialog.find(".layer").css("width", opt.width || "423px")
 						.find(".content").html(opt.content);
 			dialog.find(".control").html('\

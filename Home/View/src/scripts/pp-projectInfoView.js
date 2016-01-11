@@ -13,4 +13,31 @@ $(function() {
 		return false;
 	});
 	
+	// 签署意向书
+	require("common/erqi/dialog");
+	$('.content2 input[type="submit"]').click(function() {
+		if(!$(this).is('[data-optype="agree"]')) {
+			return false;
+		}
+		$.confirm({
+			content: "绑定后能融网会为您寻找融资渠道。确认绑定？",
+			width: "450px"
+		}).done(function() {
+			$.ajax({
+				url: location.href,
+				data: {
+					rtype: 1
+				}
+			}).done(function(data) {
+				if(data.code == "0") {
+					location.reload();
+				} else {
+					alert(data.msg ||　"操作失败！");
+				}
+			}).fail(function() {
+				alert("操作失败！");
+			});
+		});
+		return false;
+	});
 });
