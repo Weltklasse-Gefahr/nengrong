@@ -397,6 +397,22 @@ class InnerStaffController extends Controller {
     public function search(){
         isLogin($_COOKIE['email'], $_COOKIE['mEmail']);
         $rtype = $_POST['rtype'] ? $_POST['rtype']:$_GET['rtype'];
+        $companyName = $_POST['companyName'];
+        $companyType = $_POST['companyType'];
+        $situation = $_POST['situation'];
+        $startDate = $_POST['startDate'];
+        $endDate = $_POST['endDate'];
+        $status = $_POST['status'];
+        $cooperationType = $_POST['cooperationType'];
+
+        $companyName = "哈哈哈公司";
+        $companyType = "地面分布式-未建";
+        $situation = $_POST['situation'];
+        $startDate = '2016-01-01' ;
+        $endDate = '2016-01-11' ;
+        $status = "已签意向书";
+        $cooperationType = "EPC";
+
         $page = $_GET['page'];
         if(empty($page)) $page=1;
         $pageSize = 6;
@@ -406,10 +422,8 @@ class InnerStaffController extends Controller {
             $projectList = $projectObj->searchService($companyName, $companyType, $situation, $startDate, $endDate, $status, $cooperationType, $page);
             $projectTotal = $projectObj->searchService($companyName, $companyType, $situation, $startDate, $endDate, $status, $cooperationType, -1);
         }else{
-            // $projectObj = D("Project", "Service");
-            // $projectList = $projectObj->searchService(null, null, null, null, null, null, null, $page);
-            // $projectTotal = $projectObj->searchService(null, null, null, null, null, null, null, -1);
-
+            $projectList = $projectObj->searchService(null, null, null, null, null, null, null, $page);
+            $projectTotal = $projectObj->searchService(null, null, null, null, null, null, null, -1);
         }
         $companyNameList = $userObj->getAllCompanyName();
         $data = array();
