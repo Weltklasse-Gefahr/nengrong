@@ -72,15 +72,15 @@
 				</div>
 			</div>
 			<div class="pager">
-					<a class="s" data-pageno="1" href="#">首页</a>
+					<span data-page-index="1" href="#">首页</span>
                     <for start="1" end="$arrData.totalPage">
                         <if condition="$arrData.page eq $i">
-                            <a class="n active" data-pageno="{$i}" href="#">{$i}</a>
+							<span data-page-index="{$i}" class="active">{$i}</span>
                         <else/>
-                            <a class="n" data-pageno="{$i}" href="#">{$i}</a>
+							<span data-page-index="{$i}">{$i}</span>
                         </if>
                     </for>
-                    <a class="s" data-pageno="{$arrData.endPage}" href="#">尾页</a>
+					<span data-page-index="{$arrData.endPage}" href="#">尾页</span>
 			</div>
 		</div>
 	</div>
