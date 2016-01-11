@@ -99,7 +99,7 @@ $(function() {
 	$(".pager span").click(function() {
 		var $this = $(this);
 		if(!$this.hasClass("active")) {
-			location.href = "?c=InnerStaff&a=pushProject&page="+$this.data("pageno");
+			location.href = "?c=InnerStaff&a=pushProject&page="+$this.data("page-index");
 		}
 		return false;
 	});
