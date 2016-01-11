@@ -96,7 +96,7 @@ $(function() {
 
 
 	/* 分页 */
-	$(".pager a").click(function() {
+	$(".pager span").click(function() {
 		var $this = $(this);
 		if(!$this.hasClass("active")) {
 			location.href = "?c=InnerStaff&a=pushProject&page="+$this.data("pageno");

@@ -49,7 +49,7 @@
 					<p class="c4">状态</p>
 				</div>
 				<div class="bd">
-					<foreach name="listProject" item="project">
+					<foreach name="arrData.list" item="project">
 						<if condition="$project[status] eq 32 && $project[highlight_flag] eq 1">
 							<div class="new">
 							<p class="c0"><a href="javascript:;">{$project[project_code]}</a></p>
