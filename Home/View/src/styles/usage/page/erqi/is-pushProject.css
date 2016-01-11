@@ -157,3 +157,43 @@
 .r-content .list .bd a:hover {
 	color: #fff;
 }
+
+
+
+.r-content .list .bd .pager {
+	text-align: right;
+	padding: 100px 0 10px 0;
+}
+
+.r-content .list .bd .pager .count {
+	margin-right: 12px;
+}
+
+.r-content .list .bd .pager a {
+	display: inline-block;
+	height: 22px;
+	padding: 0 8px;
+	text-align: center;
+	margin-left: 4px;
+	border: 1px solid #ccc;
+	line-height: 20px;
+	color: #5A5757;
+}
+
+.r-content .list .bd .pager a.n, .r-content .list .bd .pager a.i {
+	padding: 0 6px;
+}
+
+.r-content .list .bd  .pager a.s {
+	padding: 0 3px;
+	font-size: 12px;
+}
+
+.r-content .list .bd .pager a.active {
+	color: #f67d00;
+	border: none;
+}
+
+.r-content .list .bd  .pager a:hover {
+	color: #f67d00;
+}
