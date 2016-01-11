@@ -241,14 +241,14 @@ class ProjectService extends Model{
     **@breif 查询已签意向书项目
     **@date 2015.12.24
     **/ 
-    public function getAgreementProject($email){
+    public function getAgreementProject($email, $page){
         if(!empty($email)){
             $user = D('User');
             $userInfo = $user->where("email='".$email."'")->find();
             $condition['provider_id'] = $userInfo['id'];
         }
         $condition['status'] = array('between','21,29');
-        $projectInfo = $this->getProjectsInfo($condition);
+        $projectInfo = $this->getProjectsInfo($condition, $page, 6);
         $projectList = $this->formatProject($projectInfo);
         return $projectList; 
     }
@@ -635,9 +635,13 @@ class ProjectService extends Model{
     **@return 一个数组
     **@date 2015.12.24
     **/
-    public function getProjectsInfo($condition){
+    public function getProjectsInfo($condition, $page=-1, $pageSize=6){
         $objProject = new \Home\Model\ProjectModel(); 
-        $projectInfo = $objProject->where($condition)->order('highlight_flag desc')->select();
+        if($page == -1){
+            $projectInfo = $objProject->where($condition)->order('highlight_flag desc')->select();
+        }else{
+            $projectInfo = $objProject->where($condition)->page($page, $pageSize)->order('highlight_flag desc')->select();
+        }
         return $projectInfo;
     }
 

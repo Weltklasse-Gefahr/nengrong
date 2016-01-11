@@ -532,16 +532,24 @@ class ProjectProviderMyProController extends Controller {
         $email = $_COOKIE['email'];
         isLogin($email, $_COOKIE['mEmail']);
         isDataComplete($email);
-
+        $page = $_GET['page'];
+        if(empty($page)) $page=1;
+        $pageSize = 6;
         $objProject = D("Project", "Service");
-        $listProject = $objProject->getAgreementProject($email);
-
+        $listProject = $objProject->getAgreementProject($email, $page);
+        $listTotal = $objProject->getAgreementProject($email, -1);
+        $data = array();
+        $data["list"] = $listProject;
+        $data["page"] = $page;
+        $data["count"] = sizeof($listTotal);
+        $data["totalPage"] = ceil($data["count"]/$pageSize);
+        $data["endPage"] = $data["totalPage"];
         if($_GET['display']=="json"){
             header('Content-Type: text/html; charset=utf-8');
-            dump($listProject);
+            dump($data);
             exit;
         }
-        $this->assign('listProject', $listProject);
+        $this->assign('arrData', $data);
         $this->display("ProjectProvider:agreementProject");
     }
 
