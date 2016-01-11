@@ -258,14 +258,14 @@ class ProjectService extends Model{
     **@breif 查询已签融资合同项目
     **@date 2015.12.24
     **/ 
-    public function getContractProject($email){
+    public function getContractProject($email, $page){
         if(!empty($email)){
             $user = D('User');
             $userInfo = $user->where("email='".$email."'")->find();
             $condition['provider_id'] = $userInfo['id'];
         }
         $condition['status'] = array('between','31,39');
-        $projectInfo = $this->getProjectsInfo($condition);
+        $projectInfo = $this->getProjectsInfo($condition, $page, 6);
         $projectList = $this->formatProject($projectInfo);
         return $projectList; 
     }

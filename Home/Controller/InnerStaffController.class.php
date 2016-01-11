@@ -382,7 +382,7 @@ class InnerStaffController extends Controller {
             $data["list"] = $investorList;
             $data["page"] = $page;
             $data["count"] = sizeof($investorTotal);
-            $data["totalPage"] = ceil($data["count"]/$pageSize+1);
+            $data["totalPage"] = ceil($data["count"]/$pageSize);
             $data["endPage"] = $data["totalPage"];
             if($_GET['display']=="json"){
                 header('Content-Type: text/html; charset=utf-8');
