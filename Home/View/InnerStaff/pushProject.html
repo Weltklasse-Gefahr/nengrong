@@ -78,19 +78,19 @@
 								</div>	
 							</if>
 					</foreach>
-					
+
+					<div class="pager">
+						<a class="s" data-pageno="1" href="#">首页</a>
+						<for start="1" end="$arrData.totalPage">
+							<if condition="$arrData.page eq $i">
+								<a class="n active" data-pageno="{$i}" href="#">{$i}</a>
+							<else/>
+								<a class="n" data-pageno="{$i}" href="#">{$i}</a>
+							</if>
+						</for>
+						<a class="s" data-pageno="{$arrData.endPage}" href="#">尾页</a>
+					</div>
 				</div>
-			</div>
-			<div class="pager">
-					<a class="s" data-pageno="1" href="#">首页</a>
-                    <for start="1" end="$arrData.totalPage">
-                        <if condition="$arrData.page eq $i">
-                            <a class="n active" data-pageno="{$i}" href="#">{$i}</a>
-                        <else/>
-                            <a class="n" data-pageno="{$i}" href="#">{$i}</a>
-                        </if>
-                    </for>
-                    <a class="s" data-pageno="{$arrData.endPage}" href="#">尾页</a>
 			</div>
 		</div>
 	</div>

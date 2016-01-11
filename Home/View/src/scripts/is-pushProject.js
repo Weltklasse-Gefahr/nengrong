@@ -94,27 +94,14 @@ $(function() {
 		}
 	});
 
-	$(".pushButton_all").click(function(){ 
-		var item_id = $(this).parent().parent().data("id");
-		$("#confirm_reset_id").off("click.reset");
-		$("#confirm_reset_id").on("click.reset", function(){
-			$.ajax({
-		    type: "post",
-		    url: "?c=Admin&a=resetPassword" ,
-		    data: {
-				id: item_id
-		    },
-			dataType: "json"
-			}).done(function(data){
-				if (data.code== 0)
-					{$("#myAlert_reset_success").show();}
-				else 
-					{$("#myAlert_reset_failed").show();}
-			});
-		});
 
-		
+	/* 分页 */
+	$(".pager a").click(function() {
+		var $this = $(this);
+		if(!$this.hasClass("active")) {
+			location.href = "?c=InnerStaff&a=pushProject&page="+$this.data("pageno");
+		}
+		return false;
 	});
-
 	
 });

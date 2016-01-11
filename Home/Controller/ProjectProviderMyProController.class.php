@@ -324,7 +324,7 @@ class ProjectProviderMyProController extends Controller {
                 $arrProInfo["status"] = "11";  //项目未提交状态
                 $arrInfor["status"] = "11";  //项目未提交状态
             }
-            if($optype == "commit")
+            if($optype == "submit")
             {
                 $arrProInfo["status"] = "12";  //项目提交状态
                 $arrInfor["status"] = "12";  //项目未提交状态
@@ -577,6 +577,14 @@ class ProjectProviderMyProController extends Controller {
     {
         //判断登陆，并且获取用户名的email
         isLogin($_COOKIE['email'],$_COOKIE['mEmail']);
+        $json = '{"step":{"state":"dueDiligence","substate":"submited"},"projectInfo":{},"intent":{},"dueDiligence":{}}';
+        $arr = json_decode($json,true);
+        if($_GET['display']=="json"){
+            header('Content-Type: text/html; charset=utf-8');
+            dump($arr);
+            exit;
+        }
+        $this->assign('data', $arr);
         $this->display("ProjectProvider:projectInfoView");
     }
 

@@ -74,7 +74,9 @@ class InnerStaffController extends Controller {
     	isLogin($_COOKIE['email'], $_COOKIE['mEmail']);
     	$optype = $_POST['optype'] ? $_POST['optype']:$_GET['optype'];
         $rtype = $_POST['rtype'] ? $_POST['rtype']:$_GET['rtype'];
-        $projectCode = 'qwertyuio';
+        //$projectCode = 'qwertyuio'; //XR4481-633K-X16-831552
+        $projectCode = $_POST['project_code'] ? $_POST['project_code']:$_GET['project_code'];
+        //echo $projectCode;exit;
         if($optype == "upload" && $rtype == 1){
             $docFile = array(
                 "attachment",
@@ -224,8 +226,10 @@ class InnerStaffController extends Controller {
 
     		$objProject  = D("Project", "Service");
     		$objProjectInfo = $objProject->getProjectInfo($projectCode);
+            //echo json_encode($objProjectInfo);exit;
     		$projectId = $objProjectInfo['id'];
     		$projectDetail = $objProject->getProjectInEvaluation($projectId, $objProjectInfo['project_type']);
+            //echo json_encode($projectDetail);exit;
             $projectDetail['state_type'] = $objProject->getTypeAndStateStr($objProjectInfo['project_type'], $objProjectInfo['build_state']);
             
             $area = D("Area", "Service");
@@ -279,7 +283,8 @@ class InnerStaffController extends Controller {
     **/
     public function projectInfo(){
         isLogin($_COOKIE['email'], $_COOKIE['mEmail']);
-        $projectCode = $_POST["projectCode"];
+        //$projectCode = $_POST["projectCode"];
+        $projectCode = $_POST['project_code'] ? $_POST['project_code']:$_GET['project_code'];
         $objProject = D("Project", "Service");
         $projectInfo = $objProject->getProjectInfo($projectCode);
         $projectDetail = $objProject->getProjectDetail($projectInfo['id'], $projectInfo['project_type']);

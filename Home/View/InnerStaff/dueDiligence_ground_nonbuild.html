@@ -49,9 +49,7 @@
 						<img class="l" src="{$picture}" />
 						<div class="r">
 							<div class="top">
-								<span>内部收益率IRR<input name="IRR" value="{$evaluationInfo['irr']}" maxlength="10" /></span>
-								<!-- <span class="last">评价结果<input name="evaluation_result" maxlength="10" /></span> -->
-								<input name="evaluation_result" value="{$evaluationInfo['evaluation_result']}" type="hidden" />
+								<span>内部收益率IRR<input name="IRR" value="{$evaluationInfo['irr']}" maxlength="10" />%</span><input name="evaluation_result" value="{$evaluationInfo['evaluation_result']}" type="hidden" />
 							</div>
 							<div class="middle clrfix">
 								<div class="item">
@@ -318,7 +316,7 @@ C.项目经济收益情况<?php } ?>
 						<img class="l" src="{$picture}" />
 						<div class="r">
 							<div class="top">
-								<span>内部收益率IRR<span class="result">{$evaluationInfo['irr']}</span></span>
+								<span>内部收益率IRR<span class="result">{$evaluationInfo['irr']}%</span></span>
 								<span class="last">评价结果<span class="result">{$evaluationInfo['evaluation_result']}</span></span>
 							</div>
 							<div class="middle clrfix">

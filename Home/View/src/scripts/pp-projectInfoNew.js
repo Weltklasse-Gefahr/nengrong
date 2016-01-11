@@ -175,7 +175,13 @@ $(function() {
 	function successCallback(data) {
 		if(data.code == "0") {
 			$("#submit").removeClass("disabled");
-			location.href = "?c=ProjectProviderMyPro&a=projectInfoEdit&project_code=" + data.id;
+
+			var optype = $form.find("[name=optype]").val();
+			if(optype === "save") {
+				location.href = "?c=ProjectProviderMyPro&a=projectInfoEdit&project_code=" + data.id;
+			} else {
+				location.href = "?c=ProjectProviderMyPro&a=awaitingAssessment";
+			}
 		} else {
 			$form.find('[data-type="mul"]').each(function() {
 				$(this).attr("name", $(this).attr("name").replace(/^([^\[\]]*)\[\]$/, "$1"));

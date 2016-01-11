@@ -50,46 +50,39 @@
 				</div>
 				<div class="bd">
 					<foreach name="listProject" item="project">
-						<div>
+						<if condition="$project[status] eq 32 && $project[highlight_flag] eq 1">
+							<div class="new">
+							<p class="c0"><a href="javascript:;">{$project[project_code]}</a></p>
+							<p class="c1">{$project[project_type]}</p>
+							<p class="c2">{$project[area]}</p>
+							<p class="c3">{$project[create_date]}</p>
+							<p class="c4">{$project[status]}</p>
+							</div>
+						<else /> 
+							<div>
 							<p class="c0"><a href="javascript:;">{$project[project_code]}</a></p>
 							<p class="c1">{$project[project_type]}</p>
 							<p class="c2">{$project[area]}</p>
 							<p class="c3">{$project[create_date]}</p>
 							<p class="c4">{$project[status]}</p>
 						</div>
+						</if>
+						
 					</foreach>
-					<div class="new">
-						<p class="c0"><a href="javascript:;">LY0370-010K-E15-007001</a></p>
-						<p class="c1">商业分布式</p>
-						<p class="c2">北京海淀区 路＊号</p>
-						<p class="c3">2015/10/11</p>
-						<p class="c4">已提交</p>
-					</div>
-					<div>
-						<p class="c0"><a href="javascript:;">LY0370-010K-E15-007001</a></p>
-						<p class="c1">商业分布式</p>
-						<p class="c2">北京海淀区 路＊号</p>
-						<p class="c3">2015/10/11</p>
-						<p class="c4">已提交</p>
-					</div>
-					<div>
-						<p class="c0"><a href="javascript:;">LY0370-010K-E15-007001</a></p>
-						<p class="c1">商业分布式</p>
-						<p class="c2">北京海淀区 路＊号</p>
-						<p class="c3">2015/10/11</p>
-						<p class="c4">已提交</p>
+					<div class="pager">
+						<a class="s" data-pageno="1" href="#">首页</a>
+						<for start="1" end="$arrData.totalPage">
+							<if condition="$arrData.page eq $i">
+								<a class="n active" data-pageno="{$i}" href="#">{$i}</a>
+							<else/>
+								<a class="n" data-pageno="{$i}" href="#">{$i}</a>
+							</if>
+						</for>
+						<a class="s" data-pageno="{$arrData.endPage}" href="#">尾页</a>
 					</div>
 				</div>
 			</div>
-			<div class="pager">
-				<span data-page-index="1">&lt; 上一页</span>
-                <span data-page-index="1" class="active">1</span>
-                <span data-page-index="2" href="#">2</span>
-                <span data-page-index="3" href="#">3</span>
-                <span data-page-index="4" href="#">4</span>
-                <span data-page-index="5" href="#">5</span>
-                <span data-page-index="5" href="#">下一页 &gt;</span>
-			</div>
+			
 		</div>
 	</div>
 
