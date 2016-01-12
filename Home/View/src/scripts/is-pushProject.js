@@ -65,6 +65,7 @@ $(function() {
 			{
 				return;
 			}
+			var sel_project=$(this);
 			$.confirm('<div id="u139" class="text">'+
 				'<p><span>项目编号：</span><span>******</span></p>'+
 				'<p><span>融资机构：</span></p>'+
@@ -72,7 +73,7 @@ $(function() {
 				'<p><span style="visibility:hidden">融资机构：</span><span>确认推送</span></p></div>').done(function()
 			{
 				var item_id="";
-				item_id += $(this).parent().parent().data("id")+",";
+				item_id += sel_project.parent().parent().data("id")+",";
 				$.ajax({
 				type: "post",
 				url: "?c=InnerStaff&a=pushProject" ,
