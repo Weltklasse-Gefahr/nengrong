@@ -156,10 +156,9 @@ class UserController extends Controller
     }
 
     public function test1(){
-        $user = D("User", "Service");
-        $userInfo = $user->getAllCompanyName();
-        dump($userInfo);
-        // $c=array_merge($a,$b);
+        // $user = D("User", "Service");
+        // $userInfo = $user->getAllCompanyName();
+        // dump($userInfo);
 
         // $investors = '123,456,789,';
         // $newstr = substr($investors,0,strlen($investors)-1); 
@@ -177,10 +176,11 @@ class UserController extends Controller
         // dump($r);dump($key);dump($url);
         // exit;
 
-        // $area = D("Area", "Service");
-        // $res = $area->getAreaArrayById("150223");
-        // header('Content-Type: text/html; charset=utf-8');
-        // dump($res);
+        $area = D("Area", "Service");
+        $res = $area->getAreaArrayByHighLevelId("130000");
+        header('Content-Type: text/html; charset=utf-8');
+        dump($res);
+        
         // $email = "qianqiang@qq.com";
         // isDataComplete($email);
         // echo "chenggong!";

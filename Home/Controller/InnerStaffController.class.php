@@ -362,7 +362,7 @@ class InnerStaffController extends Controller {
         // $projectCode = $_POST['project_code'];
         $projectCode = 'qwertyuio';
         $investors = $_POST['investors'];
-        $investorStr = substr($investors, 0, strlen($investors)-1); 
+        $investorStr = substr($investors, 0, strlen($investors)-1);
         $investorList = explode(",",$investorStr);
         if($rtype == 1){
             $projectObj = D('Project', 'Service');
@@ -412,7 +412,7 @@ class InnerStaffController extends Controller {
 
         $companyName = "哈哈哈公司";
         $companyType = "地面分布式-未建";
-        $situation = $_POST['situation'];
+        $situation = '110000';
         $startDate = '2016-01-01' ;
         $endDate = '2016-01-11' ;
         $status = "已签意向书";

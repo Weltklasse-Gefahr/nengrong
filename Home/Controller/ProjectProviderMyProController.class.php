@@ -505,21 +505,26 @@ class ProjectProviderMyProController extends Controller {
         isLogin($email, $_COOKIE['mEmail']);
         isDataComplete($email);
         $optype = $_POST['optype'] ? $_POST['optype']:$_GET['optype'];
-        $rtype = $_POST['rtype'] ? $_POST['rtype']:$_GET['rtype'];
-        if($optype == "add" && $rtype == 1){
-            $this->display("ProjectProvider:projectInfoNew");
-        }else{
-            $objProject = D("Project", "Service");
-            $listProject = $objProject->getAwaitingAssessment($email, $optype);
-            
-            if($_GET['display']=="json"){
-                header('Content-Type: text/html; charset=utf-8');
-                dump($listProject);
-                exit;
-            }
-            $this->assign('listProject', $listProject);
-            $this->display("ProjectProvider:awaitingAssessment");
-        }        
+        $filter = $_POST['filter'] ? $_POST['filter']:$_GET['filter'];
+        $page = $_GET['page'];
+        if(empty($page)) $page=1;
+        $pageSize = 6;
+        $objProject = D("Project", "Service");
+        $listProject = $objProject->getAwaitingAssessment($email, $filter, $page);
+        $listTotal = $objProject->getAwaitingAssessment($email, $filter, -1);
+        $data = array();
+        $data["list"] = $listProject;
+        $data["page"] = $page;
+        $data["count"] = sizeof($listTotal);
+        $data["totalPage"] = ceil($data["count"]/$pageSize+1);
+        $data["endPage"] = ceil($data["count"]/$pageSize);
+        if($_GET['display']=="json"){
+            header('Content-Type: text/html; charset=utf-8');
+            dump($data);
+            exit;
+        }
+        $this->assign('arrData', $data);
+        $this->display("ProjectProvider:awaitingAssessment");     
     }
 
     /**
