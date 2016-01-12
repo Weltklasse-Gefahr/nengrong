@@ -354,8 +354,8 @@ class InnerStaffController extends Controller {
     public function pushProject(){
         isLogin($_COOKIE['email'], $_COOKIE['mEmail']);
         $rtype = $_POST['rtype'] ? $_POST['rtype']:$_GET['rtype'];
-        $projectCode = $_POST['project_code'] ? $_POST['project_code']:$_GET['project_code'];
-        // $projectCode = 'qwertyuio';
+        // $projectCode = $_POST['project_code'] ? $_POST['project_code']:$_GET['project_code'];
+        $projectCode = 'qwertyuio';
         $investors = $_POST['investors'];
         $investorStr = substr($investors, 0, strlen($investors)-1);
         $investorList = explode(",",$investorStr);
