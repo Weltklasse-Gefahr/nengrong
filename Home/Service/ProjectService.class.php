@@ -117,19 +117,19 @@ class ProjectService extends Model{
     **@auth qianqiang
     **@breif 查询待评估项目
     **@date 2015.12.26
-    **/ 
+    **/
     public function getAwaitingAssessment($email, $filter, $page){
         if(!empty($email)){
             $user = D('User');
             $userInfo = $user->where("email='".$email."'")->find();
             $condition['provider_id'] = $userInfo['id'];
         }
-        if($filter == "all"){
-            $condition['status'] = array('between','11,13');
-        }elseif($filter == "committed"){
+        if($filter == "committed"){
             $condition['status'] = array('between','12,13');
         }elseif($filter == "uncommitted"){
             $condition['status'] = 11;
+        }else{
+            $condition['status'] = array('between','11,13');
         }
         $projectInfo = $this->getProjectsInfo($condition, $page, 6);
         $projectList = $this->formatProject($projectInfo);
