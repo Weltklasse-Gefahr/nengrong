@@ -12,7 +12,7 @@ class InnerStaffController extends Controller {
     **/
     public function getProjectProviderInfo(){
         isLogin($_COOKIE['email'], $_COOKIE['mEmail']);
-        $projectCode = $_POST["projectCode"];
+        $projectCode = $_POST['project_code'] ? $_POST['project_code']:$_GET['project_code'];
         $objProject = D("Project", "Service");
         $objProjectInfo = $objProject->getProjectInfo($projectCode);
         $providerId = $objProjectInfo['provider_id'];
@@ -94,7 +94,6 @@ class InnerStaffController extends Controller {
                 echo '{"code":"-1","msg":"上传失败！"}';
             }
         }elseif($optype == "save" && $rtype == 1){
-    		//$projectCode = $_POST['project_code'];
     		$objProject = D("Project", "Service");
     		$objProjectInfo = $objProject->getProjectInfo($projectCode);
     		$projectId = $objProjectInfo['id'];
@@ -158,7 +157,6 @@ class InnerStaffController extends Controller {
             	echo '{"code":"-1","msg":"Housetop更新失败！"}';
             }
     	}elseif($optype == "submit" && $rtype == 1){
-    		//$projectCode = $_POST['project_code'];
     		$objProject  = D("Project", "Service");
     		$objProjectInfo = $objProject->getProjectInfo($projectCode);
     		$projectId = $objProjectInfo['id'];
@@ -222,8 +220,6 @@ class InnerStaffController extends Controller {
             	echo '{"code":"-1","msg":"Housetop更新失败！"}';
             }
     	}elseif($rtype != 1){
-    		//$projectCode = $_POST['project_code'];
-
     		$objProject  = D("Project", "Service");
     		$objProjectInfo = $objProject->getProjectInfo($projectCode);
             //echo json_encode($objProjectInfo);exit;
@@ -283,7 +279,6 @@ class InnerStaffController extends Controller {
     **/
     public function projectInfo(){
         isLogin($_COOKIE['email'], $_COOKIE['mEmail']);
-        //$projectCode = $_POST["projectCode"];
         $projectCode = $_POST['project_code'] ? $_POST['project_code']:$_GET['project_code'];
         $objProject = D("Project", "Service");
         $projectInfo = $objProject->getProjectInfo($projectCode);
@@ -311,8 +306,8 @@ class InnerStaffController extends Controller {
     **/
     public function intent(){
         isLogin($_COOKIE['email'], $_COOKIE['mEmail']);
-        // $projectCode = $_POST['project_code'];
-        $projectCode = 'testintent';
+        $projectCode = $_POST['project_code'] ? $_POST['project_code']:$_GET['project_code'];
+        // $projectCode = 'testintent';
         $optype = $_POST['optype'] ? $_POST['optype']:$_GET['optype'];
         $rtype = $_POST['rtype'] ? $_POST['rtype']:$_GET['rtype'];
         if($optype == "save" && $rtype == 1){
@@ -359,8 +354,8 @@ class InnerStaffController extends Controller {
     public function pushProject(){
         isLogin($_COOKIE['email'], $_COOKIE['mEmail']);
         $rtype = $_POST['rtype'] ? $_POST['rtype']:$_GET['rtype'];
-        // $projectCode = $_POST['project_code'];
-        $projectCode = 'qwertyuio';
+        $projectCode = $_POST['project_code'] ? $_POST['project_code']:$_GET['project_code'];
+        // $projectCode = 'qwertyuio';
         $investors = $_POST['investors'];
         $investorStr = substr($investors, 0, strlen($investors)-1);
         $investorList = explode(",",$investorStr);
@@ -409,14 +404,13 @@ class InnerStaffController extends Controller {
         $endDate = $_POST['endDate'];
         $status = $_POST['status'];
         $cooperationType = $_POST['cooperationType'];
-
-        $companyName = "哈哈哈公司";
-        $companyType = "地面分布式-未建";
-        $situation = '110000';
-        $startDate = '2016-01-01' ;
-        $endDate = '2016-01-11' ;
-        $status = "已签意向书";
-        $cooperationType = "EPC";
+        // $companyName = "哈哈哈公司";
+        // $companyType = "地面分布式-未建";
+        // $situation = '110000';
+        // $startDate = '2016-01-01' ;
+        // $endDate = '2016-01-11' ;
+        // $status = "已签意向书";
+        // $cooperationType = "EPC";
 
         $page = $_GET['page'];
         if(empty($page)) $page=1;

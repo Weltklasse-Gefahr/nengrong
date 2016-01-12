@@ -14,15 +14,24 @@ class ProjectInvestorMyProController extends Controller {
 		$email = $_COOKIE['email'];
 		// $email = 'qianqiang@qq.com';
         isDataComplete($email);
+        $page = $_GET['page'];
+        if(empty($page)) $page=1;
+        $pageSize = 6;
 		$objProject = D("Project", "Service");
-        $listProject = $objProject->getPushProject($email);
-
+        $listProject = $objProject->getPushProject($email, $page);
+        $listTotal = $objProject->getPushProject($email, -1);
+        $data = array();
+        $data["list"] = $listProject;
+        $data["page"] = $page;
+        $data["count"] = sizeof($listTotal);
+        $data["totalPage"] = ceil($data["count"]/$pageSize+1);
+        $data["endPage"] = ceil($data["count"]/$pageSize);
         if($_GET['display']=="json"){
             header('Content-Type: text/html; charset=utf-8');
-            dump($listProject);
+            dump($data);
             exit;
         }
-        $this->assign('listProject', $listProject);
+        $this->assign('arrData', $data);
         $this->display("projectInvestor:recommendedProject");
 	}
 

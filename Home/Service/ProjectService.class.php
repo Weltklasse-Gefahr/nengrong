@@ -275,7 +275,7 @@ class ProjectService extends Model{
     **@breif 查询推荐项目
     **@date 2016.1.5
     **/ 
-    public function getPushProject($email){
+    public function getPushProject($email, $page){
         if(!empty($email)){
             $user = D('User');
             $userInfo = $user->where("email='".$email."'")->find();
@@ -285,7 +285,11 @@ class ProjectService extends Model{
         }
         $condition['status'] = array('neq',9999);
         $pushPro = M('Pushproject');
-        $pushProInfo = $pushPro->where($condition)->select();
+        if($page == -1){
+            $pushProInfo = $pushPro->where($condition)->select();
+        }else{
+            $pushProInfo = $pushPro->where($condition)->page($page, 6)->select();
+        }
         $projectInfo = $this->getProTypeListFromPushPro($pushProInfo);
         $projectList = $this->formatProject($projectInfo);
         return $projectList; 
@@ -712,7 +716,6 @@ class ProjectService extends Model{
     **@date 2016.1.8
     **/
     public function searchService($companyName, $companyType, $situation, $startDate, $endDate, $status, $cooperationType, $page){
-        //将companyType拆分，拆分后判断项目详细表进行筛选
         $housetopSql = "";
         $groundSql = "";
         if($companyType == null || $companyType == '全部'){
