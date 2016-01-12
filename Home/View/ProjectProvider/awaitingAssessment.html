@@ -58,37 +58,37 @@
 					<p class="c4">状态</p>
 				</div>
 				<div class="bd">
-					<div class="new" data-id="7" data-state="no-submited">
-						<p class="c0"><a href="javascript:;">LY0370-010K-E15-007001</a></p>
-						<p class="c1">商业分布式</p>
-						<p class="c2">北京海淀区 路＊号</p>
-						<p class="c3">2015/10/11</p>
-						<p class="c4">已提交</p>
-					</div>
-					<div data-id="1" data-state="submited">
-						<p class="c0"><a href="javascript:;">LY0370-010K-E15-007001</a></p>
-						<p class="c1">商业分布式</p>
-						<p class="c2">北京海淀区 路＊号</p>
-						<p class="c3">2015/10/11</p>
-						<p class="c4">已提交</p>
-					</div>
-					<div data-id="2" data-state="submited">
-						<p class="c0"><a href="javascript:;">LY0370-010K-E15-007001</a></p>
-						<p class="c1">商业分布式</p>
-						<p class="c2">北京海淀区 路＊号</p>
-						<p class="c3">2015/10/11</p>
-						<p class="c4">已提交</p>
-					</div>
+					<foreach name="arrData.list" item="project">
+						<if condition="$project[status] eq 13 && $project[highlight_flag] eq 1">
+							<div class="new">
+							<p class="c0"><a href="javascript:;">{$project[project_code]}</a></p>
+							<p class="c1">{$project[project_type]}</p>
+							<p class="c2">{$project[area]}</p>
+							<p class="c3">{$project[create_date]}</p>
+							<p class="c4">{$project[status]}</p>
+							</div>
+						<else /> 
+							<div>
+							<p class="c0"><a href="javascript:;">{$project[project_code]}</a></p>
+							<p class="c1">{$project[project_type]}</p>
+							<p class="c2">{$project[area]}</p>
+							<p class="c3">{$project[create_date]}</p>
+							<p class="c4">{$project[status]}</p>
+							</div>
+						</if>
+					</foreach>
 				</div>
 			</div>
 			<div class="pager">
-				<span data-page-index="1">&lt; 上一页</span>
-                <span data-page-index="1" class="active">1</span>
-                <span data-page-index="2" href="#">2</span>
-                <span data-page-index="3" href="#">3</span>
-                <span data-page-index="4" href="#">4</span>
-                <span data-page-index="5" href="#">5</span>
-                <span data-page-index="5" href="#">下一页 &gt;</span>
+				<span data-page-index="1" href="#">首页</span>
+                    <for start="1" end="$arrData.totalPage">
+                        <if condition="$arrData.page eq $i">
+							<span data-page-index="{$i}" class="active">{$i}</span>
+                        <else/>
+							<span data-page-index="{$i}">{$i}</span>
+                        </if>
+                    </for>
+					<span data-page-index="{$arrData.endPage}" href="#">尾页</span>
 			</div>
 		</div>
 	</div>

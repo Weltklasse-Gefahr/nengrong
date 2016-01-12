@@ -8,6 +8,8 @@ class AreaService extends Model{
 	/**
     **@auth qianqiang
     **@breif 根据id得到省市县字符串,如：山东省济南市市中区
+    **@param areaId 区域id
+    **@return 省市县字符串
     **@date 2015.12.23
 	**/
 	public function getAreaById($areaId){
@@ -24,7 +26,9 @@ class AreaService extends Model{
 
 	/**
     **@auth qianqiang
-    **@breif 根据地区id得到地区省市县id数组
+    **@breif 根据低级地区id得到地区本级及高级地区的id数组
+    **@param areaId 区域id，如天桥区
+    **@return 省市县的id数组，如array(0=>山东省，1=>济南市，2=>天桥区)
     **@date 2015.12.28
 	**/
 	public function getAreaArrayById($areaId){
@@ -46,7 +50,37 @@ class AreaService extends Model{
 
 	/**
     **@auth qianqiang
-    **@breif 根据地区描述和父级地区描述得到地区id
+    **@breif 根据高级地区id得到地区本级及低级地区的id数组
+    **@param areaId 区域id，如山东省
+    **@return 省市县的id数组，如array(0=>山东省，1=>济南市，2=>青岛市...*=>天桥区...)
+    **@date 2016.1.12
+	**/
+	public function getAreaArrayByHighLevelId($areaId){
+		$area = M("Area");
+		$areaArray = array();
+		$tempArray = array();
+		$i = 0;
+		$areaInfo = $area->where("id='".$areaId."'")->find();
+		array_push($tempArray, $areaInfo);
+		while(sizeof($tempArray) != 0){
+			$tempArea = array_shift($tempArray);
+			$areaArray[$i++] = $tempArea['id'];
+			$areaList = $area->where("parent_id='".$tempArea['id']."'")->select();
+			$j=0;
+			while($areaList[$j]){
+				array_push($tempArray, $areaList[$j]);
+				$j += 1;
+			}			
+		}
+		return $areaArray;
+	}
+
+	/**
+    **@auth qianqiang
+    **@breif 根据地区描述和父级地区描述得到地区id，避免有重名的区(尽有区可能重名，如高新区)
+    **@param area 区域描述，如海淀区
+    **@param parentArea 父级区域描述，如北京市
+    **@return 地区id
     **@date 2015.12.28
 	**/
 	public function getIdByAreaAndParentArea($area, $parentArea){

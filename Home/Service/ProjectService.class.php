@@ -118,20 +118,20 @@ class ProjectService extends Model{
     **@breif 查询待评估项目
     **@date 2015.12.26
     **/ 
-    public function getAwaitingAssessment($email, $optype){
+    public function getAwaitingAssessment($email, $filter, $page){
         if(!empty($email)){
             $user = D('User');
             $userInfo = $user->where("email='".$email."'")->find();
             $condition['provider_id'] = $userInfo['id'];
         }
-        if($optype == "all"){
+        if($filter == "all"){
             $condition['status'] = array('between','11,13');
-        }elseif($optype == "submitted"){
+        }elseif($filter == "committed"){
             $condition['status'] = array('between','12,13');
-        }elseif($optype == "notsubmit"){
+        }elseif($filter == "uncommitted"){
             $condition['status'] = 11;
         }
-        $projectInfo = $this->getProjectsInfo($condition);
+        $projectInfo = $this->getProjectsInfo($condition, $page, 6);
         $projectList = $this->formatProject($projectInfo);
         return $projectList; 
     }
@@ -275,7 +275,7 @@ class ProjectService extends Model{
     **@breif 查询推荐项目
     **@date 2016.1.5
     **/ 
-    public function getPushProject($email){
+    public function getPushProject($email, $page){
         if(!empty($email)){
             $user = D('User');
             $userInfo = $user->where("email='".$email."'")->find();
@@ -285,7 +285,11 @@ class ProjectService extends Model{
         }
         $condition['status'] = array('neq',9999);
         $pushPro = M('Pushproject');
-        $pushProInfo = $pushPro->where($condition)->select();
+        if($page == -1){
+            $pushProInfo = $pushPro->where($condition)->select();
+        }else{
+            $pushProInfo = $pushPro->where($condition)->page($page, 6)->select();
+        }
         $projectInfo = $this->getProTypeListFromPushPro($pushProInfo);
         $projectList = $this->formatProject($projectInfo);
         return $projectList; 
@@ -712,7 +716,6 @@ class ProjectService extends Model{
     **@date 2016.1.8
     **/
     public function searchService($companyName, $companyType, $situation, $startDate, $endDate, $status, $cooperationType, $page){
-        //将companyType拆分，拆分后判断项目详细表进行筛选
         $housetopSql = "";
         $groundSql = "";
         if($companyType == null || $companyType == '全部'){
@@ -752,11 +755,20 @@ class ProjectService extends Model{
             }
         }
         if(!($situation == null || $situation == '全部')){
+            $areaObj = D('Area', 'Service');
+            $areaList = $areaObj->getAreaArrayByHighLevelId($situation);
+            $areaStr = "";
+            $i = 0;
+            while($areaList[$i]){
+                $areaStr = $areaStr."'".$areaList[$i]."',";
+                $i += 1;
+            }
+            $areaStr = substr($areaStr, 0, strlen($areaStr)-1);
             if($housetopSql != ""){
-
+                $housetopSql = $housetopSql." and h.project_area in (".$areaStr.")";
             }
             if($groundSql != ""){
-
+                $groundSql = $groundSql." and g.project_area in (".$areaStr.")";
             }
         }
         if(!($status == null || $status == '全部')){
