@@ -10,7 +10,7 @@ $(function() {
 	$(".pager span").click(function() {
 		var $this = $(this);
 		if(!$this.hasClass("active")) {
-			location.href = "?c=InnerStaff&a=pushProject&page="+$this.data("page-index");
+			location.href = "?c=ProjectProviderMyPro&a=contractProject&page="+$this.data("page-index");
 		}
 		return false;
 	});

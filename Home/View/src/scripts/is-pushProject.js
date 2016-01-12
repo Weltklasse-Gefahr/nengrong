@@ -76,7 +76,7 @@ $(function() {
 				item_id += sel_project.parent().parent().data("id")+",";
 				$.ajax({
 				type: "post",
-				url: "?c=InnerStaff&a=pushProject" ,
+				url: "?c=InnerStaff&a=pushProject&project_code=qwertyuio&page=1#" ,
 				data: {
 					investors: item_id,
 					rtype : 1
