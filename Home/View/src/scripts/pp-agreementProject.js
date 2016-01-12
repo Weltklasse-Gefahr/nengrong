@@ -7,10 +7,10 @@ $(function() {
 	require("common/erqi/pager.js");
 
 	/* ·ÖÒ³ */
-	$(".pager a").click(function() {
+	$(".pager span").click(function() {
 		var $this = $(this);
 		if(!$this.hasClass("active")) {
-			location.href = "?c=ProjectProviderMyPro&a=agreementProject&page="+$this.data("pageno");
+			location.href = "?c=InnerStaff&a=pushProject&page="+$this.data("page-index");
 		}
 		return false;
 	});
