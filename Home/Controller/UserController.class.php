@@ -151,7 +151,7 @@ class UserController extends Controller
         $key = $_GET['key'];
         $user = D('User','Service');
         $user->activeService($key);
-        echo '{"code":"0","msg":"用户激活成功"}';
+        // echo '{"code":"0","msg":"用户激活成功"}';
         $this->display("User:login");
     }
 
