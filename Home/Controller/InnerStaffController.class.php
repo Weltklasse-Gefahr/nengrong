@@ -74,8 +74,8 @@ class InnerStaffController extends Controller {
     	isLogin($_COOKIE['email'], $_COOKIE['mEmail']);
     	$optype = $_POST['optype'] ? $_POST['optype']:$_GET['optype'];
         $rtype = $_POST['rtype'] ? $_POST['rtype']:$_GET['rtype'];
-        //$projectCode = 'qwertyuio'; //XR4481-633K-X16-831552
-        $projectCode = $_POST['project_code'] ? $_POST['project_code']:$_GET['project_code'];
+        $projectCode = 'test1'; //XR4481-633K-X16-831552
+        // $projectCode = $_POST['project_code'] ? $_POST['project_code']:$_GET['project_code'];
         //echo $projectCode;exit;
         if($optype == "upload" && $rtype == 1){
             $docFile = array(
@@ -84,11 +84,6 @@ class InnerStaffController extends Controller {
             $doc = D("Doc", "Service");
             $docInfo = $doc->uploadFileAndPictrue($docFile, $docFile);
             if(!empty($docInfo)){
-                // if(isset($_SESSION['doc_mul']))
-                //     $_SESSION['doc_mul'] = $_SESSION['doc_mul'].",".$docInfo['attachment'];
-                // else
-                //     $_SESSION['doc_mul'] = $docInfo['attachment'];
-                // echo $_SESSION['doc_mul'];
                 echo '{"code":"0","msg":"success","id":"'.$docInfo['attachment'].'"}';
             }else{
                 echo '{"code":"-1","msg":"上传失败！"}';
@@ -143,8 +138,8 @@ class InnerStaffController extends Controller {
             $evaData['project_invest_situation'] = $_POST['project_invest_situation'];
             $evaData['project_earnings_situation'] = $_POST['project_earnings_situation'];
             $evaData['doc_mul'] = implode(",", $_POST['doc_mul']);
-// echo "start   :";dump($evaData['doc_mul']);exit;
-            $res = $objProject->saveHousetopProject($proData);
+// dump($proData);exit;
+            $res = $objProject->saveHousetopOrGround($proData, 51, $objProjectInfo['project_type']);
             if($res == true){
             	$objEvaluation = D("Evaluation", "Service");
             	$res = $objEvaluation->saveEvaluationInfo($evaData);
@@ -207,7 +202,7 @@ class InnerStaffController extends Controller {
             $evaData['project_earnings_situation'] = $_POST['project_earnings_situation'];
             $evaData['doc_mul'] = implode(",", $_POST['doc_mul']);
 
-			$res = $objProject->submitHousetopProject($proData);
+			$res = $objProject->submitHousetopOrGround($proData, 51, $objProjectInfo['project_type']);
             if($res == true){
             	$objEvaluation = D("Evaluation", "Service");
             	$res = $objEvaluation->submitEvaluationInfo($evaData);
@@ -306,13 +301,14 @@ class InnerStaffController extends Controller {
     **/
     public function intent(){
         isLogin($_COOKIE['email'], $_COOKIE['mEmail']);
-        $projectCode = $_POST['project_code'] ? $_POST['project_code']:$_GET['project_code'];
-        // $projectCode = 'testintent';
+        // $projectCode = $_POST['project_code'] ? $_POST['project_code']:$_GET['project_code'];
+        $projectCode = 'test2';
         $optype = $_POST['optype'] ? $_POST['optype']:$_GET['optype'];
         $rtype = $_POST['rtype'] ? $_POST['rtype']:$_GET['rtype'];
         if($optype == "save" && $rtype == 1){
             $intentText = $_POST["yixiangshu"];
             if($intentText == "" || $intentText == null){
+                header('Content-Type: text/html; charset=utf-8');
                 echo '{"code":"-1","msg":"意向书不能为空"}';
             }
             $project = D("Project", "Service");
@@ -324,6 +320,7 @@ class InnerStaffController extends Controller {
         }elseif($optype == "submit" && $rtype == 1){
             $intentText = $_POST["yixiangshu"];
             if($intentText == "" || $intentText == null){
+                header('Content-Type: text/html; charset=utf-8');
                 echo '{"code":"-1","msg":"意向书不能为空"}';
             }
             $project = D("Project", "Service");
