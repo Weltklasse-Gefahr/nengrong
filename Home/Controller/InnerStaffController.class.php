@@ -76,7 +76,8 @@ class InnerStaffController extends Controller {
     	$optype = $_POST['optype'] ? $_POST['optype']:$_GET['optype'];
         $rtype = $_POST['rtype'] ? $_POST['rtype']:$_GET['rtype'];
         $projectCode = 'test1'; //XR4481-633K-X16-831552
-        // $projectCode = $_POST['project_code'] ? $_POST['project_code']:$_GET['project_code'];
+        // $projectCode = $_POST['no'] ? $_POST['no']:$_GET['no'];
+        // $mProjectCode = $_POST['token'] ? $_POST['token']:$_GET['token'];
         //echo $projectCode;exit;
         if($optype == "upload" && $rtype == 1){
             $docFile = array(

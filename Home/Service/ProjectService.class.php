@@ -324,16 +324,29 @@ class ProjectService extends Model{
         if(empty($projectList)) return $projectList;
         $i = 0;
         while($projectList[$i]){
-            //状态转换待完成
+            // 添加加密的项目编码
+            if($projectList[$i]['status'] == 11){
+                $projectList[$i]['statusStr'] = "未提交";
+            }elseif($projectList[$i]['status'] == 12 || $projectList[$i]['status'] == 13){
+                $projectList[$i]['statusStr'] = "已提交";
+            }elseif($projectList[$i]['status'] == 21){
+                $projectList[$i]['statusStr'] = "已签意向合同";
+            }elseif($projectList[$i]['status'] == 52 || $projectList[$i]['status'] == 22){
+                $projectList[$i]['statusStr'] = "已尽职调查";
+            }elseif($projectList[$i]['status'] == 31){
+                $projectList[$i]['statusStr'] = "已签融资合同";
+            }elseif($projectList[$i]['status'] == 41){
+                $projectList[$i]['statusStr'] = "已推送";
+            }else{
+                $projectList[$i]['statusStr'] = "其他";
+            }
             if($projectList[$i]['project_type'] == 1){
                 $projectList[$i]['type'] = "屋顶分布式";
                 $proObj = M('Housetop');
-            }
-            elseif($projectList[$i]['project_type'] == 2){
+            }elseif($projectList[$i]['project_type'] == 2){
                 $projectList[$i]['type'] = "地面分布式";
                 $proObj = M('Ground');
-            }
-            elseif($projectList[$i]['project_type'] == 3){
+            }elseif($projectList[$i]['project_type'] == 3){
                 $projectList[$i]['type'] = "大型地面";
                 $proObj = M('Ground');
             }
