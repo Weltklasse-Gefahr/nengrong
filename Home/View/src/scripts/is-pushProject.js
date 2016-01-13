@@ -47,9 +47,9 @@ $(function() {
 				dataType: "json"
 				}).done(function(data){
 					if (data.code== 0)
-						{alert('1');}
+						{window.location.reload();}
 					else 
-						{alert('0');}
+						{alert('推送失败！');}
 				});
 				
 			}).fail(function() {
@@ -84,9 +84,9 @@ $(function() {
 				dataType: "json"
 				}).done(function(data){
 					if (data.code== 0)
-						{alert('1');}
+						{window.location.reload();}
 					else 
-						{alert('0');}
+						{alert('推送失败！');}
 				});
 				
 			}).fail(function() {

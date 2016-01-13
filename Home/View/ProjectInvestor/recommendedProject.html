@@ -64,14 +64,14 @@
 					<foreach name="arrData.list" item="project">
 						<if condition="$project[flag] eq 1">
 							<div  class="new">
-							<p class="c0"><a href="javascript:;">{$project[project_code]}</a></p>
+							<p class="c0"><a data-id="{$project[project_code]}" data-idm="{$project[m_project_code]}" href="javascript:;">{$project[project_code]}</a></p>
 							<p class="c1">{$project[project_type]}</p>
 							<p class="c2">{$project[area]}</p>
 							<p class="c3">{$project[push_time]}</p>
 							</div>
 						<else /> 
 							<div>
-							<p class="c0"><a href="javascript:;">{$project[project_code]}</a></p>
+							<p class="c0"><a data-id="{$project[project_code]}" data-idm="{$project[m_project_code]}" href="javascript:;">{$project[project_code]}</a></p>
 							<p class="c1">{$project[project_type]}</p>
 							<p class="c2">{$project[area]}</p>
 							<p class="c3">{$project[push_time]}</p>

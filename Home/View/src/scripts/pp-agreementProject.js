@@ -15,4 +15,9 @@ $(function() {
 		return false;
 	});
 
+	$(".bd").on("click", "a", function(){
+		location.href = "?c=InnerStaff&a=dueDiligence&no="+$(this).data("id")
+			+"&token="+$(this).data("idm");
+	});
+
 });
