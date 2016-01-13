@@ -720,6 +720,26 @@ class ProjectService extends Model{
 
     /**
     **@auth qianqiang
+    **@breif 更新housetop/ground表信息
+    **@return 保存成功返回影响数据数，失败返回false
+    **@date 2016.1.13
+    **/ 
+    public function saveProjectDetail($projectCode, $projectType, $proData){
+        $project = M("Project");
+        $condition["project_code"] = $projectCode;
+        $projectInfo = $project->where($condition)->where("status!=51 and status!=61 and status!=9999")->find();
+        if($projectType == 1){
+            $housetopObj = M("Housetop");
+            $ret = $housetopObj->where("project_id = '".$projectInfo['id']."'")->save($proData);
+        }elseif($projectType == 2 || $projectType == 3){
+            $groundObj = M("Ground");
+            $ret = $groundObj->where("project_id = '".$projectInfo['id']."'")->save($proData);
+        }        
+        return $ret;
+    }
+
+    /**
+    **@auth qianqiang
     **@breif 项目状态和建设情况拼接
     **@date 2016.1.9
     **/

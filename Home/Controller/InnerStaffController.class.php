@@ -12,7 +12,8 @@ class InnerStaffController extends Controller {
     **/
     public function getProjectProviderInfo(){
         isLogin($_COOKIE['email'], $_COOKIE['mEmail']);
-        $projectCode = $_POST['project_code'] ? $_POST['project_code']:$_GET['project_code'];
+        // $projectCode = $_POST['project_code'] ? $_POST['project_code']:$_GET['project_code'];
+        $projectCode = "qwertyuio";
         $objProject = D("Project", "Service");
         $objProjectInfo = $objProject->getProjectInfo($projectCode);
         $providerId = $objProjectInfo['provider_id'];
@@ -274,22 +275,40 @@ class InnerStaffController extends Controller {
     **/
     public function projectInfo(){
         isLogin($_COOKIE['email'], $_COOKIE['mEmail']);
-        $projectCode = $_POST['project_code'] ? $_POST['project_code']:$_GET['project_code'];
+        $rtype = $_POST['rtype'] ? $_POST['rtype']:$_GET['rtype'];
+        // $projectCode = $_POST['project_code'] ? $_POST['project_code']:$_GET['project_code'];
+        $projectCode = 'qwertyuio';
         $objProject = D("Project", "Service");
         $projectInfo = $objProject->getProjectInfo($projectCode);
-        $projectDetail = $objProject->getProjectDetail($projectInfo['id'], $projectInfo['project_type']);
-        $this->assign("projectDetail", $projectDetail);
-        if($projectInfo['project_type'] == 1){
-            if($projectInfo['build_state'] == 1){
-                $this->display("InnerStaff:housetop_nonbuild");
-            }elseif($projectInfo['build_state'] == 2){
-                $this->display("InnerStaff:housetop_build");
+        if($rtype == 1){
+            $proData['comment'] = $_POST['comment'];
+            // $proData['comment'] = "sldfjiofnosdkfj是的发生的";
+            $res = $objProject->saveProjectDetail($projectCode, $projectInfo['project_type'], $proData);
+            if($res > 0){
+                header('Content-Type: text/html; charset=utf-8');
+                echo '{"code":"0","msg":"保存成功"}';
+            }else{
+                header('Content-Type: text/html; charset=utf-8');
+                echo '{"code":"-1","msg":"保存失败"}';
             }
-        }elseif($projectInfo['project_type'] == 2 || $projectInfo['project_type'] == 3){
-            if($projectInfo['build_state'] == 1){
-                $this->display("InnerStaff:ground_nonbuild");
-            }elseif($projectInfo['build_state'] == 2){
-                $this->display("InnerStaff:ground_build");
+        }else{
+            $projectDetail = $objProject->getProjectDetail($projectInfo['id'], $projectInfo['project_type']);
+            $this->assign("projectDetail", $projectDetail);
+            if($projectInfo['project_type'] == 1){
+                if($projectInfo['build_state'] == 1){
+                    $this->display("InnerStaff:housetop_nonbuild");
+                }elseif($projectInfo['build_state'] == 2){
+                    $this->display("InnerStaff:housetop_build");
+                }
+            }elseif($projectInfo['project_type'] == 2 || $projectInfo['project_type'] == 3){
+                if($projectInfo['build_state'] == 1){
+                    $this->display("InnerStaff:ground_nonbuild");
+                }elseif($projectInfo['build_state'] == 2){
+                    $this->display("InnerStaff:ground_build");
+                }
+            }else{
+                // 应该是异常界面
+                $this->display("User:login");
             }
         }
     }
