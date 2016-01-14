@@ -317,14 +317,14 @@ class ProjectService extends Model{
 
     /**
     **@auth qianqiang
-    **@breif 将项目列表中的信息规范化显示
+    **@breif 将项目列表中的信息规范化显示,添加加密后的项目编码、中文状态、中文项目类型
     **@date 2015.12.30
     **/ 
     public function formatProject($projectList){
         if(empty($projectList)) return $projectList;
         $i = 0;
         while($projectList[$i]){
-            // 添加加密的项目编码
+            $projectList[$i]['m_project_code'] = md5(addToken($projectList[$i]['project_code']));
             if($projectList[$i]['status'] == 11){
                 $projectList[$i]['statusStr'] = "未提交";
             }elseif($projectList[$i]['status'] == 12 || $projectList[$i]['status'] == 13){
@@ -889,10 +889,10 @@ class ProjectService extends Model{
             }
         }
 
-        header('Content-Type: text/html; charset=utf-8');
-        dump($housetopSql);
-        dump($groundSql);
-        exit;
+        // header('Content-Type: text/html; charset=utf-8');
+        // dump($housetopSql);
+        // dump($groundSql);
+        // exit;
 
         $Dao = M();
         $housetopList = $Dao->query($housetopSql);
@@ -905,6 +905,46 @@ class ProjectService extends Model{
             $projectList = array_merge($housetopList, $groundList);
         }
         return $projectList;
+    }
+
+    /**
+    **@auth qianqiang
+    **@breif 修改项目状态
+    **@param projectCode 项目编码
+    **@param oldStatus 需要修改项目的当前状态
+    **@param newStatus 需要改后的项目状态
+    **@return 成功返回true，失败返回失败信息
+    **@date 2016.1.14
+    **/
+    public function changeProjectStatus($projectCode, $oldStatus, $newStatus){
+        $data['status'] = $newStatus;
+        $projectObj = M('Project');
+        $condition['project_code'] = $projectCode;
+        $condition['status'] = $oldStatus;
+        $projectInfo = $projectObj->where($condition)->find();
+        $res = $projectObj->where($condition)->save($data);
+        if($res > 0){
+            if($projectInfo['project_type'] == 1){
+                $housetopObj = M('Housetop');
+                $hCondition['project_id'] = $projectInfo['id'];
+                $hCondition['status'] = $oldStatus;
+                $res2 = $housetopObj->where($hCondition)->save($data);
+                if(!$res2){
+                    return "housetop status change error";
+                }
+            }elseif($projectInfo['project_type'] == 2 || $projectInfo['project_type'] == 3){
+                $groundObj = M('Ground');
+                $gCondition['project_id'] = $projectInfo['id'];
+                $gCondition['status'] = $oldStatus;
+                $res2 = $groundObj->where($gCondition)->save($data);
+                if(!$res2){
+                    return "ground status change error";
+                }
+            }
+        }else{
+            return "project status change error";
+        }
+        return true;
     }
 
 }

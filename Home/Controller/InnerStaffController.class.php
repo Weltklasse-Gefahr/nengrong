@@ -78,6 +78,7 @@ class InnerStaffController extends Controller {
         $projectCode = 'test1'; //XR4481-633K-X16-831552
         // $projectCode = $_POST['no'] ? $_POST['no']:$_GET['no'];
         // $mProjectCode = $_POST['token'] ? $_POST['token']:$_GET['token'];
+        // isProjectCodeRight($projectCode, $mProjectCode);
         //echo $projectCode;exit;
         if($optype == "upload" && $rtype == 1){
             $docFile = array(
@@ -414,47 +415,63 @@ class InnerStaffController extends Controller {
     public function search(){
         isLogin($_COOKIE['email'], $_COOKIE['mEmail']);
         $rtype = $_POST['rtype'] ? $_POST['rtype']:$_GET['rtype'];
-        $companyName = $_POST['companyName'];
-        $companyType = $_POST['companyType'];
-        $situation = $_POST['situation'];
-        $startDate = $_POST['startDate'];
-        $endDate = $_POST['endDate'];
-        $status = $_POST['status'];
-        $cooperationType = $_POST['cooperationType'];
-        // $companyName = "哈哈哈公司";
-        // $companyType = "地面分布式-未建";
-        // $situation = '110000';
-        // $startDate = '2016-01-01' ;
-        // $endDate = '2016-01-11' ;
-        // $status = "已签意向书";
-        // $cooperationType = "EPC";
-
-        $page = $_GET['page'];
-        if(empty($page)) $page=1;
-        $pageSize = 6;
         $projectObj = D("Project", "Service");
         $userObj = D("User", "Service");
-        if($rtype == 1){
-            $projectList = $projectObj->searchService($companyName, $companyType, $situation, $startDate, $endDate, $status, $cooperationType, $page);
-            $projectTotal = $projectObj->searchService($companyName, $companyType, $situation, $startDate, $endDate, $status, $cooperationType, -1);
+        if($rtype == 2){
+            $projectCode = $_POST['project_code'];
+            $oldStatus = $_POST['status'];
+            $newStatus = $_POST['project_status'];
+            // $projectCode = 'testintent';
+            // $oldStatus = 13;
+            // $newStatus = 12;
+            $res = $projectObj->changeProjectStatus($projectCode, $oldStatus, $newStatus);
+            if($res === true){
+                header('Content-Type: text/html; charset=utf-8');
+                echo '{"code":"0","msg":"修改成功！"}';
+            }else{
+                header('Content-Type: text/html; charset=utf-8');
+                echo '{"code":"-1","msg":"'.$res.'"}';
+            }
         }else{
-            $projectList = $projectObj->searchService(null, null, null, null, null, null, null, $page);
-            $projectTotal = $projectObj->searchService(null, null, null, null, null, null, null, -1);
+            $companyName = $_POST['companyName'];
+            $companyType = $_POST['companyType'];
+            $situation = $_POST['situation'];
+            $startDate = $_POST['startDate'];
+            $endDate = $_POST['endDate'];
+            $status = $_POST['status'];
+            $cooperationType = $_POST['cooperationType'];
+            // $companyName = "哈哈哈公司";
+            // $companyType = "地面分布式-未建";
+            // $situation = '110000';
+            // $startDate = '2016-01-01' ;
+            // $endDate = '2016-01-11' ;
+            // $status = "已签意向书";
+            // $cooperationType = "EPC";
+            $page = $_GET['page'];
+            if(empty($page)) $page=1;
+            $pageSize = 6;
+            if($rtype == 1){
+                $projectList = $projectObj->searchService($companyName, $companyType, $situation, $startDate, $endDate, $status, $cooperationType, $page);
+                $projectTotal = $projectObj->searchService($companyName, $companyType, $situation, $startDate, $endDate, $status, $cooperationType, -1);
+            }else{
+                $projectList = $projectObj->searchService(null, null, null, null, null, null, null, $page);
+                $projectTotal = $projectObj->searchService(null, null, null, null, null, null, null, -1);
+            }
+            $companyNameList = $userObj->getAllCompanyName();
+            $data = array();
+            $data["list"] = $projectList;
+            $data["campanyName"] = $companyNameList;
+            $data["page"] = $page;
+            $data["count"] = sizeof($projectTotal);
+            $data["totalPage"] = ceil($data["count"]/$pageSize+1);
+            $data["endPage"] = $data["totalPage"];
+            if($_GET['display']=="json"){
+                header('Content-Type: text/html; charset=utf-8');
+                dump($data);
+                exit;
+            }
+            $this->assign("arrData", $data);
+            $this->display("InnerStaff:search");
         }
-        $companyNameList = $userObj->getAllCompanyName();
-        $data = array();
-        $data["list"] = $projectList;
-        $data["campanyName"] = $companyNameList;
-        $data["page"] = $page;
-        $data["count"] = sizeof($projectTotal);
-        $data["totalPage"] = ceil($data["count"]/$pageSize+1);
-        $data["endPage"] = $data["totalPage"];
-        if($_GET['display']=="json"){
-            header('Content-Type: text/html; charset=utf-8');
-            dump($data);
-            exit;
-        }
-        $this->assign("arrData", $data);
-        $this->display("InnerStaff:search");
     }
 }

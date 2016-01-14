@@ -209,6 +209,7 @@ function isLogin($userName, $mUserName){
         echo "<script type='text/javascript'>alert('登录信息错误');location.href='?c=User&a=login'</script>";
         exit;
     }
+    return true;
 }
 
 /**
@@ -220,7 +221,6 @@ function isLogin($userName, $mUserName){
 **@date 2015.12.17
 **/
 function isAdminLogin($userName, $mUserName){
-    // return true;
     if (empty($userName) || empty($mUserName)) {
         //没有登陆，弹框提示，并且跳转到登陆页
         header('Content-Type: text/html; charset=utf-8');
@@ -233,6 +233,30 @@ function isAdminLogin($userName, $mUserName){
         echo "<script type='text/javascript'>alert('登录信息错误');location.href='?c=Admin&a=login'</script>";
         exit;
     }
+    return true;
+}
+
+/**
+**@auth qianqiang
+**@breif 判断项目编码是否正确，不正确返回登录界面
+**@param pc 项目编码
+**@param mpc  加密后的项目编码
+**@return 如果正确就返回true
+**@date 2015.12.17
+**/
+function isProjectCodeRight($pc, $mpc){
+    // return true;
+    if (empty($pc) || empty($mpc)) {
+        header('Content-Type: text/html; charset=utf-8');
+        echo "<script type='text/javascript'>alert('项目错误，重新登录');location.href='?c=User&a=login'</script>";
+        exit;
+    }
+    if (!($mpc == MD5(addToken($pc)))) {
+        header('Content-Type: text/html; charset=utf-8');
+        echo "<script type='text/javascript'>alert('项目错误，重新登录');location.href='?c=User&a=login'</script>";
+        exit;
+    }
+    return true;
 }
 
 /**
