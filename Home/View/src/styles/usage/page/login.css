@@ -75,7 +75,7 @@
 .content .bd .md .button {
 	margin: 18px auto 18px auto;
 }
-.content .bd .md #loginbtn {
+.content .bd .md button {
 	border-radius: 5px;
 	color: #fff;
 	font-size: 18px;
@@ -84,6 +84,14 @@
 	height:50px;
 	border-width:0; 
 	
+}
+
+.content .bd .md button[type="submit"]:hover {
+	background-color: #F1920C;
+}
+
+.content .bd .md button[type="submit"].disabled {
+	background-color: #ccc;
 }
 .content .bd  .beizhu {
 	text-align: center;

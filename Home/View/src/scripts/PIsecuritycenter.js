@@ -11,7 +11,7 @@ $(function(){
 		var repeatpassval= $.trim($("#repeatpassinput").val());
 
 		if(oldpassval== newpassval) {
-			warning("新旧用户名不能一样");
+			warning("新旧密码不能一样");
 			return ;
 		}
 		if(newpassval!== repeatpassval) {
@@ -31,6 +31,7 @@ $(function(){
 		}).done(function(data){
 			if (data.code== 0) {
 				warning(data.msg || "修改成功");
+				location.href='?c=User&a=login';
 			}
 			else{
 				warning(data.msg || "修改失败");

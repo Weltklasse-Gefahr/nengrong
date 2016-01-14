@@ -4,6 +4,15 @@
 	padding-left: 10px;
 }
 
+.r-content form .required:after {
+	content: "*";
+	color: red;
+	font-size: 12px;
+	top: -3px;
+	left: 1px;
+	position: relative;
+}
+
 .r-content form .title {
  	padding-bottom: 12px;
 	border-bottom: 1px solid #ccc;

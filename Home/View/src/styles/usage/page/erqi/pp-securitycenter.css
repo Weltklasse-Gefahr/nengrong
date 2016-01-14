@@ -18,8 +18,7 @@
 	width: 250px;
 	height: 35px;
 	padding-left: 2px;
-	color: #000000;
-	background-color: #FF0000;
+	color: #FF0000;
 	font-size: 15px;
 	margin: 6 auto 0 auto;
 }
@@ -67,13 +66,21 @@
 
 }
 
-.r-content .button #changebtn{
+.r-content .button button{
 	border-radius: 5px;
 	color: #fff;
 	font-size: 18px;
-	background-color: #ffa500;
+	background-color: #FD7940;
 	width:200px;
 	height:35px;
 	border-width:0; 
 	
+}
+
+.r-content button[type="submit"]:hover {
+	background-color: #F1920C;
+}
+
+.r-content button[type="submit"].disabled {
+	background-color: #ccc;
 }
