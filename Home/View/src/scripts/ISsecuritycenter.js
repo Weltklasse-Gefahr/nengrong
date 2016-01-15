@@ -1,7 +1,7 @@
 $(function(){
 
 	function warning(temp) {
-		$("#warning").show().html(temp);
+		$("#warning").css('visibility','visible').html(temp);
 	}
 
 	$("#changebtn").click(function(){ 
@@ -22,7 +22,7 @@ $(function(){
 		    type: "post",
 		    url: "?c=InnerStaffMyInfo&a=securityCenter" ,
 		    data: {
-		    	password：oldpassval,
+		    	password:oldpassval,
 		    	newPassword: newpassval,
 		    	rtype:1
 		    },

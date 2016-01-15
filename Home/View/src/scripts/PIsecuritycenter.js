@@ -2,7 +2,7 @@ $(function(){
 	$(".l-nav").find(".securitycenter").addClass("active").children("a").attr("href", "javascript:;");;
 
 	function warning(temp) {
-		$("#warning").show().html(temp);
+		$("#warning").css('visibility','visible').html(temp);
 	}
 
 	$("#changebtn").click(function(){ 
@@ -23,7 +23,7 @@ $(function(){
 		    type: "post",
 		    url: "?c=ProjectInvestorMyInfo&a=securityCenter" ,
 		    data: {
-		    	password：oldpassval,
+		    	password:oldpassval,
 		    	newPassword: newpassval,
 		    	rtype:1
 		    },

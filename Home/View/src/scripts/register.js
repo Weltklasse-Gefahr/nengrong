@@ -1,8 +1,17 @@
 $(function(){
 	function warning(temp) {
-		$("#warning").show().html(temp);
+		$("#warning").css('visibility','visible').html(temp);
 	}
 
+	$("#markbox").change(function(){
+		if(this.checked){
+			$("#registerbtn").removeClass("disabled");
+		}
+		else{
+			$("#registerbtn").addClass("disabled");
+		}
+
+	})
 	$("#registerbtn").click(function(){ 
 		var mailval= $.trim($("#mailinput").val());
 		var passval= $.trim($("#passinput").val());

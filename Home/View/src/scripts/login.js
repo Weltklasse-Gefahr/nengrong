@@ -1,6 +1,6 @@
 $(function(){
 	function warning(temp) {
-		$("#warning").show().html(temp);
+		$("#warning").css('visibility','visible').html(temp);
 	}
 
 	$("#loginbtn").click(function(){ 
