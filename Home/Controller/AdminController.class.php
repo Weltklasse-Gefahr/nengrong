@@ -371,6 +371,46 @@ class AdminController extends Controller
         }
     }
 
+    /**
+    **@auth qianqiang
+    **@breif 展示所有项目信息
+    **@date 2016.1.15
+    **/
+    public function getAllProjectInfo(){
+        isAdminLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
+
+        $project = D('Project','Service');
+        $projects = $project->getAllProject();
+        $this->assign('listInfo',$projects);
+
+        $display = $_GET['display'];
+        if ($display == 'json') {
+            dump($projects);
+            exit;
+        }    
+        $this->display("Admin:admin_projects");
+    }
+
+    /**
+    **@auth qianqiang
+    **@breif 删除项目
+    **@date 2016.1.15
+    **/
+    public function deleteProject(){
+        isAdminLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
+
+        $id = $_POST['id'];
+        if ( empty($id) ) {
+            echo '{"code":"-1","msg":"项目id为空！"}';
+            exit;
+        }
+
+        $project = D('Project','Service');
+        $project->deleteProjectService($id);
+        
+        echo '{"code":"0","msg":"delete success"}';
+    }
+
 
     public function addAdmin(){
         $manager = M('Admin');

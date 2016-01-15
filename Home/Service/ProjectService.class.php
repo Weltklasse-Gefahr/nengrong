@@ -947,4 +947,38 @@ class ProjectService extends Model{
         return true;
     }
 
+    /**
+    **@auth qianqiang
+    **@breif 获取所有项目
+    **@date 2016.1.15
+    **/
+    public function getAllProject(){
+        $project = M('Project');
+        $projects = $project->where("status!=9999")->select();
+        return $projects;
+    }
+
+    /**
+    **@auth qianqiang
+    **@breif 删除项目
+    **@date 2016.1.15
+    **/
+    public function deleteProjectService(){
+        $project = M('Project');
+        $objProject = $project->where("id='".$id."' and status!=9999")->select();
+        if(sizeof($objProject) == 0){
+            echo '{"code":"-1","msg":"项目不存在!"}';
+            exit;
+        }
+
+        $data["status"] = 9999;
+        $data['change_date'] = date("Y-m-d H:i:s",time());
+        $res = $project->where("id='".$id."'")->save($data);
+
+        if (!$res) {
+            echo '{"code":"-1","msg":"mysql error!"}';
+            exit;
+        }
+    }
+
 }
