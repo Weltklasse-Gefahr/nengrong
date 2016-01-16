@@ -958,24 +958,38 @@ class ProjectService extends Model{
         return $projects;
     }
 
+
     /**
-    **@auth qianqiang
-    **@breif 删除项目
+    **@auth qiujinhan
+    **@breif 修改项目状态
     **@date 2016.1.15
     **/
-    public function deleteProjectService($id){
+    public function updateProjectStatus($id, $status){
         $project = M('Project');
-        $objProject = $project->where("id='".$id."' and status!=9999")->select();
-        if(sizeof($objProject) == 0){
+        $objProject = $project->where("id='".$id."' and status!=9999")->find();
+        if(empty($objProject)){
             echo '{"code":"-1","msg":"项目不存在!"}';
             exit;
         }
 
-        $data["status"] = 9999;
+        $data["status"] = $status;
         $data['change_date'] = date("Y-m-d H:i:s",time());
         $res = $project->where("id='".$id."'")->save($data);
+        if(!$res){
+            echo '{"code":"-1","msg":"mysql error!"}';
+            exit;
+        }
+        if($objProject['project_type'] == 1){
+            $housetopObj = M('Housetop');
+            $res = $housetopObj->where("project_id='".$id."'")->save($data);
+        }elseif($objProject['project_type'] == 2 || $objProject['project_type'] == 3){
+            $groundObj = M('Ground');
+            $res = $groundObj->where("project_id='".$id."'")->save($data);
+        }
 
-        if (!$res) {
+        if($res){
+            return true;
+        }else{
             echo '{"code":"-1","msg":"mysql error!"}';
             exit;
         }
@@ -983,20 +997,68 @@ class ProjectService extends Model{
 
     /**
     **@auth qianqiang
-    **@breif 真实删除项目
+    **@breif 假删除项目
+    **@date 2016.1.15
+    **/
+    public function deleteProjectService($id){
+        $project = M('Project');
+        $objProject = $project->where("id='".$id."' and status!=9999")->find();
+        if(empty($objProject)){
+            echo '{"code":"-1","msg":"项目不存在!"}';
+            exit;
+        }
+
+        $data["status"] = 9999;
+        $data['change_date'] = date("Y-m-d H:i:s",time());
+        $res = $project->where("id='".$id."'")->save($data);
+        if(!$res){
+            echo '{"code":"-1","msg":"mysql error!"}';
+            exit;
+        }
+        if($objProject['project_type'] == 1){
+            $housetopObj = M('Housetop');
+            $res = $housetopObj->where("project_id='".$id."'")->save($data);
+        }elseif($objProject['project_type'] == 2 || $objProject['project_type'] == 3){
+            $groundObj = M('Ground');
+            $res = $groundObj->where("project_id='".$id."'")->save($data);
+        }
+
+        if($res){
+            return true;
+        }else{
+            echo '{"code":"-1","msg":"mysql error!"}';
+            exit;
+        }
+    }
+
+    /**
+    **@auth qianqiang
+    **@breif 真删除项目
     **@date 2016.1.16
     **/
     public function dropProjectService($id){
         $project = M('Project');
-        $objProject = $project->where("id='".$id."' and status!=9999")->select();
-        if(sizeof($objProject) == 0){
+        $objProject = $project->where("id='".$id."' and status!=9999")->find();
+        if(empty($objProject)){
             echo '{"code":"-1","msg":"项目不存在!"}';
             exit;
         }
 
         $res = $project->where("id='".$id."'")->delete();
-
-        if (!$res) {
+        if(!$res){
+            echo '{"code":"-1","msg":"mysql error!"}';
+            exit;
+        }
+        if($objProject['project_type'] == 1){
+            $housetopObj = M('Housetop');
+            $res = $housetopObj->where("id='".$id."'")->delete();
+        }elseif($objProject['project_type'] == 2 || $objProject['project_type'] == 3){
+            $groundObj = M('Ground');
+            $res = $groundObj->where("id='".$id."'")->delete();
+        }
+        if($res){
+            return true;
+        }else{
             echo '{"code":"-1","msg":"mysql error!"}';
             exit;
         }

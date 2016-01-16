@@ -438,10 +438,25 @@ class InnerStaffController extends Controller {
     public function search(){
         isLogin($_COOKIE['email'], $_COOKIE['mEmail']);
         $rtype = $_POST['rtype'] ? $_POST['rtype']:$_GET['rtype'];
+        $optype = $_POST['optype'] ? $_POST['optype']:$_GET['optype'];
         $projectObj = D("Project", "Service");
         $userObj = D("User", "Service");
-        if($rtype == 2){
-            $projectCode = $_POST['project_code'];
+        if($rtype == 1 && $optype == 'delete'){
+            $projectCode = $_GET['no'];
+            $mProjectCode = $_GET['token'];
+            isProjectCodeRight($projectCode, $mProjectCode);
+            $condition['status'] = $_POST['status'];
+            $condition['project_code'] = $projectCode;
+            $proInfo = $projectObj->where($condition)->find();
+            $res = $projectObj->deleteProjectService($proInfo['id']);
+            if($res){
+                header('Content-Type: text/html; charset=utf-8');
+                echo '{"code":"0","msg":"删除成功！"}';
+            }
+        }elseif($rtype == 1 && $optype == 'change'){
+            $projectCode = $_GET['no'];
+            $mProjectCode = $_GET['token'];
+            isProjectCodeRight($projectCode, $mProjectCode);
             $oldStatus = $_POST['status'];
             $newStatus = $_POST['project_status'];
             // $projectCode = 'testintent';
@@ -456,13 +471,13 @@ class InnerStaffController extends Controller {
                 echo '{"code":"-1","msg":"'.$res.'"}';
             }
         }else{
-            $companyName = $_POST['companyName'];
-            $companyType = $_POST['companyType'];
-            $situation = $_POST['situation'];
-            $startDate = $_POST['startDate'];
-            $endDate = $_POST['endDate'];
-            $status = $_POST['status'];
-            $cooperationType = $_POST['cooperationType'];
+            $companyName = $_GET['companyName'];
+            $companyType = $_GET['companyType'];
+            $situation = $_GET['situation'];
+            $startDate = $_GET['startDate'];
+            $endDate = $_GET['endDate'];
+            $status = $_GET['status'];
+            $cooperationType = $_GET['cooperationType'];
             // $companyName = "哈哈哈公司";
             // $companyType = "地面分布式-未建";
             // $situation = '110000';
@@ -473,13 +488,13 @@ class InnerStaffController extends Controller {
             $page = $_GET['page'];
             if(empty($page)) $page=1;
             $pageSize = 6;
-            if($rtype == 1){
+            // if($rtype == 1){
                 $projectList = $projectObj->searchService($companyName, $companyType, $situation, $startDate, $endDate, $status, $cooperationType, $page);
                 $projectTotal = $projectObj->searchService($companyName, $companyType, $situation, $startDate, $endDate, $status, $cooperationType, -1);
-            }else{
-                $projectList = $projectObj->searchService(null, null, null, null, null, null, null, $page);
-                $projectTotal = $projectObj->searchService(null, null, null, null, null, null, null, -1);
-            }
+            // }else{
+            //     $projectList = $projectObj->searchService(null, null, null, null, null, null, null, $page);
+            //     $projectTotal = $projectObj->searchService(null, null, null, null, null, null, null, -1);
+            // }
             $companyNameList = $userObj->getAllCompanyName();
             $data = array();
             $data["list"] = $projectList;

@@ -489,16 +489,17 @@ class ProjectProviderMyProController extends Controller {
                     $projectInfo[$val]["url"] = $docInfo[0]["file_rename"];
                 }           
             }
-            if ($display=="json")
-            {
-                echo json_encode($projectInfo);
-                exit;
-            }
             //给项目进度用,直接截断了,返回json了
             if ($getJsonFlag == 1)
             {
                 return $projectInfo;
             }
+            if ($display=="json")
+            {
+                echo json_encode($projectInfo);
+                exit;
+            }
+
             $this->assign('data',$projectInfo);
             $this->display("ProjectProvider:projectInfoNew");
         }
@@ -618,18 +619,22 @@ class ProjectProviderMyProController extends Controller {
         $optype       = $_POST['optype'] ? $_POST['optype']:$_GET['optype'];
         $rtype        = $_POST['rtype']  ? $_POST['rtype']:$_GET['rtype'];
         //签署意向书的同意按钮，其实是去project和Housetop两个表中更新下status字段就可以了
-        if($optype == 'agree' &&  $rtype == 1)
-        {
-
-        }
+        $objProject  = D("Project","Service");
         $getJsonFlag = 1;
         //获取项目信息
         $data = $this->projectInfoEdit($projectCode, null, $getJsonFlag);
-
+        //echo $data['project_type'];exit;
         //获取签署意向书信息 
-        $objProject  = D("Project","Service");
-        $projectInfoForIntent = $objProject->getProjectDetail($projectCode, $data['project_type']);
-        $status = $projectInfoForIntent["status"];
+        if($optype == 'agree' &&  $rtype == 1)
+        {
+            $res = $objProject->updateProjectStatus($data["id"]);
+        }
+
+        $projectInfoForIntent = $objProject->getProjectDetail($data["id"], $data['project_type']);
+        $status = $projectInfoForIntent["status"];//
+        //echo $projectCode;exit;
+        //echo $data['project_type'];exit;
+        //echo json_encode($projectInfoForIntent);exit;
         //获取强哥的尽职调查信息
         $obj   = new InnerStaffController();
         list($picture,$docListInfo,$projectDetail,$areaArray,$evaluationInfo) = $obj->dueDiligence($projectCode, null, $getJsonFlag);
@@ -639,10 +644,10 @@ class ProjectProviderMyProController extends Controller {
         //21签意向合同（客服未提交尽职调查）、22签意向合同（客服已提交尽职调查）
         //"state":"dueDiligence" // projectInfo, intent, dueDiligence
         //substate":"submited" // wait, submited, signed
-        if ($status == 12)
+        if ($status == 22)
         {
-            $strStatus = "intent";
-            $substate  = "wait";
+            $strStatus = "dueDiligence";
+            $substate  = "submited";
         }
         elseif($status == 13)
         {
@@ -654,34 +659,38 @@ class ProjectProviderMyProController extends Controller {
             $strStatus = "dueDiligence";
             $substate  = "wait";
         }
-        elseif($status == 22)
+        else
         {
-            $strStatus = "dueDiligence";
-            $substate  = "submited";
+            $strStatus = "intent";
+            $substate  = "wait";
         }
 
 
         //拼接大json
         $bigArr = array();
+        $bigArr['step'] = array();
         $bigArr['step']['state'] = $strStatus;
         $bigArr['step']['substate'] = $substate;
-        $bigArr['projectInfo'] = $data;
+        $bigArr['projectInfo'] = $data;//echo json_encode($bigArr);exit;
         $bigArr['intent'] = $projectInfoForIntent['project_intent'];
         //$picture,$docListInfo,$projectDetail,$areaArray,$evaluationInfo
+
+        $bigArr['dueDiligence'] = array();
         $bigArr['dueDiligence']['picture'] = $picture;
         $bigArr['dueDiligence']['docListInfo'] = $docListInfo;
         $bigArr['dueDiligence']['areaArray'] = $areaArray;
         $bigArr['dueDiligence']['projectDetail'] = $projectDetail;
         $bigArr['dueDiligence']['evaluationInfo'] = $evaluationInfo;
-
+        //echo json_encode($bigArr);exit;
 
 
         //判断显示哪个前端页面
 
 
         //$bigJson = '{"step":{"state":"dueDiligence","substate":"submited"},"projectInfo":{},"intent":{},"dueDiligence":{}}';
-        $bigJson = json_encode($bigArr);
-        $this->assign('data', $bigJson);
+        //$bigJson = json_encode($bigArr);
+        //echo json_encode($bigArr);exit;
+        $this->assign('data', $bigArr);
         if($data['project_type'] == 1){
             if($data['build_state'] == 1){
                 $this->display("ProjectProvider:projectInfoView_housetop_nonbuild");
