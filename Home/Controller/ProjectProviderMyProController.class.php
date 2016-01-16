@@ -606,7 +606,7 @@ class ProjectProviderMyProController extends Controller {
             exit;
         }
         $this->assign('data', $arr);
-        $this->display("ProjectProvider:projectInfoView");
+        $this->display("ProjectProvider:projectInfoView_ground_build");
     }
 
 

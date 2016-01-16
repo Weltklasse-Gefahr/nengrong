@@ -420,7 +420,7 @@
 						</li>
 						<li class="notall housetop_build_item ground_build_item">
 							<span class="lb required">并网时间</span>
-							<input name="synchronize_date" data-type="date" readonly value="{$data['projectInfo']['synchronize_date']}">
+							<input name="synchronize_date" data-type="date" value="{$data['projectInfo']['synchronize_date']}">
 						</li>
 						<!-- <li class="notall housetop_build_item ground_build_item">
 							<span class="lb">历史发电量数据（最近一年）</span>
@@ -429,7 +429,7 @@
 						<li class="notall ground_nonBuild_item ground_build_item">
 							<span class="lb required">项目支架类型</span>
 							<select name="project_holder_type">
-								<option value="1" {$data['projectInfo']['p['projectInfo']roject_holder_type'] == 1?'selected':''} >地面固定式</option>
+								<option value="1" {$data['projectInfo']['project_holder_type'] == 1?'selected':''} >地面固定式</option>
 								<option value="2" {$data['projectInfo']['project_holder_type'] == 2?'selected':''} >单轴</option>
 								<option value="3" {$data['projectInfo']['project_holder_type'] == 3?'selected':''} >双轴</option>
 							</select>
@@ -519,7 +519,7 @@
 							<span class="lb">合同能源管理协议</span>
 							<select data-with-file="true">
 								<option value="1"{$data['projectInfo']['power_manage_agreement']['name']?' selected':''}>有</option>
-								<option value="2"{$data['projectInfo']['power_manage_agreement']['name']?'':' selected':''}>无</option>
+								<option value="2"{$data['projectInfo']['power_manage_agreement']['name']?'':' selected'}>无</option>
 							</select>
 							<span class="fname">{$data['projectInfo']['power_manage_agreement']['name']}<a class="download" href="{$data['projectInfo']['power_manage_agreement']['url']}">下载</a></span>
 						</li>

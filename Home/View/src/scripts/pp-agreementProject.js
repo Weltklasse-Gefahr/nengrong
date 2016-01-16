@@ -6,7 +6,7 @@ $(function() {
 	require("common/erqi/list-opt.js");
 	require("common/erqi/pager.js");
 
-	/* ��ҳ */
+	/* ·ÖÒ³ */
 	$(".pager span").click(function() {
 		var $this = $(this);
 		if(!$this.hasClass("active")) {
@@ -15,9 +15,11 @@ $(function() {
 		return false;
 	});
 
+	// 跳转项目详情页
 	$(".bd").on("click", "a", function(){
-		location.href = "?c=InnerStaff&a=dueDiligence&no="+$(this).data("id")
-			+"&token="+$(this).data("idm");
+		var data = $(this).data();
+		location.href = "?c=ProjectProviderMyPro&a=projectInfoView&no=" + data.id + "&token=" + data.idm;
+		return false;
 	});
 
 });
