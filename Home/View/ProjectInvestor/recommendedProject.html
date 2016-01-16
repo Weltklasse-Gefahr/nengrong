@@ -49,37 +49,27 @@
 				</div>
 				<div class="bd">
 					<foreach name="arrData.list" item="project">
-						<if condition="$project[flag] eq 1">
-							<div  class="new">
+						<div  class="<if condition="$project[flag] eq 1">new</if>">
 							<p class="c0"><a data-id="{$project[project_code]}" data-idm="{$project[m_project_code]}" href="javascript:;">{$project[project_code]}</a></p>
 							<p class="c1">{$project[type]}</p>
 							<p class="c2">{$project[area]}</p>
 							<p class="c3">{$project[push_time]}</p>
-							</div>
-						<else /> 
-							<div>
-							<p class="c0"><a data-id="{$project[project_code]}" data-idm="{$project[m_project_code]}" href="javascript:;">{$project[project_code]}</a></p>
-							<p class="c1">{$project[type]}</p>
-							<p class="c2">{$project[area]}</p>
-							<p class="c3">{$project[push_time]}</p>
-							</div>
-						</if>
+						</div>
 					</foreach>
 				</div>
 			</div>
 			<div class="pager">
-					<span data-page-index="1" href="#">首页</span>
-                    <for start="1" end="$arrData.totalPage">
-                        <if condition="$arrData.page eq $i">
-							<span data-page-index="{$i}" class="active">{$i}</span>
-                        <else/>
-							<span data-page-index="{$i}">{$i}</span>
-                        </if>
-                    </for>
-					<span data-page-index="{$arrData.endPage}" href="#">尾页</span>
+				<span data-page-index="1" href="#">首页</span>
+                <for start="1" end="$arrData.totalPage">
+                    <if condition="$arrData.page eq $i">
+						<span data-page-index="{$i}" class="active">{$i}</span>
+                    <else/>
+						<span data-page-index="{$i}">{$i}</span>
+                    </if>
+                </for>
+				<span data-page-index="{$arrData.endPage}" href="#">尾页</span>
 			</div>
 		</div>
-		
 	</div>
 
 	<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/hf/sub_footer.html';</php>
