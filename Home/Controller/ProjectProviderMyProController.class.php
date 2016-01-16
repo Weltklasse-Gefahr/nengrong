@@ -28,14 +28,17 @@ class ProjectProviderMyProController extends Controller {
     **@breif 项目提供方->项目信息编辑入口
     **@date 2015.12.05
     **/
-	public function projectInfoEdit()
+	public function projectInfoEdit($projectCode=null, $rtype=null, $getJsonFlag=null)
     {
         //判断登陆，并且获取用户名的email
         isLogin($_COOKIE['email'],$_COOKIE['mEmail']);
 
     	//操作类型为1是插入和保存数据
     	$optype = $_POST['optype'] ? $_POST['optype']:$_GET['optype'];
-        $rtype = $_POST['rtype'] ? $_POST['rtype']:$_GET['rtype'];
+        if($rtype == null)
+        {
+            $rtype = $_POST['rtype'] ? $_POST['rtype']:$_GET['rtype'];
+        }
         $objDoc  = D("Doc","Service");
         //屋顶分布式用到的附件
         $arrPhotosAndFileInHousetop = array(
@@ -243,7 +246,7 @@ class ProjectProviderMyProController extends Controller {
                     "environment_assessment",//环评
                     "project_report",//项目可研报告/项目建议书
                 );
-                $arrRes = $obDoc->uploadFileAndPictrue($arrPhotosAndFile, $arrFile); 
+                $arrRes = $objDoc->uploadFileAndPictrue($arrPhotosAndFile, $arrFile); 
                 foreach($arrRes as $key=>$val)
                 {
                     $arrInfor[$key] = $val;
@@ -416,7 +419,10 @@ class ProjectProviderMyProController extends Controller {
         elseif($rtype != 1)  //显示
         {
             //这个分支是做数据的显示
-            $projectCode = $_POST['project_code'] ? $_POST['project_code']:$_GET['project_code'];
+            if($projectCode == null)
+            {
+                $projectCode = $_POST['project_code'] ? $_POST['project_code']:$_GET['project_code'];
+            }
             $display     =$_GET['display'];
             //根据project_code去查询项目信息
             $objProject  = D("Project","Service");
@@ -487,6 +493,11 @@ class ProjectProviderMyProController extends Controller {
             {
                 echo json_encode($projectInfo);
                 exit;
+            }
+            //给项目进度用,直接截断了,返回json了
+            if ($getJsonFlag == 1)
+            {
+                return $projectInfo;
             }
             $this->assign('data',$projectInfo);
             $this->display("ProjectProvider:projectInfoNew");
@@ -591,23 +602,100 @@ class ProjectProviderMyProController extends Controller {
     }
 
     /**
-    **@auth zhongqiu
-    **@breif 项目提供方->查看项目信息
+    **@auth qiujinhan
+    **@breif 项目提供方->查看项目信息进度
     **@date 2016.01.03
     **/
     public function projectInfoView()
     {
         //判断登陆，并且获取用户名的email
-        isLogin($_COOKIE['email'],$_COOKIE['mEmail']);
-        $json = '{"step":{"state":"dueDiligence","substate":"submited"},"projectInfo":{},"intent":{},"dueDiligence":{}}';
-        $arr = json_decode($json,true);
-        if($_GET['display']=="json"){
-            header('Content-Type: text/html; charset=utf-8');
-            dump($arr);
-            exit;
+        isLogin($_COOKIE['email'],$_COOKIE['mEmail']);     
+
+        //接收参数
+        $projectCode  = $_POST['no']     ? $_POST['no']:$_GET['no'];
+        $mProjectCode = $_POST['token']  ? $_POST['token']:$_GET['token'];
+        isProjectCodeRight($projectCode, $mProjectCode);
+        $optype       = $_POST['optype'] ? $_POST['optype']:$_GET['optype'];
+        $rtype        = $_POST['rtype']  ? $_POST['rtype']:$_GET['rtype'];
+        //签署意向书的同意按钮，其实是去project和Housetop两个表中更新下status字段就可以了
+        if($optype == 'agree' &&  $rtype == 1)
+        {
+
         }
-        $this->assign('data', $arr);
-        $this->display("ProjectProvider:projectInfoView_ground_build");
+        $getJsonFlag = 1;
+        //获取项目信息
+        $data = $this->projectInfoEdit($projectCode, null, $getJsonFlag);
+
+        //获取签署意向书信息 
+        $objProject  = D("Project","Service");
+        $projectInfoForIntent = $objProject->getProjectDetail($projectCode, $data['project_type']);
+        $status = $projectInfoForIntent["status"];
+        //获取强哥的尽职调查信息
+        $obj   = new InnerStaffController();
+        list($picture,$docListInfo,$projectDetail,$areaArray,$evaluationInfo) = $obj->dueDiligence($projectCode, null, $getJsonFlag);
+
+        //先判断一下当前进度的状态
+        //12项目已提交（客服未提交意向书）、13项目已提交（客服已提交意向书）、
+        //21签意向合同（客服未提交尽职调查）、22签意向合同（客服已提交尽职调查）
+        //"state":"dueDiligence" // projectInfo, intent, dueDiligence
+        //substate":"submited" // wait, submited, signed
+        if ($status == 12)
+        {
+            $strStatus = "intent";
+            $substate  = "wait";
+        }
+        elseif($status == 13)
+        {
+            $strStatus = "intent";
+            $substate  = "submited";
+        }
+        elseif($status == 21)
+        {
+            $strStatus = "dueDiligence";
+            $substate  = "wait";
+        }
+        elseif($status == 22)
+        {
+            $strStatus = "dueDiligence";
+            $substate  = "submited";
+        }
+
+
+        //拼接大json
+        $bigArr = array();
+        $bigArr['step']['state'] = $strStatus;
+        $bigArr['step']['substate'] = $substate;
+        $bigArr['projectInfo'] = $data;
+        $bigArr['intent'] = $projectInfoForIntent['project_intent'];
+        //$picture,$docListInfo,$projectDetail,$areaArray,$evaluationInfo
+        $bigArr['dueDiligence']['picture'] = $picture;
+        $bigArr['dueDiligence']['docListInfo'] = $docListInfo;
+        $bigArr['dueDiligence']['areaArray'] = $areaArray;
+        $bigArr['dueDiligence']['projectDetail'] = $projectDetail;
+        $bigArr['dueDiligence']['evaluationInfo'] = $evaluationInfo;
+
+
+
+        //判断显示哪个前端页面
+
+
+        //$bigJson = '{"step":{"state":"dueDiligence","substate":"submited"},"projectInfo":{},"intent":{},"dueDiligence":{}}';
+        $bigJson = json_encode($bigArr);
+        $this->assign('data', $bigJson);
+        if($data['project_type'] == 1){
+            if($data['build_state'] == 1){
+                $this->display("ProjectProvider:projectInfoView_housetop_nonbuild");
+            }elseif($data['build_state'] == 2){
+                $this->display("ProjectProvider:projectInfoView_housetop_build");
+            }
+        }elseif($data['project_type'] == 2 || $objProjectInfo['project_type'] == 3){
+            if($data['build_state'] == 1){
+                $this->display("ProjectProvider:projectInfoView_ground_nonbuild");
+            }elseif($data['build_state'] == 2){
+                $this->display("ProjectProvider:projectInfoView_ground_build");
+            }
+        }
+
     }
 
 
