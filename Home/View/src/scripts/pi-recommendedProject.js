@@ -3,7 +3,7 @@ $(function() {
 	$(".l-nav").find(".recommendedProject").addClass("active");
 	
 
-	/* ��ҳ */
+	/* ·ÖÒ³ */
 	$(".pager span").click(function() {
 		var $this = $(this);
 		if(!$this.hasClass("active")) {
@@ -12,8 +12,9 @@ $(function() {
 		return false;
 	});
 
+	// 查看项目详情
 	$(".bd").on("click", "a", function(){
-		location.href = "?c=InnerStaff&a=dueDiligence&no="+$(this).data("id")
+		location.href = "?c=ProjectProviderMyPro&a=projectInfoView&no="+$(this).data("id")
 			+"&token="+$(this).data("idm");
 	});
 

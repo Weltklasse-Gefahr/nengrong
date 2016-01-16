@@ -40,4 +40,37 @@ $(function() {
 		});
 		return false;
 	});
+
+	// 省市区
+	// 省市区级联
+	require("common/erqi/AreaData");
+	require("common/erqi/cascadeSelect");
+	$(".detail.part1 .area select").cascadeSelect(AreaData);
+
+	$("input, select, textarea").attr("readonly", "readonly");
+	$("select").prop("disabled", true);
+
+	// 有无（附件）
+	$("select").filter(function(){
+		return $(this).data("withFile");
+	}).change(function(e) {
+		var $inputWrap = $(this).siblings(".fname");
+		if(this.value === "1") { // 有
+			$inputWrap.show();
+		} else { // 无
+			$inputWrap.hide();
+		}
+	}).change();
+
+	// 其他（可填写）
+	$("select").filter(function(){
+		return $(this).data("withOther");
+	}).change(function(e) {
+		var value = this.value;
+		if(value === "0") { // 其他
+			$(this).siblings(".other").show();
+		} else {
+			$(this).siblings(".other").hide().val("");
+		}
+	}).change();
 });

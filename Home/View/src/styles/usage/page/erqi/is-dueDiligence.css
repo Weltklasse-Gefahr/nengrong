@@ -1,35 +1,14 @@
-/* 客服左边栏和别的地方不一样 */
-.l-nav .back {
-	display: inline-block;
-	width: 100px;
-	text-align: center;
-	line-height: 35px;
-	border-radius: 5px;
-	background-color: #FD7940;
-	color: #fff;
-	border: 0;
-	margin: 0 auto 20px 30px;
-}
-
-.l-nav dl dd a:hover {
-	color: #FD7940;
-}
-
-.l-nav dl dd.active a {
-	background-color: #FD7940;
-	color: #fff;
-}
-
-.r-content.dueDiligence {
+.r-content form.dueDiligence {
 	width: 840px;
+	margin: 60px auto 0;
 }
 
-.r-content.dueDiligence form .detail {
+.r-content form.dueDiligence .detail {
 	border-top: 2px solid #ccc;
 	position: relative;
 }
 
-.r-content.dueDiligence form .detail.part1 {
+.r-content form.dueDiligence .detail.part1 {
 	padding: 40px 30px;
 }
 
@@ -113,7 +92,7 @@
 }
 
 
-.r-content form .detail.part2 {
+.r-content form.dueDiligence .detail.part2 {
 	padding: 40px 0;
 }
 

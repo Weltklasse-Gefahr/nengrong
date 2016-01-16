@@ -7,15 +7,13 @@ $(function() {
 	require("common/erqi/pager.js");
 
 	// 跳转项目详情页或编辑页
-	$(".list .bd .c0 a").click(function(e) {
-		
-		var $wrap = $(this).parent().parent();
-		if($wrap.data("state") === "submited") {
-			location.href = "?c=ProjectProviderMyPro&a=projectInfoView&id=" + $wrap.data("id");
+	$(".list .bd a").click(function(e) {
+		var data = $(this).data();
+		if(data.status == 11) {
+			location.href = "?c=ProjectProviderMyPro&a=projectInfoEdit&no=" + data.id + "&token=" + data.idm;
 		} else {
-			location.href = "?c=ProjectProviderMyPro&a=projectInfoEdit&id=" + $wrap.data("id");
+			location.href = "?c=ProjectProviderMyPro&a=projectInfoView&no=" + data.id + "&token=" + data.idm;
 		}
-		
 		return false;
 	});
 });

@@ -2,6 +2,10 @@
 	position: relative;
 }
 
+.r-content form .preview img {
+	width: 120px;
+	height: 120px;
+}
 .r-content form .preview .del {
 	position: absolute;
 	width: 20px;

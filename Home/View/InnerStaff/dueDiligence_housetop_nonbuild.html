@@ -40,9 +40,9 @@
 		<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/InnerStaff/InnerStaff_left.html';</php>
 		
 		<!-- 右侧布局 -->
-		<div class="r-content dueDiligence">
+		<div class="r-content">
 		<?php if($evaluationInfo['status'] != 52){ ?>
-			<form id="infoForm" action="?c=InnerStaff&a=dueDiligence&rtype=1" method="post"><input type="hidden" name="optype" value=""/>
+			<form class="dueDiligence" id="infoForm" action="?c=InnerStaff&a=dueDiligence&rtype=1" method="post"><input type="hidden" name="optype" value=""/>
 				<div class="detail part1">
 					<p class="title">项目经济收益测算</p>
 					<div class="brief-info clrfix">
@@ -412,7 +412,7 @@
 				</div>
 				<div class="part3">
 					<div class="attachment-ct">
-						<div class="uploadifive-mf-view"><img class="attachment-logo" src="/EnergyFe/img/attachment.png">附件（3个）</div>
+						<div class="uploadifive-mf-view"><img class="attachment-logo" src="/EnergyFe/img/attachment.png">附件（{sizeof($docListInfo)}个）</div>
 					</div>
 
 					<div class="fileQueue">

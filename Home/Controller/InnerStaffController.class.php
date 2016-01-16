@@ -21,46 +21,53 @@ class InnerStaffController extends Controller {
         $userInfo = $userObj->getUserINfoById($providerId);
 
         $areaObj = D("Area", "Service");
-        $areaStr = $areaObj->getAreaById($userInfo['company_area']);
+        $areaStr = $areaObj->getAreaById($userInfo[0]['company_area']);
         $docObj = D("Doc", "Service");
-        $condition['id'] = $userInfo['business_license'];
+        $condition['id'] = $userInfo[0]['business_license'];
         $docInfo = $docObj->getDocInfo($condition);
         $docData['business_license']['id'] = $docInfo[0]['id'];
         $docData['business_license']['file_name'] = $docInfo[0]['file_name'];
         $docData['business_license']['file_rename'] = $docInfo[0]['file_rename'];
-        $condition['id'] = $userInfo['organization_code'];
+        $condition['id'] = $userInfo[0]['organization_code'];
         $docInfo = $docObj->getDocInfo($condition);
         $docData['organization_code']['id'] = $docInfo[0]['id'];
         $docData['organization_code']['file_name'] = $docInfo[0]['file_name'];
         $docData['organization_code']['file_rename'] = $docInfo[0]['file_rename'];
-        $condition['id'] = $userInfo['national_tax_certificate'];
+        $condition['id'] = $userInfo[0]['national_tax_certificate'];
         $docInfo = $docObj->getDocInfo($condition);
         $docData['national_tax_certificate']['id'] = $docInfo[0]['id'];
         $docData['national_tax_certificate']['file_name'] = $docInfo[0]['file_name'];
         $docData['national_tax_certificate']['file_rename'] = $docInfo[0]['file_rename'];
-        $condition['id'] = $userInfo['local_tax_certificate'];
+        $condition['id'] = $userInfo[0]['local_tax_certificate'];
         $docInfo = $docObj->getDocInfo($condition);
         $docData['local_tax_certificate']['id'] = $docInfo[0]['id'];
         $docData['local_tax_certificate']['file_name'] = $docInfo[0]['file_name'];
         $docData['local_tax_certificate']['file_rename'] = $docInfo[0]['file_rename'];
-        $condition['id'] = $userInfo['identity_card_front'];
+        $condition['id'] = $userInfo[0]['identity_card_front'];
         $docInfo = $docObj->getDocInfo($condition);
         $docData['identity_card_front']['id'] = $docInfo[0]['id'];
         $docData['identity_card_front']['file_name'] = $docInfo[0]['file_name'];
         $docData['identity_card_front']['file_rename'] = $docInfo[0]['file_rename'];
-        $condition['id'] = $userInfo['identity_card_back'];
+        $condition['id'] = $userInfo[0]['identity_card_back'];
         $docInfo = $docObj->getDocInfo($condition);
         $docData['identity_card_back']['id'] = $docInfo[0]['id'];
         $docData['identity_card_back']['file_name'] = $docInfo[0]['file_name'];
         $docData['identity_card_back']['file_rename'] = $docInfo[0]['file_rename'];
-        $condition['id'] = $userInfo['financial_audit'];
+        $condition['id'] = $userInfo[0]['financial_audit'];
         $docInfo = $docObj->getDocInfo($condition);
         $docData['financial_audit']['id'] = $docInfo[0]['id'];
         $docData['financial_audit']['file_name'] = $docInfo[0]['file_name'];
         $docData['financial_audit']['file_rename'] = $docInfo[0]['file_rename'];
         $docData['financial_audit']['token'] = md5(addToken($docInfo[0]["id"]));
 
-        $this->assign('userInfo', $userInfo);
+        if ($_GET['display'] == 'json') {
+            header('Content-Type: text/html; charset=utf-8');
+            dump($userInfo);
+            dump($areaStr);
+            dump($docData);
+            exit;
+        }
+        $this->assign('userInfo', $userInfo[0]);
         $this->assign('areaStr', $areaStr);
         $this->assign('docData', $docData);
         $this->display("InnerStaff:providerInfo");
@@ -306,6 +313,11 @@ class InnerStaffController extends Controller {
             }
         }else{
             $projectDetail = $objProject->getProjectDetail($projectInfo['id'], $projectInfo['project_type']);
+            if ($_GET['display'] == 'json') {
+                header('Content-Type: text/html; charset=utf-8');
+                dump($projectDetail);
+                exit;
+            }
             $this->assign("projectDetail", $projectDetail);
             if($projectInfo['project_type'] == 1){
                 if($projectInfo['build_state'] == 1){

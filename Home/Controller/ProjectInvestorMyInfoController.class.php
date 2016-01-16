@@ -42,12 +42,37 @@ class ProjectInvestorMyInfoController extends Controller {
 		isLogin($_COOKIE['email'], $_COOKIE['mEmail']);
 		$email = $_COOKIE['email'];
 		$user = D('User','Service');
-		$userInfo = $user->getUserINfoByEmail($email);
-		if ($_GET['display'] == 'json') {
-			dump($objUser);
-			exit;
-		}
-		$this->assign("data", $userInfo[0]);
-		$this->display("ProjectInvestor:myInformation");
+        if($_POST['rtype'] == 1 || $_GET['rtype'] == 1){
+            $companyContacts = $_POST['company_contacts'];
+            $companyContactsPhone = $_POST['company_contacts_phone'];
+            $companyName = $_POST['company_name'];
+            $companyContactsPosition = $_POST['company_contacts_position'];
+            $companyPhone = $_POST['company_phone'];
+            if(empty($companyContacts) || empty($companyContactsPhone) || empty($companyName)){
+                echo '{"code":"-1","msg":"联系人、联系人手机、企业名称为必填项"}';
+                exit;
+            }
+            $condition['email'] = $email;
+            $data['company_contacts'] = $companyContacts;
+            $data['company_contacts_phone'] = $companyContactsPhone;
+            $data['company_name'] = $companyName;
+            $data['company_contacts_position'] = $companyContactsPosition;
+            $data['company_phone'] = $companyPhone;
+            $res = $user->updateUserInfo($condition, $data);
+            if($res){
+                echo '{"code":"0","msg":"修改成功"}';
+            }else{
+                echo '{"code":"-1","msg":"save error"}';
+                exit;
+            }
+        }else{
+            $userInfo = $user->getUserINfoByEmail($email);
+            if ($_GET['display'] == 'json') {
+                dump($objUser);
+                exit;
+            }
+            $this->assign("data", $userInfo[0]);
+            $this->display("ProjectInvestor:myInformation");
+        }
 	}
 }

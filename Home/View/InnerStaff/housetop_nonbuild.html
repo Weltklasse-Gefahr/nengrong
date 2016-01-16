@@ -44,10 +44,7 @@
 				<button id="savebtn" type="submit";>保存</button>	
 			</div>
 			<ul class="detail part1">
-				<li class="clrfix">
-					<span class="lb">项目类型：</span>
-					<span class="lbw">未建屋顶分布式</span>
-				</li>
+				<li class="clrfix"><span class="lb">项目类型：</span>{$projectDetail['project_type']}</li>
 				<li class="clrfix">
 					<span class="lb">项目地点：</span>
 					<span class="lbw">黑龙江省哈尔滨市南岗区依兰县</span>
@@ -71,55 +68,55 @@
 				</li>
 			</ul>
 
-			<p class="title notall housetop_nonBuild_item housetop_build_item">屋顶业主信息</p>
-			<ul class="detail part2 notall housetop_nonBuild_item housetop_build_item">
+			<p class="title">屋顶业主信息</p>
+			<ul class="detail part2">
 				<li>
 					<span class="lb">屋顶业主名称</span>
-					<span class="lbw">XXX</span>
+					{$projectDetail['housetop_owner']}
 				</li>
 				<li>
 					<span class="lb">企业类型</span>
-					<span class="lbw">国企（上市公司）</span>
+					{$projectDetail['company_type']}
 				</li>
 				<li>
 					<span class="lb">注册资本金</span>
-					<span class="lbw">XXX万元</span>
+					{$projectDetail['company_capital']}
 				</li>
 				<li>
 					<span class="lb">屋顶产权证明</span>
-					<span class="lbw">下载</span>
+					{$projectDetail['housetop_property_prove']}
 				</li>
 				<li>
 					<span class="lb">年用电量</span>
-					<span class="lbw">XXX万度</span>
+					{$projectDetail['electricity_total']}
 				</li>
 				<li>
 					<span class="lb">电费</span>
-					<span class="lbw">XXX万元</span>
+					{$projectDetail['electricity_pay']}
 				</li>
 				<li>
 					<span class="lb">电费单（最近一年）</span>
-					<span class="lbw">下载</span>
+					{$projectDetail['electricity_pay_list']}
 				</li>
 			</ul>
 
-			<p class="title notall housetop_nonBuild_item housetop_build_item">屋顶情况</p>
-			<ul class="detail part2 notall housetop_nonBuild_item housetop_build_item">
+			<p class="title">屋顶情况</p>
+			<ul class="detail part2">
 				<li>
 					<span class="lb">屋顶类型</span>
-					<span class="lbw">混凝土</span>
+					{$projectDetail['housetop_type']}
 				</li>
 				<li>
 					<span class="lb">屋顶面积</span>
-					<span class="lbw">XXXm2</span>
+					{$projectDetail['housetop_area']}
 				</li>
 				<li>
 					<span class="lb">屋顶使用寿命</span>
-					<span class="lbw">XXX年</span>
+					{$projectDetail['housetop_age']}
 				</li>
 				<li>
 					<span class="lb">屋顶朝向</span>
-					<span class="lbw">南北向</span>
+					{$projectDetail['housetop_direction']}
 				</li>
 			</ul>
 
@@ -127,15 +124,15 @@
 			<ul class="detail part2">
 				<li>
 					<span class="lb">上级变压器容量</span>
-					<span class="lbw">XXXkVA</span>
+					{$projectDetail['transformer_capacity']}
 				</li>
 				<li>
 					<span class="lb">并网电压等级</span>
-					<span class="lbw">XXXkV</span>
+					{$projectDetail['voltage_level']}
 				</li>
 				<li>
 					<span class="lb">并网方式</span>
-					<span class="lbw">自发自用</span>
+					{$projectDetail['synchronize_type']}
 				</li>
 			</ul>
 

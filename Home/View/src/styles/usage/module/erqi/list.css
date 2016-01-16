@@ -1,12 +1,13 @@
 .r-content .list p {
     display: inline-block;
     text-align: center;
-    line-height: 40px;
     margin-right: 2px;
+    word-break: break-all;
 }
 
 .r-content .list .hd p {
     background-color: #eee;
+    line-height: 40px;
 }
 
 .r-content .list p.c4 {
@@ -14,10 +15,10 @@
 }
 
 .r-content .list .c0 {
-    width: 24%;
+    width: 30%;
 }
 .r-content .list .c1 {
-    width: 24%;
+    width: 18%;
 }
 .r-content .list .c2 {
     width: 24%;
@@ -40,7 +41,16 @@
 }
 
 .r-content .list .bd {
-    height: 240px;
+    min-height: 240px;
+}
+
+.r-content .list .bd > div {
+    min-height: 35px;
+    padding-top: 5px;
+}
+
+.r-content .list .bd p {
+    vertical-align: middle;
 }
 
 .r-content .list .bd .new a {

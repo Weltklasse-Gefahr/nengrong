@@ -29,23 +29,10 @@
 	<!-- Tile icon for Win8 (144x144 + tile color) -->
 	<meta name="msapplication-TileImage" content="/EnergyFe/img/i/favicon.png">
 	<meta name="msapplication-TileColor" content="#0e90d2">
-	<link rel="stylesheet" href="/EnergyFe/prd/styles/x-common@<php>include '/home/ubuntu/enetfPlatform/nengrong/Home/View/ver/styles/x-common.css.ver';</php>.css">
-	<link rel="stylesheet" href="/EnergyFe/prd/styles/protocol@<php>include '/home/ubuntu/enetfPlatform/nengrong/Home/View/ver/styles/protocol.css.ver';</php>.css">
+	<link rel="stylesheet" href="/EnergyFe/prd/styles/x-common@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/styles/x-common.css.ver';</php>.css">
+	<link rel="stylesheet" href="/EnergyFe/prd/styles/protocol@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/styles/protocol.css.ver';</php>.css">
 <body>
-	<php>include '/home/ubuntu/enetfPlatform/nengrong/Home/View/hf/header.html';</php>
-	<!-- 二期页面header -->
-	<div class="header">
-		<div class="hd">
-			<div class="c">
-				欢迎您，<span id="">XX公司</span>
-				<span class="split">|</span>
-				<a id="logout" href="javascript:;">注销</a>
-			</div>
-		</div>
-		<div class="bd">
-			<img src="/EnergyFe/img/x-logo.png">信息管理系统
-		</div>
-	</div>
+	<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/hf/erqi/header.html';</php>
 
 	<div class="main clrfix">
 		<!-- 右侧布局 -->
@@ -92,16 +79,8 @@
 		
 	</div>
 
-	<php>include '/home/ubuntu/enetfPlatform/nengrong/Home/View/hf/sub_footer.html';</php>
-	<!-- 子页面footer:关于我们，联系方式 -->
-	<div class="sub-footer">
-		<a href="?c=AboutUs&a=company">关于我们</a> ｜ 
-		<a id="favorites" href="javascipt:void(0);">收藏我们</a> ｜ 
-		<a href="?c=AboutUs&a=contact">联系我们</a> ｜ 
-		<a href="?c=AboutUs&a=joinUs">加入我们</a>
-		<span href=""> ©2015 北京光辉普惠能源科技有限公司 All rights reserved</span>
-	</div>
+	<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/hf/sub_footer.html';</php>
 	
-	<script src="/EnergyFe/prd/scripts/x-common@<php>include '/home/ubuntu/enetfPlatform/nengrong/Home/View/ver/scripts/x-common.js.ver';</php>.js"></script>
+	<script src="/EnergyFe/prd/scripts/x-common@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/scripts/x-common.js.ver';</php>.js"></script>
 </body>
 </html>
