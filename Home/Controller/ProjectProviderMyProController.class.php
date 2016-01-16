@@ -518,6 +518,7 @@ class ProjectProviderMyProController extends Controller {
         $data["count"] = sizeof($listTotal);
         $data["totalPage"] = ceil($data["count"]/$pageSize+1);
         $data["endPage"] = ceil($data["count"]/$pageSize);
+        $data["filter"] = $filter;
         if($_GET['display']=="json"){
             header('Content-Type: text/html; charset=utf-8');
             dump($data);

@@ -44,10 +44,7 @@
 				<button id="savebtn" type="submit";>保存</button>	
 			</div>
 			<ul class="detail part1">
-				<li class="clrfix">
-					<span class="lb">项目类型：</span>
-					<span class="lbw">未建屋顶分布式</span>
-				</li>
+				<li class="clrfix"><span class="lb">项目类型：</span>{$projectDetail['project_type']}</li>
 				<li class="clrfix">
 					<span class="lb">项目地点：</span>
 					<span class="lbw">黑龙江省哈尔滨市南岗区依兰县</span>
@@ -75,7 +72,7 @@
 			<ul class="detail part2 notall housetop_nonBuild_item housetop_build_item">
 				<li>
 					<span class="lb">屋顶业主名称</span>
-					<span class="lbw">XXX</span>
+					{$projectDetail['housetop_owner']}
 				</li>
 				<li>
 					<span class="lb">企业类型</span>
