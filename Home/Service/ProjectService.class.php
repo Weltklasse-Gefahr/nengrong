@@ -958,6 +958,43 @@ class ProjectService extends Model{
         return $projects;
     }
 
+
+    /**
+    **@auth qiujinhan
+    **@breif 修改项目状态
+    **@date 2016.1.15
+    **/
+    public function updateProjectStatus($id, $status){
+        $project = M('Project');
+        $objProject = $project->where("id='".$id."' and status!=9999")->find();
+        if(empty($objProject)){
+            echo '{"code":"-1","msg":"项目不存在!"}';
+            exit;
+        }
+
+        $data["status"] = $status;
+        $data['change_date'] = date("Y-m-d H:i:s",time());
+        $res = $project->where("id='".$id."'")->save($data);
+        if(!$res){
+            echo '{"code":"-1","msg":"mysql error!"}';
+            exit;
+        }
+        if($objProject['project_type'] == 1){
+            $housetopObj = M('Housetop');
+            $res = $housetopObj->where("project_id='".$id."'")->save($data);
+        }elseif($objProject['project_type'] == 2 || $objProject['project_type'] == 3){
+            $groundObj = M('Ground');
+            $res = $groundObj->where("project_id='".$id."'")->save($data);
+        }
+
+        if($res){
+            return true;
+        }else{
+            echo '{"code":"-1","msg":"mysql error!"}';
+            exit;
+        }
+    }
+
     /**
     **@auth qianqiang
     **@breif 假删除项目
