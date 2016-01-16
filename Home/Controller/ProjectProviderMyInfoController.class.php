@@ -12,8 +12,8 @@ class ProjectProviderMyInfoController extends Controller {
     **/
 	public function myInformation()
     {
-        // $email = "qiujinhan@gmail.com";
-        $email = $_COOKIE['email'];
+        $email = "qiujinhan@gmail.com";
+        //$email = $_COOKIE['email'];
         //判断登陆，并且获取用户名的email
         isLogin($_COOKIE['email'],$_COOKIE['mEmail']);
         $display =$_GET['display'];
