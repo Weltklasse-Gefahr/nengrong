@@ -104,6 +104,7 @@ class UserService extends Model{
 	public function activeService($key){
 		$decryptKey = decrypt($key, getKey());
 		$keyList = explode(",",$decryptKey);
+		dump($key);exit;
 		if(!($keyList[1] == md5(addToken($keyList[0])))){
 			header('Content-Type: text/html; charset=utf-8');
 			echo '{"code":"-1","msg":"用户信息验证失败，激活失败!"}';
