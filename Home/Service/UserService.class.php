@@ -81,7 +81,7 @@ class UserService extends Model{
         	// 发送激活邮件
         	$key = $email.",".md5(addToken($email)).",".time();
 	        $encryptKey = encrypt($key, getKey()); 
-	        $url = "www.enetf.com/?c=User&a=activeUser&key=".$encryptKey;
+	        $url = "www.enetf.com/?c=User&a=activeUser&key=".urlencode($encryptKey);
 	        $name = "能融网用户";
 	        $subject = "验证您的电子邮箱地址";
 	        $text = "激活邮件内容".$url;
@@ -102,7 +102,7 @@ class UserService extends Model{
     **@date 2015.12.16
     **/
 	public function activeService($key){
-		$decryptKey = decrypt($key, getKey());
+		$decryptKey = decrypt(urldecode($key), getKey());
 		$keyList = explode(",",$decryptKey);
 		dump($key);exit;
 		if(!($keyList[1] == md5(addToken($keyList[0])))){
