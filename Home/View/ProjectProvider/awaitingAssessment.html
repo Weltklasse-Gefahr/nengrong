@@ -44,9 +44,9 @@
 				<a class="add" href="?c=ProjectProviderMyPro&a=projectInfoNew">新增项目</a>
 				<div class="filter">
 					<label>项目状态</label>
-					<span data-filter="all" class="active">全部</span>
-					<span data-filter="uncommitted">未提交</span>
-					<span data-filter="committed">已提交</span>
+					<span data-filter="all" class="<if condition="$arrData.filter neq 'uncommitted' && $arrData.filter neq 'committed' ">active</if>">全部</span>
+					<span data-filter="uncommitted" class="<if condition="$arrData.filter eq 'uncommitted' ">active</if>">未提交</span>
+					<span data-filter="committed" class="<if condition="$arrData.filter eq 'committed' ">active</if>">已提交</span>
 				</div>
 			</div>
 			<div class="list">

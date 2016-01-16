@@ -11,9 +11,9 @@ class ProjectInvestorMyProController extends Controller {
     **/
 	public function recommendedProject(){
 		isLogin($_COOKIE['email'], $_COOKIE['mEmail']);
-		// $email = $_COOKIE['email'];
-		$email = 'qianqiang@qq.com';
-        // isDataComplete($email);
+		$email = $_COOKIE['email'];
+		// $email = 'qianqiang@qq.com';
+        isDataComplete($email);
         $page = $_GET['page'];
         if(empty($page)) $page=1;
         $pageSize = 6;
