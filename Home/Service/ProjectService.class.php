@@ -963,7 +963,7 @@ class ProjectService extends Model{
     **@breif 删除项目
     **@date 2016.1.15
     **/
-    public function deleteProjectService(){
+    public function deleteProjectService($id){
         $project = M('Project');
         $objProject = $project->where("id='".$id."' and status!=9999")->select();
         if(sizeof($objProject) == 0){
@@ -974,6 +974,27 @@ class ProjectService extends Model{
         $data["status"] = 9999;
         $data['change_date'] = date("Y-m-d H:i:s",time());
         $res = $project->where("id='".$id."'")->save($data);
+
+        if (!$res) {
+            echo '{"code":"-1","msg":"mysql error!"}';
+            exit;
+        }
+    }
+
+    /**
+    **@auth qianqiang
+    **@breif 真实删除项目
+    **@date 2016.1.16
+    **/
+    public function dropProjectService($id){
+        $project = M('Project');
+        $objProject = $project->where("id='".$id."' and status!=9999")->select();
+        if(sizeof($objProject) == 0){
+            echo '{"code":"-1","msg":"项目不存在!"}';
+            exit;
+        }
+
+        $res = $project->where("id='".$id."'")->delete();
 
         if (!$res) {
             echo '{"code":"-1","msg":"mysql error!"}';
