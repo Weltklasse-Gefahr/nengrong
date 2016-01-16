@@ -50,3 +50,18 @@
 .r-content .content.content2.signed .operator input[type="submit"]:hover {
 	background: #FD7940;
 }
+
+/* 有/无 附件 */
+.fname {
+	background: url(/EnergyFe/img/attachment.png) no-repeat;
+	line-height: 30px;
+	padding-left: 25px;
+}
+.download {
+	padding-left: 8px;
+	color: #34A1D7;
+}
+
+.download:hover {
+	color: #4F829B;
+}
