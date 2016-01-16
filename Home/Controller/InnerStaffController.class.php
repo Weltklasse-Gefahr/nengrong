@@ -71,15 +71,21 @@ class InnerStaffController extends Controller {
     **@breif 客服->尽职调查
     **@date 2015.12.19
     **/
-    public function dueDiligence(){
+    public function dueDiligence($projectCode=null, $rtype=null, $getJsonFlag=null){
     	isLogin($_COOKIE['email'], $_COOKIE['mEmail']);
     	$optype = $_POST['optype'] ? $_POST['optype']:$_GET['optype'];
-        $rtype = $_POST['rtype'] ? $_POST['rtype']:$_GET['rtype'];
-        $projectCode = 'test1'; //XR4481-633K-X16-831552
-        // $projectCode = $_POST['no'] ? $_POST['no']:$_GET['no'];
-        // $mProjectCode = $_POST['token'] ? $_POST['token']:$_GET['token'];
-        // isProjectCodeRight($projectCode, $mProjectCode);
-        //echo $projectCode;exit;
+        if( $rtype == null)
+        {
+            $rtype = $_POST['rtype'] ? $_POST['rtype']:$_GET['rtype'];
+        }
+        if($projectCode == null)
+        {
+            $projectCode = 'test1'; //XR4481-633K-X16-831552
+            // $projectCode = $_POST['no'] ? $_POST['no']:$_GET['no'];
+            // $mProjectCode = $_POST['token'] ? $_POST['token']:$_GET['token'];
+            // isProjectCodeRight($projectCode, $mProjectCode);
+            //echo $projectCode;exit;
+        }
         if($optype == "upload" && $rtype == 1){
             $docFile = array(
                 "attachment",
@@ -246,6 +252,11 @@ class InnerStaffController extends Controller {
                 dump($areaArray);
                 dump($evaluationInfo);
                 exit;
+            }
+            //给项目进度用,直接截断了,返回json了
+            if ($getJsonFlag == 1)
+            {
+              return array($picture[0]['file_rename'],$docListInfo,$projectDetail,$areaArray,$evaluationInfo);
             }
 
             $this->assign('picture', $picture[0]['file_rename']);
