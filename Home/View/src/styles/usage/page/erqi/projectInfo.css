@@ -6,41 +6,6 @@
 	margin-top: 60px;
 }
 
-/* 如果某项只在某一种项目类型下有，默认先隐藏这样的项 */
-.r-content  .notall {
-	display: none;
-}
-/* 屋顶分布式 未建 */
-.r-content .housetop_nonBuild .housetop_nonBuild_item {
-	display: block;
-}
-/* 屋顶分布式 已建 */
-.r-content .housetop_build .housetop_build_item {
-	display: block;
-}
-/* 地面分布式 未建 */
-.r-content .ground_nonBuild .ground_nonBuild_item {
-	display: block;
-}
-/* 地面分布式 已建 */
-.r-content .ground_build .ground_build_item {
-	display: block;
-}
-/* 大型地面 未建 */
-.r-content .bigground_nonBuild .ground_nonBuild_item, .r-content .bigground_nonBuild .bigground_nonBuild_item  {
-	display: block;
-}
-.r-content .bigground_nonBuild .ground_nonBuild_item.onlyground {
-	display: none;
-}
-/* 大型地面 已建 */
-.r-content .bigground_build .ground_build_item, .r-content .bigground_build .bigground_build_item {
-	display: block;
-}
-.r-content .bigground_build .ground_build_item.onlyground {
-	display: none;
-}
-
 .r-content  .remark {
 	position: absolute;
 	margin-top: 20px;

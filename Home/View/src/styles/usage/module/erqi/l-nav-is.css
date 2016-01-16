@@ -1,5 +1,5 @@
 /* 客服左边栏和别的地方不一样 */
-.l-nav .back {
+.l-nav .btn {
 	display: inline-block;
 	width: 100px;
 	text-align: center;
@@ -9,6 +9,14 @@
 	color: #fff;
 	border: 0;
 	margin: 0 auto 20px 30px;
+}
+
+.l-nav .btn:hover {
+	background: #F1920C;
+}
+
+.l-nav dl {
+	margin-bottom: 25px;
 }
 
 .l-nav dl dd a:hover {
