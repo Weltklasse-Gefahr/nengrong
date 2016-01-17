@@ -781,35 +781,35 @@ class ProjectService extends Model{
     public function searchService($companyName, $companyType, $situation, $startDate, $endDate, $status, $cooperationType, $page){
         $housetopSql = "";
         $groundSql = "";
-        if($companyType == null || $companyType == '全部'){
-            $housetopSql = "select * from enf_project p join enf_housetop h on p.id=h.project_id join enf_user u on p.provider_id=u.id where h.status!=9999 and h.status!=51 and h.status!=61";
-            $groundSql = "select * from enf_project p join enf_ground g on p.id=g.project_id join enf_user u on p.provider_id=u.id where g.status!=9999 and g.status!=51 and g.status!=61";
+        if($companyType == null || $companyType == 'all'){
+            $housetopSql = "select p.id,p.project_code,p.project_type,p.build_state,p.provider_id,p.highlight_flag,p.create_date,h.id as h_id,h.project_id,h.project_area,h.project_address,h.status,u.id as u_id,u.email,u.user_type,u.company_name from enf_project p join enf_housetop h on p.id=h.project_id join enf_user u on p.provider_id=u.id where h.status!=9999 and h.status!=51 and h.status!=61";
+            $groundSql = "select p.id,p.project_code,p.project_type,p.build_state,p.provider_id,p.highlight_flag,p.create_date,g.id as g_id,g.project_id,g.project_area,g.project_address,g.status,u.id as u_id,u.email,u.user_type,u.company_name from enf_project p join enf_ground g on p.id=g.project_id join enf_user u on p.provider_id=u.id where g.status!=9999 and g.status!=51 and g.status!=61";
         }else{
-            $typeArr = explode("-",$companyType);
-            if($typeArr[0] == '屋顶分布式'){
-                $housetopSql = "select * from enf_project p join enf_housetop h on p.id=h.project_id join enf_user u on p.provider_id=u.id where h.status!=9999 and h.status!=51 and h.status!=61 and p.project_type=1";
-                if($typeArr[1] == '未建'){
-                    $housetopSql = $housetopSql." and p.build_state=1";
-                }elseif($typeArr[1] == '已建'){
-                    $housetopSql = $housetopSql." and p.build_state=2";
-                }
-            }elseif($typeArr[0] == '地面分布式'){
-                $groundSql = "select * from enf_project p join enf_ground g on p.id=g.project_id join enf_user u on p.provider_id=u.id where g.status!=9999 and g.status!=51 and g.status!=61 and p.project_type=2";
-                if($typeArr[1] == '未建'){
-                    $groundSql = $groundSql." and p.build_state=1";
-                }elseif($typeArr[1] == '已建'){
-                    $groundSql = $groundSql." and p.build_state=2";
-                }
-            }elseif($typeArr[0] == '大型地面'){
-                $groundSql = "select * from enf_project p join enf_ground g on p.id=g.project_id join enf_user u on p.provider_id=u.id where g.status!=9999 and g.status!=51 and g.status!=61 and p.project_type=3";
-                if($typeArr[1] == '未建'){
-                    $groundSql = $groundSql." and p.build_state=1";
-                }elseif($typeArr[1] == '已建'){
-                    $groundSql = $groundSql." and p.build_state=2";
-                }
+            if($companyType == "1"){//屋顶分布式－未建
+                $housetopSql = "select p.id,p.project_code,p.project_type,p.build_state,p.provider_id,p.highlight_flag,p.create_date,h.id as h_id,h.project_id,h.project_area,h.project_address,h.status,u.id as u_id,u.email,u.user_type,u.company_name from enf_project p join enf_housetop h on p.id=h.project_id join enf_user u on p.provider_id=u.id where h.status!=9999 and h.status!=51 and h.status!=61 and p.project_type=1";
+                $housetopSql = $housetopSql." and p.build_state=1";
+            }elseif($companyType == "2"){//地面分布式－未建
+                $groundSql = "select p.id,p.project_code,p.project_type,p.build_state,p.provider_id,p.highlight_flag,p.create_date,g.id as g_id,g.project_id,g.project_area,g.project_address,g.status,u.id as u_id,u.email,u.user_type,u.company_name from enf_project p join enf_ground g on p.id=g.project_id join enf_user u on p.provider_id=u.id where g.status!=9999 and g.status!=51 and g.status!=61 and p.project_type=2";
+                $groundSql = $groundSql." and p.build_state=1";
+            }elseif($companyType == "3"){//大型地面－未建
+                $groundSql = "select p.id,p.project_code,p.project_type,p.build_state,p.provider_id,p.highlight_flag,p.create_date,g.id as g_id,g.project_id,g.project_area,g.project_address,g.status,u.id as u_id,u.email,u.user_type,u.company_name from enf_project p join enf_ground g on p.id=g.project_id join enf_user u on p.provider_id=u.id where g.status!=9999 and g.status!=51 and g.status!=61 and p.project_type=3";
+                $groundSql = $groundSql." and p.build_state=1";
+            }elseif($companyType == "4"){//屋顶分布式－已建
+                $housetopSql = "select p.id,p.project_code,p.project_type,p.build_state,p.provider_id,p.highlight_flag,p.create_date,h.id as h_id,h.project_id,h.project_area,h.project_address,h.status,u.id as u_id,u.email,u.user_type,u.company_name from enf_project p join enf_housetop h on p.id=h.project_id join enf_user u on p.provider_id=u.id where h.status!=9999 and h.status!=51 and h.status!=61 and p.project_type=1";
+                $housetopSql = $housetopSql." and p.build_state=2";
+            }elseif($companyType == "5"){//地面分布式－已建
+                $groundSql = "select p.id,p.project_code,p.project_type,p.build_state,p.provider_id,p.highlight_flag,p.create_date,g.id as g_id,g.project_id,g.project_area,g.project_address,g.status,u.id as u_id,u.email,u.user_type,u.company_name from enf_project p join enf_ground g on p.id=g.project_id join enf_user u on p.provider_id=u.id where g.status!=9999 and g.status!=51 and g.status!=61 and p.project_type=2";
+                $groundSql = $groundSql." and p.build_state=2";
+            }elseif($companyType == "6"){//大型地面－已建
+                $groundSql = "select p.id,p.project_code,p.project_type,p.build_state,p.provider_id,p.highlight_flag,p.create_date,g.id as g_id,g.project_id,g.project_area,g.project_address,g.status,u.id as u_id,u.email,u.user_type,u.company_name from enf_project p join enf_ground g on p.id=g.project_id join enf_user u on p.provider_id=u.id where g.status!=9999 and g.status!=51 and g.status!=61 and p.project_type=3";
+                $groundSql = $groundSql." and p.build_state=2";
+            }else{
+                echo '{"code":"-1","msg":"project type error!"}';
+                exit;
             }
         }
-        if(!($companyName == null || $companyName == '全部')){
+        // dump($companyType);exit;
+        if(!($companyName == null || $companyName == 'all')){
             if($housetopSql != ""){
                 $housetopSql = $housetopSql." and u.company_name='".$companyName."'";
             }
@@ -817,7 +817,7 @@ class ProjectService extends Model{
                 $groundSql = $groundSql." and u.company_name='".$companyName."'";
             }
         }
-        if(!($situation == null || $situation == '全部')){
+        if(!($situation == null || $situation == 'all')){
             $areaObj = D('Area', 'Service');
             $areaList = $areaObj->getAreaArrayByHighLevelId($situation);
             $areaStr = "";
@@ -834,35 +834,35 @@ class ProjectService extends Model{
                 $groundSql = $groundSql." and g.project_area in (".$areaStr.")";
             }
         }
-        if(!($status == null || $status == '全部')){
+        if(!($status == null || $status == 'all')){
             if($housetopSql != ""){
-                if($status == "未提交"){
+                if($status == "11"){
                     $housetopSql = $housetopSql." and p.status=11";
-                }elseif($status == "已提交"){
+                }elseif($status == "12"){
                     $housetopSql = $housetopSql." and (p.status>=12 and p.status<=13)";
-                }elseif($status == "已签意向书"){
+                }elseif($status == "20"){
                     $housetopSql = $housetopSql." and (p.status>=21 and p.status<=22)";
-                }elseif($status == "已尽职调查"){
+                }elseif($status == "50"){
                     $housetopSql = $housetopSql." and p.status=22";
-                }elseif($status == "已签融资合同"){
+                }elseif($status == "30"){
                     $housetopSql = $housetopSql." and p.status=31";
                 }
             }
             if($groundSql != ""){
-                if($status == "未提交"){
+                if($status == "11"){
                     $groundSql = $groundSql." and p.status=11";
-                }elseif($status == "已提交"){
+                }elseif($status == "12"){
                     $groundSql = $groundSql." and (p.status>=12 and p.status<=13)";
-                }elseif($status == "已签意向书"){
+                }elseif($status == "20"){
                     $groundSql = $groundSql." and (p.status>=21 and p.status<=22)";
-                }elseif($status == "已尽职调查"){
+                }elseif($status == "50"){
                     $groundSql = $groundSql." and p.status=22";
-                }elseif($status == "已签融资合同"){
+                }elseif($status == "30"){
                     $groundSql = $groundSql." and p.status=31";
                 }
             }
         }
-        if(!($cooperationType == null || $cooperationType == '全部')){
+        if(!($cooperationType == null || $cooperationType == 'all')){
             if($housetopSql != ""){
                 $housetopSql = $housetopSql." and h.cooperation_type like '%".$cooperationType."%'";
             }
@@ -895,8 +895,12 @@ class ProjectService extends Model{
         // exit;
 
         $Dao = M();
-        $housetopList = $Dao->query($housetopSql);
-        $groundList = $Dao->query($groundSql);
+        if($housetopSql != ""){
+            $housetopList = $Dao->query($housetopSql);
+        }
+        if($groundSql != ""){
+            $groundList = $Dao->query($groundSql);
+        }
         if(!empty($housetopList) && empty($groundList)){
             $projectList = $housetopList;
         }elseif(empty($housetopList) && !empty($groundList)){
@@ -904,7 +908,8 @@ class ProjectService extends Model{
         }elseif(!empty($housetopList) && !empty($groundList)){
             $projectList = array_merge($housetopList, $groundList);
         }
-        return $projectList;
+        $resList = $this->formatProject($projectList);
+        return $resList;
     }
 
     /**
