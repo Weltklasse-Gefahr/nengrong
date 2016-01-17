@@ -1,0 +1,52 @@
+.search {
+	float: left;
+	width: 300px;
+	padding-top: 60px;
+}
+
+.search .title {
+	line-height: 40px;
+	text-align: center;
+	background-color: #FD7940;
+	color: #fff;
+}
+
+.search .condition {
+	background-color: #eee;
+	padding: 0 10px 20px 10px;
+}
+
+.search .condition .item {
+	line-height: 40px;
+}
+
+.search .condition .item > span {
+	width: 64px;
+	display: inline-block;
+	margin-right: 5px;
+	text-align: right;
+}
+
+.search .condition .item > span.op {
+	width: 115px;
+}
+
+.search .condition .item select {
+	width: 205px;
+}
+
+.search .condition .item select.op {
+	width: 154px;
+}
+
+.search .condition .item input {
+	cursor: pointer;
+	width: 90px;
+	padding-left: 6px;
+}
+
+.search .operator {
+	line-height: 40px;
+	background-color: #eee;
+	text-align: center;
+}

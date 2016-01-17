@@ -41,35 +41,35 @@
 			<input type="hidden" name="c" value="InnerStaff" />
 			<input type="hidden" name="a" value="search" />
 			<div class="condition">
-				<div>
+				<div class="item">
 					<span>公司名称</span>
 					<select name="company_name">
-						<option value="all">全部</option>
-						<option value="aa">aa公司</option>
+						<option value="全部">全部</option>
+						<option value="aa公司">aa公司</option>
 					</select>
 				</div>
-				<div>
+				<div class="item">
 					<span>项目类型</span>
 					<select name="project_type">
-		          		<option value="all">全部</option>
-		          		<option value="housetop_nonBuild">屋顶分布式－未建</option>
-		          		<option value="ground_nonBuild">地面分布式－未建</option>
-		          		<option value="bigground_nonBuild">大型地面－未建</option>
-		          		<option value="housetop_build">屋顶分布式－已建</option>
-		          		<option value="ground_build">地面分布式－已建</option>
-		         		<option value="bigground_build">大型地面－已建</option>
+		          		<option value="全部">全部</option>
+		          		<option value="屋顶分布式－未建">屋顶分布式－未建</option>
+		          		<option value="地面分布式－未建">地面分布式－未建</option>
+		          		<option value="大型地面－未建">大型地面－未建</option>
+		          		<option value="屋顶分布式－已建">屋顶分布式－已建</option>
+		          		<option value="地面分布式－已建">地面分布式－已建</option>
+		         		<option value="大型地面－已建">大型地面－已建</option>
 			        </select>
 				</div>
-				<div>
+				<div class="item">
 					<span>位置</span>
 					<select name="province" data-code="{$data['province']}">
 					</select>
 				</div>
-				<div>
+				<div class="item">
 					<span>提交时间</span>
-					<input data-type="date" />至<input data-type="date" />
+					<input data-type="date" readonly name="startDate" /> 至 <input data-type="date" readonly name="endDate" />
 				</div>
-				<div>
+				<div class="item">
 					<span>项目状态</span>
 					<select name="status">
 			       		<option value="全部">全部</option>
@@ -80,9 +80,9 @@
 			          	<option value="已签融资合同">已签融资合同</option>
 			        </select>
 				</div>
-				<div>
-					<span>与能融网合作方式</span>
-					<select name="cooperation_type">
+				<div class="item">
+					<span class="op">与能融网合作方式</span>
+					<select class="op" name="cooperation_type">
 			          	<option value="全部">全部</option>
 			          	<option value="EPC">EPC</option>
 			          	<option value="申请融资">申请融资</option>
