@@ -564,9 +564,20 @@ class InnerStaffController extends Controller {
         }elseif($rtype == 1 && $optype == 'change'){
             $projectCode = $_GET['no'];
             $mProjectCode = $_GET['token'];
-            isProjectCodeRight($projectCode, $mProjectCode);
-            $oldStatus = $_POST['status'];
-            $newStatus = $_POST['project_status'];
+            // isProjectCodeRight($projectCode, $mProjectCode);
+            $oldStatus = $_GET['oldStatus'];
+            $status = $_GET['status'];
+            if($status == 11){//未提交
+                $newStatus = 11;
+            }elseif($status == 12){//已提交
+                $newStatus = 12;
+            }elseif($status == 13){//已签意向书
+                $newStatus = 21;
+            }elseif($status == 14){//已尽职调查
+                $newStatus = 22;
+            }elseif($status == 15){//已签融资合同
+                $newStatus = 31;
+            }
             // $projectCode = 'testintent';
             // $oldStatus = 13;
             // $newStatus = 12;
