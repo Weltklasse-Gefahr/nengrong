@@ -101,6 +101,16 @@
 	background: #F1920C;
 }
 
-.status-list input, .status-list label {
+.status-list input[type="radio"] {
 	cursor: pointer;
+	vertical-align: middle;
+	margin-right: 4px;
+}
+
+.status-list label {
+	cursor: pointer;
+}
+
+.layer .status-list {
+	margin-left: 40px;
 }
