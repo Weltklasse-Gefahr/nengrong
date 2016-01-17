@@ -914,7 +914,7 @@ class ProjectService extends Model{
 
     /**
     **@auth qianqiang
-    **@breif 修改项目状态
+    **@breif 修改项目状态，如果存在保存的状态删掉
     **@param projectCode 项目编码
     **@param oldStatus 需要修改项目的当前状态
     **@param newStatus 需要改后的项目状态
@@ -937,6 +937,11 @@ class ProjectService extends Model{
                 if(!$res2){
                     return "housetop status change error";
                 }
+                //housetop中如果存在状态不是修改后状态的数据，删除掉
+                $tcondition['project_id'] = $projectInfo['id'];
+                $tcondition['status'] = array('neq', $newStatus);
+                $tdata['status'] = 9999;
+                $housetopObj->where($tcondition)->save($tdata);
             }elseif($projectInfo['project_type'] == 2 || $projectInfo['project_type'] == 3){
                 $groundObj = M('Ground');
                 $gCondition['project_id'] = $projectInfo['id'];
@@ -945,10 +950,20 @@ class ProjectService extends Model{
                 if(!$res2){
                     return "ground status change error";
                 }
+                //ground中如果存在状态不是修改后状态的数据，删除掉
+                $tcondition['project_id'] = $projectInfo['id'];
+                $tcondition['status'] = array('neq', $newStatus);
+                $tdata['status'] = 9999;
+                $groundObj->where($tcondition)->save($tdata);
             }
         }else{
             return "project status change error";
         }
+        //project中如果存在状态不是修改后状态的数据，删除掉
+        $tcondition['project_code'] = $projectCode;
+        $tcondition['status'] = array('neq', $newStatus);
+        $tdata['status'] = 9999;
+        $projectObj->where($tcondition)->save($tdata);
         return true;
     }
 

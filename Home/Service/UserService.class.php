@@ -81,10 +81,10 @@ class UserService extends Model{
         	// 发送激活邮件
         	$key = $email.",".md5(addToken($email)).",".time();
 	        $encryptKey = encrypt($key, getKey()); 
-	        $url = "www.enetf.com/?c=User&a=activeUser&key=".urlencode($encryptKey);
+	        $url = "http://www.enetf.com/?c=User&a=activeUser&key=".urlencode($encryptKey);
 	        $name = "能融网用户";
 	        $subject = "验证您的电子邮箱地址";
-	        $text = "激活邮件内容".$url;
+	        $text = '激活邮件内容<a target="_blank" href="'.$url.'">'.$url.'</a>';
 	        $res = think_send_mail($email, $name, $subject, $text, null);
 	        if($res == false){
 	        	header('Content-Type: text/html; charset=utf-8');
