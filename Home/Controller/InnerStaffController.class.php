@@ -18,6 +18,10 @@ class InnerStaffController extends Controller {
         //判断登陆，并且获取用户名的email
         $projectCode = $_POST['project_code'] ? $_POST['project_code']:$_GET['project_code'];
         //$projectCode = "qwertyuio";
+        $projectCode = $_POST['no'] ? $_POST['no']:$_GET['no'];
+        $mProjectCode = $_POST['token'] ? $_POST['token']:$_GET['token'];
+        isProjectCodeRight($projectCode, $mProjectCode);
+
         $objProject = D("Project", "Service");
         $objProjectInfo = $objProject->getProjectInfo($projectCode);
         $providerId = $objProjectInfo['provider_id'];
@@ -150,10 +154,10 @@ class InnerStaffController extends Controller {
         }
         if($projectCode == null)
         {
-            $projectCode = 'XR7894-815K-X16-323764'; //XR4481-633K-X16-831552
-            // $projectCode = $_POST['no'] ? $_POST['no']:$_GET['no'];
-            // $mProjectCode = $_POST['token'] ? $_POST['token']:$_GET['token'];
-            // isProjectCodeRight($projectCode, $mProjectCode);
+            // $projectCode = 'XR7894-815K-X16-323764'; //XR4481-633K-X16-831552
+            $projectCode = $_POST['no'] ? $_POST['no']:$_GET['no'];
+            $mProjectCode = $_POST['token'] ? $_POST['token']:$_GET['token'];
+            isProjectCodeRight($projectCode, $mProjectCode);
             //echo $projectCode;exit;
         }
         if($optype == "upload" && $rtype == 1){
@@ -428,7 +432,11 @@ class InnerStaffController extends Controller {
     public function intent(){
         isLogin($_COOKIE['email'], $_COOKIE['mEmail']);
         // $projectCode = $_POST['project_code'] ? $_POST['project_code']:$_GET['project_code'];
-        $projectCode = 'test2';
+        // $projectCode = 'test2';
+        $projectCode = $_POST['no'] ? $_POST['no']:$_GET['no'];
+        $mProjectCode = $_POST['token'] ? $_POST['token']:$_GET['token'];
+        isProjectCodeRight($projectCode, $mProjectCode);
+        
         $optype = $_POST['optype'] ? $_POST['optype']:$_GET['optype'];
         $rtype = $_POST['rtype'] ? $_POST['rtype']:$_GET['rtype'];
         if($optype == "save" && $rtype == 1){
