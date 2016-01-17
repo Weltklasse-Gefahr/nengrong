@@ -87,6 +87,10 @@ class InnerStaffController extends Controller {
         //判断登陆，并且获取用户名的email
         $projectCode = $_POST['project_code'] ? $_POST['project_code']:$_GET['project_code'];
         //$projectCode = "qwertyuio";
+        $projectCode = $_POST['no'] ? $_POST['no']:$_GET['no'];
+        $mProjectCode = $_POST['token'] ? $_POST['token']:$_GET['token'];
+        isProjectCodeRight($projectCode, $mProjectCode);
+
         $objProject = D("Project", "Service");
         $objProjectInfo = $objProject->getProjectInfo($projectCode);
         $providerId = $objProjectInfo['provider_id'];
@@ -219,10 +223,10 @@ class InnerStaffController extends Controller {
         }
         if($projectCode == null)
         {
-            $projectCode = 'XR7894-815K-X16-323764'; //XR4481-633K-X16-831552
-            // $projectCode = $_POST['no'] ? $_POST['no']:$_GET['no'];
-            // $mProjectCode = $_POST['token'] ? $_POST['token']:$_GET['token'];
-            // isProjectCodeRight($projectCode, $mProjectCode);
+            // $projectCode = 'XR7894-815K-X16-323764'; //XR4481-633K-X16-831552
+            $projectCode = $_POST['no'] ? $_POST['no']:$_GET['no'];
+            $mProjectCode = $_POST['token'] ? $_POST['token']:$_GET['token'];
+            isProjectCodeRight($projectCode, $mProjectCode);
             //echo $projectCode;exit;
         }
         if($optype == "upload" && $rtype == 1){
@@ -499,7 +503,11 @@ class InnerStaffController extends Controller {
     public function intent(){
         isLogin($_COOKIE['email'], $_COOKIE['mEmail']);
         // $projectCode = $_POST['project_code'] ? $_POST['project_code']:$_GET['project_code'];
-        $projectCode = 'test2';
+        // $projectCode = 'test2';
+        $projectCode = $_POST['no'] ? $_POST['no']:$_GET['no'];
+        $mProjectCode = $_POST['token'] ? $_POST['token']:$_GET['token'];
+        isProjectCodeRight($projectCode, $mProjectCode);
+        
         $optype = $_POST['optype'] ? $_POST['optype']:$_GET['optype'];
         $rtype = $_POST['rtype'] ? $_POST['rtype']:$_GET['rtype'];
         if($optype == "save" && $rtype == 1){
@@ -609,9 +617,20 @@ class InnerStaffController extends Controller {
         }elseif($rtype == 1 && $optype == 'change'){
             $projectCode = $_GET['no'];
             $mProjectCode = $_GET['token'];
-            isProjectCodeRight($projectCode, $mProjectCode);
-            $oldStatus = $_POST['status'];
-            $newStatus = $_POST['project_status'];
+            // isProjectCodeRight($projectCode, $mProjectCode);
+            $oldStatus = $_GET['oldStatus'];
+            $status = $_GET['status'];
+            if($status == 11){//未提交
+                $newStatus = 11;
+            }elseif($status == 12){//已提交
+                $newStatus = 12;
+            }elseif($status == 13){//已签意向书
+                $newStatus = 21;
+            }elseif($status == 14){//已尽职调查
+                $newStatus = 22;
+            }elseif($status == 15){//已签融资合同
+                $newStatus = 31;
+            }
             // $projectCode = 'testintent';
             // $oldStatus = 13;
             // $newStatus = 12;
