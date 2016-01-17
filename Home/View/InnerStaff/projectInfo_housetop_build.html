@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes">
+	<title>已建-屋顶</title>
+	
+	<!-- Set render engine for 360 browser -->
+	<meta name="renderer" content="webkit">
+	
+	<!-- No Baidu Siteapp-->
+	<meta http-equiv="Cache-Control" content="no-siteapp" />
+	
+	<link rel="icon" type="image/png" href="/EnergyFe/img/i/favicon.png">
+	
+	<!-- Add to homescreen for Chrome on Android -->
+	<meta name="mobile-web-app-capable" content="yes">
+	<link rel="icon" sizes="192x192" href="/EnergyFe/img/i/favicon.png">
+	
+	<!-- Add to homescreen for Safari on iOS -->
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-title" content="Amaze UI" />
+	<link rel="apple-touch-icon-precomposed" href="/EnergyFe/img/i/favicon.png">
+	
+	<!-- Tile icon for Win8 (144x144 + tile color) -->
+	<meta name="msapplication-TileImage" content="/EnergyFe/img/i/favicon.png">
+	<meta name="msapplication-TileColor" content="#0e90d2">
+	<link rel="stylesheet" href="/EnergyFe/prd/styles/x-common@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/styles/x-common.css.ver';</php>.css">
+	<link rel="stylesheet" href="/EnergyFe/prd/styles/projectInfo@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/styles/projectInfo.css.ver';</php>.css">
+<body>
+	<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/hf/erqi/header.html';</php>
+
+	<div class="main clrfix">
+		<!-- 左侧导航栏 -->
+		<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/InnerStaff/InnerStaff_left.html';</php>
+		<!-- 右侧布局 -->
+		<div class="r-content">
+			<ul class="detail part1">
+				<li class="clrfix">
+					<span class="lb">项目类型：</span>
+					<span class="lbw">{$data['projectInfo']['build_state']}{$data['projectInfo']['project_type']}</span>
+				</li>
+				<li class="clrfix">
+					<span class="lb">项目地点：</span>
+					<span class="lbw">{$data['projectInfo']['province']}{$data['projectInfo']['city']}{$data['projectInfo']['county']}</span>
+				</li>
+				<li class="clrfix">
+					<span class="lb">项目图片：</span>
+					<div class="item">
+						<div class="demo">
+							<a target="_blank" href="{$data['projectInfo']['picture_full']['url']}"><img src="{$data['projectInfo']['picture_full']['url']}" style="width:120px;height:120px;" /></a>
+							<p>屋顶全景图</p>
+						</div>
+						<div class="demo">
+							<a target="_blank" href="{$data['projectInfo']['picture_south']['url']}"><img src="{$data['projectInfo']['picture_south']['url']}" style="width:120px;height:120px;" /></a>
+							<p>屋顶正南向照片</p>
+						</div>
+						<foreach name="data.projectInfo.picture_mul" item="vo" key="k" >
+						<div class="img-ct">
+							<div class="preview" style="width:120px;height:120px;">
+								<a target="_blank" href="{$vo['url']}">
+									<img src="{$vo['url']}" alt="{$vo['name']}"/>
+								</a>
+							</div>
+							<p title="{$vo['name']}">{$vo['name']}</p>
+						</div>
+						</foreach>
+					</div>
+				</li>
+			</ul>
+
+			<p class="title">屋顶业主信息</p>
+			<ul class="detail part2">
+				<li>
+					<span class="lb">屋顶业主名称</span>
+					<span class="lbw">{$data['projectInfo']['housetop_owner']}</span>
+				</li>
+				<li>
+					<span class="lb">企业类型</span>
+					<span class="lbw">{$data['projectInfo']['company_type']}</span>
+				</li>
+				<li>
+					<span class="lb">注册资本金</span>
+					<span class="lbw">{$data['projectInfo']['company_capital']}</span>
+				</li>
+				<li>
+					<span class="lb">屋顶产权证明</span>
+					<span class="fname">{$data['projectInfo']['housetop_property_prove']['name']}<a class="download" href="{$data['projectInfo']['housetop_property_prove']['url']}">下载</a></span>
+				</li>
+				<li>
+					<span class="lb">年用电量</span>
+					<span class="lbw">{$data['projectInfo']['electricity_total']}</span>
+				</li>
+				<li>
+					<span class="lb">电费</span>
+					<span class="lbw">{$data['projectInfo']['electricity_pay']}</span>
+				</li>
+				<li>
+					<span class="lb">电费单（最近一年）</span>
+					<span class="fname">{$data['projectInfo']['electricity_pay_list']['name']}<a class="download" href="{$data['projectInfo']['electricity_pay_list']['url']}">下载</a></span>
+				</li>
+			</ul>
+
+			<p class="title">屋顶情况</p>
+			<ul class="detail part2">
+				<li>
+					<span class="lb">屋顶类型</span>
+					<span class="lbw">{$data['projectInfo']['housetop_type']}</span>
+				</li>
+				<li>
+					<span class="lb">屋顶面积</span>
+					<span class="lbw">{$data['projectInfo']['housetop_area']}</span>
+				</li>
+				<li>
+					<span class="lb">屋顶防水周期</span>
+					<span class="lbw">{$data['projectInfo']['housetop_waterproof_time']}</span>
+				</li>
+				<li>
+					<span class="lb">屋顶使用寿命</span>
+					<span class="lbw">{$data['projectInfo']['housetop_age']}</span>
+				</li>
+				<li>
+					<span class="lb">屋顶朝向</span>
+					<span class="lbw">{$data['projectInfo']['housetop_direction']}</span>
+				</li>
+				<li>
+					<span class="lb">屋顶活载荷</span>
+					<span class="lbw">{$data['projectInfo']['housetop_load']}</span>
+				</li>
+				<li>
+					<span class="lb">附近有无遮挡/span>
+					<span class="lbw">{$data['projectInfo']['has_shelter']}</span>
+				</li>
+				<li>
+					<span class="lb">有无污染源</span>
+					<span class="lbw">{$data['projectInfo']['has_pollution']}</span>
+				</li>
+			</ul>
+
+			<p class="title">电网接入</p>
+			<ul class="detail part2">
+				<li>
+					<span class="lb">上级变压器容量</span>
+					<span class="lbw">{$data['projectInfo']['transformer_capacity']}</span>
+				</li>
+				<li>
+					<span class="lb">并网电压等级</span>
+					<span class="lbw">{$data['projectInfo']['voltage_level']}</span>
+				</li>
+				<li>
+					<span class="lb">电网接入点距离</span>
+					<span class="lbw">{$data['projectInfo']['electricity_distance']}</span>
+				</li>
+				<li>
+					<span class="lb">并网方式</span>
+					<span class="lbw">{$data['projectInfo']['electricity_distance']}</span>
+				</li>
+			</ul>
+
+			<p class="title">项目情况</p>
+			<ul class="detail part2">
+				<li>
+					<span class="lb">建设容量</span>
+					<span class="lbw">{$data['projectInfo']['plan_build_volume']}</span>
+				</li>
+				<li>
+					<span class="lb">单位投资</span>
+					<span class="lbw">{$data['projectInfo']['company_invest']}</span>
+				</li>
+				<li>
+					<span class="lb">EPC厂家</span>
+					<span class="lbw">{$data['projectInfo']['company_EPC']}</span>
+				</li>
+				<li>
+					<span class="lb">资质等级</span>
+					<span class="lbw">{$data['projectInfo']['capacity_level']}</span>
+				</li>
+				<li>
+					<span class="lb">组件</span>
+					<foreach name="data.projectInfo.components" item="vo" key="k" >
+					    <div class="item">
+						    <div><span class="c0">组件厂家</span><span class="c0">{$vo['component_company']}</span></div>
+						    <div><span class="c0">规格型号</span><span class="c0">{$vo['component_type']}</span><span class="c1">数量</span><span class="c1">{$vo['component_count']}</span>个</div>
+					    </div>
+					</foreach>
+				</li>
+				<li>
+					<span class="lb">逆变器</span>
+					<foreach name="data.projectInfo.inverters" item="vo" key="k" >
+					    <div class="item">
+						    <div><span class="c0">逆变器厂家</span><span class="c0">{$vo['inverter_company']}</span></div>
+						   <div><span class="c0">规格型号</span><span class="c0">{$vo['inverter_type']}</span><span class="c1">数量</span><span class="c1">{$vo['inverter_count']}</span>个</div>
+					    </div>
+					</foreach> 
+				</li>
+				<li>
+					<span class="lb">并网时间</span>
+					<span class="lbw">{$data['projectInfo']['synchronize_date']}</span>
+				</li>
+				<li>
+					<span class="lb">历史发电量数据（最近一年）</span>
+					<span class="lbw">{$data['projectInfo']['capacity_level']}</span>
+				</li>
+				<li>
+					<span class="lb">与能融网合作方式（可多选）</span>
+					<span class="lbw">{$data['projectInfo']['cooperation_type']}</span>
+				</li>
+				<li>
+					<span class="lb">拟融资金额</span>
+					<span class="lbw">{$data['projectInfo']['plan_financing']}</span>
+				</li>
+				<li>
+					<span class="lb">融资方式</span>
+					<span class="lbw">{$data['projectInfo']['financing_type']}</span>
+				</li>
+			</ul>
+
+			<p class="title">项目文件</p>
+			<ul class="detail part2">
+				<li>
+					<span class="lb">项目备案</span>
+					<span class="fname">{$data['projectInfo']['project_backup']['name']}<a class="download" href="{$data['projectInfo']['project_backup']['url']}">下载</a></span>
+				</li>
+				<li>
+					<span class="lb">电网接入批复</span>
+					<span class="fname">{$data['projectInfo']['electricity_backup']['name']}<a class="download" href="{$data['projectInfo']['electricity_backup']['url']}">下载</a></span>
+				</li>
+				<li>
+					<span class="lb">屋顶租赁协议</span>
+					<span class="fname">{$data['projectInfo']['house_rent_agreement']['name']}<a class="download" href="{$data['projectInfo']['house_rent_agreement']['url']}">下载</a></span>
+				</li>
+				<li>
+					<span class="lb">租赁年限</span>
+					<span class="lbw">{$data['projectInfo']['rent_time']}</span>
+				</li>
+				<li>
+					<span class="lb">租赁租金</span>
+					<span class="lbw">{$data['projectInfo']['rent_pay']}</span>
+				</li>
+				<li>
+					<span class="lb">合同能源管理协议</span>
+					<span class="fname">{$data['projectInfo']['power_manage_agreement']['name']}<a class="download" href="{$data['projectInfo']['power_manage_agreement']['url']}">下载</a></span>
+				</li>
+				<li>
+					<span class="lb">电价结算方式</span>
+					<span class="lbw">{$data['projectInfo']['electricity_clear_type']}</span>
+				</li>
+				<li>
+					<span class="lb">结算电价</span>
+					<span class="lbw">{$data['projectInfo']['electricity_clear']}</span>
+				</li>
+				<li>
+					<span class="lb">项目建议书</span>
+					<span class="fname">{$data['projectInfo']['project_proposal']['name']}<a class="download" href="{$data['projectInfo']['project_proposal']['url']}">下载</a></span>
+				<li>
+					<span class="lb">屋顶载荷证明</span>
+					<span class="fname">{$data['projectInfo']['housetop_load_prove']['name']}<a class="download" href="{$data['projectInfo']['housetop_load_prove']['url']}">下载</a></span>
+				</li>
+				<li>
+					<span class="lb">竣工验收报告</span>
+					<span class="fname">{$data['projectInfo']['completion_report']['name']}<a class="download" href="{$data['projectInfo']['completion_report']['url']}">下载</a></span>
+				</li>
+				<li>
+					<span class="lb">竣工图纸</span>
+					<span class="fname">{$data['projectInfo']['completion_paper']['name']}<a class="download" href="{$data['projectInfo']['completion_paper']['url']}">下载</a></span>
+				</li>
+				<li>
+					<span class="lb">历史发电量数据</span>
+					<span class="fname">{$data['projectInfo']['history_data']['name']}<a class="download" href="{$data['projectInfo']['history_data']['url']}">下载</a></span>
+				</li>
+				<li>
+					<span class="lb">辐照数据</span>
+					<span class="fname">{$data['projectInfo']['history_data']['name']}<a class="download" href="{$data['projectInfo']['history_data']['url']}">下载</a></span>
+				</li>
+				<li>
+					<span class="lb">电费结算票据</span>
+					<span class="fname">{$data['projectInfo']['electricity_bill']['name']}<a class="download" href="{$data['projectInfo']['electricity_bill']['url']}">下载</a></span>
+				</li>
+			</ul>
+		</div>
+	</div>
+
+	<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/hf/sub_footer.html';</php>
+	<!-- 子页面footer:关于我们，联系方式 -->
+	
+	<script src="/EnergyFe/prd/scripts/x-common@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/scripts/x-common.js.ver';</php>.js"></script>
+	<script src="/EnergyFe/prd/scripts/projectInfo@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/scripts/projectInfo.js.ver';</php>.js"></script>
+</body>
+</html>

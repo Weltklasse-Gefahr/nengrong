@@ -10,7 +10,70 @@ class InnerStaffController extends Controller {
     **@breif 客服->项目提供方信息（账户向详细信息）
     **@date 2015.12.19
     **/
-    public function getProjectProviderInfo(){
+    public function getProjectProviderInfo()
+    {
+        
+        isLogin($_COOKIE['email'],$_COOKIE['mEmail']);
+        //$email = $_COOKIE['email'];
+        //判断登陆，并且获取用户名的email
+        $projectCode = $_POST['project_code'] ? $_POST['project_code']:$_GET['project_code'];
+        //$projectCode = "qwertyuio";
+        $objProject = D("Project", "Service");
+        $objProjectInfo = $objProject->getProjectInfo($projectCode);
+        $providerId = $objProjectInfo['provider_id'];
+        $userObj = D("User", "Service");
+        $userInfo = $userObj->getUserINfoById($providerId);
+        //$email = "qiujinhan@gmail.com";
+        $email = $userInfo["email"];
+
+        $display =$_GET['display'];
+        //定义6张图片和文件
+        $arrPhotosAndFile = array(
+            "business_license",         //公司营业执照
+            "organization_code",        //组织机构代码证
+            "national_tax_certificate", //国税登记证
+            "local_tax_certificate",    //地税登记证
+            "identity_card_front",      //法人身份证正面
+            "identity_card_back",       //法人身份证反面
+            "financial_audit",          //财务审计报告doc
+        );
+        $arrFile = array(
+            "financial_audit",          //财务审计报告doc
+        );
+        //操作类型为1是插入和保存数据
+        //数据的显示
+        $objUser = D("User","Service");
+        $condition["email"] = $email;
+        $user = $objUser->getUserInfo($condition);
+        if ($display=="json")
+        {
+            echo json_encode($user[0]);
+            exit;
+        }
+        $areaObj = D("Area","Service");
+        $arr_company_area = $areaObj->getAreaArrayById($user[0]["company_area"]);
+        $user[0]["province"] = $arr_company_area[0];
+        $user[0]["city"] = $arr_company_area[1];
+        $user[0]["county"] = $arr_company_area[2];
+        //处理下文件和图片的信息
+        foreach($arrPhotosAndFile as $val)
+        {
+            
+            $condition["id"] = $user[0][$val];
+            $objUser = D("Doc","Service");
+            $docInfo = $objUser->getDocInfo($condition);
+            $user[0][$val] = array();
+            $user[0][$val]["id"] = $docInfo[0]["id"];
+            $user[0][$val]["token"] = md5(addToken($docInfo[0]["id"]));
+            $user[0][$val]["name"] = $docInfo[0]["file_name"];
+            $user[0][$val]["url"] = $docInfo[0]["file_rename"];
+
+        }
+        $this->assign('data',$user[0]);
+        $this->display("InnerStaff:providerInfo");
+        
+    }
+    /*public function getProjectProviderInfo(){
         isLogin($_COOKIE['email'], $_COOKIE['mEmail']);
         // $projectCode = $_POST['project_code'] ? $_POST['project_code']:$_GET['project_code'];
         $projectCode = "qwertyuio";
@@ -71,7 +134,7 @@ class InnerStaffController extends Controller {
         $this->assign('areaStr', $areaStr);
         $this->assign('docData', $docData);
         $this->display("InnerStaff:providerInfo");
-    }
+    }*/
 
     /**
     **@auth qianqiang
@@ -87,7 +150,7 @@ class InnerStaffController extends Controller {
         }
         if($projectCode == null)
         {
-            $projectCode = 'test1'; //XR4481-633K-X16-831552
+            $projectCode = 'XR7894-815K-X16-323764'; //XR4481-633K-X16-831552
             // $projectCode = $_POST['no'] ? $_POST['no']:$_GET['no'];
             // $mProjectCode = $_POST['token'] ? $_POST['token']:$_GET['token'];
             // isProjectCodeRight($projectCode, $mProjectCode);
@@ -296,8 +359,27 @@ class InnerStaffController extends Controller {
     public function projectInfo(){
         isLogin($_COOKIE['email'], $_COOKIE['mEmail']);
         $rtype = $_POST['rtype'] ? $_POST['rtype']:$_GET['rtype'];
+        $objProject  = D("Project","Service");
+        $getJsonFlag = 1;
+        //获取项目信息
+        $obj   = new ProjectProviderMyProController();
+        $data = $obj->projectInfoEdit($projectCode, null, $getJsonFlag);
+        $this->assign('data',$projectInfo);
+        if($data['project_type'] == 1){
+            if($data['build_state'] == 1){
+                $this->display("InnerStaff:housetop_nonbuild");
+            }elseif($data['build_state'] == 2){
+                $this->display("InnerStaff:housetop_build");
+            }
+        }elseif($data['project_type'] == 2 || $projectInfo['project_type'] == 3){
+            if($data['build_state'] == 1){
+                $this->display("InnerStaff:ground_nonbuild");
+            }elseif($data['build_state'] == 2){
+                $this->display("InnerStaff:ground_build");
+            }
+        }
         // $projectCode = $_POST['project_code'] ? $_POST['project_code']:$_GET['project_code'];
-        $projectCode = 'qwertyuio';
+        /*$projectCode = 'qwertyuio';
         $objProject = D("Project", "Service");
         $projectInfo = $objProject->getProjectInfo($projectCode);
         if($rtype == 1){
@@ -335,7 +417,7 @@ class InnerStaffController extends Controller {
                 // 应该是异常界面
                 $this->display("User:login");
             }
-        }
+        }*/
     }
 
     /**
