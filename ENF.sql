@@ -189,7 +189,7 @@ create table ENF_Housetop
    synchronize_type     int comment '并网方式（1自发自用、2全额上网、3自发自用全额上网）',
    electricity_distance double comment '电网接入点距离',
    plan_build_volume    double comment '拟建设容量',
-   cooperation_type     varchar(30) comment '与能融网合作方式',
+   cooperation_type     varchar(30) comment '与能融网合作方式:1EPC、2申请融资、3推介项目、4转让',
    plan_financing       double comment '拟融资金额',
    financing_type       int comment '融资方式（1融资租赁（直租）、2融资租赁（回租）、3股权融资）',
    company_invest       double comment '单位投资',
