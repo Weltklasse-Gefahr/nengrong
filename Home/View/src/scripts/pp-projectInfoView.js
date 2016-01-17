@@ -1,4 +1,5 @@
 $(function() {
+	var param = $.parseQueryParam();
 
 	$(".l-nav").find(".awaitingAssessment").addClass("active");
 
@@ -26,7 +27,10 @@ $(function() {
 			$.ajax({
 				url: location.href,
 				data: {
-					rtype: 1
+					rtype: 1,
+					optype: "agree",
+	            	no: param.no,
+	            	token: param.token
 				}
 			}).done(function(data) {
 				if(data.code == "0") {
