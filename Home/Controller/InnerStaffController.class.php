@@ -4,7 +4,23 @@ namespace Home\Controller;
 use Think\Controller;
 
 class InnerStaffController extends Controller {
-    
+ 
+
+    /**
+    **@auth qiujinhan
+    **@breif 在客服中导出一个项目的信息
+    **@date 2016.1.17
+    **/
+    public function export()
+    {
+        
+        isLogin($_COOKIE['email'],$_COOKIE['mEmail']);
+        $projectCode  = $_POST['no']     ? $_POST['no']:$_GET['no'];
+        $mProjectCode = $_POST['token']  ? $_POST['token']:$_GET['token'];
+        isProjectCodeRight($projectCode, $mProjectCode); 
+        
+    }
+
     /**
     **@auth qianqiang
     **@breif 客服->项目提供方信息（账户向详细信息）
@@ -23,9 +39,9 @@ class InnerStaffController extends Controller {
         $providerId = $objProjectInfo['provider_id'];
         $userObj = D("User", "Service");
         $userInfo = $userObj->getUserINfoById($providerId);
-        //$email = "qiujinhan@gmail.com";
+        
         $email = $userInfo["email"];
-
+        $email = "qiujinhan@gmail.com";
         $display =$_GET['display'];
         //定义6张图片和文件
         $arrPhotosAndFile = array(
@@ -358,6 +374,8 @@ class InnerStaffController extends Controller {
     **/
     public function projectInfo(){
         isLogin($_COOKIE['email'], $_COOKIE['mEmail']);
+        $projectCode = $_POST['project_code'] ? $_POST['project_code']:$_GET['project_code'];
+        //$projectCode = 'qwertyuio';
         $rtype = $_POST['rtype'] ? $_POST['rtype']:$_GET['rtype'];
         $objProject  = D("Project","Service");
         $getJsonFlag = 1;
@@ -367,15 +385,15 @@ class InnerStaffController extends Controller {
         $this->assign('data',$projectInfo);
         if($data['project_type'] == 1){
             if($data['build_state'] == 1){
-                $this->display("InnerStaff:housetop_nonbuild");
+                $this->display("InnerStaff:projectInfo_housetop_nonbuild");
             }elseif($data['build_state'] == 2){
-                $this->display("InnerStaff:housetop_build");
+                $this->display("InnerStaff:projectInfo_housetop_build");
             }
         }elseif($data['project_type'] == 2 || $projectInfo['project_type'] == 3){
             if($data['build_state'] == 1){
-                $this->display("InnerStaff:ground_nonbuild");
+                $this->display("InnerStaff:projectInfo_ground_nonbuild");
             }elseif($data['build_state'] == 2){
-                $this->display("InnerStaff:ground_build");
+                $this->display("InnerStaff:projectInfo_ground_build");
             }
         }
         // $projectCode = $_POST['project_code'] ? $_POST['project_code']:$_GET['project_code'];
