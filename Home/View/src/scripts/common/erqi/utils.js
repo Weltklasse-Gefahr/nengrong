@@ -16,5 +16,19 @@ $.extend($, {
 		}
 
 		return cookie_map[name] || "";
+	},
+
+	_param: undefined,
+	parseQueryParam: function() {
+		if(!$._param) {
+			$._param = {};
+			var pairs = location.search.substring(1).split("&");
+			$.each(pairs, function(i, pair) {
+				var t = pair.split("=");
+				$._param[t[0]] = decodeURIComponent(t[1]);
+			});
+		}
+
+		return $._param;
 	}
 });

@@ -49,7 +49,8 @@ $(function() {
 					token: data.idm,
 					oldStatus: oldStatus,
 					status: status
-				}
+				},
+				dataType: "json",
 			}).done(function(data) {
 				if(data.code == "0") {
 					alert("操作成功！");

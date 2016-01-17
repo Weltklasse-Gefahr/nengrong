@@ -5,12 +5,10 @@ $(function() {
 
 	require("common/erqi/pager.js");
 
-	/* ��ҳ */
-	$(".pager span").click(function() {
-		var $this = $(this);
-		if(!$this.hasClass("active")) {
-			location.href = "?c=ProjectProviderMyPro&a=contractProject&page="+$this.data("page-index");
-		}
+	// 跳转项目详情页
+	$(".bd").on("click", "a", function(){
+		var data = $(this).data();
+		location.href = "?c=ProjectProviderMyPro&a=projectInfoView&no=" + data.id + "&token=" + data.idm;
 		return false;
 	});
 });

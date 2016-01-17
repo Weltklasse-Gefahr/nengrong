@@ -3,19 +3,12 @@ $(function() {
 	$(".l-nav").find(".recommendedProject").addClass("active");
 	
 
-	/* ·ÖÒ³ */
-	$(".pager span").click(function() {
-		var $this = $(this);
-		if(!$this.hasClass("active")) {
-			location.href = "?c=ProjectInvestorMyPro&a=recommendedProject&page="+$this.data("page-index");
-		}
-		return false;
-	});
+	require("common/erqi/pager.js");
 
 	// 查看项目详情
 	$(".bd").on("click", "a", function(){
-		location.href = "?c=ProjectProviderMyPro&a=projectInfoView&no="+$(this).data("id")
-			+"&token="+$(this).data("idm");
+		var data = $(this).data();
+		location.href = "?c=ProjectInvestorMyPro&a=projectInfoView&no="+data.id+"&token="+data.idm;
 	});
 
 });
