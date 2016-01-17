@@ -28,10 +28,9 @@ $(function() {
 				url: location.href,
 				data: {
 					rtype: 1,
-					optype: "agree",
-	            	no: param.no,
-	            	token: param.token
-				}
+					optype: "agree"
+				},
+				dataType: "json"
 			}).done(function(data) {
 				if(data.code == "0") {
 					location.reload();
