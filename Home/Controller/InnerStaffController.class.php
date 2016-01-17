@@ -571,13 +571,13 @@ class InnerStaffController extends Controller {
                 echo '{"code":"-1","msg":"'.$res.'"}';
             }
         }else{
-            $companyName = $_GET['companyName'];
-            $companyType = $_GET['companyType'];
-            $situation = $_GET['situation'];
+            $companyName = $_GET['company_name'];
+            $companyType = $_GET['project_type'];
+            $situation = $_GET['province'];
             $startDate = $_GET['startDate'];
             $endDate = $_GET['endDate'];
             $status = $_GET['status'];
-            $cooperationType = $_GET['cooperationType'];
+            $cooperationType = $_GET['cooperation_type'];
             // $companyName = "哈哈哈公司";
             // $companyType = "地面分布式-未建";
             // $situation = '110000';
@@ -585,6 +585,9 @@ class InnerStaffController extends Controller {
             // $endDate = '2016-01-11' ;
             // $status = "已签意向书";
             // $cooperationType = "EPC";
+            // header('Content-Type: text/html; charset=utf-8');
+            // dump($companyName);dump($companyType);
+            //     exit;
             $page = $_GET['page'];
             if(empty($page)) $page=1;
             $pageSize = 6;
