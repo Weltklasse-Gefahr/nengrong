@@ -13,7 +13,7 @@
 
 .search .condition {
 	background-color: #eee;
-	padding: 0 10px 20px 10px;
+	padding: 0 10px 0 10px;
 }
 
 .search .condition .item {
@@ -33,6 +33,7 @@
 
 .search .condition .item select {
 	width: 205px;
+	height: 22px;
 }
 
 .search .condition .item select.op {
@@ -40,6 +41,7 @@
 }
 
 .search .condition .item input {
+	height: 22px;
 	cursor: pointer;
 	width: 90px;
 	padding-left: 6px;
@@ -49,4 +51,56 @@
 	line-height: 40px;
 	background-color: #eee;
 	text-align: center;
+}
+
+.search .operator input {
+	color: #FD7940;
+	border: 0;
+	background: transparent;
+	font-size: 18px;
+	outline: 0;
+	margin-right: 50px;
+}
+
+.search .operator input.last {
+	margin-right: 0;
+}
+
+.r-content {
+	padding-left: 10px;
+}
+
+.r-content .list p {
+	margin-right: 0;
+}
+
+.r-content .list .c0 {
+	width: 22%;
+}
+
+.r-content .list .c1 {
+	width: 14%;
+}
+
+.r-content .list .c4 {
+	width: 13%;
+}
+
+.r-content .list .c5 {
+	width: 14%;
+}
+
+.r-content .list .c5 button {
+	background-color: #FD7940;
+	color: #fff;
+	border-radius: 4px;
+	padding: 5px 6px;
+}
+
+.r-content .list .c5 button:hover {
+	background: #F1920C;
+}
+
+.status-list input, .status-list label {
+	cursor: pointer;
 }

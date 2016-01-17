@@ -63,6 +63,7 @@
 				<div class="item">
 					<span>位置</span>
 					<select name="province" data-code="{$data['province']}">
+						<option>全部</option>
 					</select>
 				</div>
 				<div class="item">
@@ -91,8 +92,8 @@
 				</div>
 			</div>
 			<div class="operator">
-				<input data-optype="save" type="submit" value="查询">
-				<input data-optype="submit" type="reset" value="重置" class="last">
+				<input type="submit" value="查询">
+				<input type="reset" value="重置" class="last">
 			</div>
 		</form>
 		
@@ -109,16 +110,24 @@
 				</div>
 				<div class="bd">
 					<foreach name="arrData.list" item="project">
-						<div class="<if condition="$project[status] eq 13 && $project[highlight_flag] eq 1">new</if>">
-							<p class="c0"><a data-id="{$project[project_code]}" 
-							data-idm="{$project[m_project_code]}" data-status="{$project[status]}" href="javascript:;">{$project[project_code]}</a></p>
+						<div data-id="{$project[project_code]}" 
+							data-idm="{$project[m_project_code]}" data-status="{$project[status]}" class="<if condition="$project[status] eq 13 && $project[highlight_flag] eq 1">new</if>">
+							<p class="c0"><a href="javascript:;">{$project[project_code]}</a></p>
 							<p class="c1">{$project[type]}</p>
 							<p class="c2">{$project[area]}</p>
 							<p class="c3">{$project[create_date]}</p>
 							<p class="c4">{$project[statusStr]}</p>
-							<p><button>更改项目状态</button></p>
+							<p class="c5"><button>更改项目状态</button></p>
 						</div>
 					</foreach>
+					<div data-id="XI2500-956K-X16-231945" data-idm="259a2d18ef7235c7e488af43228ff993" data-status="11" class="new">
+						<p class="c0"><a href="javascript:;">XI2500-956K-X16-231945</a></p>
+						<p class="c1">屋顶分布式</p>
+						<p class="c2">sdfasfa</p>
+						<p class="c3">2015/10/11</p>
+						<p class="c4">未提交</p>
+						<p class="c5"><button>更改项目状态</button></p>
+					</div>
 				</div>
 			</div>
 			<div class="pager">
