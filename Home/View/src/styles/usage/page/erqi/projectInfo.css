@@ -136,3 +136,16 @@
 	margin-top: 30px;
 }
 
+.r-content .fname {
+	background: url(/EnergyFe/img/attachment.png) no-repeat;
+	line-height: 30px;
+	padding-left: 25px;
+}
+.r-content .download {
+	padding-left: 8px;
+	color: #34A1D7;
+}
+
+.r-content .download:hover {
+	color: #4F829B;
+}
