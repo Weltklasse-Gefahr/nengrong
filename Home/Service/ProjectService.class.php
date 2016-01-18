@@ -1111,7 +1111,7 @@ class ProjectService extends Model{
     **@breif 还原项目
     **@date 2016.1.18
     **/
-    public function dropProjectService($id){
+    public function recoveryProjectService($id){
         return true;
     }
 
