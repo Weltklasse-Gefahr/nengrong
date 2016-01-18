@@ -36,12 +36,12 @@ $(function(){
 
 	$(".myAlert_delete_success_closed").click(function(){
 		$("#myAlert_delete_success").hide();
-		location.href="?c=Admin&a=getAllProjectProviderInfo";
+		location.href="?c=Admin&a=getAllProjectInfo";
 	});
 
 	$(".myAlert_delete_failed_closed").click(function(){
 		$("#myAlert_delete_failed").hide();
-		location.href="?c=Admin&a=getAllProjectProviderInfo";
+		location.href="?c=Admin&a=getAllProjectInfo";
 	});
 
 	$(".recover_id").click(function(){ 
@@ -72,12 +72,12 @@ $(function(){
 
 	$(".myAlert_recover_success_closed").click(function(){
 		$("#myAlert_recover_success").hide();
-		location.href="?c=Admin&a=getAllProjectProviderInfo";
+		location.href="?c=Admin&a=getAllProjectInfo";
 	});
 
 	$(".myAlert_recover_failed_closed").click(function(){
 		$("#myAlert_recover_failed").hide();
-		location.href="?c=Admin&a=getAllProjectProviderInfo";
+		location.href="?c=Admin&a=getAllProjectInfo";
 	});
 
 });

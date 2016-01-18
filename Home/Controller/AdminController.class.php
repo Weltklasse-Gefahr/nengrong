@@ -390,7 +390,7 @@ class AdminController extends Controller
             dump($projectList);
             exit;
         }    
-        $this->display("Admin:admin_projects");
+        $this->display("Admin:admin_project");
     }
 
     /**
