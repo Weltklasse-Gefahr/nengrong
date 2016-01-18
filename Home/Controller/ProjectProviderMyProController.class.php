@@ -515,7 +515,7 @@ class ProjectProviderMyProController extends Controller {
     {
         $email = $_COOKIE['email'];
         isLogin($email, $_COOKIE['mEmail']);
-        isDataComplete($email);
+        isDataComplete($email, 1);
         $optype = $_POST['optype'] ? $_POST['optype']:$_GET['optype'];
         $filter = $_POST['filter'] ? $_POST['filter']:$_GET['filter'];
         $page = $_GET['page'];

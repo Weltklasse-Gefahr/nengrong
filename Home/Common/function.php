@@ -248,12 +248,14 @@ function isProjectCodeRight($pc, $mpc){
     // return true;
     if (empty($pc) || empty($mpc)) {
         header('Content-Type: text/html; charset=utf-8');
-        echo "<script type='text/javascript'>alert('项目错误，重新登录');location.href='?c=User&a=login'</script>";
+        echo '{"code":"-1","msg":"项目信息验证错误"}';
+        // echo "<script type='text/javascript'>alert('项目错误，重新登录');location.href='?c=User&a=login'</script>";
         exit;
     }
     if (!($mpc == MD5(addToken($pc)))) {
         header('Content-Type: text/html; charset=utf-8');
-        echo "<script type='text/javascript'>alert('项目错误，重新登录');location.href='?c=User&a=login'</script>";
+        echo '{"code":"-1","msg":"项目信息验证错误"}';
+        // echo "<script type='text/javascript'>alert('项目错误，重新登录');location.href='?c=User&a=login'</script>";
         exit;
     }
     return true;
@@ -266,7 +268,7 @@ function isProjectCodeRight($pc, $mpc){
 **@return 如果填写了就返回true 如果没有没有填写就弹框提示，并且跳转到我的资料页面
 **@date 2015.12.12
 **/
-function isDataComplete($email){
+function isDataComplete($email, $flag=0){
     //return true;
     $user = M("User");
     $objUser = $user->where("email='".$email."'")->find();
@@ -275,13 +277,21 @@ function isDataComplete($email){
     if($objUser["user_type"] == 3){
         if($objUser["company_name"] == NULL || $objUser["company_contacts"] == NULL || $objUser["company_contacts_phone"] == NULL){
             header('Content-Type: text/html; charset=utf-8');
-            echo "<script type='text/javascript'>alert('请先完善个人资料');location.href='?c=ProjectProviderMyInfo&a=myInformation'</script>";
+            if($flag == 1){
+                echo "<script type='text/javascript'>location.href='?c=ProjectProviderMyInfo&a=myInformation'</script>";
+            }else{
+                echo "<script type='text/javascript'>alert('请先完善个人资料');location.href='?c=ProjectProviderMyInfo&a=myInformation'</script>";
+            }
             exit;
         }
     }elseif($objUser["user_type"] == 4){
         if($objUser["company_name"] == NULL || $objUser["company_contacts"] == NULL || $objUser["company_contacts_phone"] == NULL){
             header('Content-Type: text/html; charset=utf-8');
-            echo "<script type='text/javascript'>alert('请先完善个人资料');location.href='?c=ProjectInvestorMyInfo&a=myInformation'</script>";
+            if($flag == 1){
+                echo "<script type='text/javascript'>location.href='?c=ProjectInvestorMyInfo&a=myInformation'</script>";
+            }else{
+                echo "<script type='text/javascript'>alert('请先完善个人资料');location.href='?c=ProjectInvestorMyInfo&a=myInformation'</script>";
+            }
             exit;
         }
     }
