@@ -18,16 +18,14 @@ class UserController extends Controller
         if($_POST['rtype'] == 1 || $_GET['rtype'] == 1){
             $email = $_POST['email'];
             $password = $_POST['password'];
-            // $email = "qianqiang@qq.com";
-            // $password = "123456";
-
+            $keepFlag = $_POST['keepFlag'];
             if (empty($email) || empty($password) ) {
                 echo '{"code":"-1","msg":"邮箱或者密码为空！"}';
                 exit;
             }
 
             $user = D('User','Service');
-            $users = $user->loginService($email, $password);
+            $users = $user->loginService($email, $password, $keepFlag);
             
             if ($_GET['display'] == 'json') {
                 dump($users);
@@ -35,8 +33,6 @@ class UserController extends Controller
                 exit;
             }
 
-            // $a = intval($users["user_type"]);
-            // echo $a;echo gettype($a);exit;
             if($users["user_type"] == 2){
                 echo '{"code":"0","msg":"登录成功！","url":"?c=InnerStaff&a=search"}';
             }else if($users["user_type"] == 3){
@@ -45,7 +41,25 @@ class UserController extends Controller
                 echo '{"code":"0","msg":"登录成功！","url":"?c=ProjectInvestorMyPro&a=recommendedProject"}';
             }
         }else {
-            $this->display("User:login");
+            $email = $_COOKIE['email'];
+            if(!empty($email)){
+                $res = isLogin($email, $_COOKIE['mEmail'], 1);
+                if($res == true){
+                    echo '{"code":"-1","msg":"不可能出现的错误"}';
+                    exit;
+                }
+                $userObj = D('User','Service');
+                $users = $userObj->getUserINfoByEmail($email);
+                if($users[0]["user_type"] == 2){
+                    echo '{"code":"0","msg":"用户已登录","url":"?c=InnerStaff&a=search"}';
+                }else if($users[0]["user_type"] == 3){
+                    echo '{"code":"0","msg":"用户已登录","url":"?c=ProjectProviderMyPro&a=awaitingAssessment"}';
+                }else if($users[0]["user_type"] == 4){
+                    echo '{"code":"0","msg":"用户已登录","url":"?c=ProjectInvestorMyPro&a=recommendedProject"}';
+                }
+            }else{
+                $this->display("User:login");
+            }
         }
     }
 
@@ -73,6 +87,13 @@ class UserController extends Controller
                 exit;
             }
             echo '{"code":"0","msg":"注册成功！","url":"?c=User&a=loginsus"}';
+
+            $res = $user->sendEmail($email);
+            if($res == false){
+                header('Content-Type: text/html; charset=utf-8');
+                echo '{"code":"-1","msg":"send email error!"}';
+                exit;
+            }
         }else {
             $this->display("User:register");
         }

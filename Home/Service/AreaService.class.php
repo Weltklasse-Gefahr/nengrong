@@ -7,7 +7,7 @@ class AreaService extends Model{
 
 	/**
     **@auth qianqiang
-    **@breif 根据id得到省市县字符串,如：山东省济南市市中区
+    **@breif 根据id得到省市县字符串,如：传入市中区，返回山东省济南市市中区
     **@param areaId 区域id
     **@return 省市县字符串
     **@date 2015.12.23
@@ -28,7 +28,7 @@ class AreaService extends Model{
     **@auth qianqiang
     **@breif 根据低级地区id得到地区本级及高级地区的id数组
     **@param areaId 区域id，如天桥区
-    **@return 省市县的id数组，如array(0=>山东省，1=>济南市，2=>天桥区)
+    **@return 省市县的id数组+省市区字符串，如array(0=>山东省，1=>济南市，2=>天桥区，3=>省市县) 
     **@date 2015.12.28
 	**/
 	public function getAreaArrayById($areaId){
@@ -45,6 +45,7 @@ class AreaService extends Model{
 		while(!empty($tempArray)){
 			$areaArray[$i++] = array_pop($tempArray);
 		}
+		$areaArray[$i] = $this->getAreaById($areaArray[$i-1]);
 		return $areaArray;
 	}
 

@@ -328,7 +328,10 @@ class ProjectService extends Model{
         $i = 0;
         while($projectList[$i]){
             $projectList[$i]['m_project_code'] = md5(addToken($projectList[$i]['project_code']));
-            if($projectList[$i]['status'] == 11){
+            
+            if($projectList[$i]['status'] == 9999){
+                $projectList[$i]['statusStr'] = "已删除";
+            }elseif($projectList[$i]['status'] == 11){
                 $projectList[$i]['statusStr'] = "未提交";
             }elseif($projectList[$i]['status'] == 12 || $projectList[$i]['status'] == 13){
                 $projectList[$i]['statusStr'] = "已提交";
@@ -343,6 +346,7 @@ class ProjectService extends Model{
             }else{
                 $projectList[$i]['statusStr'] = "其他";
             }
+
             if($projectList[$i]['project_type'] == 1){
                 $projectList[$i]['type'] = "屋顶分布式";
                 $proObj = M('Housetop');
@@ -353,6 +357,19 @@ class ProjectService extends Model{
                 $projectList[$i]['type'] = "大型地面";
                 $proObj = M('Ground');
             }
+            if($projectList[$i]['build_state'] == 1){
+                $projectList[$i]['type'] = "未建-".$projectList[$i]['type'];
+            }elseif($projectList[$i]['build_state'] == 2){
+                $projectList[$i]['type'] = "已建-".$projectList[$i]['type'];
+            }
+
+            if(!empty($projectList[$i]['create_date'])){
+                $projectList[$i]['create_date'] = date('Y-m-d', strtotime($projectList[$i]['create_date']));
+            }
+            if(!empty($projectList[$i]['push_time'])){
+                $projectList[$i]['push_time'] = date('Y-m-d', strtotime($projectList[$i]['push_time']));
+            }
+
             $condition['project_id'] = $projectList[$i]['id'];
             $condition['status'] = $projectList[$i]['status'];
             $proDetails = $proObj->where($condition)->find();
@@ -1087,6 +1104,15 @@ class ProjectService extends Model{
             echo '{"code":"-1","msg":"mysql error!"}';
             exit;
         }
+    }
+
+    /**
+    **@auth qianqiang
+    **@breif 还原项目
+    **@date 2016.1.18
+    **/
+    public function dropProjectService($id){
+        return true;
     }
 
 }

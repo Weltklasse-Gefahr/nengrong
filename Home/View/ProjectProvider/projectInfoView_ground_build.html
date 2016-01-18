@@ -714,7 +714,7 @@
 												<td class="c0">拟建设容量</td>
 												<td class="c1">{$data.dueDiligence.projectDetail['plan_build_volume']}<span>kW</span></td>
 												<td class="c2">项目地点</td>
-												<td class="c3 area">{$areaArray[0]}{$areaArray[1]}{$areaArray[2]}{$projectDetail['project_address']}</td>
+												<td class="c3 area">{$data.dueDiligence.areaArray[3]}{$data.dueDiligence.projectDetail['project_address']}</td>
 											</tr>
 											<tr>
 												<td class="c0">项目完工时间</td>
@@ -781,7 +781,7 @@
 				</div>
 				<div class="part3">
 					<div class="attachment-ct">
-						<div class="uploadifive-mf-view"><img class="attachment-logo" src="/EnergyFe/img/attachment.png">附件（{sizeof($data.dueDiligence.docListInfo)}个）</div>
+						<div class="uploadifive-mf-view"><img class="attachment-logo" src="/EnergyFe/img/attachment.png">附件（<?php echo sizeof($data['dueDiligence']['docListInfo'])?>个）</div>
 					</div>
 
 					<div class="fileQueue">

@@ -381,11 +381,13 @@ class AdminController extends Controller
 
         $project = D('Project','Service');
         $projects = $project->getAllProject();
-        $this->assign('listInfo',$projects);
+        $projectList = $project->formatProject($projects);
+        $this->assign('listInfo',$projectList);
 
         $display = $_GET['display'];
         if ($display == 'json') {
-            dump($projects);
+            header('Content-Type: text/html; charset=utf-8');
+            dump($projectList);
             exit;
         }    
         $this->display("Admin:admin_projects");
@@ -393,7 +395,7 @@ class AdminController extends Controller
 
     /**
     **@auth qianqiang
-    **@breif 删除项目
+    **@breif 真删除项目
     **@date 2016.1.15
     **/
     public function deleteProject(){
@@ -406,9 +408,29 @@ class AdminController extends Controller
         }
 
         $project = D('Project','Service');
-        $project->deleteProjectService($id);
+        $project->dropProjectService($id);
         
         echo '{"code":"0","msg":"delete success"}';
+    }
+
+    /**
+    **@auth qianqiang
+    **@breif 恢复项目
+    **@date 2016.1.15
+    **/
+    public function recoveryProject(){
+        isAdminLogin($_COOKIE['userName'],$_COOKIE['mUserName']);
+
+        $id = $_POST['id'];
+        if ( empty($id) ) {
+            echo '{"code":"-1","msg":"项目id为空！"}';
+            exit;
+        }
+
+        $project = D('Project','Service');
+        $project->recoveryProjectService($id);
+        
+        echo '{"code":"0","msg":"recovery project success"}';
     }
 
 

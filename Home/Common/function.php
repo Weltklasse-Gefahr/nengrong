@@ -192,11 +192,11 @@ function getProjectCode($projectType, $area, $financingType){
 **@breif 登陆状态判断
 **@param $userName 用户名
 **@param mUserName  加密后的用户名
-**@return 如果登陆了就返回true 如果没有登陆就弹框提示，并且跳转到登陆页面
+**@return 如果登陆了就返回true 如果没有登陆跳转到登陆页面 如果是登录时flag=1，返回false
 **@date 2015.12.12
 **/
-function isLogin($userName, $mUserName){
-    return true;
+function isLogin($userName, $mUserName, $flag=0){
+    // return true;
     if (empty($userName) || empty($mUserName)) {
         //没有登陆，弹框提示，并且跳转到登陆页
         header('Content-Type: text/html; charset=utf-8');
@@ -205,9 +205,14 @@ function isLogin($userName, $mUserName){
     }
     if (!($mUserName == MD5(addToken($userName)))) {
         //登录信息错误，弹框提示，并且跳转到登陆页
+        setcookie("email", $userName, time()-3600*24*7);
+        setcookie("mEmail", $mUserName, time()-3600*24*7);
         header('Content-Type: text/html; charset=utf-8');
         echo "<script type='text/javascript'>alert('登录信息错误');location.href='?c=User&a=login'</script>";
         exit;
+    }
+    if($flag == 1){
+        return false;
     }
     return true;
 }

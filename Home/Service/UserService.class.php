@@ -10,7 +10,7 @@ class UserService extends Model{
     **@breif 登录
     **@date 
     **/
-	public function loginService($email, $password){
+	public function loginService($email, $password, $keepFlag=0){
 		$user = M("User");
         $users = $user->where("email='%s' and password='%s' and status!=9999", array($email, MD5($password)))->select();
         if (sizeof($users) != 1) {
@@ -21,20 +21,35 @@ class UserService extends Model{
         	echo '{"code":"-1","msg":"用户未激活,请查收激活邮件"}';
         	exit;
         }
-
-        if($users['user_type'] == 2){
-        	setcookie("userType", 2, time()+3600);
-        	$innerName = urlencode("能融网客服");
-        	setcookie("userName", $innerName, time()+3600);
-        }elseif($users['user_type'] == 3){
-        	setcookie("userType", 3, time()+3600);
-        	setcookie("userName", $users['company_name'], time()+3600);
-        }elseif($users['user_type'] == 4){
-        	setcookie("userType", 4, time()+3600);
-        	setcookie("userName", $users['company_name'], time()+3600);
+        if($keepFlag == 1){
+        	if($users['user_type'] == 2){
+	        	setcookie("userType", 2, time()+3600*24*7);
+	        	$innerName = urlencode("能融网客服");
+	        	setcookie("userName", $innerName, time()+3600*24*7);
+	        }elseif($users['user_type'] == 3){
+	        	setcookie("userType", 3, time()+3600*24*7);
+	        	setcookie("userName", $users['company_name'], time()+3600*24*7);
+	        }elseif($users['user_type'] == 4){
+	        	setcookie("userType", 4, time()+3600*24*7);
+	        	setcookie("userName", $users['company_name'], time()+3600*24*7);
+	        }
+	        setcookie("email", $email, time()+3600*24*7);
+	        setcookie("mEmail", MD5(addToken($email)), time()+3600*24*7);
+        }else{
+	        if($users['user_type'] == 2){
+	        	setcookie("userType", 2, time()+3600);
+	        	$innerName = urlencode("能融网客服");
+	        	setcookie("userName", $innerName, time()+3600);
+	        }elseif($users['user_type'] == 3){
+	        	setcookie("userType", 3, time()+3600);
+	        	setcookie("userName", $users['company_name'], time()+3600);
+	        }elseif($users['user_type'] == 4){
+	        	setcookie("userType", 4, time()+3600);
+	        	setcookie("userName", $users['company_name'], time()+3600);
+	        }
+	        setcookie("email", $email, time()+3600);
+	        setcookie("mEmail", MD5(addToken($email)), time()+3600);
         }
-        setcookie("email", $email, time()+3600);
-        setcookie("mEmail", MD5(addToken($email)), time()+3600);
         session_start();
 
         return $users[0];
@@ -75,25 +90,24 @@ class UserService extends Model{
         	header('Content-Type: text/html; charset=utf-8');
         	echo '{"code":"-1","msg":"mysql error!"}';
         	exit;
-        }
-        
-        if($data['status'] == 2){
-        	// 发送激活邮件
-        	$key = $email.",".md5(addToken($email)).",".time();
-	        $encryptKey = encrypt($key, getKey()); 
-	        $url = "http://www.enetf.com/?c=User&a=activeUser&key=".urlencode($encryptKey);
-	        $name = "能融网用户";
-	        $subject = "验证您的电子邮箱地址";
-	        $text = '激活邮件内容<a target="_blank" href="'.$url.'">'.$url.'</a>';
-	        $res = think_send_mail($email, $name, $subject, $text, null);
-	        if($res == false){
-	        	header('Content-Type: text/html; charset=utf-8');
-	        	echo '{"code":"-1","msg":"send email error!"}';
-	        	exit;
-	        }
-        }
-        
+        }        
         return $users[0];
+	}
+
+	/**
+    **@auth qianqiang
+    **@breif 发送邮件
+    **@date 2015.12.16
+    **/
+	public function sendEmail($email){
+        $key = $email.",".md5(addToken($email)).",".time();
+        $encryptKey = encrypt($key, getKey()); 
+        $url = "http://www.enetf.com/?c=User&a=activeUser&key=".urlencode($encryptKey);
+        $name = "能融网用户";
+        $subject = "验证您的电子邮箱地址";
+        $text = '激活邮件内容<a target="_blank" href="'.$url.'">'.$url.'</a>';
+        $res = think_send_mail($email, $name, $subject, $text, null);
+        return $res;
 	}
 
 	/**
@@ -139,8 +153,8 @@ class UserService extends Model{
     **@date 2015.12.26
     **/
 	public function logoutService(){
-        setcookie("email", $email, time()-3600);
-        setcookie("mEmail", MD5(addToken($email)), time()-3600);
+        setcookie("email", $email, time()-3600*24*7);
+        setcookie("mEmail", MD5(addToken($email)), time()-3600*24*7);
         session_destroy();
     }
 

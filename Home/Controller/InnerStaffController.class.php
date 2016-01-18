@@ -229,11 +229,10 @@ class InnerStaffController extends Controller {
         }
         if($projectCode == null)
         {
-            // $projectCode = 'XR7894-815K-X16-323764'; //XR4481-633K-X16-831552
             $projectCode = $_POST['no'] ? $_POST['no']:$_GET['no'];
             $mProjectCode = $_POST['token'] ? $_POST['token']:$_GET['token'];
-            isProjectCodeRight($projectCode, $mProjectCode);
-            //echo $projectCode;exit;
+            // isProjectCodeRight($projectCode, $mProjectCode);
+            $projectCode = 'qwertyuio';
         }
         if($optype == "upload" && $rtype == 1){
             $docFile = array(

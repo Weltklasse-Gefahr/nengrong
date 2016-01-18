@@ -305,6 +305,7 @@ create table ENF_Admin
 )ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 alter table ENF_Admin comment '管理员表';
+insert into ENF_Admin value(1,'admin','21232f297a57a5a743894a0e4a801fc3');/*密码admin*/
 
 /*==============================================================*/
 /* Table: ENF_Component                                           */
