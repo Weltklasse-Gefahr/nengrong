@@ -18,6 +18,7 @@
 <link rel="stylesheet" href="/EnergyFe/prd/styles/Admin/matrix-media<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/styles/Admin/matrix-media.css.ver';</php>.css">
 <link rel="stylesheet" href="/EnergyFe/prd/styles/Admin/css/font-awesome<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/styles/Admin/css/font-awesome.css.ver';</php>.css">
 
+
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
 
 </head>
@@ -73,9 +74,9 @@
   <ul>
 
     <li><a href="http://www.enetf.com/?c=Admin&a=getAllInnerStaffInfo"><i class="icon icon-group"></i> <span>业务员管理</span></a></li>
-	<li class="active"><a href="http://www.enetf.com/?c=Admin&a=getAllProjectInvestorInfo"><i class="icon icon-briefcase"></i> <span>项目投资方管理</span></a></li>
+	<li><a href="http://www.enetf.com/?c=Admin&a=getAllProjectInvestorInfo"><i class="icon icon-briefcase"></i> <span>项目投资方管理</span></a></li>
 	<li><a href="http://www.enetf.com/?c=Admin&a=getAllProjectProviderInfo"><i class="icon icon-fire"></i> <span>项目提供方管理</span></a></li>
-	<li><a href="http://www.enetf.com/?c=Admin&a=getAllProjectInfo"><i class="icon icon-tasks"></i> <span>项目管理</span></a></li>
+	<li class="active"><a href="http://www.enetf.com/?c=Admin&a=getAllProjectInfo"><i class="icon icon-tasks"></i> <span>项目管理</span></a></li>
   </ul>
 
 </div>
@@ -92,9 +93,9 @@
 
   <div id="content-header">
 
-    <div id="breadcrumb"> <a href="#" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href="#" class="current">项目投资方管理</a> </div>
+    <div id="breadcrumb"> <a href="#" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href="#" class="current">项目管理</a> </div>
 
-    <h1>项目投资方管理</h1>
+    <h1>项目管理</h1>
 
   </div>
 
@@ -108,31 +109,8 @@
 
           <div class="widget-title"> <span class="icon"><i class="icon-th"></i></span>
 
-            <h5>项目投资方列表</h5>
-				<div class="buttons"> 
-				<a id="add-event" data-toggle="modal" href="#modal-add-event" class="btn btn-inverse btn-mini"><i class="icon-plus icon-white"></i>添加项目投资方</a>
-              <div aria-hidden="true" style="display: none;" class="modal hide" id="modal-add-event">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal">×</button>
-                  <h3>添加项目投资方</h3>
-                </div>
-				<div class="modal-body">
-
-				  <p>项目投资方邮箱:</p>
-                  <p>
-                    <input id="add_mail" type="text">
-                  </p>
-
-                  <p>项目投资方公司名称:</p>
-                  <p>
-                    <input id="add_company_name" type="text">
-                  </p>
-                
-                </div>
-                <div class="modal-footer"> <a href="#" class="btn" data-dismiss="modal">取消</a> <a href="#" id="add_investor" class="btn btn-primary">添加</a> </div>
-              </div>
-            </div>
-
+            <h5>项目列表</h5>
+				
           </div>
 
           <div class="widget-content nopadding">
@@ -143,11 +121,13 @@
 
                 <tr>
 
-                  <th>项目投资方邮箱</th>
+                  <th>项目编号</th>
 
-                  <th>项目投资方公司名称</th>
+                  <th>项目类型</th>
 
-                  <th>更新日期</th>
+                  <th>地址</th>
+
+				  <th>项目状态</th>
 
                   <th></th>
 
@@ -156,15 +136,15 @@
               </thead>
 
               <tbody>
-				<foreach name="listInfo" item="investors">
-					<tr data-id="{$investors[id]}" class="gradeX">
-						<td>{$investors[email]}</td>
-						<td>{$investors[company_name]}</td>
-						<td>{$investors[change_date]}</td>
+				<foreach name="listInfo" item="project">
+					<tr data-id="{$project[id]}" class="gradeX">
+						<td>{$project[project_code]}</td>
+						<td>{$project[type]}</td>
+						<td>{$project[area]}</td>
+						<td>{$project[ststusStr]}</td>
 						<td class="action-td">
-								<button class="btn btn-info edit_id">编辑</button>
-								<a href="#myAlert_reset" data-toggle="modal" class="btn btn-warning reset_id">重置密码</a>
 								<a href="#myAlert_delete" data-toggle="modal" class="btn btn-danger delete_id">删除</a>
+								<a href="#myAlert_recover" data-toggle="modal" class="btn btn-danger recover_id">恢复</a>
 						</td>
 					</tr>
 				</foreach>
@@ -184,54 +164,32 @@
   </div>
 
 </div>
-<div id="myAlert_reset" class="modal hide">
-              <div class="modal-header">
-                <button data-dismiss="modal" class="close" type="button">×</button>
-                <h3>提示</h3>
-              </div>
-              <div class="modal-body">
-                <p>您确定要重置该项目投资方的密码吗？</p>
-              </div>
-              <div class="modal-footer"> 
-				<a id="confirm_reset_id" data-dismiss="modal" class="btn btn-primary" href="#">重置</a> 
-				<a data-dismiss="modal" class="btn" href="#">取消</a> 
-			  </div>
-</div>
+
 <div id="myAlert_delete" class="modal hide">
               <div class="modal-header">
                 <button data-dismiss="modal" class="close" type="button">×</button>
                 <h3>提示/h3>
               </div>
               <div class="modal-body">
-                <p>您确定要删除该项目投资方吗？</p>
+                <p>您确定要删除该项目吗？</p>
               </div>
               <div class="modal-footer"> 
 				<a id="confirm_delete_id" data-dismiss="modal" class="btn btn-primary" href="#">删除</a> 
 				<a data-dismiss="modal" class="btn" href="#">取消</a> 
 			  </div>
 </div>
-<div id="myAlert_reset_success" class="modal hide"  style="display: none;">
+
+<div id="myAlert_recover" class="modal hide">
               <div class="modal-header">
-                <button data-dismiss="modal" class="close myAlert_reset_success_closed" type="button">×</button>
-                <h3>提示</h3>
+                <button data-dismiss="modal" class="close" type="button">×</button>
+                <h3>提示/h3>
               </div>
               <div class="modal-body">
-                <p>重置密码成功！</p>
+                <p>您确定要恢复该项目吗？</p>
               </div>
               <div class="modal-footer"> 
-				<a data-dismiss="modal" class="btn myAlert_reset_success_closed" href="#">关闭</a> 
-			  </div>
-</div>
-<div id="myAlert_reset_failed" class="modal hide"  style="display: none;">
-              <div class="modal-header">
-                <button data-dismiss="modal" class="close myAlert_reset_failed_closed" type="button">×</button>
-                <h3>提示</h3>
-              </div>
-              <div class="modal-body">
-                <p>重置密码失败！</p>
-              </div>
-              <div class="modal-footer"> 
-				<a data-dismiss="modal" class="btn myAlert_reset_failed_closed" href="#">关闭</a> 
+				<a id="confirm_recover_id" data-dismiss="modal" class="btn btn-primary" href="#">恢复</a> 
+				<a data-dismiss="modal" class="btn" href="#">取消</a> 
 			  </div>
 </div>
 
@@ -241,7 +199,7 @@
                 <h3>提示</h3>
               </div>
               <div class="modal-body">
-                <p>删除项目投资方成功！</p>
+                <p>删除项目成功！</p>
               </div>
               <div class="modal-footer"> 
 				<a data-dismiss="modal" class="btn myAlert_delete_success_closed" href="#">关闭</a> 
@@ -253,35 +211,35 @@
                 <h3>提示</h3>
               </div>
               <div class="modal-body">
-                <p>删除项目投资方失败！</p>
+                <p>删除项目失败！</p>
               </div>
               <div class="modal-footer"> 
 				<a data-dismiss="modal" class="btn myAlert_delete_failed_closed" href="#">关闭</a> 
 			  </div>
 </div>
 
-<div id="myAlert_add_success" class="modal hide"  style="display: none;">
+<div id="myAlert_recover_success" class="modal hide"  style="display: none;">
               <div class="modal-header">
-                <button data-dismiss="modal" class="close myAlert_add_success_closed" type="button">×</button>
+                <button data-dismiss="modal" class="close myAlert_delete_success_closed" type="button">×</button>
                 <h3>提示</h3>
               </div>
               <div class="modal-body">
-                <p>添加项目投资方成功！</p>
+                <p>恢复项目成功！</p>
               </div>
               <div class="modal-footer"> 
-				<a data-dismiss="modal" class="btn myAlert_add_success_closed" href="#">关闭</a> 
+				<a data-dismiss="modal" class="btn myAlert_recover_success_closed" href="#">关闭</a> 
 			  </div>
 </div>
-<div id="myAlert_add_failed" class="modal hide"  style="display: none;">
+<div id="myAlert_recover_failed" class="modal hide"  style="display: none;">
               <div class="modal-header">
-                <button data-dismiss="modal" class="close myAlert_add_failed_closed" type="button">×</button>
+                <button data-dismiss="modal" class="close myAlert_delete_failed_closed" type="button">×</button>
                 <h3>提示</h3>
               </div>
               <div class="modal-body">
-                <p>添加项目投资方失败！</p>
+                <p>恢复项目失败！</p>
               </div>
               <div class="modal-footer"> 
-				<a data-dismiss="modal" class="btn myAlert_add_failed_closed" href="#">关闭</a> 
+				<a data-dismiss="modal" class="btn myAlert_recover_failed_closed" href="#">关闭</a> 
 			  </div>
 </div>
 <!--Footer-part-->
@@ -298,6 +256,8 @@
 <script src="/EnergyFe/prd/scripts/Admin/bootstrap.min.js"></script>
 <script src="/EnergyFe/prd/scripts/Admin/select2.min.js"></script>
 <script src="/EnergyFe/prd/scripts/Admin/jquery.dataTables.min.js"></script>
+<script src="/EnergyFe/prd/scripts/Admin/jquery.gritter.min.js"></script>
+<script src="/EnergyFe/prd/scripts/Admin/jquery.peity.min.js"></script>
 <script src="/EnergyFe/prd/scripts/Admin/jquery.ui.custom@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/scripts/Admin/jquery.ui.custom.js.ver';</php>.js"></script>
 <script src="/EnergyFe/prd/scripts/Admin/jquery.uniform@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/scripts/Admin/jquery.uniform.js.ver';</php>.js"></script>
 
@@ -306,8 +266,8 @@
 <script src="/EnergyFe/prd/scripts/Admin/matrix.tables@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/scripts/Admin/matrix.tables.js.ver';</php>.js"></script>
 
 <script src="/EnergyFe/prd/scripts/Admin/matrix.popover@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/scripts/Admin/matrix.popover.js.ver';</php>.js"></script>
-<script src="/EnergyFe/prd/scripts/Admin/admin/admin_investor@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/scripts/Admin/admin/admin_investor.js.ver';</php>.js"></script>
 
+<script src="/EnergyFe/prd/scripts/Admin/admin/admin_provider@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/scripts/Admin/admin/admin_project.js.ver';</php>.js"></script>
 
 </body>
 
