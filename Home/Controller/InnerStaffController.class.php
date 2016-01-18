@@ -10,15 +10,68 @@ class InnerStaffController extends Controller {
     **@auth qiujinhan
     **@breif 在客服中导出一个项目的信息
     **@date 2016.1.17
+    **@参数 ?c=InnerStaff&a=export&no=sss&token=xxxx
     **/
     public function export()
     {
-        
+        //echo jj;exit;
+        /*
         isLogin($_COOKIE['email'],$_COOKIE['mEmail']);
         $projectCode  = $_POST['no']     ? $_POST['no']:$_GET['no'];
         $mProjectCode = $_POST['token']  ? $_POST['token']:$_GET['token'];
         isProjectCodeRight($projectCode, $mProjectCode); 
-        
+        $getJsonFlag = 1;
+        //获取项目投资方信息
+        $data = $this->getProjectProviderInfo($projectCode, null, $getJsonFlag);
+        */
+        import("Org.Util.PHPExcel");
+        $obpe = new \PHPExcel();
+        $obpe_pro = $obpe->getProperties();
+        $obpe_pro->setCreator('midoks')//设置创建者
+             ->setLastModifiedBy('2013/2/16 15:00')//设置时间
+             ->setTitle('data')//设置标题
+             ->setSubject('beizhu')//设置备注
+             ->setDescription('miaoshu')//设置描述
+             ->setKeywords('keyword')//设置关键字 | 标记
+             ->setCategory('catagory');//设置类别
+            //设置当前sheet索引,用于后续的内容操作
+            //一般用在对个Sheet的时候才需要显示调用
+            //缺省情况下,PHPExcel会自动创建第一个SHEET被设置SheetIndex=0
+            //设置SHEET
+            $obpe->setactivesheetindex(0);
+            //写入多行数据
+            //模拟数据
+            $mulit_arr = array(
+                array('标题1', '标题2', '标题3'),
+                array('a', 'b', 'c'),
+                array('d', 'e', 'f')
+            );
+                       
+            //创建一个新的工作空间(sheet)
+            $obpe->createSheet();
+            $obpe->setactivesheetindex(1);
+            //写入多行数据
+            foreach($mulit_arr as $k=>$v){
+                $k = $k+1;
+                /* @func 设置列 */
+                $obpe->getactivesheet()->setcellvalue('A'.$k, $v[0]);
+                $obpe->getactivesheet()->setcellvalue('B'.$k, $v[1]);
+                $obpe->getactivesheet()->setcellvalue('C'.$k, $v[2]);
+            }
+            import("Org.Util.PHPExcel.IOFactory");
+            $objWriter = \PHPExcel_IOFactory::CreateWriter($obpe,"Excel2007");
+            //$objWriter->save('qiujinhan.xls');exit;
+            header('Pragma: public');
+            header('Expires: 0');
+            header('Cache-Control:must-revalidate,post-check=0,pre-check=0');
+            header('Content-Type:application/force-download');
+            header('Content-Type:application/vnd.ms-execl');
+            header('Content-Type:application/octet-stream');
+            header('Content-Type:application/download');
+            header("Content-Disposition:attachment;filename='qiujinhan.xls'");
+            header('Content-Transfer-Encoding:binary');
+            $objWriter->save('php://output');
+
     }
 
     /**
@@ -26,13 +79,13 @@ class InnerStaffController extends Controller {
     **@breif 客服->项目提供方信息（账户向详细信息）
     **@date 2015.12.19
     **/
-    public function getProjectProviderInfo()
+    /*public function getProjectProviderInfo()
     {
         
         isLogin($_COOKIE['email'],$_COOKIE['mEmail']);
         //$email = $_COOKIE['email'];
         //判断登陆，并且获取用户名的email
-        $projectCode = $_POST['project_code'] ? $_POST['project_code']:$_GET['project_code'];
+        //$projectCode = $_POST['project_code'] ? $_POST['project_code']:$_GET['project_code'];
         //$projectCode = "qwertyuio";
         $projectCode = $_POST['no'] ? $_POST['no']:$_GET['no'];
         $mProjectCode = $_POST['token'] ? $_POST['token']:$_GET['token'];
@@ -40,12 +93,13 @@ class InnerStaffController extends Controller {
 
         $objProject = D("Project", "Service");
         $objProjectInfo = $objProject->getProjectInfo($projectCode);
+        //echo json_encode($objProjectInfo);exit;
         $providerId = $objProjectInfo['provider_id'];
         $userObj = D("User", "Service");
         $userInfo = $userObj->getUserINfoById($providerId);
-        
+        //echo json_encode($userInfo);exit;
         $email = $userInfo["email"];
-        $email = "qiujinhan@gmail.com";
+        //$email = "qiujinhan@gmail.com";
         $display =$_GET['display'];
         //定义6张图片和文件
         $arrPhotosAndFile = array(
@@ -89,14 +143,19 @@ class InnerStaffController extends Controller {
             $user[0][$val]["url"] = $docInfo[0]["file_rename"];
 
         }
-        $this->assign('data',$user[0]);
+        $this->assign('userInfo', $userInfo[0]);
+        $this->assign('areaStr', $areaStr);
+        $this->assign('docData', $docData);
+        //echo json_encode($user[0]);exit;
+        //$this->assign('userInfo',$user[0]);
         $this->display("InnerStaff:providerInfo");
         
-    }
-    /*public function getProjectProviderInfo(){
+    }*/
+    public function getProjectProviderInfo(){
         isLogin($_COOKIE['email'], $_COOKIE['mEmail']);
-        // $projectCode = $_POST['project_code'] ? $_POST['project_code']:$_GET['project_code'];
-        $projectCode = "qwertyuio";
+        $projectCode = $_POST['no'] ? $_POST['no']:$_GET['no'];
+        $mProjectCode = $_POST['token'] ? $_POST['token']:$_GET['token'];
+        isProjectCodeRight($projectCode, $mProjectCode);
         $objProject = D("Project", "Service");
         $objProjectInfo = $objProject->getProjectInfo($projectCode);
         $providerId = $objProjectInfo['provider_id'];
@@ -154,7 +213,7 @@ class InnerStaffController extends Controller {
         $this->assign('areaStr', $areaStr);
         $this->assign('docData', $docData);
         $this->display("InnerStaff:providerInfo");
-    }*/
+    }
 
     /**
     **@auth qianqiang
@@ -378,7 +437,9 @@ class InnerStaffController extends Controller {
     **/
     public function projectInfo(){
         isLogin($_COOKIE['email'], $_COOKIE['mEmail']);
-        $projectCode = $_POST['project_code'] ? $_POST['project_code']:$_GET['project_code'];
+        $projectCode  = $_POST['no']     ? $_POST['no']:$_GET['no'];
+        $mProjectCode = $_POST['token']  ? $_POST['token']:$_GET['token'];
+        isProjectCodeRight($projectCode, $mProjectCode);
         //$projectCode = 'qwertyuio';
         $rtype = $_POST['rtype'] ? $_POST['rtype']:$_GET['rtype'];
         $objProject  = D("Project","Service");
@@ -386,7 +447,9 @@ class InnerStaffController extends Controller {
         //获取项目信息
         $obj   = new ProjectProviderMyProController();
         $data = $obj->projectInfoEdit($projectCode, null, $getJsonFlag);
-        $this->assign('data',$projectInfo);
+        //echo json_encode($data);exit;
+        $dataBig  = array('projectInfo' => $data);
+        $this->assign('data',$dataBig);
         if($data['project_type'] == 1){
             if($data['build_state'] == 1){
                 $this->display("InnerStaff:projectInfo_housetop_nonbuild");
@@ -454,16 +517,18 @@ class InnerStaffController extends Controller {
         $projectCode = $_POST['no'] ? $_POST['no']:$_GET['no'];
         $mProjectCode = $_POST['token'] ? $_POST['token']:$_GET['token'];
         isProjectCodeRight($projectCode, $mProjectCode);
-        
+        //echo jj;exit;
         $optype = $_POST['optype'] ? $_POST['optype']:$_GET['optype'];
         $rtype = $_POST['rtype'] ? $_POST['rtype']:$_GET['rtype'];
         if($optype == "save" && $rtype == 1){
+            //echo dd;exit;
             $intentText = $_POST["yixiangshu"];
             if($intentText == "" || $intentText == null){
                 header('Content-Type: text/html; charset=utf-8');
                 echo '{"code":"-1","msg":"意向书不能为空"}';
             }
             $project = D("Project", "Service");
+            //echo $projectCode;echo jj;exit;
             $result = $project->saveIntent($projectCode, $intentText);
             if($result === true)
                 echo '{"code":"0","msg":"save success"}';
@@ -504,7 +569,9 @@ class InnerStaffController extends Controller {
         isLogin($_COOKIE['email'], $_COOKIE['mEmail']);
         $rtype = $_POST['rtype'] ? $_POST['rtype']:$_GET['rtype'];
         // $projectCode = $_POST['project_code'] ? $_POST['project_code']:$_GET['project_code'];
-        $projectCode = 'qwertyuio';
+        $projectCode = $_POST['no'] ? $_POST['no']:$_GET['no'];
+        $mProjectCode = $_POST['token'] ? $_POST['token']:$_GET['token'];
+        isProjectCodeRight($projectCode, $mProjectCode);
         $investors = $_POST['investors'];
         $investorStr = substr($investors, 0, strlen($investors)-1);
         $investorList = explode(",",$investorStr);

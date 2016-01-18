@@ -1,7 +1,10 @@
 $(function() {
 
 	// 判断身份，更新顶部信息
-	$(".header .identityName").html($.getCookie("userName"));
+	var userName = $.getCookie("userName");
+	if(userName) {
+		$(".header .identityName").html("，" + userName);
+	}
 	if($.getCookie("userType") == "2") {
 		$(".header .innerStaff").show();
 	}

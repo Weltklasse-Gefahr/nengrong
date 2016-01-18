@@ -139,15 +139,15 @@ class ProjectInvestorMyProController extends Controller {
         $this->assign('data', $bigArr);
         if($data['project_type'] == 1){
             if($data['build_state'] == 1){
-                $this->display("ProjectProvider:projectInfoView_housetop_nonbuild");
+                $this->display("ProjectInvestor:projectInfoView_housetop_nonbuild");
             }elseif($data['build_state'] == 2){
-                $this->display("ProjectProvider:projectInfoView_housetop_build");
+                $this->display("ProjectInvestor:projectInfoView_housetop_build");
             }
         }elseif($data['project_type'] == 2 || $objProjectInfo['project_type'] == 3){
             if($data['build_state'] == 1){
-                $this->display("ProjectProvider:projectInfoView_ground_nonbuild");
+                $this->display("ProjectInvestor:projectInfoView_ground_nonbuild");
             }elseif($data['build_state'] == 2){
-                $this->display("ProjectProvider:projectInfoView_ground_build");
+                $this->display("ProjectInvestor:projectInfoView_ground_build");
             }
         }
 

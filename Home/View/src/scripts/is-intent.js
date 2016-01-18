@@ -16,6 +16,7 @@ $(function() {
     window.ue = ue;
 
     require("common/erqi/dialog");
+    var param = $.parseQueryParam();
     ue.ready(function() {
     	var $form = $("form");
 
@@ -27,7 +28,9 @@ $(function() {
 				dataType: "json",
 	            data: {
 	            	yixiangshu: ue.getContent(),
-	            	optype: opt.optype
+	            	optype: opt.optype,
+	            	no: param.no,
+	            	token: param.token
 	            }
 			}).done(function(data) {
 				if(data.code == "0") {

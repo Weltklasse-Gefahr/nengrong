@@ -30,6 +30,7 @@ class ProjectProviderMyProController extends Controller {
     **/
 	public function projectInfoEdit($projectCode=null, $rtype=null, $getJsonFlag=null)
     {
+        //echo $getJsonFlag;exit;
         //判断登陆，并且获取用户名的email
         isLogin($_COOKIE['email'],$_COOKIE['mEmail']);
 
@@ -40,6 +41,7 @@ class ProjectProviderMyProController extends Controller {
             $rtype = $_POST['rtype'] ? $_POST['rtype']:$_GET['rtype'];
         }
         $objDoc  = D("Doc","Service");
+        $email = $_COOKIE['email'];
         //屋顶分布式用到的附件
         $arrPhotosAndFileInHousetop = array(
             "picture_full",
@@ -339,12 +341,16 @@ class ProjectProviderMyProController extends Controller {
                 $getProjectCode = getProjectCode($_POST['project_type'], $_POST['financing_type'], $_POST['county'] );
                 $arrProInfo["project_code"] = $getProjectCode;
                 //$arrProInfo["project_code"] = '2323DDDDDDDDDDd'.time();  //之后需要加一下这个生成项目id的功能
-                $arrProInfo["provider_id"] = "1111111111";//之后需要加一下项目提供方的id
+                $objUser  = D("User","Service");
+                $userInfo = $objUser->getUserINfoByEmail($email);
+                $arrProInfo["provider_id"] = $userInfo[0]['id'];//之后需要加一下项目提供方的id
+                //echo $email;exit;
+                //echo json_encode($userInfo);exit;
                 $arrProInfo["create_time"] = date("Y-m-d H:i:s" ,time());
                 $ret = $objProject->insertProject($arrProInfo);
                 if ($ret === false)
                 {
-                     echo '{"code":"-1","msg":"插入数据库失败！"}';
+                     echo '{"code":"-1","msg":"插入数据库失败9999999999！"}';
                      exit;
                 }
                 $arrInfor["project_id"] = $ret;
@@ -418,6 +424,7 @@ class ProjectProviderMyProController extends Controller {
 	    }
         elseif($rtype != 1)  //显示
         {
+            //echo jj;exit;
             //这个分支是做数据的显示
             if($projectCode == null)
             {
@@ -427,6 +434,9 @@ class ProjectProviderMyProController extends Controller {
             //根据project_code去查询项目信息
             $objProject  = D("Project","Service");
             $projectInfo = $objProject->getProjectInfo($projectCode);
+            //echo $projectCode;exit;
+            //echo jj;exit;
+            //echo json_encode($projectInfo);exit;
             //在去Housetop，or  Ground 取一下数据
             $projectInfoDetail = $objProject->getProjectDetail($projectInfo['id'], $projectInfo['project_type']);
             //获取组件信息
@@ -457,6 +467,7 @@ class ProjectProviderMyProController extends Controller {
             //var_dump($arrPicAndfile);exit;
             foreach($projectInfoDetail as $k => $v)
             {
+                if($k == 'id') continue;
                 $projectInfo[$k] = $v;
             }
             foreach($arrPicAndfile as $val)
@@ -489,6 +500,7 @@ class ProjectProviderMyProController extends Controller {
                     $projectInfo[$val]["url"] = $docInfo[0]["file_rename"];
                 }           
             }
+            //echo json_encode($projectInfo);exit;
             //给项目进度用,直接截断了,返回json了
             if ($getJsonFlag == 1)
             {
@@ -499,7 +511,7 @@ class ProjectProviderMyProController extends Controller {
                 echo json_encode($projectInfo);
                 exit;
             }
-
+            
             $this->assign('data',$projectInfo);
             $this->display("ProjectProvider:projectInfoNew");
         }
@@ -622,17 +634,29 @@ class ProjectProviderMyProController extends Controller {
         $objProject  = D("Project","Service");
         $getJsonFlag = 1;
         //获取项目信息
-        $data = $this->projectInfoEdit($projectCode, null, $getJsonFlag);
-        //echo $data['project_type'];exit;
+        //echo XF7407-179K-X16-669723
+        //echo $projectCode;exit;
+        $rtypeForfun = 9;
+        $data = $this->projectInfoEdit($projectCode, $rtypeForfun, $getJsonFlag);
+        //echo json_encode($data);exit;
         //获取签署意向书信息 
         if($optype == 'agree' &&  $rtype == 1)
         {
-            $res = $objProject->updateProjectStatus($data["id"]);
+            $res = $objProject->updateProjectStatus($data["id"],'21');
+            if($res === false)
+            {
+                echo '{"code":"-1","msg":"更新失败！"}'; 
+            }
+            else
+            {
+                echo '{"code":"0","msg":""}';
+            }
+            exit;
         }
 
         $projectInfoForIntent = $objProject->getProjectDetail($data["id"], $data['project_type']);
         $status = $projectInfoForIntent["status"];//
-        //echo $projectCode;exit;
+        // echo $status;exit;
         //echo $data['project_type'];exit;
         //echo json_encode($projectInfoForIntent);exit;
         //获取强哥的尽职调查信息
@@ -672,7 +696,7 @@ class ProjectProviderMyProController extends Controller {
         $bigArr['step']['state'] = $strStatus;
         $bigArr['step']['substate'] = $substate;
         $bigArr['projectInfo'] = $data;//echo json_encode($bigArr);exit;
-        $bigArr['intent'] = $projectInfoForIntent['project_intent'];
+        $bigArr['intent']['yixiangshu'] = $projectInfoForIntent['project_intent'];
         //$picture,$docListInfo,$projectDetail,$areaArray,$evaluationInfo
 
         $bigArr['dueDiligence'] = array();

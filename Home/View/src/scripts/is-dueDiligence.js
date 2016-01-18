@@ -169,6 +169,8 @@ application/zip,application/x-zip-compressed',
 	require("common/erqi/dialog");
 
 	$form = $("#infoForm");
+	var param = $.parseQueryParam();
+	$form.attr("action", $form.attr("action")+"&no="+param.no+"&token="+param.token);
 	$form.find("input[type=submit]").click(function() {
 		var optype = $(this).data("optype");
 		

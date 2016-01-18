@@ -121,7 +121,9 @@ class ProjectService extends Model{
     public function getAwaitingAssessment($email, $filter, $page){
         if(!empty($email)){
             $user = D('User');
+            //echo $email;
             $userInfo = $user->where("email='".$email."'")->find();
+            //echo json_encode($userInfo);exit;
             $condition['provider_id'] = $userInfo['id'];
         }
         if($filter == "committed"){
@@ -132,6 +134,7 @@ class ProjectService extends Model{
             $condition['status'] = array('between','11,13');
         }
         $projectInfo = $this->getProjectsInfo($condition, $page, 6);
+        //echo json_encode($condition);exit;
         $projectList = $this->formatProject($projectInfo);
         return $projectList; 
     }
@@ -673,6 +676,7 @@ class ProjectService extends Model{
     **@date 2015.12.29
     **/ 
     public function isIntentProject($projectId, $projectType){
+        //echo $projectId;echo $projectType;exit;
         $condition['project_id'] = $projectId;
         if($projectType == 1){
             $housetop = M('Housetop');
@@ -888,11 +892,12 @@ class ProjectService extends Model{
                 $groundSql = $groundSql." limit ".$start.",".$pageSize;
             }
         }
-
-        // header('Content-Type: text/html; charset=utf-8');
-        // dump($housetopSql);
-        // dump($groundSql);
-        // exit;
+        /*
+        header('Content-Type: text/html; charset=utf-8');
+        dump($housetopSql);
+        dump($groundSql);
+        exit;
+        */
 
         $Dao = M();
         if($housetopSql != ""){
