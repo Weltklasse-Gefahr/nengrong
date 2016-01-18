@@ -1093,10 +1093,10 @@ class ProjectService extends Model{
         }
         if($objProject['project_type'] == 1){
             $housetopObj = M('Housetop');
-            $res = $housetopObj->where("id='".$id."'")->delete();
+            $res = $housetopObj->where("project_id='".$id."'")->delete();
         }elseif($objProject['project_type'] == 2 || $objProject['project_type'] == 3){
             $groundObj = M('Ground');
-            $res = $groundObj->where("id='".$id."'")->delete();
+            $res = $groundObj->where("project_id='".$id."'")->delete();
         }
         if($res){
             return true;
