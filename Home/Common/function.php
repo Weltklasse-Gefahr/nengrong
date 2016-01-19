@@ -319,10 +319,11 @@ function isDataComplete($email, $flag=0){
 **@date 2016.1.19
 **/
 function authentication($email, $userType){
-    //return true;
+    return true;
     $user = M("User");
     $objUser = $user->where("email='".$email."' and delete_flag!=9999")->find();
-    //dump($objUser);
+    // dump($email);dump($userType);
+    // dump($objUser);exit;
     if($objUser["user_type"] != $userType){
         header('Content-Type: text/html; charset=utf-8');
         echo "<script type='text/javascript'>alert('用户权限错误');location.href='?c=User&a=login'</script>";
