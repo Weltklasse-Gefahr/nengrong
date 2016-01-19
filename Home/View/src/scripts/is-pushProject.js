@@ -61,10 +61,10 @@ $(function() {
 	$(".bd").on("click", "a", function(){
 		if(!$(this).parent().parent().hasClass("div_grey"))
 		{
-			if(!$(this).parent().siblings().eq(0).children().prop('checked'))
+			<!-- if(!$(this).parent().siblings().eq(0).children().prop('checked'))
 			{
 				return;
-			}
+			} -->
 			var sel_project=$(this);
 			$.confirm('<div id="u139" class="text">'+
 				'<p><span>项目编号：</span><span>******</span></p>'+
