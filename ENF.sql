@@ -323,6 +323,8 @@ create table ENF_Component
    component_company    varchar(100) comment '组件厂家',
    component_type       varchar(100) comment '组件规格型号',
    component_count	    int comment '组件数量',
+   create_date          datetime comment '创建时间',
+   change_date          datetime comment '修改时间',
    delete_flag int not null default 0 comment '删除标记：0正常、9999删除',
    primary key (id),
    INDEX `component_project` (`project_id`)
@@ -340,6 +342,8 @@ create table ENF_Inverter
    inverter_company     varchar(100) comment '逆变器厂家',
    inverter_type        varchar(100) comment '逆变器规格型号',
    inverter_count	    int comment '逆变器数量',
+   create_date          datetime comment '创建时间',
+   change_date          datetime comment '修改时间',
    delete_flag int not null default 0 comment '删除标记：0正常、9999删除',
    primary key (id),
    INDEX `inverter_project` (`project_id`)

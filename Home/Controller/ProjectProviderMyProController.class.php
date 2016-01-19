@@ -14,6 +14,7 @@ class ProjectProviderMyProController extends Controller {
     {
         //判断登陆，并且获取用户名的email
         isLogin($_COOKIE['email'],$_COOKIE['mEmail']);
+        authentication($_COOKIE['email'], 3);
         $projectInfo["components"] = array("0"=>"");
         $projectInfo["inverters"]  = array("0"=>"");
         $projectInfo["picture_mul"]  = array("0"=>"");
@@ -33,6 +34,7 @@ class ProjectProviderMyProController extends Controller {
         //echo $getJsonFlag;exit;
         //判断登陆，并且获取用户名的email
         isLogin($_COOKIE['email'],$_COOKIE['mEmail']);
+        authentication($_COOKIE['email'], 3);
 
     	//操作类型为1是插入和保存数据
     	$optype = $_POST['optype'] ? $_POST['optype']:$_GET['optype'];
@@ -527,6 +529,7 @@ class ProjectProviderMyProController extends Controller {
     {
         $email = $_COOKIE['email'];
         isLogin($email, $_COOKIE['mEmail']);
+        authentication($_COOKIE['email'], 3);
         isDataComplete($email, 1);
         $optype = $_POST['optype'] ? $_POST['optype']:$_GET['optype'];
         $filter = $_POST['filter'] ? $_POST['filter']:$_GET['filter'];
@@ -561,6 +564,7 @@ class ProjectProviderMyProController extends Controller {
     {
         $email = $_COOKIE['email'];
         isLogin($email, $_COOKIE['mEmail']);
+        authentication($_COOKIE['email'], 3);
         isDataComplete($email);
         $page = $_GET['page'];
         if(empty($page)) $page=1;
@@ -592,6 +596,7 @@ class ProjectProviderMyProController extends Controller {
     {
         $email = $_COOKIE['email'];
         isLogin($email, $_COOKIE['mEmail']);
+        authentication($_COOKIE['email'], 3);
         isDataComplete($email);
         $page = $_GET['page'];
         if(empty($page)) $page=1;
@@ -623,7 +628,7 @@ class ProjectProviderMyProController extends Controller {
     {
         //判断登陆，并且获取用户名的email
         isLogin($_COOKIE['email'],$_COOKIE['mEmail']);     
-
+        authentication($_COOKIE['email'], 3);
         //接收参数
         $projectCode  = $_POST['no']     ? $_POST['no']:$_GET['no'];
         $mProjectCode = $_POST['token']  ? $_POST['token']:$_GET['token'];

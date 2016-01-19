@@ -61,8 +61,9 @@
 					</foreach>
 				</div>
 			</div>
+			<?php if($arrData['endPage'] > 1){ ?>
 			<div class="pager">
-					<span data-page-index="1" href="#">首页</span>
+				<span data-page-index="1" href="#">首页</span>
                     <for start="1" end="$arrData.totalPage">
                         <if condition="$arrData.page eq $i">
 							<span data-page-index="{$i}" class="active">{$i}</span>
@@ -70,8 +71,9 @@
 							<span data-page-index="{$i}">{$i}</span>
                         </if>
                     </for>
-					<span data-page-index="{$arrData.endPage}" href="#">尾页</span>
+				<span data-page-index="{$arrData.endPage}" href="#">尾页</span>
 			</div>
+			<?php } ?>
 		</div>
 	</div>
 

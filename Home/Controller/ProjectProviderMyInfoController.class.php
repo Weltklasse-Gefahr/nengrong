@@ -16,6 +16,7 @@ class ProjectProviderMyInfoController extends Controller {
         //$email = $_COOKIE['email'];
         //判断登陆，并且获取用户名的email
         isLogin($_COOKIE['email'],$_COOKIE['mEmail']);
+        authentication($_COOKIE['email'], 3);
         $email = $_COOKIE['email'];
         $display =$_GET['display'];
         //定义6张图片和文件
@@ -121,6 +122,7 @@ class ProjectProviderMyInfoController extends Controller {
     public function securityCenter()
     {
         isLogin($_COOKIE['email'], $_COOKIE['mEmail']);
+        authentication($_COOKIE['email'], 3);
         if($_POST['rtype'] == 1 || $_GET['rtype'] == 1){
             $email = $_COOKIE['email'];
             $pwd = $_POST['password'];

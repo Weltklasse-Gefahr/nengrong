@@ -17,6 +17,7 @@ class InnerStaffController extends Controller {
         //echo jj;exit;
         /*
         isLogin($_COOKIE['email'],$_COOKIE['mEmail']);
+        authentication($_COOKIE['email'], 2);
         $projectCode  = $_POST['no']     ? $_POST['no']:$_GET['no'];
         $mProjectCode = $_POST['token']  ? $_POST['token']:$_GET['token'];
         isProjectCodeRight($projectCode, $mProjectCode); 
@@ -79,80 +80,9 @@ class InnerStaffController extends Controller {
     **@breif 客服->项目提供方信息（账户向详细信息）
     **@date 2015.12.19
     **/
-    /*public function getProjectProviderInfo()
-    {
-        
-        isLogin($_COOKIE['email'],$_COOKIE['mEmail']);
-        //$email = $_COOKIE['email'];
-        //判断登陆，并且获取用户名的email
-        //$projectCode = $_POST['project_code'] ? $_POST['project_code']:$_GET['project_code'];
-        //$projectCode = "qwertyuio";
-        $projectCode = $_POST['no'] ? $_POST['no']:$_GET['no'];
-        $mProjectCode = $_POST['token'] ? $_POST['token']:$_GET['token'];
-        isProjectCodeRight($projectCode, $mProjectCode);
-
-        $objProject = D("Project", "Service");
-        $objProjectInfo = $objProject->getProjectInfo($projectCode);
-        //echo json_encode($objProjectInfo);exit;
-        $providerId = $objProjectInfo['provider_id'];
-        $userObj = D("User", "Service");
-        $userInfo = $userObj->getUserINfoById($providerId);
-        //echo json_encode($userInfo);exit;
-        $email = $userInfo["email"];
-        //$email = "qiujinhan@gmail.com";
-        $display =$_GET['display'];
-        //定义6张图片和文件
-        $arrPhotosAndFile = array(
-            "business_license",         //公司营业执照
-            "organization_code",        //组织机构代码证
-            "national_tax_certificate", //国税登记证
-            "local_tax_certificate",    //地税登记证
-            "identity_card_front",      //法人身份证正面
-            "identity_card_back",       //法人身份证反面
-            "financial_audit",          //财务审计报告doc
-        );
-        $arrFile = array(
-            "financial_audit",          //财务审计报告doc
-        );
-        //操作类型为1是插入和保存数据
-        //数据的显示
-        $objUser = D("User","Service");
-        $condition["email"] = $email;
-        $user = $objUser->getUserInfo($condition);
-        if ($display=="json")
-        {
-            echo json_encode($user[0]);
-            exit;
-        }
-        $areaObj = D("Area","Service");
-        $arr_company_area = $areaObj->getAreaArrayById($user[0]["company_area"]);
-        $user[0]["province"] = $arr_company_area[0];
-        $user[0]["city"] = $arr_company_area[1];
-        $user[0]["county"] = $arr_company_area[2];
-        //处理下文件和图片的信息
-        foreach($arrPhotosAndFile as $val)
-        {
-            
-            $condition["id"] = $user[0][$val];
-            $objUser = D("Doc","Service");
-            $docInfo = $objUser->getDocInfo($condition);
-            $user[0][$val] = array();
-            $user[0][$val]["id"] = $docInfo[0]["id"];
-            $user[0][$val]["token"] = md5(addToken($docInfo[0]["id"]));
-            $user[0][$val]["name"] = $docInfo[0]["file_name"];
-            $user[0][$val]["url"] = $docInfo[0]["file_rename"];
-
-        }
-        $this->assign('userInfo', $userInfo[0]);
-        $this->assign('areaStr', $areaStr);
-        $this->assign('docData', $docData);
-        //echo json_encode($user[0]);exit;
-        //$this->assign('userInfo',$user[0]);
-        $this->display("InnerStaff:providerInfo");
-        
-    }*/
     public function getProjectProviderInfo(){
         isLogin($_COOKIE['email'], $_COOKIE['mEmail']);
+        authentication($_COOKIE['email'], 2);
         $projectCode = $_POST['no'] ? $_POST['no']:$_GET['no'];
         $mProjectCode = $_POST['token'] ? $_POST['token']:$_GET['token'];
         isProjectCodeRight($projectCode, $mProjectCode);
@@ -222,6 +152,7 @@ class InnerStaffController extends Controller {
     **/
     public function dueDiligence($projectCode=null, $rtype=null, $getJsonFlag=null){
     	isLogin($_COOKIE['email'], $_COOKIE['mEmail']);
+        authentication($_COOKIE['email'], 2);
     	$optype = $_POST['optype'] ? $_POST['optype']:$_GET['optype'];
         if( $rtype == null)
         {
@@ -436,6 +367,7 @@ class InnerStaffController extends Controller {
     **/
     public function projectInfo(){
         isLogin($_COOKIE['email'], $_COOKIE['mEmail']);
+        authentication($_COOKIE['email'], 2);
         $projectCode  = $_POST['no']     ? $_POST['no']:$_GET['no'];
         $mProjectCode = $_POST['token']  ? $_POST['token']:$_GET['token'];
         isProjectCodeRight($projectCode, $mProjectCode);
@@ -511,6 +443,7 @@ class InnerStaffController extends Controller {
     **/
     public function intent(){
         isLogin($_COOKIE['email'], $_COOKIE['mEmail']);
+        authentication($_COOKIE['email'], 2);
         // $projectCode = $_POST['project_code'] ? $_POST['project_code']:$_GET['project_code'];
         // $projectCode = 'test2';
         $projectCode = $_POST['no'] ? $_POST['no']:$_GET['no'];
@@ -566,6 +499,7 @@ class InnerStaffController extends Controller {
     **/
     public function pushProject(){
         isLogin($_COOKIE['email'], $_COOKIE['mEmail']);
+        authentication($_COOKIE['email'], 2);
         $rtype = $_POST['rtype'] ? $_POST['rtype']:$_GET['rtype'];
         // $projectCode = $_POST['project_code'] ? $_POST['project_code']:$_GET['project_code'];
         $projectCode = $_POST['no'] ? $_POST['no']:$_GET['no'];
@@ -611,6 +545,7 @@ class InnerStaffController extends Controller {
     **/
     public function search(){
         isLogin($_COOKIE['email'], $_COOKIE['mEmail']);
+        authentication($_COOKIE['email'], 2);
         $rtype = $_POST['rtype'] ? $_POST['rtype']:$_GET['rtype'];
         $optype = $_POST['optype'] ? $_POST['optype']:$_GET['optype'];
         $projectObj = D("Project", "Service");
@@ -690,7 +625,7 @@ class InnerStaffController extends Controller {
             $data["page"] = $page;
             $data["count"] = sizeof($projectTotal);
             $data["totalPage"] = ceil($data["count"]/$pageSize+1);
-            $data["endPage"] = $data["totalPage"];
+            $data["endPage"] = ceil($data["count"]/$pageSize);
             if($_GET['display']=="json"){
                 header('Content-Type: text/html; charset=utf-8');
                 dump($data);

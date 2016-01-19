@@ -13,7 +13,7 @@ class evaluationService extends Model{
 	public function getEvaluationInfo($projectId){
 		$objEvaluation = D("Evaluation");
 		$condition["project_id"] = $projectId;
-		$condition["status"] = array('neq',9999);
+		$condition["delete_flag"] = array('neq',9999);
 		$evaluationInfo = $objEvaluation->where($condition)->select();
 		return $evaluationInfo[0];
 	}
@@ -27,6 +27,7 @@ class evaluationService extends Model{
 		$objEvaluation = D("Evaluation");
 		$condition["project_id"] = $projectId;
 		$condition["status"] = array('between', '51,52');
+        $condition["delete_flag"] = array('neq',9999);
 		$evaluationInfo = $objEvaluation->where($condition)->order('status asc')->select();
 		return $evaluationInfo[0];
 	}
@@ -95,6 +96,7 @@ class evaluationService extends Model{
         $objEvaluation = D("Evaluation");
         $condition["project_id"] = $projectId;
         $condition["status"] = $status;
+        $condition["delete_flag"] = array('neq',9999);
         $evaluationInfo = $objEvaluation->where($condition)->select();
         if(sizeof($evaluationInfo) == 1)
             return true;

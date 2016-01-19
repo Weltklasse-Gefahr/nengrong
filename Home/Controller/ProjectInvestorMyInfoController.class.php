@@ -11,6 +11,7 @@ class ProjectInvestorMyInfoController extends Controller {
     **/
 	public function securityCenter(){
 		isLogin($_COOKIE['email'], $_COOKIE['mEmail']);
+        authentication($_COOKIE['email'], 4);
 		if($_POST['rtype'] == 1 || $_GET['rtype'] == 1){
             $email = $_COOKIE['email'];
             $pwd = $_POST['password'];
@@ -40,6 +41,7 @@ class ProjectInvestorMyInfoController extends Controller {
     **/
 	public function myInformation(){
 		isLogin($_COOKIE['email'], $_COOKIE['mEmail']);
+        authentication($_COOKIE['email'], 4);
 		$email = $_COOKIE['email'];
 		$user = D('User','Service');
         if($_POST['rtype'] == 1 || $_GET['rtype'] == 1){

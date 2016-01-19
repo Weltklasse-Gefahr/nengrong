@@ -11,6 +11,7 @@ class ProjectInvestorMyProController extends Controller {
     **/
 	public function recommendedProject(){
 		isLogin($_COOKIE['email'], $_COOKIE['mEmail']);
+        authentication($_COOKIE['email'], 4);
 		$email = $_COOKIE['email'];
 		// $email = 'qianqiang@qq.com';
         isDataComplete($email);
@@ -42,6 +43,7 @@ class ProjectInvestorMyProController extends Controller {
     **/
 	public function investmentProject(){
 		isLogin($_COOKIE['email'], $_COOKIE['mEmail']);
+        authentication($_COOKIE['email'], 4);
 		$email = $_COOKIE['email'];
         isDataComplete($email);
 		//是否需要做？需要建立项目投资表还是加一个字段
@@ -56,7 +58,7 @@ class ProjectInvestorMyProController extends Controller {
     {
         //判断登陆，并且获取用户名的email
         isLogin($_COOKIE['email'],$_COOKIE['mEmail']);     
-
+        authentication($_COOKIE['email'], 4);
         //接收参数
         $projectCode  = $_POST['no']     ? $_POST['no']:$_GET['no'];
         $mProjectCode = $_POST['token']  ? $_POST['token']:$_GET['token'];

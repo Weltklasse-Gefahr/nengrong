@@ -124,6 +124,7 @@
 					</foreach>
 				</div>
 			</div>
+			<?php if($arrData['endPage'] > 1){ ?>
 			<div class="pager">
 				<span data-page-index="1" href="#">首页</span>
                     <for start="1" end="$arrData.totalPage">
@@ -135,6 +136,7 @@
                     </for>
 					<span data-page-index="{$arrData.endPage}" href="#">尾页</span>
 			</div>
+			<?php } ?>
 		</div>
 	</div>
 

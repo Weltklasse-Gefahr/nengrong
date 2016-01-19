@@ -25,11 +25,11 @@ class ProjectService extends Model{
     public function getProjectDetail($projectId, $projectType){
         if($projectType == 1){
             $housetop = M("Housetop");
-            $housetopInfo = $housetop->where("project_id='%s' and status!=9999", $projectId)->select();
+            $housetopInfo = $housetop->where("project_id='%s' and delete_flag!=9999", $projectId)->select();
             return $housetopInfo[0];
         }elseif($projectType == 2 || $projectType == 3){
             $ground = M("Ground");
-            $groundInfo = $ground->where("project_id='%s' and status!=9999", $projectId)->select();
+            $groundInfo = $ground->where("project_id='%s' and delete_flag!=9999", $projectId)->select();
             return $groundInfo[0];
         }
     }
@@ -44,12 +44,14 @@ class ProjectService extends Model{
             $housetop = M("Housetop");
             $condition['project_id'] = $projectId;
             $condition['status'] = $status;
+            $condition["delete_flag"] = array('neq',9999);
             $housetopInfo = $housetop->where($condition)->select();
             return $housetopInfo[0];
         }elseif($projectType == 2 || $projectType == 3){
             $ground = M("Ground");
             $condition['project_id'] = $projectId;
             $condition['status'] = $status;
+            $condition["delete_flag"] = array('neq',9999);
             $groundInfo = $ground->where($condition)->select();
             return $groundInfo[0];
         }
@@ -65,6 +67,7 @@ class ProjectService extends Model{
             $housetop = M("Housetop");
             $condition['project_id'] = $projectId;
             $condition['status'] = 51;
+            $condition["delete_flag"] = array('neq',9999);
             $housetopInfo = $housetop->where($condition)->select();
             if(sizeof($housetopInfo) > 0) 
                 return $housetopInfo[0];
@@ -77,6 +80,7 @@ class ProjectService extends Model{
             $ground = M("Ground");
             $condition['project_id'] = $projectId;
             $condition['status'] = 51;
+            $condition["delete_flag"] = array('neq',9999);
             $groupInfo = $ground->where($condition)->select();
             if(sizeof($groupInfo) > 0) 
                 return $groupInfo[0];
@@ -98,6 +102,7 @@ class ProjectService extends Model{
         $projectInfo = $this->getProjectInfo($projectCode);
         $condition['project_id'] = $projectInfo['id'];
         $condition['status'] = 61;
+        $condition["delete_flag"] = array('neq',9999);
         if($projectInfo['project_type'] == 1){
             $housetop = M('Housetop');
             $resInfo = $housetop->where($condition)->find();
@@ -122,7 +127,7 @@ class ProjectService extends Model{
         if(!empty($email)){
             $user = D('User');
             //echo $email;
-            $userInfo = $user->where("email='".$email."'")->find();
+            $userInfo = $user->where("email='".$email."' and delete_flag!=9999")->find();
             //echo json_encode($userInfo);exit;
             $condition['provider_id'] = $userInfo['id'];
         }
@@ -133,6 +138,7 @@ class ProjectService extends Model{
         }else{
             $condition['status'] = array('between','11,13');
         }
+        $condition["delete_flag"] = array('neq',9999);
         $projectInfo = $this->getProjectsInfo($condition, $page, 6);
         //echo json_encode($condition);exit;
         $projectList = $this->formatProject($projectInfo);
@@ -192,6 +198,7 @@ class ProjectService extends Model{
         //删除旧的组件信息
         $obj = M("Component");
         $condition['project_id'] = $project_id;
+        $condition["delete_flag"] = array('neq',9999);
         $ret = $obj->where($condition)->select();
         return $ret;
     }  
@@ -205,6 +212,7 @@ class ProjectService extends Model{
         //删除旧的组件信息
         $obj = M("Inverter");
         $condition['project_id'] = $project_id;
+        $condition["delete_flag"] = array('neq',9999);
         $ret = $obj->where($condition)->select();
         return $ret;
     }  
@@ -251,6 +259,7 @@ class ProjectService extends Model{
             $condition['provider_id'] = $userInfo['id'];
         }
         $condition['status'] = array('between','21,29');
+        $condition["delete_flag"] = array('neq',9999);
         $projectInfo = $this->getProjectsInfo($condition, $page, 6);
         $projectList = $this->formatProject($projectInfo);
         return $projectList; 
@@ -268,6 +277,7 @@ class ProjectService extends Model{
             $condition['provider_id'] = $userInfo['id'];
         }
         $condition['status'] = array('between','31,39');
+        $condition["delete_flag"] = array('neq',9999);
         $projectInfo = $this->getProjectsInfo($condition, $page, 6);
         $projectList = $this->formatProject($projectInfo);
         return $projectList; 
@@ -286,7 +296,7 @@ class ProjectService extends Model{
         }else{
             return null;
         }
-        $condition['status'] = array('neq',9999);
+        $condition["delete_flag"] = array('neq',9999);
         $pushPro = M('Pushproject');
         if($page == -1){
             $pushProInfo = $pushPro->where($condition)->select();
@@ -309,7 +319,7 @@ class ProjectService extends Model{
         $i = 0;
         while($pushProInfo[$i]){
             $condition['project_code'] = $pushProInfo[$i]['project_code'];
-            $condition['status'] = array('neq', 9999);
+            $condition["delete_flag"] = array('neq',9999);
             $projectInfo = $projectObj->where($condition)->find();
             $pushProInfo[$i]['project_type'] = $projectInfo['project_type'];
             $pushProInfo[$i]['status'] = $projectInfo['status'];
@@ -329,7 +339,7 @@ class ProjectService extends Model{
         while($projectList[$i]){
             $projectList[$i]['m_project_code'] = md5(addToken($projectList[$i]['project_code']));
             
-            if($projectList[$i]['status'] == 9999){
+            if($projectList[$i]['delete_flag'] == 9999){
                 $projectList[$i]['statusStr'] = "已删除";
             }elseif($projectList[$i]['status'] == 11){
                 $projectList[$i]['statusStr'] = "未提交";
@@ -528,6 +538,7 @@ class ProjectService extends Model{
     public function hasSaveHousetopOrGround($projectId, $status, $projectType){
         $condition["project_id"] = $projectId;
         $condition["status"] = $status;
+        $condition["delete_flag"] = array('neq',9999);
         if($projectType == 1){
             $housetop = M("Housetop");
             $proInfo = $housetop->where($condition)->select();
@@ -623,6 +634,7 @@ class ProjectService extends Model{
         $pushProject = D("Pushproject");
         $condition["project_code"] = $projectCode;
         $condition["status"] = 41;
+        $condition["delete_flag"] = array('neq',9999);
         $proInfo = $pushProject->where($condition)->select();
         return $proInfo;
     }
@@ -662,6 +674,7 @@ class ProjectService extends Model{
         $projectObj = M("Project");
         $condition["project_code"] = $projectCode;
         $condition["status"] = array('between','21,29');
+        $condition["delete_flag"] = array('neq',9999);
         $res = $projectObj->where($condition)->select();
         if(empty($res)) 
             return false;
@@ -679,6 +692,7 @@ class ProjectService extends Model{
         $objProject = D("Housetop");
         $condition["project_id"] = $projectId;
         $condition["status"] = 51;
+        $condition["delete_flag"] = array('neq',9999);
         $proInfo = $objProject->where($condition)->select();
         if(sizeof($proInfo) == 1)
             return true;
@@ -695,6 +709,7 @@ class ProjectService extends Model{
     public function isIntentProject($projectId, $projectType){
         //echo $projectId;echo $projectType;exit;
         $condition['project_id'] = $projectId;
+        $condition["delete_flag"] = array('neq',9999);
         if($projectType == 1){
             $housetop = M('Housetop');
             $res = $housetop->where($condition)->where('status=61 or status=12')->find();
@@ -748,6 +763,7 @@ class ProjectService extends Model{
         $project = M("Project");
         $ret = $project->where("project_code = '".$project_code."'")->save($proData);
         $condition["project_code"] = $project_code;
+        $condition["delete_flag"] = array('neq',9999);
         $projectInfo = $project->where($condition)->where("status!=51")->select();
         return !empty($projectInfo) ? $projectInfo[0]["id"]:false;
     }
@@ -761,7 +777,8 @@ class ProjectService extends Model{
     public function saveProjectDetail($projectCode, $projectType, $proData){
         $project = M("Project");
         $condition["project_code"] = $projectCode;
-        $projectInfo = $project->where($condition)->where("status!=51 and status!=61 and status!=9999")->find();
+        $condition["delete_flag"] = array('neq',9999);
+        $projectInfo = $project->where($condition)->where("status!=51 and status!=61 and delete_flag!=9999")->find();
         if($projectType == 1){
             $housetopObj = M("Housetop");
             $ret = $housetopObj->where("project_id = '".$projectInfo['id']."'")->save($proData);
@@ -803,26 +820,26 @@ class ProjectService extends Model{
         $housetopSql = "";
         $groundSql = "";
         if($companyType == null || $companyType == 'all'){
-            $housetopSql = "select p.id,p.project_code,p.project_type,p.build_state,p.provider_id,p.highlight_flag,p.create_date,h.id as h_id,h.project_id,h.project_area,h.project_address,h.status,u.id as u_id,u.email,u.user_type,u.company_name from enf_project p join enf_housetop h on p.id=h.project_id join enf_user u on p.provider_id=u.id where h.status!=9999 and h.status!=51 and h.status!=61";
-            $groundSql = "select p.id,p.project_code,p.project_type,p.build_state,p.provider_id,p.highlight_flag,p.create_date,g.id as g_id,g.project_id,g.project_area,g.project_address,g.status,u.id as u_id,u.email,u.user_type,u.company_name from enf_project p join enf_ground g on p.id=g.project_id join enf_user u on p.provider_id=u.id where g.status!=9999 and g.status!=51 and g.status!=61";
+            $housetopSql = "select p.id,p.project_code,p.project_type,p.build_state,p.provider_id,p.highlight_flag,p.create_date,h.id as h_id,h.project_id,h.project_area,h.project_address,h.status,u.id as u_id,u.email,u.user_type,u.company_name from enf_project p join enf_housetop h on p.id=h.project_id join enf_user u on p.provider_id=u.id where h.delete_flag!=9999 and h.status!=51 and h.status!=61";
+            $groundSql = "select p.id,p.project_code,p.project_type,p.build_state,p.provider_id,p.highlight_flag,p.create_date,g.id as g_id,g.project_id,g.project_area,g.project_address,g.status,u.id as u_id,u.email,u.user_type,u.company_name from enf_project p join enf_ground g on p.id=g.project_id join enf_user u on p.provider_id=u.id where g.delete_flag!=9999 and g.status!=51 and g.status!=61";
         }else{
             if($companyType == "1"){//屋顶分布式－未建
-                $housetopSql = "select p.id,p.project_code,p.project_type,p.build_state,p.provider_id,p.highlight_flag,p.create_date,h.id as h_id,h.project_id,h.project_area,h.project_address,h.status,u.id as u_id,u.email,u.user_type,u.company_name from enf_project p join enf_housetop h on p.id=h.project_id join enf_user u on p.provider_id=u.id where h.status!=9999 and h.status!=51 and h.status!=61 and p.project_type=1";
+                $housetopSql = "select p.id,p.project_code,p.project_type,p.build_state,p.provider_id,p.highlight_flag,p.create_date,h.id as h_id,h.project_id,h.project_area,h.project_address,h.status,u.id as u_id,u.email,u.user_type,u.company_name from enf_project p join enf_housetop h on p.id=h.project_id join enf_user u on p.provider_id=u.id where h.delete_flag!=9999 and h.status!=51 and h.status!=61 and p.project_type=1";
                 $housetopSql = $housetopSql." and p.build_state=1";
             }elseif($companyType == "2"){//地面分布式－未建
-                $groundSql = "select p.id,p.project_code,p.project_type,p.build_state,p.provider_id,p.highlight_flag,p.create_date,g.id as g_id,g.project_id,g.project_area,g.project_address,g.status,u.id as u_id,u.email,u.user_type,u.company_name from enf_project p join enf_ground g on p.id=g.project_id join enf_user u on p.provider_id=u.id where g.status!=9999 and g.status!=51 and g.status!=61 and p.project_type=2";
+                $groundSql = "select p.id,p.project_code,p.project_type,p.build_state,p.provider_id,p.highlight_flag,p.create_date,g.id as g_id,g.project_id,g.project_area,g.project_address,g.status,u.id as u_id,u.email,u.user_type,u.company_name from enf_project p join enf_ground g on p.id=g.project_id join enf_user u on p.provider_id=u.id where g.delete_flag!=9999 and g.status!=51 and g.status!=61 and p.project_type=2";
                 $groundSql = $groundSql." and p.build_state=1";
             }elseif($companyType == "3"){//大型地面－未建
-                $groundSql = "select p.id,p.project_code,p.project_type,p.build_state,p.provider_id,p.highlight_flag,p.create_date,g.id as g_id,g.project_id,g.project_area,g.project_address,g.status,u.id as u_id,u.email,u.user_type,u.company_name from enf_project p join enf_ground g on p.id=g.project_id join enf_user u on p.provider_id=u.id where g.status!=9999 and g.status!=51 and g.status!=61 and p.project_type=3";
+                $groundSql = "select p.id,p.project_code,p.project_type,p.build_state,p.provider_id,p.highlight_flag,p.create_date,g.id as g_id,g.project_id,g.project_area,g.project_address,g.status,u.id as u_id,u.email,u.user_type,u.company_name from enf_project p join enf_ground g on p.id=g.project_id join enf_user u on p.provider_id=u.id where g.delete_flag!=9999 and g.status!=51 and g.status!=61 and p.project_type=3";
                 $groundSql = $groundSql." and p.build_state=1";
             }elseif($companyType == "4"){//屋顶分布式－已建
-                $housetopSql = "select p.id,p.project_code,p.project_type,p.build_state,p.provider_id,p.highlight_flag,p.create_date,h.id as h_id,h.project_id,h.project_area,h.project_address,h.status,u.id as u_id,u.email,u.user_type,u.company_name from enf_project p join enf_housetop h on p.id=h.project_id join enf_user u on p.provider_id=u.id where h.status!=9999 and h.status!=51 and h.status!=61 and p.project_type=1";
+                $housetopSql = "select p.id,p.project_code,p.project_type,p.build_state,p.provider_id,p.highlight_flag,p.create_date,h.id as h_id,h.project_id,h.project_area,h.project_address,h.status,u.id as u_id,u.email,u.user_type,u.company_name from enf_project p join enf_housetop h on p.id=h.project_id join enf_user u on p.provider_id=u.id where h.delete_flag!=9999 and h.status!=51 and h.status!=61 and p.project_type=1";
                 $housetopSql = $housetopSql." and p.build_state=2";
             }elseif($companyType == "5"){//地面分布式－已建
-                $groundSql = "select p.id,p.project_code,p.project_type,p.build_state,p.provider_id,p.highlight_flag,p.create_date,g.id as g_id,g.project_id,g.project_area,g.project_address,g.status,u.id as u_id,u.email,u.user_type,u.company_name from enf_project p join enf_ground g on p.id=g.project_id join enf_user u on p.provider_id=u.id where g.status!=9999 and g.status!=51 and g.status!=61 and p.project_type=2";
+                $groundSql = "select p.id,p.project_code,p.project_type,p.build_state,p.provider_id,p.highlight_flag,p.create_date,g.id as g_id,g.project_id,g.project_area,g.project_address,g.status,u.id as u_id,u.email,u.user_type,u.company_name from enf_project p join enf_ground g on p.id=g.project_id join enf_user u on p.provider_id=u.id where g.delete_flag!=9999 and g.status!=51 and g.status!=61 and p.project_type=2";
                 $groundSql = $groundSql." and p.build_state=2";
             }elseif($companyType == "6"){//大型地面－已建
-                $groundSql = "select p.id,p.project_code,p.project_type,p.build_state,p.provider_id,p.highlight_flag,p.create_date,g.id as g_id,g.project_id,g.project_area,g.project_address,g.status,u.id as u_id,u.email,u.user_type,u.company_name from enf_project p join enf_ground g on p.id=g.project_id join enf_user u on p.provider_id=u.id where g.status!=9999 and g.status!=51 and g.status!=61 and p.project_type=3";
+                $groundSql = "select p.id,p.project_code,p.project_type,p.build_state,p.provider_id,p.highlight_flag,p.create_date,g.id as g_id,g.project_id,g.project_area,g.project_address,g.status,u.id as u_id,u.email,u.user_type,u.company_name from enf_project p join enf_ground g on p.id=g.project_id join enf_user u on p.provider_id=u.id where g.delete_flag!=9999 and g.status!=51 and g.status!=61 and p.project_type=3";
                 $groundSql = $groundSql." and p.build_state=2";
             }else{
                 echo '{"code":"-1","msg":"project type error!"}';
@@ -948,6 +965,7 @@ class ProjectService extends Model{
         $projectObj = M('Project');
         $condition['project_code'] = $projectCode;
         $condition['status'] = $oldStatus;
+        $condition["delete_flag"] = array('neq',9999);
         $projectInfo = $projectObj->where($condition)->find();
         $res = $projectObj->where($condition)->save($data);
         if($res > 0){
@@ -962,7 +980,7 @@ class ProjectService extends Model{
                 //housetop中如果存在状态不是修改后状态的数据，删除掉
                 $tcondition['project_id'] = $projectInfo['id'];
                 $tcondition['status'] = array('neq', $newStatus);
-                $tdata['status'] = 9999;
+                $tdata['delete_flag'] = 9999;
                 $housetopObj->where($tcondition)->save($tdata);
             }elseif($projectInfo['project_type'] == 2 || $projectInfo['project_type'] == 3){
                 $groundObj = M('Ground');
@@ -975,7 +993,7 @@ class ProjectService extends Model{
                 //ground中如果存在状态不是修改后状态的数据，删除掉
                 $tcondition['project_id'] = $projectInfo['id'];
                 $tcondition['status'] = array('neq', $newStatus);
-                $tdata['status'] = 9999;
+                $tdata['delete_flag'] = 9999;
                 $groundObj->where($tcondition)->save($tdata);
             }
         }else{
@@ -984,7 +1002,7 @@ class ProjectService extends Model{
         //project中如果存在状态不是修改后状态的数据，删除掉
         $tcondition['project_code'] = $projectCode;
         $tcondition['status'] = array('neq', $newStatus);
-        $tdata['status'] = 9999;
+        $tdata['delete_flag'] = 9999;
         $projectObj->where($tcondition)->save($tdata);
         return true;
     }
@@ -996,7 +1014,7 @@ class ProjectService extends Model{
     **/
     public function getAllProject(){
         $project = M('Project');
-        $projects = $project->where("status!=9999")->select();
+        $projects = $project->where("delete_flag!=9999")->select();
         return $projects;
     }
 
@@ -1008,7 +1026,7 @@ class ProjectService extends Model{
     **/
     public function updateProjectStatus($id, $status){
         $project = M('Project');
-        $objProject = $project->where("id='".$id."' and status!=9999")->find();
+        $objProject = $project->where("id='".$id."' and delete_flag!=9999")->find();
         if(empty($objProject)){
             echo '{"code":"-1","msg":"项目不存在!"}';
             exit;
@@ -1039,48 +1057,84 @@ class ProjectService extends Model{
 
     /**
     **@auth qianqiang
-    **@breif 假删除项目
+    **@breif 假删除项目，删除project、housetop、ground、evaluation、component、inverter
     **@date 2016.1.15
     **/
     public function deleteProjectService($id){
         $project = M('Project');
-        $objProject = $project->where("id='".$id."' and status!=9999")->find();
+        $objProject = $project->where("id='".$id."' and delete_flag!=9999")->find();
         if(empty($objProject)){
             echo '{"code":"-1","msg":"项目不存在!"}';
             exit;
         }
 
-        $data["status"] = 9999;
+        $data['delete_flag'] = 9999;
         $data['change_date'] = date("Y-m-d H:i:s",time());
         $res = $project->where("id='".$id."'")->save($data);
         if(!$res){
-            echo '{"code":"-1","msg":"mysql error!"}';
+            echo '{"code":"-1","msg":"project delete error!"}';
             exit;
         }
         if($objProject['project_type'] == 1){
             $housetopObj = M('Housetop');
-            $res = $housetopObj->where("project_id='".$id."'")->save($data);
+            $housetopInfo = $housetopObj->where("project_id='".$id."'")->select();
+            if(!empty($housetopInfo)){
+                $res = $housetopObj->where("project_id='".$id."'")->save($data);
+                if(!$res){
+                    echo '{"code":"-1","msg":"housetop delete error!"}';
+                    exit;
+                }
+            }
         }elseif($objProject['project_type'] == 2 || $objProject['project_type'] == 3){
             $groundObj = M('Ground');
-            $res = $groundObj->where("project_id='".$id."'")->save($data);
+            $groundInfo = $groundObj->where("project_id='".$id."'")->select();
+            if(!empty($groundInfo)){
+                $res = $groundObj->where("project_id='".$id."'")->save($data);
+                if(!$res){
+                    echo '{"code":"-1","msg":"ground delete error!"}';
+                    exit;
+                }
+            }
+        }
+        $evaluationObj = M('Evaluation'); 
+        $evaluationInfo = $evaluationObj->where("project_id='".$id."'")->select();
+        if(!empty($evaluationInfo)){
+            $res = $evaluationObj->where("project_id='".$id."'")->save($data);
+            if(!$res){
+                echo '{"code":"-1","msg":"evaluation delete error!"}';
+                exit;
+            }
+        }
+        $componentObj = M('Component');
+        $componentInfo = $componentObj->where("project_id='".$id."'")->select();
+        if(!empty($componentInfo)){
+            $res = $componentObj->where("project_id='".$id."'")->save($data);
+            if(!$res){
+                echo '{"code":"-1","msg":"component delete error!"}';
+                exit;
+            }
+        }
+        $inverterObj = M('Inverter');
+        $inverterInfo = $inverterObj->where("project_id='".$id."'")->select();
+        if(!empty($inverterInfo)){
+            $res = $inverterObj->where("project_id='".$id."'")->save($data);
+            if(!$res){
+                echo '{"code":"-1","msg":"inverter delete error!"}';
+                exit;
+            }
         }
 
-        if($res){
-            return true;
-        }else{
-            echo '{"code":"-1","msg":"mysql error!"}';
-            exit;
-        }
+        return true;
     }
 
     /**
     **@auth qianqiang
-    **@breif 真删除项目
+    **@breif 真删除项目，删除project、housetop、ground、evaluation、component、inverter
     **@date 2016.1.16
     **/
     public function dropProjectService($id){
         $project = M('Project');
-        $objProject = $project->where("id='".$id."' and status!=9999")->find();
+        $objProject = $project->where("id='".$id."'")->find();
         if(empty($objProject)){
             echo '{"code":"-1","msg":"项目不存在!"}';
             exit;
@@ -1088,30 +1142,129 @@ class ProjectService extends Model{
 
         $res = $project->where("id='".$id."'")->delete();
         if(!$res){
-            echo '{"code":"-1","msg":"mysql error!"}';
+            echo '{"code":"-1","msg":"project drop error!"}';
             exit;
         }
         if($objProject['project_type'] == 1){
             $housetopObj = M('Housetop');
-            $res = $housetopObj->where("project_id='".$id."'")->delete();
+            $housetopInfo = $housetopObj->where("project_id='".$id."'")->select();
+            if(!empty($housetopInfo)){
+                $res = $housetopObj->where("project_id='".$id."'")->delete();
+                if(!$res){
+                    echo '{"code":"-1","msg":"housetop drop error!"}';
+                    exit;
+                }
+            }
         }elseif($objProject['project_type'] == 2 || $objProject['project_type'] == 3){
             $groundObj = M('Ground');
-            $res = $groundObj->where("project_id='".$id."'")->delete();
+            $groundInfo = $groundObj->where("project_id='".$id."'")->select();
+            if(!empty($groundInfo)){
+                $res = $groundObj->where("project_id='".$id."'")->delete();
+                if(!$res){
+                    echo '{"code":"-1","msg":"ground drop error!"}';
+                    exit;
+                }
+            }
         }
-        if($res){
-            return true;
-        }else{
-            echo '{"code":"-1","msg":"mysql error!"}';
-            exit;
+        $evaluationObj = M('Evaluation'); 
+        $evaluationInfo = $evaluationObj->where("project_id='".$id."'")->select();
+        if(!empty($evaluationInfo)){
+            $res = $evaluationObj->where("project_id='".$id."'")->delete();
+            if(!$res){
+                echo '{"code":"-1","msg":"evaluation drop error!"}';
+                exit;
+            }
         }
+        $componentObj = M('Component');
+        $componentInfo = $componentObj->where("project_id='".$id."'")->select();
+        if(!empty($componentInfo)){
+            $res = $componentObj->where("project_id='".$id."'")->delete();
+            if(!$res){
+                echo '{"code":"-1","msg":"component drop error!"}';
+                exit;
+            }
+        }
+        $inverterObj = M('Inverter');
+        $inverterInfo = $inverterObj->where("project_id='".$id."'")->select();
+        if(!empty($inverterInfo)){
+            $res = $inverterObj->where("project_id='".$id."'")->delete();
+            if(!$res){
+                echo '{"code":"-1","msg":"inverter drop error!"}';
+                exit;
+            }
+        }
+
+        return true;
     }
 
     /**
     **@auth qianqiang
-    **@breif 还原项目
+    **@breif 还原项目，还原project、housetop、ground、evaluation、component、inverter
     **@date 2016.1.18
     **/
     public function recoveryProjectService($id){
+        $project = M('Project');
+        $objProject = $project->where("id='".$id."' and delete_flag=9999")->find();
+        if(empty($objProject)){
+            echo '{"code":"-1","msg":"项目不可进行恢复操作"}';
+            exit;
+        }
+        $data['delete_flag'] = 0;
+        $data['change_date'] = date("Y-m-d H:i:s",time());
+        $res = $project->where("id='".$id."'")->save($data);
+        if(!$res){
+            echo '{"code":"-1","msg":"project recovery error!"}';
+            exit;
+        }
+        if($objProject['project_type'] == 1){
+            $housetopObj = M('Housetop');
+            $housetopInfo = $housetopObj->where("project_id='".$id."'")->select();
+            if(!empty($housetopInfo)){
+                $res = $housetopObj->where("project_id='".$id."'")->save($data);
+                if(!$res){
+                    echo '{"code":"-1","msg":"housetop recovery error!"}';
+                    exit;
+                }
+            }
+        }elseif($objProject['project_type'] == 2 || $objProject['project_type'] == 3){
+            $groundObj = M('Ground');
+            $groundInfo = $groundObj->where("project_id='".$id."'")->select();
+            if(!empty($groundInfo)){
+                $res = $groundObj->where("project_id='".$id."'")->save($data);
+                if(!$res){
+                    echo '{"code":"-1","msg":"ground recovery error!"}';
+                    exit;
+                }
+            }
+        }
+        $evaluationObj = M('Evaluation'); 
+        $evaluationInfo = $evaluationObj->where("project_id='".$id."'")->select();
+        if(!empty($evaluationInfo)){
+            $res = $evaluationObj->where("project_id='".$id."'")->save($data);
+            if(!$res){
+                echo '{"code":"-1","msg":"evaluation recovery error!"}';
+                exit;
+            }
+        }
+        $componentObj = M('Component');
+        $componentInfo = $componentObj->where("project_id='".$id."'")->select();
+        if(!empty($componentInfo)){
+            $res = $componentObj->where("project_id='".$id."'")->save($data);
+            if(!$res){
+                echo '{"code":"-1","msg":"component recovery error!"}';
+                exit;
+            }
+        }
+        $inverterObj = M('Inverter');
+        $inverterInfo = $inverterObj->where("project_id='".$id."'")->select();
+        if(!empty($inverterInfo)){
+            $res = $inverterObj->where("project_id='".$id."'")->save($data);
+            if(!$res){
+                echo '{"code":"-1","msg":"inverter recovery error!"}';
+                exit;
+            }
+        }
+
         return true;
     }
 

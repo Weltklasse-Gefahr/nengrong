@@ -226,16 +226,24 @@ function isLogin($userName, $mUserName, $flag=0){
 **@date 2015.12.17
 **/
 function isAdminLogin($userName, $mUserName){
-    if (empty($userName) || empty($mUserName)) {
+    if(empty($userName) || empty($mUserName)){
         //没有登陆，弹框提示，并且跳转到登陆页
         header('Content-Type: text/html; charset=utf-8');
         echo "<script type='text/javascript'>alert('没有登录');location.href='?c=Admin&a=login'</script>";
         exit;
     }
-    if (!($mUserName == MD5(addToken($userName)))) {
+    if(!($mUserName == MD5(addToken($userName)))){
         //登录信息错误，弹框提示，并且跳转到登陆页
         header('Content-Type: text/html; charset=utf-8');
         echo "<script type='text/javascript'>alert('登录信息错误');location.href='?c=Admin&a=login'</script>";
+        exit;
+    }
+    $obj = M('Admin');
+    $condition['user_name'] = $userName;
+    $res = $obj->where($condition)->select();
+    if(empty($res)){
+        header('Content-Type: text/html; charset=utf-8');
+        echo "<script type='text/javascript'>alert('用户权限错误');location.href='?c=User&a=login'</script>";
         exit;
     }
     return true;
@@ -299,6 +307,26 @@ function isDataComplete($email, $flag=0){
             }
             exit;
         }
+    }
+    return true;
+}
+
+/**
+**@auth qianqiang
+**@breif 鉴权用户身份，身份错误提示后跳转
+**@param $email 用户邮箱
+**@param $userType 用户类型
+**@date 2016.1.19
+**/
+function authentication($email, $userType){
+    //return true;
+    $user = M("User");
+    $objUser = $user->where("email='".$email."' and delete_flag!=9999")->find();
+    //dump($objUser);
+    if($objUser["user_type"] != $userType){
+        header('Content-Type: text/html; charset=utf-8');
+        echo "<script type='text/javascript'>alert('用户权限错误');location.href='?c=User&a=login'</script>";
+        exit;
     }
     return true;
 }

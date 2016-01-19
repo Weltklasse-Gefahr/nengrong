@@ -12,7 +12,7 @@ class UserService extends Model{
     **/
 	public function loginService($email, $password, $keepFlag=0){
 		$user = M("User");
-        $users = $user->where("email='%s' and password='%s' and status!=9999", array($email, MD5($password)))->select();
+        $users = $user->where("email='%s' and password='%s' and delete_flag!=9999", array($email, MD5($password)))->select();
         if (sizeof($users) != 1) {
         	echo '{"code":"-1","msg":"登录信息错误"}';
         	exit;
@@ -62,7 +62,7 @@ class UserService extends Model{
     **/
 	public function registerService($email, $password, $userType){
 		$user = M("User");
-		$users = $user->where("email='%s' and status!=9999", array($email) )->select();
+		$users = $user->where("email='%s' and delete_flag!=9999", array($email) )->select();
 		if (sizeof($users) == 1) {
 			header('Content-Type: text/html; charset=utf-8');
 			echo '{"code":"-1","msg":"该邮箱已经注册"}';
@@ -84,7 +84,7 @@ class UserService extends Model{
         $data['change_date'] = date("Y-m-d H:i:s",time());
         $userAdd->add($data);
 
-        $users = $user->where("email='%s' and status!=9999", array($email) )->select();
+        $users = $user->where("email='%s' and delete_flag!=9999", array($email) )->select();
 
         if (sizeof($users) != 1) {
         	header('Content-Type: text/html; charset=utf-8');
@@ -165,7 +165,7 @@ class UserService extends Model{
     **/
 	public function changePasswordService($email, $password, $newPwd){
 		$user = M('User');
-		$objUser = $user->where("email='%s' and password='%s' and status!=9999", array($email, MD5($password)))->select();
+		$objUser = $user->where("email='%s' and password='%s' and delete_flag!=9999", array($email, MD5($password)))->select();
 		if(sizeof($objUser) == 0){
 			echo '{"code":"-1","msg":"原密码错误!"}';
 			exit;
@@ -190,7 +190,7 @@ class UserService extends Model{
     **/
 	public function resetPasswordService($email, $newPwd){
 		$user = M('User');
-		$objUser = $user->where("email='%s' and status!=9999", array($email))->select();
+		$objUser = $user->where("email='%s' and delete_flag!=9999", array($email))->select();
 		if(sizeof($objUser) == 0){
 			echo '{"code":"-1","msg":"用户不存在!"}';
 			exit;
@@ -201,7 +201,7 @@ class UserService extends Model{
 		$data['change_date'] = date("Y-m-d H:i:s",time());
         $user->where("email='".$email."'")->save($data);
 
-        $objUser = $user->where("email='%s' and password='%s' and status!=9999", array($email, MD5($newPwd)))->select();
+        $objUser = $user->where("email='%s' and password='%s' and delete_flag!=9999", array($email, MD5($newPwd)))->select();
 		if (sizeof($objUser) != 1) {
 			echo '{"code":"-1","msg":"mysql error!"}';
 			exit;
@@ -223,7 +223,7 @@ class UserService extends Model{
 		$data['change_date'] = date("Y-m-d H:i:s",time());
         $user->where("id='".$id."'")->save($data);
 
-        $objUser = $user->where("id='%d' and password='%s' and status!=9999", array($id, MD5("123456")))->select();
+        $objUser = $user->where("id='%d' and password='%s' and delete_flag!=9999", array($id, MD5("123456")))->select();
 		if (sizeof($objUser) != 1) {
 			echo '{"code":"-1","msg":"mysql error!"}';
 			exit;
@@ -239,7 +239,7 @@ class UserService extends Model{
     **/
 	public function getAllProjectProviderService(){
 		$user = M('User');
-		$users = $user->where("user_type=3 and status!=9999")->select();
+		$users = $user->where("user_type=3 and delete_flag!=9999")->select();
 		return $users;
 	}
 
@@ -250,7 +250,7 @@ class UserService extends Model{
     **/
 	public function getAllProjectInvestorService(){
 		$user = M('User');
-		$users = $user->where("user_type=4 and status!=9999")->select();
+		$users = $user->where("user_type=4 and delete_flag!=9999")->select();
 		return $users;
 	}
 
@@ -261,7 +261,7 @@ class UserService extends Model{
     **/
 	public function getAllInnerStaffService(){
 		$user = M('User');
-		$users = $user->where("user_type=2 and status!=9999")->select();
+		$users = $user->where("user_type=2 and delete_flag!=9999")->select();
 		return $users;
 	}
 
@@ -272,7 +272,7 @@ class UserService extends Model{
     **/
 	public function deleteUserService($id){
 		$user = M('User');
-		$objUser = $user->where("id='".$id."' and status!=9999")->select();
+		$objUser = $user->where("id='".$id."' and delete_flag!=9999")->select();
 		if(sizeof($objUser) == 0){
 			echo '{"code":"-1","msg":"用户不存在!"}';
 			exit;
@@ -282,7 +282,7 @@ class UserService extends Model{
         $data['change_date'] = date("Y-m-d H:i:s",time());
         $user->where("id='".$id."'")->save($data);
 
-        $objUser = $user->where("id='".$id."' and status!=9999")->select();
+        $objUser = $user->where("id='".$id."' and delete_flag!=9999")->select();
 		if (sizeof($objUser) != 0) {
 			echo '{"code":"-1","msg":"mysql error!"}';
 			exit;
@@ -302,7 +302,7 @@ class UserService extends Model{
 		$data['change_date'] = date("Y-m-d H:i:s",time());
         $user->where("id='".$id."'")->save($data);
 
-        $objUser = $user->where("email='%s' and company_phone='%s' and company_telephone='%s' and status!=9999", array($email, $phone, $telephone))->select();
+        $objUser = $user->where("email='%s' and company_phone='%s' and company_telephone='%s' and delete_flag!=9999", array($email, $phone, $telephone))->select();
 		if (sizeof($objUser) != 1) {
 			echo '{"code":"-1","msg":"mysql error!"}';
 			exit;
@@ -322,7 +322,7 @@ class UserService extends Model{
 		$data['change_date'] = date("Y-m-d H:i:s",time());
         $user->where("id='".$id."'")->save($data);
 
-        $objUser = $user->where("email='%s' and company_name='%s' and status!=9999", array($email, $companyName))->select();
+        $objUser = $user->where("email='%s' and company_name='%s' and delete_flag!=9999", array($email, $companyName))->select();
 		if (sizeof($objUser) != 1) {
 			echo '{"code":"-1","msg":"mysql error!"}';
 			exit;
@@ -343,7 +343,7 @@ class UserService extends Model{
 		$data['change_date'] = date("Y-m-d H:i:s",time());
         $user->where("id='".$id."'")->save($data);
 
-        $objUser = $user->where("email='%s' and code='%s' and name='%s' and status!=9999", array($email, $code, $name))->select();
+        $objUser = $user->where("email='%s' and code='%s' and name='%s' and delete_flag!=9999", array($email, $code, $name))->select();
 		if (sizeof($objUser) != 1) {
 			echo '{"code":"-1","msg":"mysql error!"}';
 			exit;
@@ -358,7 +358,7 @@ class UserService extends Model{
     **/
 	public function getUserINfoById($id){
 		$condition["id"] = $id;
-		$condition["status"] = array('neq',9999);
+		$condition["delete_flag"] = array('neq',9999);
 		$userInfo = $this->getUserInfo($condition);
 		return $userInfo;
 	}
@@ -370,7 +370,7 @@ class UserService extends Model{
     **/
 	public function getUserINfoByEmail($email){
 		$condition["email"] = $email;
-		$condition["status"] = array('neq',9999);
+		$condition["delete_flag"] = array('neq',9999);
 		$userInfo = $this->getUserInfo($condition);
 		return $userInfo;
 	}
@@ -396,7 +396,7 @@ class UserService extends Model{
     **/
 	public function getInvestorPush($projectCode, $page){
 		$condition['user_type'] = 4;
-		$condition["status"] = array('neq',9999);
+		$condition["delete_flag"] = array('neq',9999);
 		$objUser = M("User");
 		if($page == -1)
 			$investorList = $objUser->where($condition)->select();
