@@ -46,7 +46,7 @@
 					<select name="company_name">
 						<option value="all">全部</option>
 						<foreach name="arrData.campanyName" item="campany">
-							<option value="{$campany[company_name]}">{$campany[company_name]}</option>
+							<option value="{$campany[company_name]}" <if condition='$arrData[searchInfo][companyName] eq $campany[company_name]'>selected="selected"</if>>{$campany[company_name]}</option>
 						</foreach>
 					</select>
 				</div>
@@ -54,12 +54,12 @@
 					<span>项目类型</span>
 					<select name="project_type">
 		          		<option value="all">全部</option>
-		          		<option value="1">屋顶分布式－未建</option>
-		          		<option value="2">地面分布式－未建</option>
-		          		<option value="3">大型地面－未建</option>
-		          		<option value="4">屋顶分布式－已建</option>
-		          		<option value="5">地面分布式－已建</option>
-		         		<option value="6">大型地面－已建</option>
+		          		<option value="1" <if condition='$arrData[searchInfo][companyType] eq 1'>selected="selected"</if>>屋顶分布式－未建</option>
+		          		<option value="2" <if condition='$arrData[searchInfo][companyType] eq 2'>selected="selected"</if>>地面分布式－未建</option>
+		          		<option value="3" <if condition='$arrData[searchInfo][companyType] eq 3'>selected="selected"</if>>大型地面－未建</option>
+		          		<option value="4" <if condition='$arrData[searchInfo][companyType] eq 4'>selected="selected"</if>>屋顶分布式－已建</option>
+		          		<option value="5" <if condition='$arrData[searchInfo][companyType] eq 5'>selected="selected"</if>>地面分布式－已建</option>
+		         		<option value="6" <if condition='$arrData[searchInfo][companyType] eq 6'>selected="selected"</if>>大型地面－已建</option>
 			        </select>
 				</div>
 				<div class="item">
@@ -70,26 +70,26 @@
 				</div>
 				<div class="item">
 					<span>提交时间</span>
-					<input data-type="date" readonly name="startDate" /> 至 <input data-type="date" readonly name="endDate" />
+					<input data-type="date" readonly name="startDate" value="{$arrData[searchInfo][startDate]}" /> 至 <input data-type="date" readonly name="endDate" value="{$arrData[searchInfo][endDate]}" />
 				</div>
 				<div class="item">
 					<span>项目状态</span>
 					<select name="status">
-			       		<option value="all">全部</option>
-			          	<option value="11">未提交</option>
-			          	<option value="12">已提交</option>
-			          	<option value="50">已尽职调查</option>
-			          	<option value="20">已签意向书</option>
-			          	<option value="30">已签融资合同</option>
+			       		<option value="all" >全部</option>
+			          	<option value="11" <if condition='$arrData[searchInfo][status] eq 11'>selected="selected"</if>>未提交</option>
+			          	<option value="12" <if condition='$arrData[searchInfo][status] eq 12'>selected="selected"</if>>已提交</option>
+			          	<option value="50" <if condition='$arrData[searchInfo][status] eq 50'>selected="selected"</if>>已尽职调查</option>
+			          	<option value="20" <if condition='$arrData[searchInfo][status] eq 20'>selected="selected"</if>>已签意向书</option>
+			          	<option value="30" <if condition='$arrData[searchInfo][status] eq 30'>selected="selected"</if>>已签融资合同</option>
 			        </select>
 				</div>
 				<div class="item">
 					<span class="op">与能融网合作方式</span>
 					<select class="op" name="cooperation_type">
 			          	<option value="all">全部</option>
-			          	<option value="1">EPC</option>
-			          	<option value="2">申请融资</option>
-			          	<option value="3">推介项目</option>
+			          	<option value="1" <if condition='$arrData[searchInfo][cooperationType] eq 1'>selected="selected"</if>>EPC</option>
+			          	<option value="2" <if condition='$arrData[searchInfo][cooperationType] eq 2'>selected="selected"</if>>申请融资</option>
+			          	<option value="3" <if condition='$arrData[searchInfo][cooperationType] eq 3'>selected="selected"</if>>推介项目</option>
         			</select>
 				</div>
 			</div>

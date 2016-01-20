@@ -162,8 +162,8 @@ class InnerStaffController extends Controller {
         {
             $projectCode = $_POST['no'] ? $_POST['no']:$_GET['no'];
             $mProjectCode = $_POST['token'] ? $_POST['token']:$_GET['token'];
-            // isProjectCodeRight($projectCode, $mProjectCode);
-            $projectCode = 'qwertyuio';
+            isProjectCodeRight($projectCode, $mProjectCode);
+            // $projectCode = 'qwertyuio';
         }
         if($optype == "upload" && $rtype == 1){
             $docFile = array(
@@ -290,7 +290,13 @@ class InnerStaffController extends Controller {
             $evaData['project_earnings_situation'] = $_POST['project_earnings_situation'];
             $evaData['doc_mul'] = implode(",", $_POST['doc_mul']);
 
-			$res = $objProject->submitHousetopOrGround($proData, 51, $objProjectInfo['project_type']);
+            $projectInfo = $objProject->where("id=".$proData['project_id']." and delete_flag!=9999")->find();
+            if($projectInfo['status'] == 21){
+                $sta = 23;
+            }else{
+                $sta = 22;
+            }
+			$res = $objProject->submitHousetopOrGround($proData, $sta, $objProjectInfo['project_type']);
             if($res == true){
             	$objEvaluation = D("Evaluation", "Service");
             	$res = $objEvaluation->submitEvaluationInfo($evaData);
@@ -550,19 +556,20 @@ class InnerStaffController extends Controller {
         $optype = $_POST['optype'] ? $_POST['optype']:$_GET['optype'];
         $projectObj = D("Project", "Service");
         $userObj = D("User", "Service");
-        if($rtype == 1 && $optype == 'delete'){
-            $projectCode = $_GET['no'];
-            $mProjectCode = $_GET['token'];
-            isProjectCodeRight($projectCode, $mProjectCode);
-            $condition['status'] = $_POST['status'];
-            $condition['project_code'] = $projectCode;
-            $proInfo = $projectObj->where($condition)->find();
-            $res = $projectObj->deleteProjectService($proInfo['id']);
-            if($res){
-                header('Content-Type: text/html; charset=utf-8');
-                echo '{"code":"0","msg":"删除成功！"}';
-            }
-        }elseif($rtype == 1 && $optype == 'change'){
+        // if($rtype == 1 && $optype == 'delete'){
+        //     $projectCode = $_GET['no'];
+        //     $mProjectCode = $_GET['token'];
+        //     isProjectCodeRight($projectCode, $mProjectCode);
+        //     $condition['status'] = $_POST['status'];
+        //     $condition['project_code'] = $projectCode;
+        //     $proInfo = $projectObj->where($condition)->find();
+        //     $res = $projectObj->deleteProjectService($proInfo['id']);
+        //     if($res){
+        //         header('Content-Type: text/html; charset=utf-8');
+        //         echo '{"code":"0","msg":"删除成功！"}';
+        //     }
+        // }else
+        if($rtype == 1 && $optype == 'change'){
             $projectCode = $_GET['no'];
             $mProjectCode = $_GET['token'];
             // isProjectCodeRight($projectCode, $mProjectCode);
@@ -572,10 +579,10 @@ class InnerStaffController extends Controller {
                 $newStatus = 11;
             }elseif($status == 12){//已提交
                 $newStatus = 12;
-            }elseif($status == 13){//已签意向书
-                $newStatus = 21;
             }elseif($status == 14){//已尽职调查
                 $newStatus = 22;
+            }elseif($status == 13){//已签意向书
+                $newStatus = 23;
             }elseif($status == 15){//已签融资合同
                 $newStatus = 31;
             }
@@ -626,6 +633,13 @@ class InnerStaffController extends Controller {
             $data["count"] = sizeof($projectTotal);
             $data["totalPage"] = ceil($data["count"]/$pageSize+1);
             $data["endPage"] = ceil($data["count"]/$pageSize);
+            $data["searchInfo"]["companyName"] = $companyName;
+            $data["searchInfo"]["companyType"] = $companyType;
+            $data["searchInfo"]["situation"] = $situation;
+            $data["searchInfo"]["startDate"] = $startDate;
+            $data["searchInfo"]["endDate"] = $endDate;
+            $data["searchInfo"]["status"] = $status;
+            $data["searchInfo"]["cooperationType"] = $cooperationType;
             if($_GET['display']=="json"){
                 header('Content-Type: text/html; charset=utf-8');
                 dump($data);
@@ -633,6 +647,31 @@ class InnerStaffController extends Controller {
             }
             $this->assign("arrData", $data);
             $this->display("InnerStaff:search");
+        }
+    }
+
+    /**
+    **@auth qianqiang
+    **@breif 客服->删除项目
+    **@date 2016.1.20
+    **/
+    public function delete(){
+        isLogin($_COOKIE['email'], $_COOKIE['mEmail']);
+        authentication($_COOKIE['email'], 2);
+        $projectCode = $_GET['no'];
+        $mProjectCode = $_GET['token'];
+        isProjectCodeRight($projectCode, $mProjectCode);
+        $projectObj = D("Project", "Service");
+        $condition['project_code'] = $projectCode;
+        $condition["delete_flag"] = array('neq',9999);
+        $proInfo = $projectObj->where($condition)->find();
+        $res = $projectObj->deleteProjectService($proInfo['id']);
+        if($res){
+            header('Content-Type: text/html; charset=utf-8');
+            echo '{"code":"0","msg":"删除成功！"}';
+        }else{
+            header('Content-Type: text/html; charset=utf-8');
+            echo '{"code":"0","msg":"删除失败！"}';
         }
     }
 }

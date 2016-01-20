@@ -322,9 +322,11 @@ function authentication($email, $userType){
     return true;
     $user = M("User");
     $objUser = $user->where("email='".$email."' and delete_flag!=9999")->find();
-    // dump($email);dump($userType);
-    // dump($objUser);exit;
-    if($objUser["user_type"] != $userType){
+    // dump($userType);
+    // dump($objUser);
+    // dump($objUser["user_type"] != $userType);
+    // exit;
+    if(intval($objUser["user_type"]) != $userType){
         header('Content-Type: text/html; charset=utf-8');
         echo "<script type='text/javascript'>alert('用户权限错误');location.href='?c=User&a=login'</script>";
         exit;

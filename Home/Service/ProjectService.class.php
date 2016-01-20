@@ -255,7 +255,7 @@ class ProjectService extends Model{
     public function getAgreementProject($email, $page){
         if(!empty($email)){
             $user = D('User');
-            $userInfo = $user->where("email='".$email."'")->find();
+            $userInfo = $user->where("email='".$email."' and delete_flag!=9999")->find();
             $condition['provider_id'] = $userInfo['id'];
         }
         $condition['status'] = array('between','21,29');
@@ -273,7 +273,7 @@ class ProjectService extends Model{
     public function getContractProject($email, $page){
         if(!empty($email)){
             $user = D('User');
-            $userInfo = $user->where("email='".$email."'")->find();
+            $userInfo = $user->where("email='".$email."' and delete_flag!=9999")->find();
             $condition['provider_id'] = $userInfo['id'];
         }
         $condition['status'] = array('between','31,39');
@@ -291,7 +291,7 @@ class ProjectService extends Model{
     public function getPushProject($email, $page){
         if(!empty($email)){
             $user = D('User');
-            $userInfo = $user->where("email='".$email."'")->find();
+            $userInfo = $user->where("email='".$email."' and delete_flag!=9999")->find();
             $condition['investor_id'] = $userInfo['id'];
         }else{
             return null;
@@ -382,6 +382,7 @@ class ProjectService extends Model{
 
             $condition['project_id'] = $projectList[$i]['id'];
             $condition['status'] = $projectList[$i]['status'];
+            $condition['delete_flag'] = array('neq',9999);
             $proDetails = $proObj->where($condition)->find();
             $areaObj = D('Area', 'Service');
             $areaStr = $areaObj->getAreaById($proDetails['project_area']);
@@ -587,7 +588,7 @@ class ProjectService extends Model{
     **@auth qianqiang  
     **@breif 提交house或者ground，更新项目资料ground表project表，如果有save数据，进行删除
     **@param $proData 提交的数据
-    **@param $status 提交的项目状态，如：进行尽职调查保存，需要传参数为51
+    **@param $status 提交的项目状态(要改成什么状态)，如：进行尽职调查保存，需要传参数为51
     **@param $projectType 项目类型
     **@return 提交成功返回true，失败返回false
     **@date 2015.12.29
@@ -595,9 +596,9 @@ class ProjectService extends Model{
     public function submitHousetopOrGround($proData, $status, $projectType){
         if($projectType == 1){
             $housetop = M("Housetop");
-            $proData['status'] = 22;
+            $proData['status'] = $status;
             $proData['change_date'] = date("Y-m-d H:i:s",time());
-            $result = $housetop->where("project_id='".$proData['project_id']."' and (status=21 or status=22)")->save($proData);
+            $result = $housetop->where("project_id='".$proData['project_id']."' and status!=51 and status!=61 and delete_flag!=9999")->save($proData);
             if($this->hasSaveHousetopOrGround($proData['project_id'], 51, $projectType)){
                 $condition['project_id'] = $proData['project_id'];
                 $condition['status'] = 51;
@@ -605,9 +606,9 @@ class ProjectService extends Model{
             }
         }elseif($projectType == 2 || $projectType == 3){
             $ground = M("Ground");
-            $proData['status'] = 22;
+            $proData['status'] = $status;
             $proData['change_date'] = date("Y-m-d H:i:s",time());
-            $result = $ground->where("project_id='".$proData['project_id']."' and (status=21 or status=22)")->save($proData);
+            $result = $ground->where("project_id='".$proData['project_id']."' and status!=51 and status!=61 and delete_flag!=9999")->save($proData);
             if($this->hasSaveHousetopOrGround($proData['project_id'], 51, $projectType)){
                 $condition['project_id'] = $proData['project_id'];
                 $condition['status'] = 51;
@@ -616,9 +617,9 @@ class ProjectService extends Model{
         }
         if($result > 0){
             $project = M("Project");
-            $data['status'] = 22;
+            $data['status'] = $status;
             $data['change_date'] = date("Y-m-d H:i:s",time());
-            $projectResult = $project->where("id='".$proData['project_id']."' and (status=21 or status=22)")->save($data);
+            $projectResult = $project->where("id='".$proData['project_id']."' and status!=51 and status!=61 and delete_flag!=9999")->save($data);
             return true;
         }else{
             return false;
@@ -820,26 +821,26 @@ class ProjectService extends Model{
         $housetopSql = "";
         $groundSql = "";
         if($companyType == null || $companyType == 'all'){
-            $housetopSql = "select p.id,p.project_code,p.project_type,p.build_state,p.provider_id,p.highlight_flag,p.create_date,h.id as h_id,h.project_id,h.project_area,h.project_address,h.status,u.id as u_id,u.email,u.user_type,u.company_name from enf_project p join enf_housetop h on p.id=h.project_id join enf_user u on p.provider_id=u.id where h.delete_flag!=9999 and h.status!=51 and h.status!=61";
-            $groundSql = "select p.id,p.project_code,p.project_type,p.build_state,p.provider_id,p.highlight_flag,p.create_date,g.id as g_id,g.project_id,g.project_area,g.project_address,g.status,u.id as u_id,u.email,u.user_type,u.company_name from enf_project p join enf_ground g on p.id=g.project_id join enf_user u on p.provider_id=u.id where g.delete_flag!=9999 and g.status!=51 and g.status!=61";
+            $housetopSql = "select p.id,p.project_code,p.project_type,p.build_state,p.provider_id,p.highlight_flag,p.create_date,h.id as h_id,h.project_id,h.project_area,h.project_address,h.status,u.id as u_id,u.email,u.user_type,u.company_name from enf_project p join enf_housetop h on p.id=h.project_id join enf_user u on p.provider_id=u.id where h.delete_flag!=9999 and h.status!=51 and h.status!=61 and h.status!=11";
+            $groundSql = "select p.id,p.project_code,p.project_type,p.build_state,p.provider_id,p.highlight_flag,p.create_date,g.id as g_id,g.project_id,g.project_area,g.project_address,g.status,u.id as u_id,u.email,u.user_type,u.company_name from enf_project p join enf_ground g on p.id=g.project_id join enf_user u on p.provider_id=u.id where g.delete_flag!=9999 and g.status!=51 and g.status!=61 and g.status!=11";
         }else{
             if($companyType == "1"){//屋顶分布式－未建
-                $housetopSql = "select p.id,p.project_code,p.project_type,p.build_state,p.provider_id,p.highlight_flag,p.create_date,h.id as h_id,h.project_id,h.project_area,h.project_address,h.status,u.id as u_id,u.email,u.user_type,u.company_name from enf_project p join enf_housetop h on p.id=h.project_id join enf_user u on p.provider_id=u.id where h.delete_flag!=9999 and h.status!=51 and h.status!=61 and p.project_type=1";
+                $housetopSql = "select p.id,p.project_code,p.project_type,p.build_state,p.provider_id,p.highlight_flag,p.create_date,h.id as h_id,h.project_id,h.project_area,h.project_address,h.status,u.id as u_id,u.email,u.user_type,u.company_name from enf_project p join enf_housetop h on p.id=h.project_id join enf_user u on p.provider_id=u.id where h.delete_flag!=9999 and h.status!=51 and h.status!=61 and h.status!=11 and p.project_type=1";
                 $housetopSql = $housetopSql." and p.build_state=1";
             }elseif($companyType == "2"){//地面分布式－未建
-                $groundSql = "select p.id,p.project_code,p.project_type,p.build_state,p.provider_id,p.highlight_flag,p.create_date,g.id as g_id,g.project_id,g.project_area,g.project_address,g.status,u.id as u_id,u.email,u.user_type,u.company_name from enf_project p join enf_ground g on p.id=g.project_id join enf_user u on p.provider_id=u.id where g.delete_flag!=9999 and g.status!=51 and g.status!=61 and p.project_type=2";
+                $groundSql = "select p.id,p.project_code,p.project_type,p.build_state,p.provider_id,p.highlight_flag,p.create_date,g.id as g_id,g.project_id,g.project_area,g.project_address,g.status,u.id as u_id,u.email,u.user_type,u.company_name from enf_project p join enf_ground g on p.id=g.project_id join enf_user u on p.provider_id=u.id where g.delete_flag!=9999 and g.status!=51 and g.status!=61 and g.status!=11 and p.project_type=2";
                 $groundSql = $groundSql." and p.build_state=1";
             }elseif($companyType == "3"){//大型地面－未建
-                $groundSql = "select p.id,p.project_code,p.project_type,p.build_state,p.provider_id,p.highlight_flag,p.create_date,g.id as g_id,g.project_id,g.project_area,g.project_address,g.status,u.id as u_id,u.email,u.user_type,u.company_name from enf_project p join enf_ground g on p.id=g.project_id join enf_user u on p.provider_id=u.id where g.delete_flag!=9999 and g.status!=51 and g.status!=61 and p.project_type=3";
+                $groundSql = "select p.id,p.project_code,p.project_type,p.build_state,p.provider_id,p.highlight_flag,p.create_date,g.id as g_id,g.project_id,g.project_area,g.project_address,g.status,u.id as u_id,u.email,u.user_type,u.company_name from enf_project p join enf_ground g on p.id=g.project_id join enf_user u on p.provider_id=u.id where g.delete_flag!=9999 and g.status!=51 and g.status!=61 and g.status!=11 and p.project_type=3";
                 $groundSql = $groundSql." and p.build_state=1";
             }elseif($companyType == "4"){//屋顶分布式－已建
-                $housetopSql = "select p.id,p.project_code,p.project_type,p.build_state,p.provider_id,p.highlight_flag,p.create_date,h.id as h_id,h.project_id,h.project_area,h.project_address,h.status,u.id as u_id,u.email,u.user_type,u.company_name from enf_project p join enf_housetop h on p.id=h.project_id join enf_user u on p.provider_id=u.id where h.delete_flag!=9999 and h.status!=51 and h.status!=61 and p.project_type=1";
+                $housetopSql = "select p.id,p.project_code,p.project_type,p.build_state,p.provider_id,p.highlight_flag,p.create_date,h.id as h_id,h.project_id,h.project_area,h.project_address,h.status,u.id as u_id,u.email,u.user_type,u.company_name from enf_project p join enf_housetop h on p.id=h.project_id join enf_user u on p.provider_id=u.id where h.delete_flag!=9999 and h.status!=51 and h.status!=61 and h.status!=11 and p.project_type=1";
                 $housetopSql = $housetopSql." and p.build_state=2";
             }elseif($companyType == "5"){//地面分布式－已建
-                $groundSql = "select p.id,p.project_code,p.project_type,p.build_state,p.provider_id,p.highlight_flag,p.create_date,g.id as g_id,g.project_id,g.project_area,g.project_address,g.status,u.id as u_id,u.email,u.user_type,u.company_name from enf_project p join enf_ground g on p.id=g.project_id join enf_user u on p.provider_id=u.id where g.delete_flag!=9999 and g.status!=51 and g.status!=61 and p.project_type=2";
+                $groundSql = "select p.id,p.project_code,p.project_type,p.build_state,p.provider_id,p.highlight_flag,p.create_date,g.id as g_id,g.project_id,g.project_area,g.project_address,g.status,u.id as u_id,u.email,u.user_type,u.company_name from enf_project p join enf_ground g on p.id=g.project_id join enf_user u on p.provider_id=u.id where g.delete_flag!=9999 and g.status!=51 and g.status!=61 and g.status!=11 and p.project_type=2";
                 $groundSql = $groundSql." and p.build_state=2";
             }elseif($companyType == "6"){//大型地面－已建
-                $groundSql = "select p.id,p.project_code,p.project_type,p.build_state,p.provider_id,p.highlight_flag,p.create_date,g.id as g_id,g.project_id,g.project_area,g.project_address,g.status,u.id as u_id,u.email,u.user_type,u.company_name from enf_project p join enf_ground g on p.id=g.project_id join enf_user u on p.provider_id=u.id where g.delete_flag!=9999 and g.status!=51 and g.status!=61 and p.project_type=3";
+                $groundSql = "select p.id,p.project_code,p.project_type,p.build_state,p.provider_id,p.highlight_flag,p.create_date,g.id as g_id,g.project_id,g.project_area,g.project_address,g.status,u.id as u_id,u.email,u.user_type,u.company_name from enf_project p join enf_ground g on p.id=g.project_id join enf_user u on p.provider_id=u.id where g.delete_flag!=9999 and g.status!=51 and g.status!=61 and g.status!=11 and p.project_type=3";
                 $groundSql = $groundSql." and p.build_state=2";
             }else{
                 echo '{"code":"-1","msg":"project type error!"}';
@@ -953,7 +954,7 @@ class ProjectService extends Model{
 
     /**
     **@auth qianqiang
-    **@breif 修改项目状态，如果存在保存的状态删掉
+    **@breif 修改项目状态，如果存在保存的状态删掉，如果有尽职调查删掉
     **@param projectCode 项目编码
     **@param oldStatus 需要修改项目的当前状态
     **@param newStatus 需要改后的项目状态
@@ -1004,17 +1005,18 @@ class ProjectService extends Model{
         $tcondition['status'] = array('neq', $newStatus);
         $tdata['delete_flag'] = 9999;
         $projectObj->where($tcondition)->save($tdata);
+        //如果新状态为11或12的，并且存在尽职调查，删除尽职调查
         return true;
     }
 
     /**
     **@auth qianqiang
-    **@breif 获取所有项目
+    **@breif 获取所有项目,包括已删除的
     **@date 2016.1.15
     **/
     public function getAllProject(){
         $project = M('Project');
-        $projects = $project->where("delete_flag!=9999")->select();
+        $projects = $project->select();
         return $projects;
     }
 
