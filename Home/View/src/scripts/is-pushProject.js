@@ -26,16 +26,24 @@ $(function() {
 	$("#push_selected").click(function()
 	{
 		var item_id="";
+		var arr = new Array(); 
+		var i=0;
 		$("[name='checkbox']:checked").each(function(){
 			item_id+=$(this).parent().parent().data("id")+",";
+			arr[i]=$(this).parent().parent().data("cn"); 
+			i++;
 		})
+		var str='';
+		for (var i=0;i<arr.length;i++)
+		{
+			str+='<p><span style="visibility:hidden">融资机构：</span><span>'+arr[i]+'</span></p>'
+		}
 		if(item_id != "")
 		{
 			$.confirm('<div id="u139" class="text">'+
 				'<p><span>项目编号：</span><span>******</span></p>'+
-				'<p><span>融资机构：</span></p>'+
-				'<p><span style="visibility:hidden">融资机构：</span><span>国银租赁</span></p>'+
-				'<p><span style="visibility:hidden">融资机构：</span><span>确认推送</span></p></div>').done(function()
+				'<p><span>融资机构：</span></p>'+str+
+				'<p><span style="visibility:hidden">融资机构：</span><span>确认推送？</span></p></div>').done(function()
 			{
 				$.ajax({
 				type: "post",
@@ -59,6 +67,7 @@ $(function() {
 
 	
 	$(".bd").on("click", "a", function(){
+		var str = $(this).parent().parent().data("cn"); 
 		if(!$(this).parent().parent().hasClass("div_grey"))
 		{
 			
@@ -66,8 +75,8 @@ $(function() {
 			$.confirm('<div id="u139" class="text">'+
 				'<p><span>项目编号：</span><span>******</span></p>'+
 				'<p><span>融资机构：</span></p>'+
-				'<p><span style="visibility:hidden">融资机构：</span><span>国银租赁</span></p>'+
-				'<p><span style="visibility:hidden">融资机构：</span><span>确认推送</span></p></div>').done(function()
+				'<p><span style="visibility:hidden">融资机构：</span><span>'+str+'</span></p>'+
+				'<p><span style="visibility:hidden">融资机构：</span><span>确认推送？</span></p></div>').done(function()
 			{
 				var item_id="";
 				item_id += sel_project.parent().parent().data("id")+",";
