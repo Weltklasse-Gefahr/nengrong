@@ -14,7 +14,8 @@ class ProjectInvestorMyProController extends Controller {
         authentication($_COOKIE['email'], 4);
 		$email = $_COOKIE['email'];
 		// $email = 'qianqiang@qq.com';
-        isDataComplete($email);
+        $loginFlag = $_GET['r'];//登录后调用标记
+        isDataComplete($email, $loginFlag);
         $page = $_GET['page'];
         if(empty($page)) $page=1;
         $pageSize = 6;

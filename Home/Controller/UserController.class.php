@@ -36,9 +36,9 @@ class UserController extends Controller
             if($users["user_type"] == 2){
                 echo '{"code":"0","msg":"登录成功！","url":"?c=InnerStaff&a=search"}';
             }else if($users["user_type"] == 3){
-                echo '{"code":"0","msg":"登录成功！","url":"?c=ProjectProviderMyPro&a=awaitingAssessment"}';
+                echo '{"code":"0","msg":"登录成功！","url":"?c=ProjectProviderMyPro&a=awaitingAssessment&r=1"}';
             }else if($users["user_type"] == 4){
-                echo '{"code":"0","msg":"登录成功！","url":"?c=ProjectInvestorMyPro&a=recommendedProject"}';
+                echo '{"code":"0","msg":"登录成功！","url":"?c=ProjectInvestorMyPro&a=recommendedProject&r=1"}';
             }
         }else {
             $email = $_COOKIE['email'];
@@ -51,11 +51,11 @@ class UserController extends Controller
                 $userObj = D('User','Service');
                 $users = $userObj->getUserINfoByEmail($email);
                 if($users[0]["user_type"] == 2){
-                    echo '{"code":"0","msg":"用户已登录","url":"?c=InnerStaff&a=search"}';
+                    echo "<script type='text/javascript'>location.href='?c=InnerStaff&a=search'</script>";
                 }else if($users[0]["user_type"] == 3){
-                    echo '{"code":"0","msg":"用户已登录","url":"?c=ProjectProviderMyPro&a=awaitingAssessment"}';
+                    echo "<script type='text/javascript'>location.href='?c=ProjectProviderMyPro&a=awaitingAssessment&r=1'</script>";
                 }else if($users[0]["user_type"] == 4){
-                    echo '{"code":"0","msg":"用户已登录","url":"?c=ProjectInvestorMyPro&a=recommendedProject"}';
+                    echo "<script type='text/javascript'>location.href='?c=ProjectInvestorMyPro&a=recommendedProject&r=1'</script>";
                 }
             }else{
                 $this->display("User:login");

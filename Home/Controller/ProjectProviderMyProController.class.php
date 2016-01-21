@@ -530,7 +530,8 @@ class ProjectProviderMyProController extends Controller {
         $email = $_COOKIE['email'];
         isLogin($email, $_COOKIE['mEmail']);
         authentication($_COOKIE['email'], 3);
-        isDataComplete($email, 1);
+        $loginFlag = $_GET['r'];//登录后调用标记
+        isDataComplete($email, $loginFlag);
         $optype = $_POST['optype'] ? $_POST['optype']:$_GET['optype'];
         $filter = $_POST['filter'] ? $_POST['filter']:$_GET['filter'];
         $page = $_GET['page'];
