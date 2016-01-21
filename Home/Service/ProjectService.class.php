@@ -1006,6 +1006,20 @@ class ProjectService extends Model{
         $tdata['delete_flag'] = 9999;
         $projectObj->where($tcondition)->save($tdata);
         //如果新状态为11或12的，并且存在尽职调查，删除尽职调查
+        $evaluationObj = M('Evaluation');
+        if($newStatus == 11 || $newStatus == 12){
+            $econdition['project_id'] = $projectInfo['id'];
+            $econdition['delete_flag'] = 0;
+            $evaluationInfo = $evaluationObj->where($econdition)->select();
+            if(!empty($evaluationInfo)){
+                $edata['delete_flag'] = 9999;
+                $res = $evaluationObj->where("project_id='".$projectInfo['id']."'")->save($edata);
+                if(!$res){
+                    echo '{"code":"-1","msg":"delete evaluation error"}';
+                    exit;
+                }
+            }
+        }
         return true;
     }
 
