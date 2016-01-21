@@ -61,5 +61,25 @@ class AdminService extends Model{
 		return $objManager[0];
 	}
 
+    /**
+    **@auth qianqiang
+    **@breif 真删除用户
+    **@date 2015.1.21
+    **/
+    public function deleteUserService($id){
+        $user = M('User');
+        $objUser = $user->where("id='".$id."' and delete_flag!=9999")->select();
+        if(sizeof($objUser) == 0){
+            echo '{"code":"-1","msg":"用户不存在!"}';
+            exit;
+        }
+
+        $res = $user->where("id='".$id."'")->delete();
+
+        if (!$res) {
+            echo '{"code":"-1","msg":"mysql error!"}';
+            exit;
+        }
+    }
 	
 }

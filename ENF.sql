@@ -230,7 +230,7 @@ alter table ENF_Housetop comment '屋顶分布项目表';
 create table ENF_Project
 (
    id                   bigint not null auto_increment,
-   project_code         varchar(30) not null unique comment '项目编号',
+   project_code         varchar(30) not null comment '项目编号',
    project_type         int comment '项目类型：1屋顶分布式、2地面分布式、3大型地面',
    build_state          int comment '建设状态：1未建、2已建',
    provider_id			bigint comment '项目提供方id',
@@ -265,10 +265,10 @@ alter table ENF_PushProject comment '推送到投资方的项目表';
 create table ENF_User
 (
    id                   bigint not null auto_increment,
-   email                varchar(100) not null unique comment '注册邮箱',
+   email                varchar(100) not null comment '注册邮箱',
    password             varchar(100) not null comment '密码',
    user_type            int not null comment '用户类型：1管理员、2业务员、3项目提供方、4投资人',
-   code					varchar(100) unique comment '业务员编码',
+   code					varchar(100) comment '业务员编码',
    name					varchar(20) comment '业务员姓名',
    company_name         varchar(100) comment '企业名称',
    company_type         int comment '企业注册资本/类型：1央企国企、2中外合资、3外商独资、4大型民营、5小型民营',
