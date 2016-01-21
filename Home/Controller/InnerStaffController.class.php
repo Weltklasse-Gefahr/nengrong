@@ -158,13 +158,6 @@ class InnerStaffController extends Controller {
         {
             $rtype = $_POST['rtype'] ? $_POST['rtype']:$_GET['rtype'];
         }
-        if($projectCode == null)
-        {
-            $projectCode = $_POST['no'] ? $_POST['no']:$_GET['no'];
-            $mProjectCode = $_POST['token'] ? $_POST['token']:$_GET['token'];
-            isProjectCodeRight($projectCode, $mProjectCode);
-            // $projectCode = 'qwertyuio';
-        }
         if($optype == "upload" && $rtype == 1){
             $docFile = array(
                 "attachment",
@@ -177,6 +170,12 @@ class InnerStaffController extends Controller {
                 echo '{"code":"-1","msg":"上传失败！"}';
             }
         }elseif($optype == "save" && $rtype == 1){
+            if($projectCode == null){
+                $projectCode = $_POST['no'] ? $_POST['no']:$_GET['no'];
+                $mProjectCode = $_POST['token'] ? $_POST['token']:$_GET['token'];
+                isProjectCodeRight($projectCode, $mProjectCode);
+            }
+
     		$objProject = D("Project", "Service");
     		$objProjectInfo = $objProject->getProjectInfo($projectCode);
     		$projectId = $objProjectInfo['id'];
@@ -226,7 +225,7 @@ class InnerStaffController extends Controller {
             $evaData['project_invest_situation'] = $_POST['project_invest_situation'];
             $evaData['project_earnings_situation'] = $_POST['project_earnings_situation'];
             $evaData['doc_mul'] = implode(",", $_POST['doc_mul']);
-// dump($proData);exit;
+
             $res = $objProject->saveHousetopOrGround($proData, 51, $objProjectInfo['project_type']);
             if($res == true){
             	$objEvaluation = D("Evaluation", "Service");
@@ -240,6 +239,12 @@ class InnerStaffController extends Controller {
             	echo '{"code":"-1","msg":"Housetop更新失败！"}';
             }
     	}elseif($optype == "submit" && $rtype == 1){
+            if($projectCode == null){
+                $projectCode = $_POST['no'] ? $_POST['no']:$_GET['no'];
+                $mProjectCode = $_POST['token'] ? $_POST['token']:$_GET['token'];
+                isProjectCodeRight($projectCode, $mProjectCode);
+            }
+
     		$objProject  = D("Project", "Service");
     		$objProjectInfo = $objProject->getProjectInfo($projectCode);
     		$projectId = $objProjectInfo['id'];
@@ -309,12 +314,16 @@ class InnerStaffController extends Controller {
             	echo '{"code":"-1","msg":"Housetop更新失败！"}';
             }
     	}elseif($rtype != 1){
+            if($projectCode == null){
+                $projectCode = $_POST['no'] ? $_POST['no']:$_GET['no'];
+                $mProjectCode = $_POST['token'] ? $_POST['token']:$_GET['token'];
+                isProjectCodeRight($projectCode, $mProjectCode);
+            }
+
     		$objProject  = D("Project", "Service");
     		$objProjectInfo = $objProject->getProjectInfo($projectCode);
-            //echo json_encode($objProjectInfo);exit;
     		$projectId = $objProjectInfo['id'];
     		$projectDetail = $objProject->getProjectInEvaluation($projectId, $objProjectInfo['project_type']);
-            //echo json_encode($projectDetail);exit;
             $projectDetail['state_type'] = $objProject->getTypeAndStateStr($objProjectInfo['project_type'], $objProjectInfo['build_state']);
             
             $area = D("Area", "Service");
