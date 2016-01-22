@@ -1073,7 +1073,8 @@ class ProjectService extends Model{
 
     /**
     **@auth qianqiang
-    **@breif 假删除项目，删除project、housetop、ground、evaluation、component、inverter
+    **@breif 假删除项目，删除project、housetop、ground、evaluation、component、inverter、pushProject
+    **@param id:项目id
     **@date 2016.1.15
     **/
     public function deleteProjectService($id){
@@ -1139,13 +1140,23 @@ class ProjectService extends Model{
                 exit;
             }
         }
+        $pushProjectObj = M('Pushproject');
+        $pushProjectInfo = $pushProjectObj->where("project_code='".$objProject['project_code']."'")->select();
+        if(!empty($pushProjectInfo)){
+            $res = $pushProjectObj->where("project_code='".$objProject['project_code']."'")->save($data);
+            if(!$res){
+                echo '{"code":"-1","msg":"pushProject delete error!"}';
+                exit;
+            }
+        }
 
         return true;
     }
 
     /**
     **@auth qianqiang
-    **@breif 真删除项目，删除project、housetop、ground、evaluation、component、inverter
+    **@breif 真删除项目，删除project、housetop、ground、evaluation、component、inverter、pushProject
+    **@param id:项目id
     **@date 2016.1.16
     **/
     public function dropProjectService($id){
@@ -1209,13 +1220,23 @@ class ProjectService extends Model{
                 exit;
             }
         }
+        $pushProjectObj = M('Pushproject');
+        $pushProjectInfo = $pushProjectObj->where("project_code='".$objProject['project_code']."'")->select();
+        if(!empty($pushProjectInfo)){
+            $res = $pushProjectObj->where("project_code='".$objProject['project_code']."'")->delete();
+            if(!$res){
+                echo '{"code":"-1","msg":"pushProject drop error!"}';
+                exit;
+            }
+        }
 
         return true;
     }
 
     /**
     **@auth qianqiang
-    **@breif 还原项目，还原project、housetop、ground、evaluation、component、inverter
+    **@breif 还原项目，还原project、housetop、ground、evaluation、component、inverter、pushProject
+    **@param id:项目id
     **@date 2016.1.18
     **/
     public function recoveryProjectService($id){
@@ -1280,7 +1301,60 @@ class ProjectService extends Model{
                 exit;
             }
         }
+        $pushProjectObj = M('Pushproject');
+        $pushProjectInfo = $pushProjectObj->where("project_code='".$objProject['project_code']."'")->select();
+        if(!empty($pushProjectInfo)){
+            $res = $pushProjectObj->where("project_code='".$objProject['project_code']."'")->save($data);
+            if(!$res){
+                echo '{"code":"-1","msg":"pushProject recovery error!"}';
+                exit;
+            }
+        }
 
+        return true;
+    }
+
+    /**
+    **@auth qianqiang
+    **@breif 通过提供方id，删除该提供方所有提供的项目信息
+    **@param id:用户id
+    **@date 2016.1.22
+    **/
+    public function deleteProjectList($id){
+        $project = M('Project');
+        $projectList = $project->where("provider_id='".$id."' and delete_flag=9999")->select();
+        if(empty($projectList)){
+            return true;
+        }
+        $i = 0;
+        while($projectList[$i]){
+            $this->deleteProjectService($projectList[$i]['id']);
+            $i += 1;
+        }
+        return true;
+    }
+
+    /**
+    **@auth qianqiang
+    **@breif 通过投资方id，删除该投资方的项目推送信息
+    **@param id:用户id
+    **@date 2016.1.22
+    **/
+    public function deletePushProject($id){
+        $user = M('User');
+        $objUser = $user->where("id='".$id."' and delete_flag=9999")->find();
+        if(empty($objUser)){
+            echo '{"code":"-1","msg":"用户不存在操作"}';
+            exit;
+        }
+        $pushProjectObj = M('Pushproject');
+        $data['delete_flag'] = 9999;
+        $data['change_date'] = date("Y-m-d H:i:s",time());
+        $res = $pushProjectObj->where("investor_id='".$id."'")->save($data);
+        if(!$res){
+            echo '{"code":"-1","msg":"push project delete error!"}';
+            exit;
+        }
         return true;
     }
 

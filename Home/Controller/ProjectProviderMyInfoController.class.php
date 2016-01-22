@@ -83,6 +83,7 @@ class ProjectProviderMyInfoController extends Controller {
 	    	//数据的显示
 	        $objUser = D("User","Service");
             $condition["email"] = $email;
+            $condition["delete_flag"] = array('neq', 9999);
 	        $user = $objUser->getUserInfo($condition);
 	        if ($display=="json")
 	        {

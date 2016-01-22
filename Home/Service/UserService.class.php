@@ -96,16 +96,25 @@ class UserService extends Model{
 
 	/**
     **@auth qianqiang
-    **@breif 发送邮件
+    **@breif 发送邮件,$flag=0激活邮件,$flag=1忘记密码发邮件
     **@date 2015.12.16
     **/
-	public function sendEmail($email){
-        $key = $email.",".md5(addToken($email)).",".time();
-        $encryptKey = encrypt($key, getKey()); 
-        $url = "http://www.enetf.com/?c=User&a=activeUser&key=".urlencode($encryptKey);
-        $name = "能融网用户";
-        $subject = "验证您的电子邮箱地址";
-        $text = '欢迎使用能融网账号激活功能<br><br>请点击链接激活账号：<br><a target="_blank" href="'.$url.'">'.$url.'</a><br><br>（该链接在24小时内有效）<br>如果上面不是链接形式，请将地址复制到您的浏览器的地址栏再访问';
+	public function sendEmail($email, $flag){
+		if($flag == 0){
+			$key = $email.",".md5(addToken($email)).",".time();
+	        $encryptKey = encrypt($key, getKey()); 
+	        $url = "http://www.enetf.com/?c=User&a=activeUser&key=".urlencode($encryptKey);
+	        $name = "能融网用户";
+	        $subject = "验证您的电子邮箱地址";
+	        $text = '欢迎使用能融网账号激活功能<br><br>请点击链接激活账号：<br><a target="_blank" href="'.$url.'">'.$url.'</a><br><br>（该链接在24小时内有效）<br>如果上面不是链接形式，请将地址复制到您的浏览器的地址栏再访问';
+		}elseif($flag == 1){
+			$key = $email.",".md5(addToken($email)).",".time();
+	        $encryptKey = encrypt($key, getKey()); 
+	        $url = "http://www.enetf.com/?c=User&a=forgetPassword&key=".urlencode($encryptKey);
+	        $name = "能融网用户";
+	        $subject = "修改密码邮件";
+	        $text = '欢迎使用能融网修改密码功能<br><br>请点击链接修改密码：<br><a target="_blank" href="'.$url.'">'.$url.'</a><br><br>（该链接在24小时内有效）<br>如果上面不是链接形式，请将地址复制到您的浏览器的地址栏再访问';
+		}
         $res = think_send_mail($email, $name, $subject, $text, null);
         return $res;
 	}
@@ -173,7 +182,7 @@ class UserService extends Model{
 
 		$data['password'] = MD5($newPwd);
 		$data['change_date'] = date("Y-m-d H:i:s",time());
-		$result = $user->where("email='".$email."'")->save($data);
+		$result = $user->where("email='".$email."' and delete_flag!=9999")->save($data);
 
 		if ($result != 1) {
 			echo '{"code":"-1","msg":"mysql error!"}';
@@ -199,10 +208,9 @@ class UserService extends Model{
 		//$data['email'] = $email;
 		$data['password'] = MD5($newPwd);
 		$data['change_date'] = date("Y-m-d H:i:s",time());
-        $user->where("email='".$email."'")->save($data);
+        $res = $user->where("email='".$email."' and delete_flag!=9999")->save($data);
 
-        $objUser = $user->where("email='%s' and password='%s' and delete_flag!=9999", array($email, MD5($newPwd)))->select();
-		if (sizeof($objUser) != 1) {
+        if (!$res) {
 			echo '{"code":"-1","msg":"mysql error!"}';
 			exit;
 		}
@@ -267,7 +275,7 @@ class UserService extends Model{
 
 	/**
     **@auth qianqiang
-    **@breif 删除用户
+    **@breif 假删除用户，级联删除，项目提供方：提供的项目、推送的项目；项目投资方：推送的项目、投资的项目(需求未要求)
     **@date 2015.12.12
     **/
 	public function deleteUserService($id){
@@ -281,6 +289,13 @@ class UserService extends Model{
 		$data["delete_flag"] = 9999;
         $data['change_date'] = date("Y-m-d H:i:s",time());
         $user->where("id='".$id."'")->save($data);
+        if($objUser['user_type'] == 3){
+        	$projectObj = D('Project', 'Service');
+        	$projectObj->deleteProjectList($objUser['id']);
+        }elseif($objUser['user_type'] == 4){
+        	$projectObj = D('Project', 'Service');
+        	$projectObj->deletePushProject($objUser['id']);
+        }
 
         $objUser = $user->where("id='".$id."' and delete_flag!=9999")->select();
 		if (sizeof($objUser) != 0) {

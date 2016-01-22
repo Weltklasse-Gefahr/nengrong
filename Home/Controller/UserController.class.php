@@ -88,7 +88,7 @@ class UserController extends Controller
             }
             echo '{"code":"0","msg":"注册成功！","url":"?c=User&a=loginsus"}';
 
-            $res = $user->sendEmail($email);
+            $res = $user->sendEmail($email, 0);
             if($res == false){
                 header('Content-Type: text/html; charset=utf-8');
                 echo '{"code":"-1","msg":"send email error!"}';
@@ -111,53 +111,58 @@ class UserController extends Controller
         echo '{"code":"0","msg":"注销成功！"}';
     }
 
-    // //修改密码
-    // public function changePassword(){
-    //     if($_POST['rtype'] == 1 || $_GET['rtype'] == 1){
-    //         $email = $_POST['email'];
-    //         $mEmail = $_POST['mEmail'];
-    //         $pwd = $_POST['password'];
-    //         $newPwd = $_POST['newPassword'];
-    //         if ( empty($email) || empty($mEmail) || empty($pwd) || empty($newPwd) ) {
-    //             echo '{"code":"-1","msg":"邮箱或者新旧密码为空！"}';
-    //             exit;
-    //         }
-    //         if (!($mEmail == MD5($email."ENFENF"))) {
-    //             echo '{"code":"-1","msg":"登录信息错误"}';
-    //             exit;
-    //         }
-
-    //         $user = D('User','Service');
-    //         $objUser = $user->changePasswordService($email, $pwd, $newPwd);
-    //         if ($_GET['display'] == 'json') {
-    //             dump($objUser);
-    //             echo json_encode($objUser);
-    //             exit;
-    //         }
-    //         $this->display(index);            
-    //     }else{
-    //         $this->display();
-    //     }
-    // }
-
-    //忘记密码时重置密码
-    public function resetPassword(){
+    /**
+    **@auth qianqiang
+    **@breif 忘记密码
+    **@date 2015.1.22
+    **/
+    public function forgetPassword(){
+        if($_GET['r'] == 1){
+            $key = $_GET['key'];
+            $decryptKey = decrypt(urldecode($key), getKey());
+            $keyList = explode(",",$decryptKey);
+            if(!($keyList[1] == md5(addToken($keyList[0])))){
+                header('Content-Type: text/html; charset=utf-8');
+                echo '{"code":"-1","msg":"用户信息验证失败，不能重设密码!"}';
+                exit;
+            }
+            $zero1 = strtotime(date("Y-m-d H:i:s",time())); //当前时间
+            $zero2 = strtotime(date("Y-m-d H:i:s",$keyList[2])); //注册时间
+            $zero0 = ceil(($zero1-$zero2)/3600);
+            if($zero0 > 24){ //有效期24小时
+                header('Content-Type: text/html; charset=utf-8');
+                echo '{"code":"-1","msg":"邮件已超时!"}';
+                exit;
+            }
+            $this->assign('email', $keyList[0]);
+            $this->display();
+            // echo '{"code":"0","msg":"信息验证成功"}';
+        }elseif($_GET['f'] == 1){
+            $email = $_POST['email'];
+            $password = $_POST['password'];
+            $user = D('User','Service');
+            $userInfo = $user->resetPasswordService($email, $password);
+            if(!empty($userInfo)){
+                echo '{"code":"0","msg":"重设密码成功"}';
+            }else{
+                echo '{"code":"-1","msg":"重设密码失败"}';
+            }
+        }
         if($_POST['rtype'] == 1 || $_GET['rtype'] == 1){
             $email = $_POST['email'];
-            $newPwd = $_POST['newPassword'];
-            if ( empty($email) || empty($newPwd) ) {
+            if ( empty($email) ) {
                 echo '{"code":"-1","msg":"邮箱或者新密码为空！"}';
                 exit;
             }
-
             $user = D('User','Service');
-            $objUser = $user->resetPasswordService($email, $newPwd);
-            if ($_GET['display'] == 'json') {
-                dump($objUser);
-                echo json_encode($objUser);
+            $res = $user->sendEmail($email, 1);
+            if($res == false){
+                header('Content-Type: text/html; charset=utf-8');
+                echo '{"code":"-1","msg":"send email error!"}';
                 exit;
             }
-            $this->display(index);        
+
+            echo '{"code":"0","msg":"邮件发送成功！"}';
         }else{
             $this->display();
         }
