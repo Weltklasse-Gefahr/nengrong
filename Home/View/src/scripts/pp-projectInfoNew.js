@@ -175,8 +175,10 @@ $(function() {
    			"project_address": "required",
    			"housetop_owner": "required",
    			"company_capital": "required",
+   			"housetop_property_prove": "required",
    			"electricity_total": "required",
    			"electricity_pay": "required",
+   			"electricity_pay_list": "required",
 
    			"housetop_type_other": {
    				"required": function() {
@@ -243,8 +245,10 @@ $(function() {
 			"project_address": "请填写详细地址",
 			"housetop_owner": "请填写屋顶业主名称",
 			"company_capital": "请填写注册资本金",
+			"housetop_property_prove": "请上传屋顶产权证明附件",
    			"electricity_total": "请填写年用电量",
    			"electricity_pay": "请填写电费",
+   			"electricity_pay_list": "请上传电费单(最近一年)附件",
 
    			"housetop_type_other": "请填写屋顶类型",
    			"housetop_area": "请填写屋顶面积",
