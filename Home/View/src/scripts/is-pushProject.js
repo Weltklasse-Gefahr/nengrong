@@ -1,7 +1,5 @@
 $(function() {
 
-	require("common/erqi/dialog");
-
 	$(".l-nav").find(".pushProject").addClass("active")
 		.children("a").attr("href", "javascript:;");
 	  

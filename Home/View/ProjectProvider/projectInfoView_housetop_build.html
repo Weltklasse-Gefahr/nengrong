@@ -40,13 +40,13 @@
 		
 		<!-- 右侧布局 -->
 		<div class="r-content <?php if($data['step']['state'] === "projectInfo") echo 'step1';
-								elseif($data['step']['state'] === "intent") echo 'step2';
-								elseif($data['step']['state'] === "dueDiligence") echo 'step3';
+								elseif($data['step']['state'] === "dueDiligence") echo 'step2';
+								elseif($data['step']['state'] === "intent") echo 'step3';
 								?>">
 			<div class="step clrfix">
 				<span class="s4"><i>4</i>签署正式融资合同</span>
-				<span class="s3"><i>3</i>尽职调查</span>
-				<span class="s2"><i>2</i>签署意向书</span>
+				<span class="s3"><i>3</i>签署意向书</span>
+				<span class="s2"><i>2</i>尽职调查</span>
 				<span class="s1"><i>1</i>项目信息填写</span>
 			</div>
 
@@ -635,32 +635,11 @@
 				</form>
 			</div>
 
-			<!-- 意向书 -->
-			<?php if($data['step']['state'] === "intent" && $data['step']['substate'] === "wait") { ?>
-			<div class="content content2 wait"><p><img class="icon" src="/EnergyFe/img/dialog/icon.png">能融网客服正在为您准备意向书，如有疑问，可联系客服 010-68943758</p></div>
-			<?php } elseif($data['step']['state'] === "intent" && $data['step']['substate'] === "submited") { ?>
-			<div class="content content2 submited">
-				<p class="title">项目绑定意向书</p>
-				<div>{$data['intent']['yixiangshu']}</div>
-				<div class="operator">
-					<input data-optype="agree" type="submit" value="同意" class="last" />
-				</div>
-			</div>
-			<?php } elseif(($data['step']['state'] === "intent" && $data['step']['substate'] === "signed") || $data['step']['state'] === "dueDiligence") { ?>
-			<div class="content content2 submited signed">
-				<p class="title">项目绑定意向书</p>
-				<div>{$data['intent']['yixiangshu']}</div>
-				<div class="operator">
-					<input type="submit" value="已签" class="last" />
-				</div>
-			</div>
-			<?php } ?>
-
 			<!-- 尽职调查 -->
 			<?php if($data['step']['state'] === "dueDiligence" && $data['step']['substate'] === "wait") { ?>
-			<div class="content content3 wait"><p><img class="icon" src="/EnergyFe/img/dialog/icon.png">能融网会及时安排尽职调查，之后您可在此查看尽调报告。</p></div>
-			<?php } elseif($data['step']['state'] === "dueDiligence" && $data['step']['substate'] === "submited") { ?>
-			<form class="content content3 submited dueDiligence">
+			<div class="content content2 wait"><p><img class="icon" src="/EnergyFe/img/dialog/icon.png">能融网会及时安排尽职调查，之后您可在此查看尽调报告。</p></div>
+			<?php } elseif(($data['step']['state'] === "dueDiligence" && $data['step']['substate'] === "submited") || $data['step']['state'] === "intent") { ?>
+			<form class="content content2 submited dueDiligence">
 				<div class="detail part1">
 					<p class="title">项目经济收益测算</p>
 					<div class="brief-info clrfix">
@@ -785,6 +764,27 @@
 					</div>
 				</div>
 			</form>
+			<?php } ?>
+
+			<!-- 意向书 -->
+			<?php if($data['step']['state'] === "intent" && $data['step']['substate'] === "wait") { ?>
+			<div class="content content3 wait"><p><img class="icon" src="/EnergyFe/img/dialog/icon.png">能融网客服正在为您准备意向书，如有疑问，可联系客服 010-68943758</p></div>
+			<?php } elseif($data['step']['state'] === "intent" && $data['step']['substate'] === "submited") { ?>
+			<div class="content content3 submited">
+				<p class="title">项目绑定意向书</p>
+				<div>{$data['intent']['yixiangshu']}</div>
+				<div class="operator">
+					<input data-optype="agree" type="submit" value="同意" class="last" />
+				</div>
+			</div>
+			<?php } elseif($data['step']['state'] === "intent" && $data['step']['substate'] === "signed") { ?>
+			<div class="content content3 submited signed">
+				<p class="title">项目绑定意向书</p>
+				<div>{$data['intent']['yixiangshu']}</div>
+				<div class="operator">
+					<input type="submit" value="已签" class="last" />
+				</div>
+			</div>
 			<?php } ?>
 		</div>
 	</div>

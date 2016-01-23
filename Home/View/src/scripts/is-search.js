@@ -21,7 +21,6 @@ $(function() {
 	});
 
 	// 更改项目状态
-	require("common/erqi/dialog");
 	$(".list .bd .c5 button").click(function(e) {
 		var data = $(this).parent().parent().data(),
 			oldStatus = data.status,

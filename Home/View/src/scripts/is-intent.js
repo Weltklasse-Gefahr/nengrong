@@ -13,9 +13,7 @@ $(function() {
         initialFrameWidth: 670,
         initialFrameHeight: 340
     });
-    window.ue = ue;
-
-    require("common/erqi/dialog");
+    
     var param = $.parseQueryParam();
     ue.ready(function() {
     	var $form = $("form");

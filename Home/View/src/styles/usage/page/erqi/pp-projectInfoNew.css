@@ -260,6 +260,6 @@
 	background: #F1920C;
 }
 
-.r-content .operator input[type="submit"].last {
+.r-content .operator input[type="submit"]:last-child {
 	margin-right: 0;
 }

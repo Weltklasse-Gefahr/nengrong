@@ -15,7 +15,6 @@ $(function() {
 	});
 	
 	// 签署意向书
-	require("common/erqi/dialog");
 	$('.content2 input[type="submit"]').click(function() {
 		if(!$(this).is('[data-optype="agree"]')) {
 			return false;

@@ -166,8 +166,6 @@ application/zip,application/x-zip-compressed',
 		return false;
 	});
 
-	require("common/erqi/dialog");
-
 	$form = $("#infoForm");
 	var param = $.parseQueryParam();
 	$form.attr("action", $form.attr("action")+"&no="+param.no+"&token="+param.token);

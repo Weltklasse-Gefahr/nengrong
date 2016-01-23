@@ -173,7 +173,6 @@ $(function() {
 			"city": "required",
 			"county": "required",
    			"project_address": "required",
-   			// "picture_full": "required",
    			"housetop_owner": "required"
    		},
    		messages: {
@@ -181,11 +180,12 @@ $(function() {
    			"city": "请选择市",
 			"county": "请选择区",
 			"project_address": "请填写详细地址",
-			// "picture_full": "",
 			"housetop_owner": "请填写屋顶业主名称"
    		},
    		errorClass: 'validate-error',
+   		focusInvalid: false,
    		errorPlacement: function(error, element) {
+   			element.focus();
    		},
    		submitHandler: function(form) {
    			$form.ajaxSubmit(options);
@@ -199,7 +199,10 @@ $(function() {
 	});
 
 	function beforeSubmit(formData, jqForm, options) {
+		var state = jqForm.attr("class").match(/(housetop_nonBuild|/)
+		if() {
 
+		}
 	   	return true;
 	}
 
@@ -223,23 +226,26 @@ $(function() {
 	$form.find("input[type=submit]").click(function() {
 		var optype = $(this).data("optype");
 		if(optype === "delete") {
-			$.ajax({
-				type: $form.attr("method"),
-				url: location.href,
-				data: {
-					optype: optype,
-					rtype: 1
-				},
-				dataType: "json"
-			}).done(function(data) {
-				if(data.code == "0") {
-					location.href = "?c=ProjectProviderMyPro&a=awaitingAssessment";
-				} else {
+			$.confirm("删除项目后将无法恢复，是否确认删除？").done(function() {
+				$.ajax({
+					type: $form.attr("method"),
+					url: location.href,
+					data: {
+						optype: optype,
+						rtype: 1
+					},
+					dataType: "json"
+				}).done(function(data) {
+					if(data.code == "0") {
+						location.href = "?c=ProjectProviderMyPro&a=awaitingAssessment";
+					} else {
+						alert("删除失败！");
+					}
+				}).fail(function() {
 					alert("删除失败！");
-				}
-			}).fail(function() {
-				alert("删除失败！");
+				});
 			});
+			
 			return false;
 		} else {
 			$form.find("[name=optype]").val(optype);
