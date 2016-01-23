@@ -193,11 +193,7 @@
 						<input name="company_capital" value="{$data['company_capital']}"><span class="gray">万</span>
 					</li>
 					<li>
-						<span class="lb not-empty">屋顶产权证明</span>   
-						<select data-with-file="true">
-							<option value="1" {$data['housetop_property_prove']['name']?'selected':''}>有</option>
-							<option value="2" {$data['housetop_property_prove']['name']?'':$data['project_code']?'selected':''} >无</option>
-						</select>
+						<span class="lb not-empty">屋顶产权证明</span>
 						<input type="file" accept="application/pdf,application/msword,application/vnd.ms-powerpoint,aplication/zip" name="housetop_property_prove" style="visibility: hidden;" data-url="{$data['housetop_property_prove']['url']}" data-name="{$data['housetop_property_prove']['name']}" data-id="{$data['housetop_property_prove']['id']}" />
 					</li>
 					<li>
