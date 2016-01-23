@@ -10,10 +10,12 @@ class DocService extends Model{
     **@date 2015.12.19
     **@return 插入成功返回id，失败返回false
     **/
-	public function insert($pictureName, $pictureUrl){
+	public function insert($pictureName, $pictureUrl, $pictureSize){
         $Doc = M("Doc"); 
         $data['file_name'] = $pictureName;
         $data['file_rename'] = $pictureUrl;
+        $data['file_size'] = $pictureSize;
+        //$data['file_size'] = $pictureSize/1024/1024;
         $data['update_date'] = date("Y-m-d H:i:s" ,time());
         $res = $Doc->add($data);
         //查询刚才插入的id
@@ -68,8 +70,9 @@ class DocService extends Model{
                     //文档的保持路径url，中文名，和上传时间，保存到ENF_Doc表中
                     $pictureUrl = "/userdata/file/".$res; 
                     $pictureName =  $_FILES[$val]["name"];
+                    $pictureSize =  $_FILES[$val]["size"];
                     $objUser = D("Doc","Service");
-                    $returnId = $objUser->insert($pictureName, $pictureUrl);
+                    $returnId = $objUser->insert($pictureName, $pictureUrl, $pictureSize);
                 }
                 else
                 {
@@ -78,8 +81,9 @@ class DocService extends Model{
                     //图片的保持路径url，中文名，和上传时间，保存到ENF_Doc表中
                     $pictureUrl = "/userdata/img/".$res; 
                     $pictureName =  $_FILES[$val]["name"];
+                    $pictureSize =  $_FILES[$val]["size"];
                     $objUser = D("Doc","Service");
-                    $returnId = $objUser->insert($pictureName, $pictureUrl);
+                    $returnId = $objUser->insert($pictureName, $pictureUrl, $pictureSize);
                 }
                 if($returnId == false)
                 {
@@ -130,8 +134,9 @@ class DocService extends Model{
                 //图片的保持路径url，中文名，和上传时间，保存到ENF_Doc表中
                 $pictureUrl = "/userdata/img/".$res; 
                 $pictureName =  $val["name"];
+                $pictureSize =  $val["size"];
                 $objUser = D("Doc","Service");
-                $returnId = $objUser->insert($pictureName, $pictureUrl);
+                $returnId = $objUser->insert($pictureName, $pictureUrl, $pictureSize);
                 if($returnId == false)
                 {
                     echo '{"code":"-1","msg":"更新失败！"}';
