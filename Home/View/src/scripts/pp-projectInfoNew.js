@@ -175,10 +175,10 @@ $(function() {
    			"project_address": "required",
    			"housetop_owner": "required",
    			"company_capital": "required",
-   			"housetop_property_prove": "required",
+   			// "housetop_property_prove": "required",
    			"electricity_total": "required",
    			"electricity_pay": "required",
-   			"electricity_pay_list": "required",
+   			// "electricity_pay_list": "required",
 
    			"housetop_type_other": {
    				"required": function() {
@@ -245,10 +245,10 @@ $(function() {
 			"project_address": "请填写详细地址",
 			"housetop_owner": "请填写屋顶业主名称",
 			"company_capital": "请填写注册资本金",
-			"housetop_property_prove": "请上传屋顶产权证明附件",
+			// "housetop_property_prove": "请上传屋顶产权证明附件",
    			"electricity_total": "请填写年用电量",
    			"electricity_pay": "请填写电费",
-   			"electricity_pay_list": "请上传电费单(最近一年)附件",
+   			// "electricity_pay_list": "请上传电费单(最近一年)附件",
 
    			"housetop_type_other": "请填写屋顶类型",
    			"housetop_area": "请填写屋顶面积",
@@ -324,6 +324,22 @@ $(function() {
 				if(!$picture_south.val() && !$picture_south_hiddenId.val()) {
 					alert("请上传屋顶正南向照片");
 					$picture_south.focus();
+					return false;
+				}
+
+				var $housetop_property_prove = $(".housetop_nonBuild_item [name=housetop_property_prove]"),
+					$housetop_property_prove_hiddenId = $(".housetop_nonBuild_item [name=housetop_property_prove_hiddenId]");
+				if(!$housetop_property_prove.val() && !$housetop_property_prove_hiddenId.val()) {
+					alert("请上传屋顶产权证明附件");
+					$housetop_property_prove.focus();
+					return false;
+				}
+
+				var $electricity_pay_list = $(".housetop_nonBuild_item [name=housetop_property_prove]"),
+					$electricity_pay_list_hiddenId = $(".housetop_nonBuild_item [name=electricity_pay_list_hiddenId]");
+				if(!$electricity_pay_list.val() && !$electricity_pay_list_hiddenId.val()) {
+					alert("请上传电费单(最近一年)附件");
+					$electricity_pay_list.focus();
 					return false;
 				}
 				break;
