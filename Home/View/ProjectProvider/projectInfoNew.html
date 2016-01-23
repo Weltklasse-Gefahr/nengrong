@@ -53,9 +53,7 @@
                <elseif condition="($data['project_type']  gt 1) AND ($data['build_state'] eq 1)"/>class="ground_nonBuild"
                <elseif condition="($data['project_type']  gt 1) AND ($data['build_state'] eq 2)"/>class="ground_build"
                <else />class="housetop_nonBuild"
-               </if> 
-			 action="?c=ProjectProviderMyPro&a=projectInfoEdit&rtype=1" method="post">
-				<input type="hidden" name="project_code" value="{$data['project_code']}"/>
+               </if> method="post">
 				<input type="hidden" name="optype" value="{$data['optype']}"/>
 				<ul class="detail part1">
 					<li class="clrfix">

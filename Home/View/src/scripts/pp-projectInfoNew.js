@@ -152,6 +152,9 @@ $(function() {
 
 	// 保存资料
 	var options = {
+		data: {
+			rtype: 1
+		},
 	   	// target: '#output',          //把服务器返回的内容放入id为output的元素中      
 	   	beforeSubmit: beforeSubmit, //提交前的回调函数  
 	   	success: successCallback,  	//提交后的回调函数
@@ -162,41 +165,50 @@ $(function() {
 	};
 	  
 	$form = $("#infoForm");
-	var ss= $form.validate({
-		// debug: true,
+	$form.validate({
+		debug: true,
 		ignore: ':hidden, [data-with-file="true"]',
 		rules: {
-   			project_address: "required"
+			"province": "required",
+			"city": "required",
+			"county": "required",
+   			"project_address": "required",
+   			// "picture_full": "required",
+   			"housetop_owner": "required"
+   		},
+   		messages: {
+   			"province": "请选择省份",
+   			"city": "请选择市",
+			"county": "请选择区",
+			"project_address": "请填写详细地址",
+			// "picture_full": "",
+			"housetop_owner": "请填写屋顶业主名称"
+   		},
+   		errorClass: 'validate-error',
+   		errorPlacement: function(error, element) {
    		},
    		submitHandler: function(form) {
-   			$(form).ajaxForm(options);
+   			$form.ajaxSubmit(options);
    		},
-   		invalidHandler: function() {
-   			alert(1);
+   		invalidHandler: function(event, validator) {
+   			try{
+   				alert(validator.errorList[0].message);
+   			} catch(ex) {
+   			}
    		}
 	});
-	console.dir(ss);
 
 	function beforeSubmit(formData, jqForm, options) {
-
-		if($("#submit").hasClass("disabled")) {
-			return false;
-		}
-
-	   	$("#submit").addClass("disabled");
-
-
 
 	   	return true;
 	}
 
 	function successCallback(data) {
 		if(data.code == "0") {
-			$("#submit").removeClass("disabled");
 
 			var optype = $form.find("[name=optype]").val();
 			if(optype === "save") {
-				location.href = "?c=ProjectProviderMyPro&a=projectInfoEdit&project_code=" + data.id;
+				location.href = "?c=ProjectProviderMyPro&a=projectInfoEdit&no=" + data.id + "&token=" + data.idm;
 			} else {
 				location.href = "?c=ProjectProviderMyPro&a=awaitingAssessment";
 			}
@@ -213,10 +225,10 @@ $(function() {
 		if(optype === "delete") {
 			$.ajax({
 				type: $form.attr("method"),
-				url: $form.attr("action"),
+				url: location.href,
 				data: {
 					optype: optype,
-					project_code: $form.find("[name=project_code]").val()
+					rtype: 1
 				},
 				dataType: "json"
 			}).done(function(data) {

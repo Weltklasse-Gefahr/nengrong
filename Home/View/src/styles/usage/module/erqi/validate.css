@@ -1,0 +1,7 @@
+.validate-error {
+	border: 1px solid red;
+}
+
+.validate-error:active, .validate-error:focus {
+	outline: 0;
+}
