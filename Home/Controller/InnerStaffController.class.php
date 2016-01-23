@@ -498,7 +498,7 @@ class InnerStaffController extends Controller {
         }elseif($rtype != 1){
             $project = D("Project", "Service");
             $projectInfo = $project->getIntent($projectCode);
-            // dump($projectInfo);exit;
+            //dump($projectInfo);exit;
             if($_GET['display']=="json"){
                 header('Content-Type: text/html; charset=utf-8');
                 dump($projectInfo);

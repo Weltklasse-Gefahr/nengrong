@@ -43,14 +43,15 @@ class ProjectService extends Model{
         if($projectType == 1){
             $housetop = M("Housetop");
             $condition['project_id'] = $projectId;
-            $condition['status'] = $status;
+            $condition['status'] = array("in","$status");
+            //echo json_encode($condition['status']);exit;
             $condition["delete_flag"] = array('neq',9999);
             $housetopInfo = $housetop->where($condition)->select();
             return $housetopInfo[0];
         }elseif($projectType == 2 || $projectType == 3){
             $ground = M("Ground");
             $condition['project_id'] = $projectId;
-            $condition['status'] = $status;
+            $condition['status'] = array("in","$status");
             $condition["delete_flag"] = array('neq',9999);
             $groundInfo = $ground->where($condition)->select();
             return $groundInfo[0];
@@ -132,11 +133,11 @@ class ProjectService extends Model{
             $condition['provider_id'] = $userInfo['id'];
         }
         if($filter == "committed"){
-            $condition['status'] = array('between','12,13');
+            $condition['status'] = array('in','12,13,22');
         }elseif($filter == "uncommitted"){
             $condition['status'] = 11;
         }else{
-            $condition['status'] = array('between','11,13');
+            $condition['status'] = array('in','11,12,13,22');
         }
         $condition["delete_flag"] = array('neq',9999);
         $projectInfo = $this->getProjectsInfo($condition, $page, 6);
@@ -430,13 +431,13 @@ class ProjectService extends Model{
             echo '{"code":"-1","msg":"status error, cannot submit intent"}';
             exit;
         }
-        $projectDetails = $this->getProjectDetails($projectInfo['id'], 12, $projectInfo['project_type']);//12项目已提交（客服未提交意向书）
+        $projectDetails = $this->getProjectDetails($projectInfo['id'], "12,22", $projectInfo['project_type']);//12项目已提交（客服未提交意向书）
         $projectDetails['project_intent'] = $intentText;
         $projectDetails['status'] = 13;
         $projectDetails['change_date'] = date("Y-m-d H:i:s",time());
         if($projectInfo['project_type'] == 1){
             $housetop = M('Housetop');
-            $housetopResult = $housetop->where("project_id='".$projectDetails['project_id']."' and status=12")->save($projectDetails);
+            $housetopResult = $housetop->where("project_id='".$projectDetails['project_id']."' and (status=12 or status=22)")->save($projectDetails);
             if($housetopResult == 0) return false;
             if($this->hasSaveHousetopOrGround($projectInfo['id'], 61, $projectInfo['project_type'])){
                 $condition['project_id'] = $projectDetails['project_id'];
@@ -445,7 +446,7 @@ class ProjectService extends Model{
             }
         }elseif($projectInfo['project_type'] == 2 || $projectInfo['project_type'] == 3){
             $ground = M('Ground');
-            $groundResult = $ground->where("project_id='".$projectDetails['project_id']."' and status=12")->save($projectDetails);
+            $groundResult = $ground->where("project_id='".$projectDetails['project_id']."' and (status=12 or status=22)")->save($projectDetails);
             if($groundResult == 0) return false;
             if($this->hasSaveHousetopOrGround($projectInfo['id'], 61, $projectInfo['project_type'])){
                 $condition['project_id'] = $projectDetails['project_id'];
@@ -729,10 +730,10 @@ class ProjectService extends Model{
         $condition["delete_flag"] = array('neq',9999);
         if($projectType == 1){
             $housetop = M('Housetop');
-            $res = $housetop->where($condition)->where('status=61 or status=12')->find();
+            $res = $housetop->where($condition)->where('status=61 or status=12 or status=22')->find();
         }elseif($projectType == 2 || $projectType == 3){
             $ground = M('Ground');
-            $res = $ground->where($condition)->where('status=61 or status=12')->find();
+            $res = $ground->where($condition)->where('status=61 or status=12 or status=22')->find();
         }
         if(empty($res))
             return false;

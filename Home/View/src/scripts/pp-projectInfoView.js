@@ -15,7 +15,7 @@ $(function() {
 	});
 	
 	// 签署意向书
-	$('.content2 input[type="submit"]').click(function() {
+	$('.content3 input[type="submit"]').click(function() {
 		if(!$(this).is('[data-optype="agree"]')) {
 			return false;
 		}

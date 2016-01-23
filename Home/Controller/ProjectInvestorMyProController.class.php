@@ -106,13 +106,13 @@ class ProjectInvestorMyProController extends Controller {
         }
         elseif($status == 13)  //13已提交意向书（已提交）
         {
-            $strStatus = "intent";
+            $strStatus = "dueDiligence";
             $substate  = "submited";
         }
         else   //21已签意向书
         {
-            $strStatus = "intent";
-            $substate  = "signed";
+            $strStatus = "dueDiligence";
+            $substate  = "submited";
         }
 
 
