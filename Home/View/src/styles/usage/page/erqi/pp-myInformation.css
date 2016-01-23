@@ -4,7 +4,7 @@
 	padding-left: 10px;
 }
 
-.r-content form .required:after {
+.r-content form .not-empty:after {
 	content: "*";
 	color: red;
 	font-size: 12px;

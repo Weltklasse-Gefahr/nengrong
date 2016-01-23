@@ -161,6 +161,22 @@ $(function() {
 	   	timeout: 6000               //限制请求的时间，当请求大于3秒后，跳出请求
 	};
 	  
+	$form = $("#infoForm");
+	var ss= $form.validate({
+		// debug: true,
+		ignore: ':hidden, [data-with-file="true"]',
+		rules: {
+   			project_address: "required"
+   		},
+   		submitHandler: function(form) {
+   			$(form).ajaxForm(options);
+   		},
+   		invalidHandler: function() {
+   			alert(1);
+   		}
+	});
+	console.dir(ss);
+
 	function beforeSubmit(formData, jqForm, options) {
 
 		if($("#submit").hasClass("disabled")) {
@@ -168,6 +184,8 @@ $(function() {
 		}
 
 	   	$("#submit").addClass("disabled");
+
+
 
 	   	return true;
 	}
@@ -190,7 +208,6 @@ $(function() {
 		}
 	}
 
-	$form = $("#infoForm");
 	$form.find("input[type=submit]").click(function() {
 		var optype = $(this).data("optype");
 		if(optype === "delete") {
@@ -222,6 +239,6 @@ $(function() {
 		}
 	});
 
-	$form.ajaxForm(options);
+	// $form.ajaxForm(options);
 
 });

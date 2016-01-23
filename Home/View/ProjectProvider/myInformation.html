@@ -46,8 +46,8 @@
 				<div class="detail part1 clrfix">
 					<ul>
 						<li><span class="lb">E-mail</span>{$data['email']}</li>
-						<li><span class="lb required">联系人</span><input name="company_contacts" value="{$data['company_contacts']}"/></li>
-						<li><span class="lb required">联系人手机</span><input name="company_contacts_phone" value="{$data['company_contacts_phone']}"/></li>
+						<li><span class="lb not-empty">联系人</span><input name="company_contacts" value="{$data['company_contacts']}"/></li>
+						<li><span class="lb not-empty">联系人手机</span><input name="company_contacts_phone" value="{$data['company_contacts_phone']}"/></li>
 						<li class="area"><span class="lb">所在地区</span>
 							<select name="province" class="first" data-code="{$data['province']}">
 								<option value="">选择省</option>
@@ -63,7 +63,7 @@
 						<li><span class="lb">企业注册资本</span><input name="company_capital" value="{$data['company_capital']}"/>&nbsp;万</li>
 					</ul>
 					<ul>
-						<li><span class="lb">企业名称</span><input name="company_name" value="{$data['company_name']}"/></li>
+						<li><span class="lb not-empty">企业名称</span><input name="company_name" value="{$data['company_name']}"/></li>
 						<li><span class="lb">企业类型</span>
 							<select name="company_type">
 								<option value="1" {$data['company_type'] == 1?'selected':''}>央企国企</option>
