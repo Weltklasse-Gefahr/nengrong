@@ -29,12 +29,14 @@ class ProjectProviderMyProController extends Controller {
     **@breif 项目提供方->项目信息编辑入口
     **@date 2015.12.05
     **/
-	public function projectInfoEdit($projectCode=null, $rtype=null, $getJsonFlag=null)
+	public function projectInfoEdit($projectCode=null, $rtype=null, $getJsonFlag=null, $innerToken=null)
     {
         //echo $getJsonFlag;exit;
         //判断登陆，并且获取用户名的email
+       
         isLogin($_COOKIE['email'],$_COOKIE['mEmail']);
-        authentication($_COOKIE['email'], 3);
+        //echo $innerToken.'dd';exit;
+        authentication($_COOKIE['email'], 3,$innerToken);
 
     	//操作类型为1是插入和保存数据
     	$optype = $_POST['optype'] ? $_POST['optype']:$_GET['optype'];
@@ -234,6 +236,7 @@ class ProjectProviderMyProController extends Controller {
                     $arrInfor['financing_type'] = $_POST['financing_type']; //融资方式
                     $arrInfor['history_data'] = $_POST['history_data']; //历史发电量数据/辐照数据
                     $arrInfor['electricity_bill'] = $_POST['electricity_bill']; //电费结算票据
+                    $arrInfor['electricity_data'] = $_POST['electricity_data']; //历史发电量数据
 
 
 
@@ -330,6 +333,7 @@ class ProjectProviderMyProController extends Controller {
                     $arrInfor['financing_type'] = $_POST['financing_type']; //融资方式
                     $arrInfor['history_data'] = $_POST['history_data']; //历史发电量数据/辐照数据
                     $arrInfor['electricity_bill'] = $_POST['electricity_bill']; //电费结算票据
+                    $arrInfor['electricity_data'] = $_POST['electricity_data']; //历史发电量数据
                 }
 
             }
@@ -693,7 +697,8 @@ class ProjectProviderMyProController extends Controller {
         //echo json_encode($projectInfoForIntent);exit;
         //获取强哥的尽职调查信息
         $obj   = new InnerStaffController();
-        list($picture,$docListInfo,$projectDetail,$areaArray,$evaluationInfo) = $obj->dueDiligence($projectCode, null, $getJsonFlag);
+        $innerToken = "InternalCall";
+        list($picture,$docListInfo,$projectDetail,$areaArray,$evaluationInfo) = $obj->dueDiligence($projectCode, null, $getJsonFlag,$innerToken);
 
         //先判断一下当前进度的状态
         //12项目已提交（客服未提交意向书）、

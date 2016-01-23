@@ -316,10 +316,14 @@ function isDataComplete($email, $flag=0){
 **@breif 鉴权用户身份，身份错误提示后跳转
 **@param $email 用户邮箱
 **@param $userType 用户类型
+**@param $innerToken 内部调用就不用判断了
 **@date 2016.1.19
 **/
-function authentication($email, $userType){
-    return true;
+function authentication($email, $userType, $innerToken=null){//return true;
+    if($innerToken == "InternalCall")
+    {
+        return true;
+    }
     $user = M("User");
     $objUser = $user->where("email='".$email."' and delete_flag!=9999")->find();
     // dump($userType);
