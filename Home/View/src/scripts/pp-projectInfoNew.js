@@ -335,7 +335,7 @@ $(function() {
 					return false;
 				}
 
-				var $electricity_pay_list = $(".housetop_nonBuild_item [name=housetop_property_prove]"),
+				var $electricity_pay_list = $(".housetop_nonBuild_item [name=electricity_pay_list]"),
 					$electricity_pay_list_hiddenId = $(".housetop_nonBuild_item [name=electricity_pay_list_hiddenId]");
 				if(!$electricity_pay_list.val() && !$electricity_pay_list_hiddenId.val()) {
 					alert("请上传电费单(最近一年)附件");
