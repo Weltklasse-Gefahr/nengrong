@@ -140,7 +140,7 @@ class ProjectService extends Model{
         }
         $condition["delete_flag"] = array('neq',9999);
         $projectInfo = $this->getProjectsInfo($condition, $page, 6);
-        //echo json_encode($condition);exit;
+        //echo json_encode($projectInfo);exit;
         $projectList = $this->formatProject($projectInfo);
         return $projectList; 
     }
@@ -617,7 +617,7 @@ class ProjectService extends Model{
             $result = $housetop->where("project_id='".$proData['project_id']."' and status!=51 and status!=61 and delete_flag!=9999")->save($proData);
             if($this->hasSaveHousetopOrGround($proData['project_id'], 51, $projectType)){
                 $condition['project_id'] = $proData['project_id'];
-                $condition['status'] = 51;
+                $condition['status'] = 51;//echo jj;exit;
                 $housetop->where($condition)->delete();
             }
         }elseif($projectType == 2 || $projectType == 3){
@@ -630,7 +630,7 @@ class ProjectService extends Model{
                 $condition['status'] = 51;
                 $ground->where($condition)->delete();
             }
-        }
+        }//echo qq;exit;
         if($result > 0){
             $project = M("Project");
             $data['status'] = $status;

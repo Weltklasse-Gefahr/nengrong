@@ -150,9 +150,9 @@ class InnerStaffController extends Controller {
     **@breif 客服->尽职调查
     **@date 2015.12.19
     **/
-    public function dueDiligence($projectCode=null, $rtype=null, $getJsonFlag=null){
+    public function dueDiligence($projectCode=null, $rtype=null, $getJsonFlag=null, $innerToken=null){
     	isLogin($_COOKIE['email'], $_COOKIE['mEmail']);
-        authentication($_COOKIE['email'], 2);
+        authentication($_COOKIE['email'], 2, $innerToken);
     	$optype = $_POST['optype'] ? $_POST['optype']:$_GET['optype'];
         if( $rtype == null)
         {
@@ -391,8 +391,10 @@ class InnerStaffController extends Controller {
         $objProject  = D("Project","Service");
         $getJsonFlag = 1;
         //获取项目信息
+        
         $obj   = new ProjectProviderMyProController();
-        $data = $obj->projectInfoEdit($projectCode, null, $getJsonFlag);
+        $innerToken = "InternalCall";
+        $data = $obj->projectInfoEdit($projectCode, null, $getJsonFlag, $innerToken);
         //echo json_encode($data);exit;
         $dataBig  = array('projectInfo' => $data);
         $this->assign('data',$dataBig);

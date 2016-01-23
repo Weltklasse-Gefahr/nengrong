@@ -71,7 +71,8 @@ class ProjectInvestorMyProController extends Controller {
         $getJsonFlag = 1;
         //获取项目信息
         $obj   = new ProjectProviderMyProController();
-        $data = $obj->projectInfoEdit($projectCode, null, $getJsonFlag);
+        $innerToken = "InternalCall";
+        $data = $obj->projectInfoEdit($projectCode, null, $getJsonFlag,$innerToken);
         //echo $data['project_type'];exit;
         //获取签署意向书信息 
         if($optype == 'agree' &&  $rtype == 1)
@@ -86,32 +87,32 @@ class ProjectInvestorMyProController extends Controller {
         //echo json_encode($projectInfoForIntent);exit;
         //获取强哥的尽职调查信息
         $obj   = new InnerStaffController();
-        list($picture,$docListInfo,$projectDetail,$areaArray,$evaluationInfo) = $obj->dueDiligence($projectCode, null, $getJsonFlag);
+        list($picture,$docListInfo,$projectDetail,$areaArray,$evaluationInfo) = $obj->dueDiligence($projectCode, null, $getJsonFlag,$innerToken);
 
         //先判断一下当前进度的状态
         //12项目已提交（客服未提交意向书）、13项目已提交（客服已提交意向书）、
         //21签意向合同（客服未提交尽职调查）、22签意向合同（客服已提交尽职调查）
         //"state":"dueDiligence" // projectInfo, intent, dueDiligence
         //substate":"submited" // wait, submited, signed
-        if ($status == 22)
-        {
-            $strStatus = "dueDiligence";
-            $substate  = "submited";
-        }
-        elseif($status == 13)
-        {
-            $strStatus = "intent";
-            $substate  = "submited";
-        }
-        elseif($status == 21)
+        if ($status == 12) //12项目已提交（已提交）
         {
             $strStatus = "dueDiligence";
             $substate  = "wait";
         }
-        else
+        elseif($status == 22)  //13已提交意向书（已提交）
+        {
+            $strStatus = "dueDiligence";
+            $substate  = "submited";
+        }
+        elseif($status == 13)  //13已提交意向书（已提交）
         {
             $strStatus = "intent";
-            $substate  = "wait";
+            $substate  = "submited";
+        }
+        else   //21已签意向书
+        {
+            $strStatus = "intent";
+            $substate  = "signed";
         }
 
 
