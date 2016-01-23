@@ -342,11 +342,13 @@ class ProjectProviderMyProController extends Controller {
             {
                 $arrProInfo["status"] = "11";  //项目未提交状态
                 $arrInfor["status"] = "11";  //项目未提交状态
+                $oldStatus = "11";        //之前的状态
             }
             if($optype == "submit")
             {
                 $arrProInfo["status"] = "12";  //项目提交状态
                 $arrInfor["status"] = "12";  //项目未提交状态
+                $oldStatus = "11"; //之前的状态
             }
 
             if (empty($arrProInfo['project_code']))  
@@ -376,6 +378,7 @@ class ProjectProviderMyProController extends Controller {
             {
                 //更新
                 $arrProInfo["change_date"] = date("Y-m-d H:i:s" ,time());
+                //echo $arrProInfo['project_code'];echo json_encode($arrProInfo);exit;
                 $ret = $objProject->saveProject($arrProInfo['project_code'], $arrProInfo);
                 if ($ret === false)
                 {
@@ -411,10 +414,10 @@ class ProjectProviderMyProController extends Controller {
             {
                 $table = 'Housetop';
             }
-            $ret = $objProject->saveHousetopOrGround($arrInfor, $arrInfor["status"], $arrProInfo['project_type']);
+            $ret = $objProject->saveHousetopOrGround($arrInfor, $arrInfor["status"], $arrProInfo['project_type'], $oldStatus);
             if ($ret === false)
             {
-                 echo '{"code":"-1","msg":"插入数据库失败！"}';
+                 echo '{"code":"-1","msg":"插入数据库失败111！"}';
                  exit;
             }
             echo '{"code":"0","msg":"","id":"'.$arrProInfo["project_code"].'","idm":"'
@@ -693,11 +696,40 @@ class ProjectProviderMyProController extends Controller {
         list($picture,$docListInfo,$projectDetail,$areaArray,$evaluationInfo) = $obj->dueDiligence($projectCode, null, $getJsonFlag);
 
         //先判断一下当前进度的状态
-        //12项目已提交（客服未提交意向书）、13项目已提交（客服已提交意向书）、
+        //12项目已提交（客服未提交意向书）、
+        //13项目已提交（客服已提交意向书）、
         //21签意向合同（客服未提交尽职调查）、22签意向合同（客服已提交尽职调查）
         //"state":"dueDiligence" // projectInfo, intent, dueDiligence
+        
+
+        //后来先尽职调查  然后在意向书替换位置了
+        //12项目已提交（已提交）、
+        //13已提交意向书（已提交）、
+        
+        //22已提交尽职调查（未签意向合同）、
+        
         //substate":"submited" // wait, submited, signed
-        if ($status == 22)
+        if ($status == 12) //12项目已提交（已提交）
+        {
+            $strStatus = "dueDiligence";
+            $substate  = "wait";
+        }
+        elseif($status == 22)  //13已提交意向书（已提交）
+        {
+            $strStatus = "dueDiligence";
+            $substate  = "submited";
+        }
+        elseif($status == 13)  //13已提交意向书（已提交）
+        {
+            $strStatus = "intent";
+            $substate  = "submited";
+        }
+        else   //21已签意向书
+        {
+            $strStatus = "intent";
+            $substate  = "signed";
+        }
+        /*if ($status == 22)
         {
             $strStatus = "dueDiligence";
             $substate  = "submited";
@@ -716,7 +748,8 @@ class ProjectProviderMyProController extends Controller {
         {
             $strStatus = "intent";
             $substate  = "wait";
-        }
+        }*/
+
 
 
         //拼接大json

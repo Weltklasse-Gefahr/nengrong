@@ -184,8 +184,9 @@ class ProjectService extends Model{
         //删除旧的组件信息
         $obj = M("Project");
         $condition['project_code'] = $projectCode;
-        $res = $obj->where($condition)->delete();
-        return $res;
+        $res = $obj->where($condition)->select();
+        
+        return $this->deleteProjectService($res[0]['id']);
     }
 
     /**
@@ -492,13 +493,18 @@ class ProjectService extends Model{
     **@return 保存成功返回true，失败返回false
     **@date 2015.12.29
     **/ 
-    public function saveHousetopOrGround($proData, $status, $projectType){
+    public function saveHousetopOrGround($proData, $status, $projectType, $oldStatus=null){
         $result = false;
         if($projectType == 1){
             $housetop = M("Housetop");
-            if($this->hasSaveHousetopOrGround($proData['project_id'], $status, $projectType)){
+            if($this->hasSaveHousetopOrGround($proData['project_id'], $status, $projectType, $oldStatus)){
                 $condition['project_id'] = $proData['project_id'];
                 $condition['status'] = $status;
+                //避免项目提供方点击提交的时候，重复插入问题，比较奇怪的代码
+                if($oldStatus == "11")
+                {
+                     $condition["status"] = $oldStatus;
+                }
                 $proData['change_date'] = date("Y-m-d H:i:s",time());
                 $result = $housetop->where($condition)->save($proData);
             }else{
@@ -509,9 +515,14 @@ class ProjectService extends Model{
             }
         }elseif($projectType == 2 || $projectType == 3){
             $ground = M("Ground");
-            if($this->hasSaveHousetopOrGround($proData['project_id'], $status, $projectType)){
+            if($this->hasSaveHousetopOrGround($proData['project_id'], $status, $projectType, $oldStatus)){
                 $condition['project_id'] = $proData['project_id'];
                 $condition['status'] = $status;
+                //避免项目提供方点击提交的时候，重复插入问题，比较奇怪的代码
+                if($oldStatus == "11")
+                {
+                     $condition["status"] = $oldStatus;
+                }
                 $proData['change_date'] = date("Y-m-d H:i:s",time());
                 $result = $ground->where($condition)->save($proData);
             }else{
@@ -536,9 +547,14 @@ class ProjectService extends Model{
     **@return 存在返回true，不存在返回false
     **@date 2015.12.29
     **/ 
-    public function hasSaveHousetopOrGround($projectId, $status, $projectType){
+    public function hasSaveHousetopOrGround($projectId, $status, $projectType, $oldStatus = null){
         $condition["project_id"] = $projectId;
         $condition["status"] = $status;
+        //避免项目提供方点击提交的时候，重复插入问题，比较奇怪的代码
+        if($oldStatus == "11")
+        {
+             $condition["status"] = $oldStatus;
+        }
         $condition["delete_flag"] = array('neq',9999);
         if($projectType == 1){
             $housetop = M("Housetop");
