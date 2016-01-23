@@ -53,7 +53,7 @@
                <elseif condition="($data['project_type']  gt 1) AND ($data['build_state'] eq 1)"/>class="ground_nonBuild"
                <elseif condition="($data['project_type']  gt 1) AND ($data['build_state'] eq 2)"/>class="ground_build"
                <else />class="housetop_nonBuild"
-               </if> method="post">
+               </if> method="post" action="?c=ProjectProviderMyPro&a=projectInfoEdit&no={$data['project_code']}&token={$data['project_idm']}">
 				<input type="hidden" name="optype" value="{$data['optype']}"/>
 				<ul class="detail part1">
 					<li class="clrfix">
@@ -605,7 +605,7 @@
 				<div class="operator">
 					<input data-optype="save" type="submit" value="保存">
 					<input data-optype="submit" type="submit" value="提交">
-					<input data-optype="delete" type="submit" value="删除" class="last">
+					{$data['project_code']?'<input data-optype="delete" type="submit" value="删除" class="last" >':''}
 				</div>
 			</form>
 		</div>

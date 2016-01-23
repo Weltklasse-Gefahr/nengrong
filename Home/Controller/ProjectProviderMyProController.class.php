@@ -42,6 +42,7 @@ class ProjectProviderMyProController extends Controller {
         {
             $rtype = $_POST['rtype'] ? $_POST['rtype']:$_GET['rtype'];
         }
+        //echo $rtype;exit;
         $objDoc  = D("Doc","Service");
         $email = $_COOKIE['email'];
         //屋顶分布式用到的附件
@@ -97,7 +98,18 @@ class ProjectProviderMyProController extends Controller {
             //$arrInfor['xxx'] = $_POST['xxxx']; //xxx
             $arrProInfo['project_type'] = $_POST['project_type']; //项目类型，1屋顶分布式，2地面分布式，3大型地面
             $arrProInfo['build_state'] = $_POST['build_state']; //1未建 or 2已建  
-            $arrProInfo['project_code'] = $_POST['project_code']; //项目编码
+            //$arrProInfo['project_code'] = $_POST['project_code']; //项目编码
+            //接收参数
+            $projectCode  = $_POST['no']     ? $_POST['no']:$_GET['no'];
+            $mProjectCode = $_POST['token']  ? $_POST['token']:$_GET['token'];
+            //echo $projectCode;
+            //echo $mProjectCode;
+            //exit;
+            if(!empty($projectCode))
+            {
+                isProjectCodeRight($projectCode, $mProjectCode);
+            }
+            $arrProInfo['project_code']  =$projectCode;
 
             //共有的一些参数接收
             $arrInfor['project_area'] = $_POST['county'];//省市区
@@ -349,6 +361,7 @@ class ProjectProviderMyProController extends Controller {
                 //echo $email;exit;
                 //echo json_encode($userInfo);exit;
                 $arrProInfo["create_time"] = date("Y-m-d H:i:s" ,time());
+                $arrProInfo["create_date"] = date("Y-m-d H:i:s" ,time());
                 $ret = $objProject->insertProject($arrProInfo);
                 if ($ret === false)
                 {
@@ -404,7 +417,8 @@ class ProjectProviderMyProController extends Controller {
                  echo '{"code":"-1","msg":"插入数据库失败！"}';
                  exit;
             }
-            echo '{"code":"0","msg":"","id":"'.$arrProInfo["project_code"].'"}';
+            echo '{"code":"0","msg":"","id":"'.$arrProInfo["project_code"].'","idm":"'
+                 .MD5(addToken($arrProInfo["project_code"])).'"}';
 
             //保持的处理，数据只保持到xxx_provider
 
@@ -414,7 +428,11 @@ class ProjectProviderMyProController extends Controller {
 	    {
             //项目删除
             //这里删除以xxx开头的编号数据
-            $projectCode = $_POST['project_code'] ? $_POST['project_code']:$_GET['project_code'];
+            //$projectCode = $_POST['project_code'] ? $_POST['project_code']:$_GET['project_code'];
+            //接收参数
+            $projectCode  = $_POST['no']     ? $_POST['no']:$_GET['no'];
+            $mProjectCode = $_POST['token']  ? $_POST['token']:$_GET['token'];
+            isProjectCodeRight($projectCode, $mProjectCode);
             $objProject  = D("Project","Service");
             $res = $objProject->deleteProject($projectCode);//echo $res;
             if ($ret === false)
@@ -430,7 +448,11 @@ class ProjectProviderMyProController extends Controller {
             //这个分支是做数据的显示
             if($projectCode == null)
             {
-                $projectCode = $_POST['project_code'] ? $_POST['project_code']:$_GET['project_code'];
+                //$projectCode = $_POST['project_code'] ? $_POST['project_code']:$_GET['project_code'];
+                //接收参数
+                $projectCode  = $_POST['no']     ? $_POST['no']:$_GET['no'];
+                $mProjectCode = $_POST['token']  ? $_POST['token']:$_GET['token'];
+                isProjectCodeRight($projectCode, $mProjectCode);
             }
             $display     =$_GET['display'];
             //根据project_code去查询项目信息
@@ -513,7 +535,8 @@ class ProjectProviderMyProController extends Controller {
                 echo json_encode($projectInfo);
                 exit;
             }
-            
+            //加上项目编码的token
+            $projectInfo['project_idm'] = MD5(addToken($projectInfo['project_code']));
             $this->assign('data',$projectInfo);
             $this->display("ProjectProvider:projectInfoNew");
         }
