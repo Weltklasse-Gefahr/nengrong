@@ -40,11 +40,11 @@
 		
 		<!-- 右侧布局 -->
 		<div class="r-content <?php if($data['step']['state'] === "projectInfo") echo 'step1';
-								elseif($data['step']['state'] === "dueDiligence") echo 'step3';
+								elseif($data['step']['state'] === "dueDiligence") echo 'step2';
 								?>">
 			<div class="step clrfix">
 				<span class="s4"><i>3</i>签署正式融资合同</span>
-				<span class="s3"><i>2</i>尽职调查</span>
+				<span class="s2"><i>2</i>尽职调查</span>
 				<span class="s1"><i>1</i>项目信息填写</span>
 			</div>
 
@@ -637,38 +637,38 @@
 
 			<!-- 尽职调查 -->
 			<?php if($data['step']['state'] === "dueDiligence" && $data['step']['substate'] === "wait") { ?>
-			<div class="content content3 wait"><p><img class="icon" src="/EnergyFe/img/dialog/icon.png">能融网会及时安排尽职调查，之后您可在此查看尽调报告。</p></div>
-			<?php } elseif($data['step']['state'] === "dueDiligence" && $data['step']['substate'] === "submited") { ?>
-			<form class="content content3 submited dueDiligence">
+			<div class="content content2 wait"><p><img class="icon" src="/EnergyFe/img/dialog/icon.png">能融网会及时安排尽职调查，之后您可在此查看尽调报告。</p></div>
+			<?php } elseif(($data['step']['state'] === "dueDiligence" && $data['step']['substate'] === "submited") || $data['step']['state'] === "intent") { ?>
+			<form class="content content2 submited dueDiligence">
 				<div class="detail part1">
 					<p class="title">项目经济收益测算</p>
 					<div class="brief-info clrfix">
-						<img class="l" src="{$data.dueDiligence.picture}" />
+						<img class="l" src="{$data['dueDiligence']['picture']}" />
 						<div class="r">
 							<div class="top">
-								<span>内部收益率IRR<span class="result">{$data.dueDiligence.evaluationInfo['irr']}</span>%</span>
-								<span class="last">评价结果<span class="result">{$data.dueDiligence.evaluationInfo['evaluation_result']}</span></span>
+								<span>内部收益率IRR<span class="result">{$data['dueDiligence']['evaluationInfo']['irr']}</span>%</span>
+								<span class="last">评价结果<span class="result">{$data['dueDiligence']['evaluationInfo']['evaluation_result']}</span></span>
 							</div>
 							<div class="middle clrfix">
 								<div class="item">
 									<img src="/EnergyFe/img/dueDiligence/1.png"/>
-									<div><span class="result">{$data.dueDiligence.evaluationInfo['static_payback_time']}</span></div>
+									<div><span class="result">{$data['dueDiligence']['evaluationInfo']['static_payback_time']}</span></div>
 									<span>静态投资回收年</span>
 								</div>
 								<div class="item">
 									<img src="/EnergyFe/img/dueDiligence/2.png"/>
-									<div><span class="result">{$data.dueDiligence.evaluationInfo['dynamic_payback_time']}</span></div>
+									<div><span class="result">{$data['dueDiligence']['evaluationInfo']['dynamic_payback_time']}</span></div>
 									<span>动态投资回收年</span>
 								</div>
 								<div class="item">
 									<img src="/EnergyFe/img/dueDiligence/3.png"/>
-									<div><span class="result">{$data.dueDiligence.evaluationInfo['lcoe']}</span></div>
+									<div><span class="result">{$data['dueDiligence']['evaluationInfo']['lcoe']}</span></div>
 									<span>LCOE</span>
 								</div>
 							</div>
 							<div class="bottom">
-								<span>净现值npv<span class="result">{$data.dueDiligence.evaluationInfo['npv']}</span>万元</span>
-								<span class="last">电站资产累计现值<span class="result">{$data.dueDiligence.evaluationInfo['power_asset_current_value']}</span></span>
+								<span>净现值npv<span class="result">{$data['dueDiligence']['evaluationInfo']['npv']}</span>万元</span>
+								<span class="last">电站资产累计现值<span class="result">{$data['dueDiligence']['evaluationInfo']['power_asset_current_value']}</span></span>
 							</div>
 						</div>
 						<img class="rec" src="/EnergyFe/img/dueDiligence/4.png" />
@@ -685,34 +685,34 @@
 										<tbody>
 											<tr>
 												<td class="c0">项目名称</td>
-												<td class="c1">{$data.dueDiligence.projectDetail['project_name']}</td>
+												<td class="c1">{$data['dueDiligence']['projectDetail']['project_name']}</td>
 												<td class="c2">项目类型</td>
-												<td class="c3">{$data.dueDiligence.projectDetail['ground_project_type']}</td>
+												<td class="c3">{$data['dueDiligence']['projectDetail']['ground_project_type']}</td>
 											</tr>
 											<tr>
 												<td class="c0">拟建设容量</td>
-												<td class="c1">{$data.dueDiligence.projectDetail['plan_build_volume']}<span>kW</span></td>
+												<td class="c1">{$data['dueDiligence']['projectDetail']['plan_build_volume']}<span>kW</span></td>
 												<td class="c2">项目地点</td>
-												<td class="c3 area">{$data.dueDiligence.areaArray[3]}{$data.dueDiligence.projectDetail['project_address']}</td>
+												<td class="c3 area">{$data['dueDiligence']['areaArray'][3]}{$data['dueDiligence']['projectDetail']['project_address']}</td>
 											</tr>
 											<tr>
 												<td class="c0">项目完工时间</td>
-												<td class="c1">{$data.dueDiligence.projectDetail['project_finish_date']}</td>
+												<td class="c1">{$data['dueDiligence']['projectDetail']['project_finish_date']}</td>
 												<td class="c2">项目电价</td>
-												<td class="c3">{$data.dueDiligence.projectDetail['project_electricity_price']}<span>元/kWh</span></td>
+												<td class="c3">{$data['dueDiligence']['projectDetail']['project_electricity_price']}<span>元/kWh</span></td>
 											</tr>
 											<tr>
 												<td class="c0">土地性质</td>
-												<td class="c1">{$data.dueDiligence.projectDetail['ground_property']}</td>
+												<td class="c1">{$data['dueDiligence']['projectDetail']['ground_property']}</td>
 												<td class="c2">租赁土地面积</td>
-												<td class="c3">{$data.dueDiligence.projectDetail['ground_area']}<span class="gray">m<sup>2</sup></span>
+												<td class="c3">{$data['dueDiligence']['projectDetail']['ground_area']}<span class="gray">m<sup>2</sup></span>
 												</td>
 											</tr>
 											<tr>
 												<td class="c0">拟融资金额</td>
-												<td class="c1">{$data.dueDiligence.projectDetail['plan_financing']}<span>万元</span></td>
+												<td class="c1">{$data['dueDiligence']['projectDetail']['plan_financing']}<span>万元</span></td>
 												<td class="c2">融资方式</td>
-												<td class="c3">{$data.dueDiligence.projectDetail['financing_type']}</td>
+												<td class="c3">{$data['dueDiligence']['projectDetail']['financing_type']}</td>
 											</tr>
 										</tbody>
 									</table>
@@ -721,7 +721,7 @@
 							<tr>
 								<td>评价内容</td>
 								<td>
-									<textarea>{$data.dueDiligence.evaluationInfo['evaluation_content']}</textarea>
+									<textarea>{$data['dueDiligence']['evaluationInfo']['evaluation_content']}</textarea>
 								</td>
 							</tr>
 							<tr>
@@ -729,21 +729,21 @@
 								<td>
 									<div class="item">
 										<div class="hd">A、文件审查</div>
-										<div class="bd"><textarea>{$data.dueDiligence.evaluationInfo['document_review']}</textarea></div>
+										<div class="bd"><textarea>{$data['dueDiligence']['evaluationInfo']['document_review']}</textarea></div>
 									</div>
 									<div class="item">
 										<div class="hd">B、工程建设质量和系统运行情况</div>
-										<div class="bd"><textarea>{$data.dueDiligence.evaluationInfo['project_quality_situation']}</textarea></div>
+										<div class="bd"><textarea>{$data['dueDiligence']['evaluationInfo']['project_quality_situation']}</textarea></div>
 									</div>
 									<div class="item">
 										<div class="hd">C、项目经济收益情况</div>
-										<div class="bd"><textarea>{$data.dueDiligence.evaluationInfo['project_earnings_situation']}</textarea></div>
+										<div class="bd"><textarea>{$data['dueDiligence']['evaluationInfo']['project_earnings_situation']}</textarea></div>
 									</div>
 								</td>
 							</tr>
 							<tr style="height: 100px;">
 								<td>评价结果</td>
-								<td class="result">{$data.dueDiligence.evaluationInfo['evaluation_result']}</td>
+								<td class="result">{$data['dueDiligence']['evaluationInfo']['evaluation_result']}</td>
 							</tr>
 						</tbody>
 					</table>

@@ -27,6 +27,9 @@ $(function($) {
 	}
 
 	$.fn.cascadeSelect = function(data) {
+		if(!this.length) {
+			return;
+		}
 		var self = this,
 			cascadeData = dealData(data);
 
