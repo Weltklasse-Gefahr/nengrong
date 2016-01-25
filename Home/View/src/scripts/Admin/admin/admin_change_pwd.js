@@ -34,9 +34,11 @@ $(function(){
 
 	$(".myAlert_change_pwd_success_closed").click(function(){
 		$("#myAlert_change_pwd_success").hide();
+		location.href="?c=Admin&a=changePassword";
 	});
 
 	$(".myAlert_change_pwd_failed_closed").click(function(){
 		$("#myAlert_change_pwd_failed").hide();
+		location.href="?c=Admin&a=changePassword";
 	});
 });
