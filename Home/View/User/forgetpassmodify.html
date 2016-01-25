@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html class="no-js">
 <head>
-	<meta http-equiv="refresh" content="3;URL='?c=User&a=login'">
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="description" content="">
 	<meta name="keywords" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes">
-	<title>注册成功</title>
+	<title>设置新密码</title>
 	
 	<!-- Set render engine for 360 browser -->
 	<meta name="renderer" content="webkit">
@@ -31,28 +30,26 @@
 	<meta name="msapplication-TileImage" content="/EnergyFe/img/i/favicon.png">
 	<meta name="msapplication-TileColor" content="#0e90d2">
 	<link rel="stylesheet" href="/EnergyFe/prd/styles/x-common@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/styles/x-common.css.ver';</php>.css">
-	<link rel="stylesheet" href="/EnergyFe/prd/styles/loginsus@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/styles/loginsus.css.ver';</php>.css">
+	<link rel="stylesheet" href="/EnergyFe/prd/styles/forgetpassmodify@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/styles/forgetpassmodify.css.ver';</php>.css">
 <body>
 	<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/hf/erqi/header.html';</php>
-
-	<div class="main clrfix">
 		<!-- 右侧布局 -->
-		<div class="md">
-			<p class="title">恭喜你！</p>
-			<div class="part1">
-				<span>账号注册成功!</span>
-			</div>
-			<div class="part2">		
-				<span>系统将在3秒后自动跳转到：</span>
-				<a href="?c=ProjectInvestorMyPro&a=investmentProject">http//www.enetf.com/EneryInfo/projectList.php</a>
-				<button id="jumpbtn" type="submit">立刻跳转</button>			
-			</div>		
+	<div class="md">
+		<div class="td">
+			<img src="/EnergyFe/img/fp2.jpg">
 		</div>
+		<p class="warning" id="warning" style="visibility: hidden;"></p>
+		<ul>
+			<li><span class="lb required">设置新密码  </span><input type="password" id="newpassinput"/></li>
+			<li><span class="lb required">重复密码  </span><input type="password" id="repeatpassinput"/></li>
+		</ul>		
+		<button id="jumpbtn" type="submit">下一步</button>				
 	</div>
+	
 
 	<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/hf/sub_footer.html';</php>
 	
 	<script src="/EnergyFe/prd/scripts/x-common@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/scripts/x-common.js.ver';</php>.js"></script>
-	<script src="/EnergyFe/prd/scripts/loginsus@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/scripts/loginsus.js.ver';</php>.js"></script>
+	<script src="/EnergyFe/prd/scripts/forgetpassmodify@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/scripts/forgetpassmodify.js.ver';</php>.js"></script>
 </body>
 </html>
