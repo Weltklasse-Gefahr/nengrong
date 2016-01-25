@@ -26,7 +26,7 @@ $(function(){
 			return ;
 		};
 		if(passval!== repeatpassval) {
-			warning("密码不一直");
+			warning("密码不一致");
 			return ;
 		}
 
