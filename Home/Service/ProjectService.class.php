@@ -70,10 +70,13 @@ class ProjectService extends Model{
             $condition['status'] = 51;
             $condition["delete_flag"] = array('neq',9999);
             $housetopInfo = $housetop->where($condition)->select();
-            if(sizeof($housetopInfo) > 0) 
+            if(sizeof($housetopInfo) > 0){
+                $condition['status'] = array('in','12,13,21,22,23');
+                $housetopInfo[0]['picture_full'] = $housetop->where($condition)->getField('picture_full');
                 return $housetopInfo[0];
+            }
             else{
-                $condition['status'] = array('between','21,29');
+                $condition['status'] = array('in','12,13,21,22,23');
                 $housetopInfo = $housetop->where($condition)->select();
                 return $housetopInfo[0];
             }
@@ -83,10 +86,12 @@ class ProjectService extends Model{
             $condition['status'] = 51;
             $condition["delete_flag"] = array('neq',9999);
             $groupInfo = $ground->where($condition)->select();
-            if(sizeof($groupInfo) > 0) 
+            if(sizeof($groupInfo) > 0){
+                $condition['status'] = array('in','12,13,21,22,23');
+                $groupInfo[0]['picture_full'] = $ground->where($condition)->getField('picture_full');
                 return $groupInfo[0];
-            else{
-                $condition['status'] = array('between','21,29');
+            }else{
+                $condition['status'] = array('in','12,13,21,22,23');
                 $groupInfo = $ground->where($condition)->select();
                 return $groupInfo[0];
             }
@@ -107,12 +112,21 @@ class ProjectService extends Model{
         if($projectInfo['project_type'] == 1){
             $housetop = M('Housetop');
             $resInfo = $housetop->where($condition)->find();
+            if(!empty($resInfo)){
+                $condition['status'] = array('neq',61);
+                $resInfo['display_flag'] = $housetop->where($condition)->getField('status');
+            }
         }elseif($projectInfo['project_type'] == 2 || $projectInfo['project_type'] == 3){
             $ground = M('Ground');
             $resInfo = $ground->where($condition)->find();
+            if(!empty($resInfo)){
+                $condition['status'] = array('neq',61);
+                $resInfo['display_flag'] = $ground->where($condition)->getField('status');
+            }
         }
         if(empty($resInfo)){
             $resInfo = $this->getProjectDetail($projectInfo['id'], $projectInfo['project_type']);
+            $resInfo['display_flag'] = $resInfo['status'];
             return $resInfo;
         }else{
             return $resInfo;
@@ -260,7 +274,7 @@ class ProjectService extends Model{
             $userInfo = $user->where("email='".$email."' and delete_flag!=9999")->find();
             $condition['provider_id'] = $userInfo['id'];
         }
-        $condition['status'] = array('between','21,29');
+        $condition['status'] = array('in','21,23');
         $condition["delete_flag"] = array('neq',9999);
         $projectInfo = $this->getProjectsInfo($condition, $page, 6);
         $projectList = $this->formatProject($projectInfo);
@@ -278,7 +292,7 @@ class ProjectService extends Model{
             $userInfo = $user->where("email='".$email."' and delete_flag!=9999")->find();
             $condition['provider_id'] = $userInfo['id'];
         }
-        $condition['status'] = array('between','31,39');
+        $condition['status'] = array('in','31');
         $condition["delete_flag"] = array('neq',9999);
         $projectInfo = $this->getProjectsInfo($condition, $page, 6);
         $projectList = $this->formatProject($projectInfo);
@@ -426,6 +440,10 @@ class ProjectService extends Model{
     **/ 
     public function submitIntent($projectCode, $intentText){
         $projectInfo = $this->getProjectInfo($projectCode);
+        if($projectInfo['status'] != 22){
+            echo '{"code":"-1","msg":"请先提交尽职调查，再提交意向书"}';
+            exit;
+        }
         $flag = $this->isIntentProject($projectInfo['id'], $projectInfo['project_type']);
         if($flag === false){
             echo '{"code":"-1","msg":"status error, cannot submit intent"}';
