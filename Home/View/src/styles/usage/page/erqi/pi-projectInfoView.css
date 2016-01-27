@@ -2,11 +2,12 @@
 	position: relative;
 }
 
-.step {
+.r-content.step1 .step, .r-content.step2 .step, .r-content.step3 .step {
 	width: 478px;
+	margin-left: 45px;
 }
 
-.btn {
+.btn.export {
 	display: inline-block;
 	width: 100px;
 	text-align: center;
@@ -16,10 +17,10 @@
 	color: #fff;
 	border: 0;
 	position: absolute;
-	top: 26px;
-	left: 500px;
+	top: 28px;
+	left: 530px;
 }
 
-.btn:hover {
+.btn.export:hover {
 	background: #F1920C;
 }
