@@ -1,0 +1,17 @@
+.validate_fail {
+	width: 700px;
+	margin: 100px auto 300px;
+	word-break: break-word;
+}
+
+.validate_fail .icon {
+	float: left;
+}
+
+.validate_fail .errmsg {
+	float: left;
+	width: 600px;
+	margin-left: 32px;
+	line-height: 30px;
+	font-weight: bold;
+}
