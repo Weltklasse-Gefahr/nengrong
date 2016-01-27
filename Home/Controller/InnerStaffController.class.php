@@ -386,29 +386,50 @@ class InnerStaffController extends Controller {
         $projectCode  = $_POST['no']     ? $_POST['no']:$_GET['no'];
         $mProjectCode = $_POST['token']  ? $_POST['token']:$_GET['token'];
         isProjectCodeRight($projectCode, $mProjectCode);
-        //$projectCode = 'qwertyuio';
         $rtype = $_POST['rtype'] ? $_POST['rtype']:$_GET['rtype'];
         $objProject  = D("Project","Service");
-        $getJsonFlag = 1;
-        //获取项目信息
-        
-        $obj   = new ProjectProviderMyProController();
-        $innerToken = "InternalCall";
-        $data = $obj->projectInfoEdit($projectCode, null, $getJsonFlag, $innerToken);
-        //echo json_encode($data);exit;
-        $dataBig  = array('projectInfo' => $data);
-        $this->assign('data',$dataBig);
-        if($data['project_type'] == 1){
-            if($data['build_state'] == 1){
-                $this->display("InnerStaff:projectInfo_housetop_nonbuild");
-            }elseif($data['build_state'] == 2){
-                $this->display("InnerStaff:projectInfo_housetop_build");
+        $projectInfo = $objProject->getProjectInfo($projectCode);
+        if($rtype == 1){
+            $proData['comment'] = $_POST['comment'];
+            // $proData['comment'] = "sldfjiofnosdkfj是的发生的";
+            $res = $objProject->saveProjectDetail($projectCode, $projectInfo['project_type'], $proData);
+            if($res > 0){
+                header('Content-Type: text/html; charset=utf-8');
+                echo '{"code":"0","msg":"保存成功"}';
+            }else{
+                header('Content-Type: text/html; charset=utf-8');
+                echo '{"code":"-1","msg":"保存失败"}';
             }
-        }elseif($data['project_type'] == 2 || $projectInfo['project_type'] == 3){
-            if($data['build_state'] == 1){
-                $this->display("InnerStaff:projectInfo_ground_nonbuild");
-            }elseif($data['build_state'] == 2){
-                $this->display("InnerStaff:projectInfo_ground_build");
+        }else{
+            $getJsonFlag = 1;
+            //获取项目信息
+            $obj   = new ProjectProviderMyProController();
+            $innerToken = "InternalCall";
+            $data = $obj->projectInfoEdit($projectCode, null, $getJsonFlag, $innerToken);
+            $data['typeStr'] = $objProject->getTypeAndStateStr($data['project_type'], $data['build_state']);
+            $areaObj = D('Area', 'Service');
+            $areaInfo = $data['county']?$data['county']:$data['city'];
+            $areaInfo = $areaInfo?$areaInfo:$data['province'];
+            $data['areaStr'] = $areaObj->getAreaById($areaInfo);
+            $dataBig  = array('projectInfo' => $data);
+            $this->assign('data',$dataBig);
+            if ($_GET['display'] == 'json') {
+                header('Content-Type: text/html; charset=utf-8');
+                dump($dataBig);
+                exit;
+            }
+            if($data['project_type'] == 1){
+                if($data['build_state'] == 1){
+                    $this->display("InnerStaff:projectInfo_housetop_nonbuild");
+                }elseif($data['build_state'] == 2){
+                    $this->display("InnerStaff:projectInfo_housetop_build");
+                }
+            }elseif($data['project_type'] == 2 || $data['project_type'] == 3){
+                if($data['build_state'] == 1){
+                    $this->display("InnerStaff:projectInfo_ground_nonbuild");
+                }elseif($data['build_state'] == 2){
+                    $this->display("InnerStaff:projectInfo_ground_build");
+                }
             }
         }
         // $projectCode = $_POST['project_code'] ? $_POST['project_code']:$_GET['project_code'];

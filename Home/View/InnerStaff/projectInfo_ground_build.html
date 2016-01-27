@@ -42,7 +42,7 @@
 			<ul class="detail part1">
 				<li class="clrfix">
 					<span class="lb">项目类型：</span>
-					<span class="lbw">{$data['projectInfo']['build_state']}{$data['projectInfo']['project_type']}</span>
+					<span class="lbw">{$data['projectInfo']['typeStr']}</span>
 				</li>
 				<li class="clrfix">
 					<span class="lb">项目地点：</span>
@@ -85,23 +85,23 @@
 				</li>
 				<li>
 					<span class="lb">租赁土地面积</span>
-					<span class="lbw">{$data['projectInfo']['ground_area']}</span>
+					<span class="lbw">{$data['projectInfo']['ground_area']}m2</span>
 				</li>
 				<li>
 					<span class="lb">租赁年限</span>
-					<span class="lbw">{$data['projectInfo']['rent_time']}</span>
+					<span class="lbw">{$data['projectInfo']['rent_time']}年</span>
 				</li>
 				<li>
 					<span class="lb">租赁资金</span>
-					<span class="lbw">{$data['projectInfo']['rent_pay']}</span>
+					<span class="lbw">{$data['projectInfo']['rent_pay']}元/年</span>
 				</li>
 				<li>
 					<span class="lb">中控室建筑面积</span>
-					<span class="lbw">{$data['projectInfo']['control_room_area']}</span>
+					<span class="lbw">{$data['projectInfo']['control_room_area']}m2</span>
 				</li>
 				<li>
 					<span class="lb">出让金额</span>
-					<span class="lbw">{$data['projectInfo']['sell_sum']}</span>
+					<span class="lbw">{$data['projectInfo']['sell_sum']}元</span>
 				</li>
 				<li>
 					<span class="lb">土地平整情况</span>
@@ -121,15 +121,19 @@
 			<ul class="detail part2">
 				<li>
 					<span class="lb">上级变压器容量</span>
-					<span class="lbw">{$data['projectInfo']['transformer_capacity']}</span>
+					<span class="lbw">{$data['projectInfo']['transformer_capacity']}kVA</span>
 				</li>
 				<li>
 					<span class="lb">并网电压等级</span>
-					<span class="lbw">{$data['projectInfo']['voltage_level']}</span>
+					<span class="lbw">{$data['projectInfo']['voltage_level']}kV</span>
 				</li>
 				<li>
-					<span class="lb">并网方式</span>
-					<span class="lbw">{$data['projectInfo']['electricity_distance']}</span>
+					<span class="lb">电网接入点距离</span>
+					<span class="lbw">{$data['projectInfo']['electricity_distance']}m</span>
+				</li>
+				<li>
+					<span class="lb">计量点</span>
+					<span class="lbw">{$data['projectInfo']['measure_point']}</span>
 				</li>
 			</ul>
 
@@ -137,11 +141,11 @@
 			<ul class="detail part2">
 				<li>
 					<span class="lb">建设容量</span>
-					<span class="lbw">{$data['projectInfo']['plan_build_volume']}</span>
+					<span class="lbw">{$data['projectInfo']['plan_build_volume']}kW</span>
 				</li>
 				<li>
 					<span class="lb">单位投资</span>
-					<span class="lbw">{$data['projectInfo']['company_invest']}</span>
+					<span class="lbw">{$data['projectInfo']['company_invest']}元/W</span>
 				</li>
 				<li>
 					<span class="lb">EPC厂家</span>
@@ -175,7 +179,7 @@
 				</li>
 				<li>
 					<span class="lb">历史发电量数据（最近一年）</span>
-					<span class="lbw">{$data['projectInfo']['capacity_level']}</span>
+					<span class="lbw">{$data['projectInfo']['capacity_level']}万度</span>
 				</li>
 				<li>
 					<span class="lb">项目支架类型</span>
@@ -191,7 +195,7 @@
 				</li>
 				<li>
 					<span class="lb">拟融资金额</span>
-					<span class="lbw">{$data['projectInfo']['plan_financing']}</span>
+					<span class="lbw">{$data['projectInfo']['plan_financing']}万元</span>
 				</li>
 				<li>
 					<span class="lb">融资方式</span>
