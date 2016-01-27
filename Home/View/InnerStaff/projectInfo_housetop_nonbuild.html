@@ -51,11 +51,11 @@
 				<li class="clrfix">
 					<span class="lb">项目图片：</span>
 					<div class="item">
-						<div class="demo">
+						<div class="img-ct">
 							<a target="_blank" href="{$data['projectInfo']['picture_full']['url']}"><img src="{$data['projectInfo']['picture_full']['url']}" style="width:120px;height:120px;" /></a>
 							<p>屋顶全景图</p>
 						</div>
-						<div class="demo">
+						<div class="img-ct">
 							<a target="_blank" href="{$data['projectInfo']['picture_south']['url']}"><img src="{$data['projectInfo']['picture_south']['url']}" style="width:120px;height:120px;" /></a>
 							<p>屋顶正南向照片</p>
 						</div>
@@ -165,18 +165,17 @@
 			<ul class="detail part2">
 				<li>
 					<span class="lb">项目备案</span>
-					<?php if($data['projectInfo']['project_backup']){ ?><span class="fname">{$data['projectInfo']['project_backup']['name']}<a class="download" href="{$data['projectInfo']['project_backup']['url']}">下载</a></span><?php}
-						else{ ?><span class="lbw">无</span><?php} ?>
+					<?php if($data['projectInfo']['project_backup']){ ?><span class="fname">{$data['projectInfo']['project_backup']['name']}<a class="download" href="{$data['projectInfo']['project_backup']['url']}">下载</a></span><?php }else{ ?><span class="lbw">无</span><?php } ?>
 				</li>
 				<li>
 					<span class="lb">电网接入批复</span>
-					<?php if($data['projectInfo']['electricity_backup']){ ?><span class="fname">{$data['projectInfo']['electricity_backup']['name']}<a class="download" href="{$data['projectInfo']['electricity_backup']['url']}">下载</a></span><?php}
-						else{ ?><span class="lbw">无</span><?php} ?>
+					<?php if($data['projectInfo']['electricity_backup']){ ?><span class="fname">{$data['projectInfo']['electricity_backup']['name']}<a class="download" href="{$data['projectInfo']['electricity_backup']['url']}">下载</a></span><?php }
+						else{ ?><span class="lbw">无</span><?php } ?>
 				</li>
 				<li>
 					<span class="lb">屋顶租赁协议</span>
-					<?php if($data['projectInfo']['house_rent_agreement']){ ?><span class="fname">{$data['projectInfo']['house_rent_agreement']['name']}<a class="download" href="{$data['projectInfo']['house_rent_agreement']['url']}">下载</a></span><?php}
-						else{ ?><span class="lbw">无</span><?php} ?>
+					<?php if($data['projectInfo']['house_rent_agreement']){ ?><span class="fname">{$data['projectInfo']['house_rent_agreement']['name']}<a class="download" href="{$data['projectInfo']['house_rent_agreement']['url']}">下载</a></span><?php }
+						else{ ?><span class="lbw">无</span><?php } ?>
 				</li>
 				<li>
 					<span class="lb">租赁年限</span>
@@ -188,8 +187,8 @@
 				</li>
 				<li>
 					<span class="lb">合同能源管理协议</span>
-					<?php if($data['projectInfo']['power_manage_agreement']){ ?><span class="fname">{$data['projectInfo']['power_manage_agreement']['name']}<a class="download" href="{$data['projectInfo']['power_manage_agreement']['url']}">下载</a></span><?php}
-						else{ ?><span class="lbw">无</span><?php} ?>
+					<?php if($data['projectInfo']['power_manage_agreement']){ ?><span class="fname">{$data['projectInfo']['power_manage_agreement']['name']}<a class="download" href="{$data['projectInfo']['power_manage_agreement']['url']}">下载</a></span><?php }
+						else{ ?><span class="lbw">无</span><?php } ?>
 				</li>
 				<li>
 					<span class="lb">电价结算方式</span>
@@ -201,13 +200,13 @@
 				</li>
 				<li>
 					<span class="lb">项目建议书</span>
-					<?php if($data['projectInfo']['project_proposal']){ ?><span class="fname">{$data['projectInfo']['project_proposal']['name']}<a class="download" href="{$data['projectInfo']['project_proposal']['url']}">下载</a></span><?php}
-						else{ ?><span class="lbw">无</span><?php} ?>
+					<?php if($data['projectInfo']['project_proposal']){ ?><span class="fname">{$data['projectInfo']['project_proposal']['name']}<a class="download" href="{$data['projectInfo']['project_proposal']['url']}">下载</a></span><?php }
+						else{ ?><span class="lbw">无</span><?php } ?>
 				<li>
 					<span class="lb">屋顶载荷证明</span>
-					<?php if($data['projectInfo']['housetop_load_prove']){ ?><span class="fname">{$data['projectInfo']['housetop_load_prove']['name']}<a class="download" href="{$data['projectInfo']['housetop_load_prove']['url']}">下载</a></span><?php}
-						else{ ?><span class="lbw">无</span><?php} ?>
-				</li>
+					<?php if($data['projectInfo']['housetop_load_prove']){ ?><span class="fname">{$data['projectInfo']['housetop_load_prove']['name']}<a class="download" href="{$data['projectInfo']['housetop_load_prove']['url']}">下载</a></span><?php }
+						else{ ?><span class="lbw">无</span><?php } ?>
+				</li>				
 			</ul>
 		</div>
 	</div>
