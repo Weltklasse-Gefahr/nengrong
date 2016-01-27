@@ -70,8 +70,11 @@ class ProjectService extends Model{
             $condition['status'] = 51;
             $condition["delete_flag"] = array('neq',9999);
             $housetopInfo = $housetop->where($condition)->select();
-            if(sizeof($housetopInfo) > 0) 
+            if(sizeof($housetopInfo) > 0){
+                $condition['status'] = array('in','12,13,21,22,23');
+                $housetopInfo[0]['picture_full'] = $housetop->where($condition)->getField('picture_full');
                 return $housetopInfo[0];
+            }
             else{
                 $condition['status'] = array('in','12,13,21,22,23');
                 $housetopInfo = $housetop->where($condition)->select();
@@ -83,9 +86,11 @@ class ProjectService extends Model{
             $condition['status'] = 51;
             $condition["delete_flag"] = array('neq',9999);
             $groupInfo = $ground->where($condition)->select();
-            if(sizeof($groupInfo) > 0) 
+            if(sizeof($groupInfo) > 0){
+                $condition['status'] = array('in','12,13,21,22,23');
+                $groupInfo[0]['picture_full'] = $ground->where($condition)->getField('picture_full');
                 return $groupInfo[0];
-            else{
+            }else{
                 $condition['status'] = array('in','12,13,21,22,23');
                 $groupInfo = $ground->where($condition)->select();
                 return $groupInfo[0];
@@ -107,12 +112,21 @@ class ProjectService extends Model{
         if($projectInfo['project_type'] == 1){
             $housetop = M('Housetop');
             $resInfo = $housetop->where($condition)->find();
+            if(!empty($resInfo)){
+                $condition['status'] = array('neq',61);
+                $resInfo['display_flag'] = $housetop->where($condition)->getField('status');
+            }
         }elseif($projectInfo['project_type'] == 2 || $projectInfo['project_type'] == 3){
             $ground = M('Ground');
             $resInfo = $ground->where($condition)->find();
+            if(!empty($resInfo)){
+                $condition['status'] = array('neq',61);
+                $resInfo['display_flag'] = $ground->where($condition)->getField('status');
+            }
         }
         if(empty($resInfo)){
             $resInfo = $this->getProjectDetail($projectInfo['id'], $projectInfo['project_type']);
+            $resInfo['display_flag'] = $resInfo['status'];
             return $resInfo;
         }else{
             return $resInfo;

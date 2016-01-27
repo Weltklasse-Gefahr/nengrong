@@ -49,14 +49,14 @@
 					<?php } ?>
 				</script>
 				<div class="operator">
-					<?php if($projectInfo['status'] == 12 || $projectInfo['status'] == 22){  ?>
+					<?php if($projectInfo['display_flag'] == 12 || $projectInfo['display_flag'] == 22){  ?>
 					<input data-optype="save" type="submit" value="保存" />
-					<?php if($projectInfo['status'] == 22){  ?>
+					<?php if($projectInfo['display_flag'] == 22){  ?>
 					<input data-optype="submit" type="submit" value="提交" class="last"/>
 					<?php }else{ ?>
 					<input data-optype="submit" class="last disabled" type="submit" value="提交" disabled />
 					<?php } ?>
-					<?php }elseif($projectInfo['status'] == 13){ ?>
+					<?php }else{ ?>
 					<input data-optype="save" class="disabled" type="submit" value="保存" disabled />
 					<input data-optype="submit" class="last disabled" type="submit" value="已提交" disabled />
 					<?php } ?>
