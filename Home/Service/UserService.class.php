@@ -37,18 +37,18 @@ class UserService extends Model{
 	        setcookie("mEmail", MD5(addToken($email)), time()+3600*24*7);
         }else{
 	        if($users['user_type'] == 2){
-	        	setcookie("userType", 2, time()+3600);
+	        	setcookie("userType", 2, time()+3600*3);
 	        	$innerName = urlencode("能融网客服");
-	        	setcookie("userName", $innerName, time()+3600);
+	        	setcookie("userName", $innerName, time()+3600*3);
 	        }elseif($users['user_type'] == 3){
-	        	setcookie("userType", 3, time()+3600);
-	        	setcookie("userName", $users['company_name'], time()+3600);
+	        	setcookie("userType", 3, time()+3600*3);
+	        	setcookie("userName", $users['company_name'], time()+3600*3);
 	        }elseif($users['user_type'] == 4){
-	        	setcookie("userType", 4, time()+3600);
-	        	setcookie("userName", $users['company_name'], time()+3600);
+	        	setcookie("userType", 4, time()+3600*3);
+	        	setcookie("userName", $users['company_name'], time()+3600*3);
 	        }
-	        setcookie("email", $email, time()+3600);
-	        setcookie("mEmail", MD5(addToken($email)), time()+3600);
+	        setcookie("email", $email, time()+3600*3);
+	        setcookie("mEmail", MD5(addToken($email)), time()+3600*3);
         }
         session_start();
 
@@ -86,7 +86,7 @@ class UserService extends Model{
 
         $users = $user->where("email='%s' and delete_flag!=9999", array($email) )->select();
 
-        if (sizeof($users) != 1) {
+        if (empty($users)) {
         	header('Content-Type: text/html; charset=utf-8');
         	echo '{"code":"-1","msg":"mysql error!"}';
         	exit;
@@ -359,7 +359,7 @@ class UserService extends Model{
         $user->where("id='".$id."'")->save($data);
 
         $objUser = $user->where("email='%s' and code='%s' and name='%s' and delete_flag!=9999", array($email, $code, $name))->select();
-		if (sizeof($objUser) != 1) {
+		if (empty($objUser)) {
 			echo '{"code":"-1","msg":"mysql error!"}';
 			exit;
 		}

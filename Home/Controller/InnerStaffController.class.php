@@ -461,16 +461,12 @@ class InnerStaffController extends Controller {
     public function intent(){
         isLogin($_COOKIE['email'], $_COOKIE['mEmail']);
         authentication($_COOKIE['email'], 2);
-        // $projectCode = $_POST['project_code'] ? $_POST['project_code']:$_GET['project_code'];
-        // $projectCode = 'test2';
         $projectCode = $_POST['no'] ? $_POST['no']:$_GET['no'];
         $mProjectCode = $_POST['token'] ? $_POST['token']:$_GET['token'];
         isProjectCodeRight($projectCode, $mProjectCode);
-        //echo jj;exit;
         $optype = $_POST['optype'] ? $_POST['optype']:$_GET['optype'];
         $rtype = $_POST['rtype'] ? $_POST['rtype']:$_GET['rtype'];
         if($optype == "save" && $rtype == 1){
-            //echo dd;exit;
             $intentText = $_POST["yixiangshu"];
             if($intentText == "" || $intentText == null){
                 header('Content-Type: text/html; charset=utf-8');
