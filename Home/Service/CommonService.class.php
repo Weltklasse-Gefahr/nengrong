@@ -3,7 +3,7 @@ namespace Home\Service;
 
 use Think\Model;
 
-class CommonService extends Model{
+class CommonService{
 
 	/**
     **@auth qianqiang
@@ -11,6 +11,9 @@ class CommonService extends Model{
     **@date 2016.1.28
 	**/
 	public function getUserCompanyType($no){
+		if($no == null){
+			return null;
+		}
 		if(1 == $no){
 			$companyTypeStr = '央企国企';
 		}elseif(2 == $no){
@@ -33,6 +36,9 @@ class CommonService extends Model{
     **@date 2016.1.28
 	**/
 	public function getProjectCompanyType($no){
+		if($no == null){
+			return null;
+		}
 		if(1 == $no){
 			$companyTypeStr = '国企（上市公司）';
 		}elseif(2 == $no){
@@ -57,6 +63,9 @@ class CommonService extends Model{
     **@date 2016.1.28
 	**/
 	public function getSynchronizeType($no){
+		if($no == null){
+			return null;
+		}
 		if(1 == $no){
 			$synchronizeTypeStr = '自发自用';
 		}elseif(2 == $no){
@@ -75,6 +84,9 @@ class CommonService extends Model{
     **@date 2016.1.28
 	**/
 	public function getFinancingType($no){
+		if($no == null){
+			return null;
+		}
 		if(1 == $no){
 			$financingTypeStr = '融资租赁（直租）';
 		}elseif(2 == $no){
@@ -93,6 +105,9 @@ class CommonService extends Model{
     **@date 2016.1.28
 	**/
 	public function getElectricityClearType($no){
+		if($no == null){
+			return null;
+		}
 		if(1 == $no){
 			$str = '峰谷平电价打折';
 		}elseif(2 == $no){
@@ -111,6 +126,9 @@ class CommonService extends Model{
     **@date 2016.1.28
 	**/
 	public function getGroundProperty($no){
+		if($no == null){
+			return null;
+		}
 		if(1 == $no){
 			$str = '一般农田';
 		}elseif(2 == $no){
@@ -133,6 +151,9 @@ class CommonService extends Model{
     **@date 2016.1.28
 	**/
 	public function getGroundCondition($no){
+		if($no == null){
+			return null;
+		}
 		if(1 == $no){
 			$str = '平地';
 		}elseif(2 == $no){
@@ -147,10 +168,32 @@ class CommonService extends Model{
 
 	/**
     **@auth qianqiang
+    **@breif 获取计量点
+    **@date 2016.1.28
+	**/
+	public function getMeasurePoint($no){
+		if($no == null){
+			return null;
+		}
+		if(1 == $no){
+			$str = '站内';
+		}elseif(2 == $no){
+			$str = '变电站';
+		}else{
+			$str = '其他';
+		}
+		return $str;
+	}
+
+	/**
+    **@auth qianqiang
     **@breif 获取项目支架类型
     **@date 2016.1.28
 	**/
 	public function getProjectHolderType($no){
+		if($no == null){
+			return null;
+		}
 		if(1 == $no){
 			$str = '地面固定式';
 		}elseif(2 == $no){
@@ -169,6 +212,9 @@ class CommonService extends Model{
     **@date 2016.1.28
 	**/
 	public function getGroundProjectType($no){
+		if($no == null){
+			return null;
+		}
 		if(1 == $no){
 			$str = '地面';
 		}elseif(2 == $no){
@@ -180,4 +226,24 @@ class CommonService extends Model{
 		}
 		return $str;
 	}
+
+	/**
+    **@auth qianqiang
+    **@breif 获取屋顶类型
+    **@date 2016.1.28
+	**/
+	public function getHousetopType($no){
+		if($no == null){
+			return null;
+		}
+		if(1 == $no){
+			$str = '混凝土';
+		}elseif(2 == $no){
+			$str = '彩钢瓦';
+		}else{
+			$str = '其他';
+		}
+		return $str;
+	}
+
 }

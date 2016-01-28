@@ -401,8 +401,9 @@ class InnerStaffController extends Controller {
                 echo '{"code":"-1","msg":"保存失败"}';
             }
         }else{
-            $getJsonFlag = 1;
+            $common = D("Common","Service");
             //获取项目信息
+            $getJsonFlag = 1;
             $obj   = new ProjectProviderMyProController();
             $innerToken = "InternalCall";
             $data = $obj->projectInfoEdit($projectCode, null, $getJsonFlag, $innerToken);
@@ -411,6 +412,16 @@ class InnerStaffController extends Controller {
             $areaInfo = $data['county']?$data['county']:$data['city'];
             $areaInfo = $areaInfo?$areaInfo:$data['province'];
             $data['areaStr'] = $areaObj->getAreaById($areaInfo);
+            $data['companyType'] = $common->getProjectCompanyType($data['company_type']);
+            $data['housetopType'] = $common->getHousetopType($data['housetop_type']);
+            $data['synchronizeType'] = $common->getSynchronizeType($data['synchronize_type']);
+            $data['financingType'] = $common->getFinancingType($data['financing_type']);
+            $data['electricityClearType'] = $common->getElectricityClearType($data['electricity_clear_type']);
+            $data['groundProperty'] = $common->getGroundProperty($data['ground_property']);
+            $data['groundCondition'] = $common->getGroundProperty($data['ground_condition']);
+            $data['measurePoint'] = $common->getMeasurePoint($data['measure_point']);
+            $data['projectHolderType'] = $common->getProjectHolderType($data['project_holder_type']);
+            $data['groundProjectType'] = $common->getGroundProjectType($data['ground_project_type']);
             $dataBig  = array('projectInfo' => $data);
             $this->assign('data',$dataBig);
             if ($_GET['display'] == 'json') {
