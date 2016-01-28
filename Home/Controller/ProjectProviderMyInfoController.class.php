@@ -50,6 +50,11 @@ class ProjectProviderMyInfoController extends Controller {
             $arrUser['company_person'] = $_POST['company_person'];//企业法人
             $arrUser['company_phone'] = $_POST['company_phone'];//座机
             $arrUser['company_area'] = $_POST['county'];//省市区
+            
+            if(empty($arrUser['company_contacts']) || empty($arrUser['company_contacts_phone']) || empty($arrUser['company_name'])){
+                echo '{"code":"-1","msg":"联系人、联系人手机、企业名称为必填项"}';
+                exit;
+            }
 
             $objUser = D("Doc","Service");
             $arrRes = $objUser->uploadFileAndPictrue($arrPhotosAndFile, $arrFile); 
@@ -70,6 +75,7 @@ class ProjectProviderMyInfoController extends Controller {
             $res = $objUser->updateUserInfo($strWhere, $arrUser);
             if ($res == true)
             {
+                setcookie("userName", $arrUser['company_name'], time()+3600*24*7);
                 echo '{"code":"0","msg":"succ"}';
             }
             else

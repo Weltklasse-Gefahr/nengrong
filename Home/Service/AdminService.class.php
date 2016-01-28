@@ -18,8 +18,8 @@ class AdminService extends Model{
         	exit;
         }
 
-        setcookie("userName", $userName, time()+3600);
-        setcookie("mUserName", MD5(addToken($userName)), time()+3600);
+        setcookie("adminName", $userName, time()+3600);
+        setcookie("mAdminName", MD5(addToken($userName)), time()+3600);
         session_start();
 
         return $objManager[0];
@@ -32,8 +32,8 @@ class AdminService extends Model{
     **/
 	public function logoutService(){
 
-        setcookie("userName", $userName, time()-3600);
-        setcookie("mUserName", MD5(addToken($userName)), time()-3600);
+        setcookie("adminName", $userName, time()-3600);
+        setcookie("mAdminName", MD5(addToken($userName)), time()-3600);
         session_destroy();
     }
 

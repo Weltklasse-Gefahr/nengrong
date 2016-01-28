@@ -62,6 +62,7 @@ class ProjectInvestorMyInfoController extends Controller {
             $data['company_phone'] = $companyPhone;
             $res = $user->updateUserInfo($condition, $data);
             if($res){
+                setcookie("userName", $companyName, time()+3600*24*7);
                 echo '{"code":"0","msg":"修改成功"}';
             }else{
                 echo '{"code":"-1","msg":"save error"}';
