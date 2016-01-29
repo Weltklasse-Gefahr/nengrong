@@ -8,6 +8,7 @@
 
 .r-content  .remark {
 	position: absolute;
+	margin-left: 750px;
 	margin-top: 20px;
 	margin-right: 50px;
 	width: 200px;
@@ -15,7 +16,7 @@
 }
 
 .r-content  .remark textarea{
-	width: 180px;
+	width: 120px;
 	height: 480px;
 }
 
