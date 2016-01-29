@@ -455,7 +455,7 @@ class ProjectService extends Model{
         $projectDetails['change_date'] = date("Y-m-d H:i:s",time());
         if($projectInfo['project_type'] == 1){
             $housetop = M('Housetop');
-            $housetopResult = $housetop->where("project_id='".$projectDetails['project_id']."' and (status=12 or status=22)")->save($projectDetails);
+            $housetopResult = $housetop->where("project_id='".$projectDetails['project_id']."' and (status=12 or status=22) and delete_flag!=9999")->save($projectDetails);
             if($housetopResult == 0) return false;
             if($this->hasSaveHousetopOrGround($projectInfo['id'], 61, $projectInfo['project_type'])){
                 $condition['project_id'] = $projectDetails['project_id'];
@@ -464,7 +464,7 @@ class ProjectService extends Model{
             }
         }elseif($projectInfo['project_type'] == 2 || $projectInfo['project_type'] == 3){
             $ground = M('Ground');
-            $groundResult = $ground->where("project_id='".$projectDetails['project_id']."' and (status=12 or status=22)")->save($projectDetails);
+            $groundResult = $ground->where("project_id='".$projectDetails['project_id']."' and (status=12 or status=22) and delete_flag!=9999")->save($projectDetails);
             if($groundResult == 0) return false;
             if($this->hasSaveHousetopOrGround($projectInfo['id'], 61, $projectInfo['project_type'])){
                 $condition['project_id'] = $projectDetails['project_id'];
@@ -475,7 +475,7 @@ class ProjectService extends Model{
         $project = M("Project");
         $data['status'] = 13;
         $data['change_date'] = date("Y-m-d H:i:s",time());
-        $projectResult = $project->where("id='".$projectInfo['id']."' and status=12")->save($data);
+        $projectResult = $project->where("id='".$projectInfo['id']."' and (status=12 or status=22) and delete_flag!=9999")->save($data);
         if($projectResult == 0) return false;
         return true;
     }
