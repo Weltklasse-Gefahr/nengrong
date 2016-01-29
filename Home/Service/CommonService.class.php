@@ -246,4 +246,23 @@ class CommonService{
 		return $str;
 	}
 
+	/**
+    **@auth qianqiang
+    **@breif 获取屋顶朝向
+    **@date 2016.1.28
+	**/
+	public function getHousetopDirection($no){
+		if($no == null){
+			return null;
+		}
+		if(1 == $no){
+			$str = '正南';
+		}elseif(2 == $no){
+			$str = '东西向';
+		}else{
+			$str = '其他';
+		}
+		return $str;
+	}
+
 }

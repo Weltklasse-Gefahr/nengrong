@@ -89,13 +89,13 @@
 												<td class="c1"><input name="housetop_owner" value="{$projectDetail['housetop_owner']}"/></td>
 												<td class="c2">企业类型</td>
 												<td class="c3">
-													<select name="company_type" value="{$projectDetail['company_type']}" >
-														<option value="1">国企（上市公司）</option>
-														<option value="2" selected>外企（上市公司）</option>
-														<option value="3">私企（上市公司）</option>
-														<option value="4">国企（非上市公司）</option>
-														<option value="5">外企（非上市公司）</option>
-														<option value="6">私企（非上市公司）</option>
+													<select name="company_type">
+														<option value="1" {$projectDetail['company_type']==1?'selected':''}>国企（上市公司）</option>
+														<option value="2" {$projectDetail['company_type']==2?'selected':''}>外企（上市公司）</option>
+														<option value="3" {$projectDetail['company_type']==3?'selected':''}>私企（上市公司）</option>
+														<option value="4" {$projectDetail['company_type']==4?'selected':''}>国企（非上市公司）</option>
+														<option value="5" {$projectDetail['company_type']==5?'selected':''}>外企（非上市公司）</option>
+														<option value="6" {$projectDetail['company_type']==6?'selected':''}>私企（非上市公司）</option>
 													</select>
 												</td>
 											</tr>
@@ -121,19 +121,19 @@
 											<tr>
 												<td class="c0">屋顶类型</td>
 												<td class="c1">
-													<select name="housetop_type" value="{$projectDetail['housetop_type']}" data-with-other="true">
-														<option value="1">混凝土</option>
-														<option value="2">彩钢瓦</option>
-														<option value="0">其他（可填写）</option>
+													<select name="housetop_type" data-with-other="true">
+														<option value="1" {$projectDetail['housetop_type']==1?'selected':''}>混凝土</option>
+														<option value="2" {$projectDetail['housetop_type']==2?'selected':''}>彩钢瓦</option>
+														<option value="0" {$projectDetail['housetop_type']==0?'selected':''}>其他（可填写）</option>
 													</select>
 													<input class="other" name="housetop_type_other" value="{$projectDetail['housetop_type_other']}" style="display: none;" value="">
 												</td>
 												<td class="c2">并网方式</td>
 												<td class="c3">
-													<select name="synchronize_type" value="{$projectDetail['synchronize_type']}">
-														<option value="1">自发自用</option>
-														<option value="2" selected>全额上网</option>
-														<option value="3">自发自用,全额上网</option>
+													<select name="synchronize_type">
+														<option value="1" {$projectDetail['synchronize_type']==1?'selected':''}>自发自用</option>
+														<option value="2" {$projectDetail['synchronize_type']==2?'selected':''}>全额上网</option>
+														<option value="3" {$projectDetail['synchronize_type']==3?'selected':''}>自发自用,全额上网</option>
 													</select>
 												</td>
 											</tr>
@@ -142,9 +142,10 @@
 												<td class="c1"><input name="plan_financing" value="{$projectDetail['plan_financing']}"><span>万元</span></td>
 												<td class="c2">融资方式</td>
 												<td class="c3">
-													<select name="financing_type" value="{$projectDetail['financing_type']}">
-														<option value="2" selected>融资租赁（回租）</option>
-														<option value="3">股权融资</option>
+													<select name="financing_type">
+														<option value="1" {$projectDetail['financing_type']==1?'selected':''}>融资租赁（直租）</option>
+														<option value="2" {$projectDetail['financing_type']==2?'selected':''}>融资租赁（回租）</option>
+														<option value="3" {$projectDetail['financing_type']==3?'selected':''}>股权融资</option>
 													</select>
 												</td>
 											</tr>

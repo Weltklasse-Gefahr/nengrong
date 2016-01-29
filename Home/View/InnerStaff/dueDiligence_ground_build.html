@@ -89,7 +89,13 @@
 												<td class="c0">项目名称</td>
 												<td class="c1"><input name="project_name" value="{$projectDetail['project_name']}"/></td>
 												<td class="c2">项目类型</td>
-												<td class="c3">{$projectDetail['ground_project_type']}</td>
+												<td class="c3">
+													<select name="ground_project_type">
+														<option value="1" {$projectDetail['ground_project_type']==1?'selected':''}>地面</option>
+														<option value="2" {$projectDetail['ground_project_type']==2?'selected':''}>农光互补</option>
+														<option value="3" {$projectDetail['ground_project_type']==3?'selected':''}>鱼光互补</option>
+													</select>
+												</td>
 											</tr>
 											<tr>
 												<td class="c0">建设容量</td>
@@ -121,23 +127,23 @@
 												<td class="c1"><input name="project_investment" value="{$projectDetail['project_investment']}"><span>万元</span></td>
 												<td class="c2">土地平整情况</td>
 												<td class="c3">
-													<select name="ground_condition" value="{$projectDetail['ground_condition']}">
-														<option value="1" selected>平地</option>
-														<option value="2">山坡</option>
-														<option value="3">水面</option>
+													<select name="ground_condition">
+														<option value="1" {$projectDetail['ground_condition']==1?'selected':''}>平地</option>
+														<option value="2" {$projectDetail['ground_condition']==2?'selected':''}>山坡</option>
+														<option value="3" {$projectDetail['ground_condition']==3?'selected':''}>水面</option>
 													</select>
 												</td>
 											</tr>
 											<tr>
 												<td class="c0">土地性质</td>
 												<td class="c1">
-													<select name="ground_property" value="{$projectDetail['ground_property']}" data-with-other="true">
-														<option value="1">一般农田</option>
-														<option value="2" selected>林地</option>
-														<option value="2">荒地</option>
-														<option value="2">鱼塘</option>
-														<option value="2">基本农田</option>
-														<option value="0">其他</option>
+													<select name="ground_property" data-with-other="true">
+														<option value="1" {$projectDetail['ground_property']==1?'selected':''}>一般农田</option>
+														<option value="2" {$projectDetail['ground_property']==2?'selected':''}>林地</option>
+														<option value="3" {$projectDetail['ground_property']==3?'selected':''}>荒地</option>
+														<option value="4" {$projectDetail['ground_property']==4?'selected':''}>鱼塘</option>
+														<option value="5" {$projectDetail['ground_property']==5?'selected':''}>基本农田</option>
+														<option value="0" {$projectDetail['ground_property']==0?'selected':''}>其他</option>
 													</select>
 													<input class="other" name="ground_property_other" style="display: none;" value="{$projectDetail['ground_property_other']}">
 												</td>
@@ -151,9 +157,10 @@
 												<td class="c1"><input name="plan_financing" value="{$projectDetail['plan_financing']}"><span>万元</span></td>
 												<td class="c2">融资方式</td>
 												<td class="c3">
-													<select name="financing_type" value="{$projectDetail['financing_type']}">
-														<option value="2" selected>融资租赁（回租）</option>
-														<option value="3">股权融资</option>
+													<select name="financing_type">
+														<option value="1" {$projectDetail['financing_type']==1?'selected':''}>融资租赁（直租）</option>
+														<option value="2" {$projectDetail['financing_type']==2?'selected':''}>融资租赁（回租）</option>
+														<option value="3" {$projectDetail['financing_type']==3?'selected':''}>股权融资</option>
 													</select>
 												</td>
 											</tr>

@@ -422,6 +422,7 @@ class InnerStaffController extends Controller {
             $data['measurePoint'] = $common->getMeasurePoint($data['measure_point']);
             $data['projectHolderType'] = $common->getProjectHolderType($data['project_holder_type']);
             $data['groundProjectType'] = $common->getGroundProjectType($data['ground_project_type']);
+            $data['housetopDirection'] = $common->getHousetopDirection($data['housetop_direction']);
             $dataBig  = array('projectInfo' => $data);
             $this->assign('data',$dataBig);
             if ($_GET['display'] == 'json') {
