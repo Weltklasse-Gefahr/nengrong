@@ -418,6 +418,7 @@ class ProjectProviderMyProController extends Controller {
             {
                 $table = 'Housetop';
             }
+            // dump($arrInfor);exit;
             $ret = $objProject->saveHousetopOrGround($arrInfor, $arrInfor["status"], $arrProInfo['project_type'], $oldStatus);
             if ($ret === false)
             {

@@ -77,6 +77,117 @@ class InnerStaffController extends Controller {
 
     /**
     **@auth qianqiang
+    **@breif 客服->项目信息
+    **@date 2015.12.26
+    **/
+    public function projectInfo(){
+        isLogin($_COOKIE['email'], $_COOKIE['mEmail']);
+        authentication($_COOKIE['email'], 2);
+        $projectCode  = $_POST['no']     ? $_POST['no']:$_GET['no'];
+        $mProjectCode = $_POST['token']  ? $_POST['token']:$_GET['token'];
+        isProjectCodeRight($projectCode, $mProjectCode);
+        $rtype = $_POST['rtype'] ? $_POST['rtype']:$_GET['rtype'];
+        $objProject  = D("Project","Service");
+        $projectInfo = $objProject->getProjectInfo($projectCode);
+        if($rtype == 1){
+            $proData['comment'] = $_POST['comment'];
+            // $proData['comment'] = "sldfjiofnosdkfj是的发生的";
+            $res = $objProject->saveProjectDetail($projectCode, $projectInfo['project_type'], $proData);
+            if($res > 0){
+                header('Content-Type: text/html; charset=utf-8');
+                echo '{"code":"0","msg":"保存成功"}';
+            }else{
+                header('Content-Type: text/html; charset=utf-8');
+                echo '{"code":"-1","msg":"保存失败"}';
+            }
+        }else{
+            $common = D("Common","Service");
+            //获取项目信息
+            $getJsonFlag = 1;
+            $obj   = new ProjectProviderMyProController();
+            $innerToken = "InternalCall";
+            $data = $obj->projectInfoEdit($projectCode, null, $getJsonFlag, $innerToken);
+            $data['typeStr'] = $objProject->getTypeAndStateStr($data['project_type'], $data['build_state']);
+            $areaObj = D('Area', 'Service');
+            $areaInfo = $data['county']?$data['county']:$data['city'];
+            $areaInfo = $areaInfo?$areaInfo:$data['province'];
+            $data['areaStr'] = $areaObj->getAreaById($areaInfo);
+            $data['companyType'] = $common->getProjectCompanyType($data['company_type']);
+            $data['housetopType'] = $common->getHousetopType($data['housetop_type']);
+            $data['synchronizeType'] = $common->getSynchronizeType($data['synchronize_type']);
+            $data['financingType'] = $common->getFinancingType($data['financing_type']);
+            $data['electricityClearType'] = $common->getElectricityClearType($data['electricity_clear_type']);
+            $data['groundProperty'] = $common->getGroundProperty($data['ground_property']);
+            $data['groundCondition'] = $common->getGroundProperty($data['ground_condition']);
+            $data['measurePoint'] = $common->getMeasurePoint($data['measure_point']);
+            $data['projectHolderType'] = $common->getProjectHolderType($data['project_holder_type']);
+            $data['groundProjectType'] = $common->getGroundProjectType($data['ground_project_type']);
+            $data['housetopDirection'] = $common->getHousetopDirection($data['housetop_direction']);
+            $dataBig  = array('projectInfo' => $data);
+            $this->assign('data',$dataBig);
+            if ($_GET['display'] == 'json') {
+                header('Content-Type: text/html; charset=utf-8');
+                dump($dataBig);
+                exit;
+            }
+            if($data['project_type'] == 1){
+                if($data['build_state'] == 1){
+                    $this->display("InnerStaff:projectInfo_housetop_nonbuild");
+                }elseif($data['build_state'] == 2){
+                    $this->display("InnerStaff:projectInfo_housetop_build");
+                }
+            }elseif($data['project_type'] == 2 || $data['project_type'] == 3){
+                if($data['build_state'] == 1){
+                    $this->display("InnerStaff:projectInfo_ground_nonbuild");
+                }elseif($data['build_state'] == 2){
+                    $this->display("InnerStaff:projectInfo_ground_build");
+                }
+            }
+        }
+        // $projectCode = $_POST['project_code'] ? $_POST['project_code']:$_GET['project_code'];
+        /*$projectCode = 'qwertyuio';
+        $objProject = D("Project", "Service");
+        $projectInfo = $objProject->getProjectInfo($projectCode);
+        if($rtype == 1){
+            $proData['comment'] = $_POST['comment'];
+            // $proData['comment'] = "sldfjiofnosdkfj是的发生的";
+            $res = $objProject->saveProjectDetail($projectCode, $projectInfo['project_type'], $proData);
+            if($res > 0){
+                header('Content-Type: text/html; charset=utf-8');
+                echo '{"code":"0","msg":"保存成功"}';
+            }else{
+                header('Content-Type: text/html; charset=utf-8');
+                echo '{"code":"-1","msg":"保存失败"}';
+            }
+        }else{
+            $projectDetail = $objProject->getProjectDetail($projectInfo['id'], $projectInfo['project_type']);
+            if ($_GET['display'] == 'json') {
+                header('Content-Type: text/html; charset=utf-8');
+                dump($projectDetail);
+                exit;
+            }
+            $this->assign("projectDetail", $projectDetail);
+            if($projectInfo['project_type'] == 1){
+                if($projectInfo['build_state'] == 1){
+                    $this->display("InnerStaff:housetop_nonbuild");
+                }elseif($projectInfo['build_state'] == 2){
+                    $this->display("InnerStaff:housetop_build");
+                }
+            }elseif($projectInfo['project_type'] == 2 || $projectInfo['project_type'] == 3){
+                if($projectInfo['build_state'] == 1){
+                    $this->display("InnerStaff:ground_nonbuild");
+                }elseif($projectInfo['build_state'] == 2){
+                    $this->display("InnerStaff:ground_build");
+                }
+            }else{
+                // 应该是异常界面
+                $this->display("User:login");
+            }
+        }*/
+    }
+
+    /**
+    **@auth qianqiang
     **@breif 客服->项目提供方信息（账户向详细信息）
     **@date 2015.12.19
     **/
@@ -143,6 +254,58 @@ class InnerStaffController extends Controller {
         $this->assign('areaStr', $areaStr);
         $this->assign('docData', $docData);
         $this->display("InnerStaff:providerInfo");
+    }
+
+    /**
+    **@auth qianqiang
+    **@breif 客服->意向书
+    **@date 2015.12.28
+    **/
+    public function intent(){
+        isLogin($_COOKIE['email'], $_COOKIE['mEmail']);
+        authentication($_COOKIE['email'], 2);
+        $projectCode = $_POST['no'] ? $_POST['no']:$_GET['no'];
+        $mProjectCode = $_POST['token'] ? $_POST['token']:$_GET['token'];
+        isProjectCodeRight($projectCode, $mProjectCode);
+        $optype = $_POST['optype'] ? $_POST['optype']:$_GET['optype'];
+        $rtype = $_POST['rtype'] ? $_POST['rtype']:$_GET['rtype'];
+        if($optype == "save" && $rtype == 1){
+            $intentText = $_POST["yixiangshu"];
+            if($intentText == "" || $intentText == null){
+                header('Content-Type: text/html; charset=utf-8');
+                echo '{"code":"-1","msg":"意向书不能为空"}';
+            }
+            $project = D("Project", "Service");
+            //echo $projectCode;echo jj;exit;
+            $result = $project->saveIntent($projectCode, $intentText);
+            if($result === true)
+                echo '{"code":"0","msg":"save success"}';
+            else
+                echo '{"code":"-1","msg":"save error"}';
+        }elseif($optype == "submit" && $rtype == 1){
+            $intentText = $_POST["yixiangshu"];
+            if($intentText == "" || $intentText == null){
+                header('Content-Type: text/html; charset=utf-8');
+                echo '{"code":"-1","msg":"意向书不能为空"}';
+            }
+            $project = D("Project", "Service");
+            $result = $project->submitIntent($projectCode, $intentText);
+            if($result === true)
+                echo '{"code":"0","msg":"save success"}';
+            else
+                echo '{"code":"-1","msg":"save error"}';
+        }elseif($rtype != 1){
+            $project = D("Project", "Service");
+            $projectInfo = $project->getIntent($projectCode);
+            //dump($projectInfo);exit;
+            if($_GET['display']=="json"){
+                header('Content-Type: text/html; charset=utf-8');
+                dump($projectInfo);
+                exit;
+            }
+            $this->assign("projectInfo", $projectInfo);
+            $this->display("InnerStaff:intent");
+        }
     }
 
     /**
@@ -373,169 +536,6 @@ class InnerStaffController extends Controller {
                 }
             }
     	}
-    }
-
-    /**
-    **@auth qianqiang
-    **@breif 客服->项目信息
-    **@date 2015.12.26
-    **/
-    public function projectInfo(){
-        isLogin($_COOKIE['email'], $_COOKIE['mEmail']);
-        authentication($_COOKIE['email'], 2);
-        $projectCode  = $_POST['no']     ? $_POST['no']:$_GET['no'];
-        $mProjectCode = $_POST['token']  ? $_POST['token']:$_GET['token'];
-        isProjectCodeRight($projectCode, $mProjectCode);
-        $rtype = $_POST['rtype'] ? $_POST['rtype']:$_GET['rtype'];
-        $objProject  = D("Project","Service");
-        $projectInfo = $objProject->getProjectInfo($projectCode);
-        if($rtype == 1){
-            $proData['comment'] = $_POST['comment'];
-            // $proData['comment'] = "sldfjiofnosdkfj是的发生的";
-            $res = $objProject->saveProjectDetail($projectCode, $projectInfo['project_type'], $proData);
-            if($res > 0){
-                header('Content-Type: text/html; charset=utf-8');
-                echo '{"code":"0","msg":"保存成功"}';
-            }else{
-                header('Content-Type: text/html; charset=utf-8');
-                echo '{"code":"-1","msg":"保存失败"}';
-            }
-        }else{
-            $common = D("Common","Service");
-            //获取项目信息
-            $getJsonFlag = 1;
-            $obj   = new ProjectProviderMyProController();
-            $innerToken = "InternalCall";
-            $data = $obj->projectInfoEdit($projectCode, null, $getJsonFlag, $innerToken);
-            $data['typeStr'] = $objProject->getTypeAndStateStr($data['project_type'], $data['build_state']);
-            $areaObj = D('Area', 'Service');
-            $areaInfo = $data['county']?$data['county']:$data['city'];
-            $areaInfo = $areaInfo?$areaInfo:$data['province'];
-            $data['areaStr'] = $areaObj->getAreaById($areaInfo);
-            $data['companyType'] = $common->getProjectCompanyType($data['company_type']);
-            $data['housetopType'] = $common->getHousetopType($data['housetop_type']);
-            $data['synchronizeType'] = $common->getSynchronizeType($data['synchronize_type']);
-            $data['financingType'] = $common->getFinancingType($data['financing_type']);
-            $data['electricityClearType'] = $common->getElectricityClearType($data['electricity_clear_type']);
-            $data['groundProperty'] = $common->getGroundProperty($data['ground_property']);
-            $data['groundCondition'] = $common->getGroundProperty($data['ground_condition']);
-            $data['measurePoint'] = $common->getMeasurePoint($data['measure_point']);
-            $data['projectHolderType'] = $common->getProjectHolderType($data['project_holder_type']);
-            $data['groundProjectType'] = $common->getGroundProjectType($data['ground_project_type']);
-            $data['housetopDirection'] = $common->getHousetopDirection($data['housetop_direction']);
-            $dataBig  = array('projectInfo' => $data);
-            $this->assign('data',$dataBig);
-            if ($_GET['display'] == 'json') {
-                header('Content-Type: text/html; charset=utf-8');
-                dump($dataBig);
-                exit;
-            }
-            if($data['project_type'] == 1){
-                if($data['build_state'] == 1){
-                    $this->display("InnerStaff:projectInfo_housetop_nonbuild");
-                }elseif($data['build_state'] == 2){
-                    $this->display("InnerStaff:projectInfo_housetop_build");
-                }
-            }elseif($data['project_type'] == 2 || $data['project_type'] == 3){
-                if($data['build_state'] == 1){
-                    $this->display("InnerStaff:projectInfo_ground_nonbuild");
-                }elseif($data['build_state'] == 2){
-                    $this->display("InnerStaff:projectInfo_ground_build");
-                }
-            }
-        }
-        // $projectCode = $_POST['project_code'] ? $_POST['project_code']:$_GET['project_code'];
-        /*$projectCode = 'qwertyuio';
-        $objProject = D("Project", "Service");
-        $projectInfo = $objProject->getProjectInfo($projectCode);
-        if($rtype == 1){
-            $proData['comment'] = $_POST['comment'];
-            // $proData['comment'] = "sldfjiofnosdkfj是的发生的";
-            $res = $objProject->saveProjectDetail($projectCode, $projectInfo['project_type'], $proData);
-            if($res > 0){
-                header('Content-Type: text/html; charset=utf-8');
-                echo '{"code":"0","msg":"保存成功"}';
-            }else{
-                header('Content-Type: text/html; charset=utf-8');
-                echo '{"code":"-1","msg":"保存失败"}';
-            }
-        }else{
-            $projectDetail = $objProject->getProjectDetail($projectInfo['id'], $projectInfo['project_type']);
-            if ($_GET['display'] == 'json') {
-                header('Content-Type: text/html; charset=utf-8');
-                dump($projectDetail);
-                exit;
-            }
-            $this->assign("projectDetail", $projectDetail);
-            if($projectInfo['project_type'] == 1){
-                if($projectInfo['build_state'] == 1){
-                    $this->display("InnerStaff:housetop_nonbuild");
-                }elseif($projectInfo['build_state'] == 2){
-                    $this->display("InnerStaff:housetop_build");
-                }
-            }elseif($projectInfo['project_type'] == 2 || $projectInfo['project_type'] == 3){
-                if($projectInfo['build_state'] == 1){
-                    $this->display("InnerStaff:ground_nonbuild");
-                }elseif($projectInfo['build_state'] == 2){
-                    $this->display("InnerStaff:ground_build");
-                }
-            }else{
-                // 应该是异常界面
-                $this->display("User:login");
-            }
-        }*/
-    }
-
-    /**
-    **@auth qianqiang
-    **@breif 客服->意向书
-    **@date 2015.12.28
-    **/
-    public function intent(){
-        isLogin($_COOKIE['email'], $_COOKIE['mEmail']);
-        authentication($_COOKIE['email'], 2);
-        $projectCode = $_POST['no'] ? $_POST['no']:$_GET['no'];
-        $mProjectCode = $_POST['token'] ? $_POST['token']:$_GET['token'];
-        isProjectCodeRight($projectCode, $mProjectCode);
-        $optype = $_POST['optype'] ? $_POST['optype']:$_GET['optype'];
-        $rtype = $_POST['rtype'] ? $_POST['rtype']:$_GET['rtype'];
-        if($optype == "save" && $rtype == 1){
-            $intentText = $_POST["yixiangshu"];
-            if($intentText == "" || $intentText == null){
-                header('Content-Type: text/html; charset=utf-8');
-                echo '{"code":"-1","msg":"意向书不能为空"}';
-            }
-            $project = D("Project", "Service");
-            //echo $projectCode;echo jj;exit;
-            $result = $project->saveIntent($projectCode, $intentText);
-            if($result === true)
-                echo '{"code":"0","msg":"save success"}';
-            else
-                echo '{"code":"-1","msg":"save error"}';
-        }elseif($optype == "submit" && $rtype == 1){
-            $intentText = $_POST["yixiangshu"];
-            if($intentText == "" || $intentText == null){
-                header('Content-Type: text/html; charset=utf-8');
-                echo '{"code":"-1","msg":"意向书不能为空"}';
-            }
-            $project = D("Project", "Service");
-            $result = $project->submitIntent($projectCode, $intentText);
-            if($result === true)
-                echo '{"code":"0","msg":"save success"}';
-            else
-                echo '{"code":"-1","msg":"save error"}';
-        }elseif($rtype != 1){
-            $project = D("Project", "Service");
-            $projectInfo = $project->getIntent($projectCode);
-            //dump($projectInfo);exit;
-            if($_GET['display']=="json"){
-                header('Content-Type: text/html; charset=utf-8');
-                dump($projectInfo);
-                exit;
-            }
-            $this->assign("projectInfo", $projectInfo);
-            $this->display("InnerStaff:intent");
-        }
     }
 
     /**

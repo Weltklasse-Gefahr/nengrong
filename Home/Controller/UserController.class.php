@@ -117,7 +117,7 @@ class UserController extends Controller
     **@date 2015.1.22
     **/
     public function forgetPassword(){
-        if($_GET['r'] == 1){
+        if($_GET['r'] == 1){//点击邮件，验证邮件信息和展示设置新密码页
             $key = $_GET['key'];
             $decryptKey = decrypt(urldecode($key), getKey());
             $keyList = explode(",",$decryptKey);
@@ -135,9 +135,8 @@ class UserController extends Controller
                 exit;
             }
             $this->assign('email', $keyList[0]);
-            $this->display();
-            // echo '{"code":"0","msg":"信息验证成功"}';
-        }elseif($_GET['f'] == 1){
+            $this->display("User:forgetpassmodify");
+        }elseif($_GET['f'] == 1){//设置新密码-下一步
             $email = $_POST['email'];
             $password = $_POST['password'];
             $user = D('User','Service');
@@ -148,7 +147,7 @@ class UserController extends Controller
                 echo '{"code":"-1","msg":"重设密码失败"}';
             }
         }
-        if($_POST['rtype'] == 1 || $_GET['rtype'] == 1){
+        if($_POST['rtype'] == 1 || $_GET['rtype'] == 1){//输入邮箱-下一步
             $email = $_POST['email'];
             if ( empty($email) ) {
                 echo '{"code":"-1","msg":"邮箱或者新密码为空！"}';
@@ -164,7 +163,7 @@ class UserController extends Controller
 
             echo '{"code":"0","msg":"邮件发送成功！"}';
         }else{
-            $this->display();
+            $this->display("User:forgetpassword");
         }
     }
 
@@ -176,9 +175,14 @@ class UserController extends Controller
     public function activeUser(){
         $key = $_GET['key'];
         $user = D('User','Service');
-        $user->activeService($key);
-        // echo '{"code":"0","msg":"用户激活成功"}';
-        $this->display("User:login");
+        $res = $user->activeService($key);
+        if($res === true){
+            $this->display("User:login");
+        }else{
+            $data['errmsg'] = $res;
+            $this->assign('data', $data);
+            $this->display("User:validate_fail");
+        }
     }
 
     public function test1(){

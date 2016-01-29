@@ -6,7 +6,7 @@ $(function(){
 
 		$.ajax({
 		    type: "post",
-		    url: "?c=user&a=projectInfo" ,
+		    url: "?c=InnerStaff&a=projectInfo" ,
 		    data: {	
 		    	comment: commenttexval,
 		    	rtype: 1
