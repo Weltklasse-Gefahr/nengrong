@@ -166,7 +166,6 @@ $(function() {
 	  
 	$form = $("#infoForm");
 	$form.validate({
-		debug: true,
 		ignore: ':hidden, [data-with-file="true"]',
 		rules: {
 			"province": "required",
@@ -290,7 +289,6 @@ $(function() {
    		},
    		submitHandler: function(form) {
    			$form.ajaxSubmit(options);
-   			// $form.ajaxForm(options).submit();
    		},
    		invalidHandler: function(event, validator) {
    			try{
