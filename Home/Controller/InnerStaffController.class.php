@@ -613,7 +613,7 @@ class InnerStaffController extends Controller {
         if($rtype == 1 && $optype == 'change'){
             $projectCode = $_GET['no'];
             $mProjectCode = $_GET['token'];
-            // isProjectCodeRight($projectCode, $mProjectCode);
+            isProjectCodeRight($projectCode, $mProjectCode);
             $oldStatus = $_GET['oldStatus'];
             $status = $_GET['status'];
             if($status == 11){//未提交
