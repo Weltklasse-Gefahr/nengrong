@@ -11,7 +11,7 @@ $(function() {
 
 		$(this).addClass("active").siblings().removeClass("active");
 		$(this).siblings("input").val($(this).data("filter"));
-		$form.find("li:hidden input, li:hidden select").prop("disabled", false);
+		$form.find("li:hidden input[name], li:hidden select[name]").prop("disabled", false);
 
 		$("#infoForm").attr("class", [
 			["housetop", "ground", "bigground"][$("input[name=project_type]").val()-1],
@@ -175,10 +175,8 @@ $(function() {
    			"project_address": "required",
    			"housetop_owner": "required",
    			"company_capital": "required",
-   			// "housetop_property_prove": "required",
    			"electricity_total": "required",
    			"electricity_pay": "required",
-   			// "electricity_pay_list": "required",
 
    			"housetop_type_other": {
    				"required": function() {
@@ -245,10 +243,8 @@ $(function() {
 			"project_address": "请填写详细地址",
 			"housetop_owner": "请填写屋顶业主名称",
 			"company_capital": "请填写注册资本金",
-			// "housetop_property_prove": "请上传屋顶产权证明附件",
    			"electricity_total": "请填写年用电量",
    			"electricity_pay": "请填写电费",
-   			// "electricity_pay_list": "请上传电费单(最近一年)附件",
 
    			"housetop_type_other": "请填写屋顶类型",
    			"housetop_area": "请填写屋顶面积",
@@ -294,6 +290,7 @@ $(function() {
    		},
    		submitHandler: function(form) {
    			$form.ajaxSubmit(options);
+   			// $form.ajaxForm(options).submit();
    		},
    		invalidHandler: function(event, validator) {
    			try{
@@ -304,6 +301,12 @@ $(function() {
 	});
 
 	function beforeSubmit(formData, jqForm, options) {
+		
+		var optype = $form.find("[name=optype]").val();
+		if(optype === "save") { // 保存不加校验
+			return true;
+		}
+
 		var match = jqForm.attr("class").match(/(housetop_nonBuild|housetop_build|ground_nonBuild|ground_build)/),
 			state = match && match[1];
 
@@ -406,17 +409,11 @@ $(function() {
 				break;
 		}
 
-		$form.find("li:hidden input, li:hidden select").prop("disabled", true);
-		$form.find('[data-type="mul"]').each(function() {
-			$(this).attr("name", $(this).attr("name").replace(/^(.*)$/, "$1[]"));
-		});
-
 	   	return true;
 	}
 
 	function successCallback(data) {
 		if(data.code == "0") {
-
 			var optype = $form.find("[name=optype]").val();
 			if(optype === "save") {
 				location.href = "?c=ProjectProviderMyPro&a=projectInfoEdit&no=" + data.id + "&token=" + data.idm;
@@ -424,10 +421,10 @@ $(function() {
 				location.href = "?c=ProjectProviderMyPro&a=awaitingAssessment";
 			}
 		} else {
-			$form.find('[data-type="mul"]').each(function() {
-				$(this).attr("name", $(this).attr("name").replace(/^([^\[\]]*)\[\]$/, "$1"));
-			});
-			alert(data.errmsg || "操作失败！");
+			// $form.find('[data-type="mul"]').each(function() {
+			// 	$(this).attr("name", $(this).attr("name").replace(/^([^\[\]]*)\[\]$/, "$1"));
+			// });
+			alert(data.msg || "操作失败！");
 		}
 	}
 
@@ -456,6 +453,12 @@ $(function() {
 			
 			return false;
 		}
+
+		$form.find("li:hidden input[name], li:hidden select[name]").prop("disabled", true);
+		// $form.find('[data-type="mul"]').each(function() {
+		// 	$(this).attr("name", $(this).attr("name").replace(/^(.*)$/, "$1[]"));
+		// });
+
 		$form.find("[name=optype]").val(optype);
 		if(optype === "save") { // 保存不加校验
 			$form.ajaxSubmit(options);

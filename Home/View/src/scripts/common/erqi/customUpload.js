@@ -66,7 +66,7 @@ $(function($) {
 			// 编辑页预览附件
 			var url = $this.attr("data-url");
 			if(url) {
-				$hiddenId = $('<input type="hidden"' + ($this.data("type") === "mul" ? ' data-type="mul"' : '') + ' name="' + $this.attr("name") + suffix + ($this.data("type") === "mul" ?'[]' : '') + '" value="' + ($this.attr("data-id") || "") + '" />');
+				$hiddenId = $('<input type="hidden"' + ($this.data("type") === "mul" ? ' data-type="mul"' : '') + ' name="' + $this.attr("name").replace(/\[\]$/, "") + suffix + ($this.data("type") === "mul" ?'[]' : '') + '" value="' + ($this.attr("data-id") || "") + '" />');
 				$this.after($hiddenId);
 				var name = $this.attr("data-name"),
 					alink = $preview.show().find("a");
