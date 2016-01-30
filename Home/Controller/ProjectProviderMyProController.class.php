@@ -366,6 +366,7 @@ class ProjectProviderMyProController extends Controller {
                 $arrProInfo["provider_id"] = $userInfo[0]['id'];//之后需要加一下项目提供方的id
                 //echo $email;exit;
                 //echo json_encode($userInfo);exit;
+                $arrProInfo["highlight_flag"] = 1;
                 $arrProInfo["create_time"] = date("Y-m-d H:i:s" ,time());
                 $arrProInfo["create_date"] = date("Y-m-d H:i:s" ,time());
                 $ret = $objProject->insertProject($arrProInfo);
@@ -669,7 +670,7 @@ class ProjectProviderMyProController extends Controller {
         $rtype        = $_POST['rtype']  ? $_POST['rtype']:$_GET['rtype'];
         //签署意向书的同意按钮，其实是去project和Housetop两个表中更新下status字段就可以了
         $objProject  = D("Project","Service");
-        $objProject->cancelProjectHighlight($projectCode);
+        $objProject->cancelProjectHighlight($projectCode, 3);
         $getJsonFlag = 1;
         //获取项目信息
         //echo XF7407-179K-X16-669723
@@ -700,7 +701,8 @@ class ProjectProviderMyProController extends Controller {
         //获取强哥的尽职调查信息
         $obj   = new InnerStaffController();
         $innerToken = "InternalCall";
-        list($picture,$docListInfo,$projectDetail,$areaArray,$evaluationInfo) = $obj->dueDiligence($projectCode, null, $getJsonFlag,$innerToken);
+        list($picture,$docListInfo,$projectDetail,$areaArray,$evaluationInfo) = 
+            $obj->dueDiligence($projectCode, null, $getJsonFlag,$innerToken);
 
         //先判断一下当前进度的状态
         //12项目已提交（客服未提交意向书）、
