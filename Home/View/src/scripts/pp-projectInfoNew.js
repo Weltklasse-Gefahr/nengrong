@@ -39,13 +39,13 @@ $(function() {
 		}
 
 		var fileTpl = '<div class="img-ct">\
-<input type="file" data-type="mul" accept="image/gif,image/jpeg,image/png" name="picture_mul" style="visibility: hidden;" />\
+<input type="file" accept="image/*" data-type="mul" name="picture_mul[]" style="visibility: hidden;" />\
 <p class="previewname"></p>\
 </div>';
 
 		// 增加或移除图片上传框，最多12张图片
 		if(type === "add") {
-			if(this.name === "picture_mul") {
+			if(this.name === "picture_mul[]") {
 				var count = $(this).parents(".img-ct").siblings(".img-ct").length;
 				if(count < 11) {
 					$(this).parents(".img-ct").after(fileTpl).next().find('input[type=file]').customUpload({
@@ -58,7 +58,7 @@ $(function() {
 				}
 			}
 		} else {
-			if(this.name === "picture_mul") {
+			if(this.name === "picture_mul[]") {
 				var ct = $(this).parents(".item");
 				$(this).parents(".img-ct").remove();
 				var mul_items = ct.children(".img-ct").filter(function(){
@@ -381,7 +381,7 @@ $(function() {
 					return false;
 				}
 
-				var $cooperation_type = $('.housetop_nonBuild_item [name=cooperation_type]');
+				var $cooperation_type = $('.housetop_nonBuild_item [r-name=cooperation_type]');
 				if(!$cooperation_type.filter(":checked").length) {
 					alert("与能融网合作方式至少需选中一项");
 					$cooperation_type.focus();
@@ -397,7 +397,7 @@ $(function() {
 					return false;
 				}
 
-				var $cooperation_type = $('.housetop_build_item [name=cooperation_type]');
+				var $cooperation_type = $('.housetop_build_item [r-name=cooperation_type]');
 				if(!$cooperation_type.filter(":checked").length) {
 					alert("与能融网合作方式至少需选中一项");
 					$cooperation_type.focus();
@@ -457,6 +457,10 @@ $(function() {
 			return false;
 		}
 		$form.find("[name=optype]").val(optype);
+		if(optype === "save") { // 保存不加校验
+			$form.ajaxSubmit(options);
+			return false;
+		}
 		return true;
 	});
 
