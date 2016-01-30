@@ -62,10 +62,8 @@
 					<?php } ?>
 				</div>
 			</form>
-			<?php if($projectInfo['status'] == 12){  ?>
+			<?php if($projectInfo['status'] == 21 || $projectInfo['status'] == 23 || $projectInfo['status'] == 31){ ?>
 			<div class="signed">已签</div>
-			<?php }elseif($projectInfo['status'] == 21 || $projectInfo['status'] == 23 || $projectInfo['status'] == 31){ ?>
-			<div class="signed" style="display: block;">已签</div>
 			<?php } ?>
 		</div>
 	</div>

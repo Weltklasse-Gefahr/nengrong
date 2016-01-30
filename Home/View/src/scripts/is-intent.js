@@ -13,7 +13,7 @@ $(function() {
         initialFrameWidth: 670,
         initialFrameHeight: 340
     });
-    
+
     var param = $.parseQueryParam();
     ue.ready(function() {
     	var $form = $("form");
@@ -46,6 +46,12 @@ $(function() {
 
 		$("input[type=submit]").click(function(e) {
 
+			var yixiangshu = ue.getContent();
+    		if(!yixiangshu || !$.trim(yixiangshu)) {
+    			alert("意向书内容不能为空");
+    			return false;
+    		}
+
 			var optype = $(this).data("optype");
 			if(optype === "save") {
 				saveOrSubmitIntent({
@@ -67,5 +73,9 @@ $(function() {
 			
 			return false;
 		});
+
+		if($('input[type=submit][data-optype="submit"]').is(":disabled")) {
+			ue.disable(true);
+		}
     });
 });
