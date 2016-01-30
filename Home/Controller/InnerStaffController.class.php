@@ -258,58 +258,6 @@ class InnerStaffController extends Controller {
 
     /**
     **@auth qianqiang
-    **@breif 客服->意向书
-    **@date 2015.12.28
-    **/
-    public function intent(){
-        isLogin($_COOKIE['email'], $_COOKIE['mEmail']);
-        authentication($_COOKIE['email'], 2);
-        $projectCode = $_POST['no'] ? $_POST['no']:$_GET['no'];
-        $mProjectCode = $_POST['token'] ? $_POST['token']:$_GET['token'];
-        isProjectCodeRight($projectCode, $mProjectCode);
-        $optype = $_POST['optype'] ? $_POST['optype']:$_GET['optype'];
-        $rtype = $_POST['rtype'] ? $_POST['rtype']:$_GET['rtype'];
-        if($optype == "save" && $rtype == 1){
-            $intentText = $_POST["yixiangshu"];
-            if($intentText == "" || $intentText == null){
-                header('Content-Type: text/html; charset=utf-8');
-                echo '{"code":"-1","msg":"意向书不能为空"}';
-            }
-            $project = D("Project", "Service");
-            //echo $projectCode;echo jj;exit;
-            $result = $project->saveIntent($projectCode, $intentText);
-            if($result === true)
-                echo '{"code":"0","msg":"save success"}';
-            else
-                echo '{"code":"-1","msg":"save error"}';
-        }elseif($optype == "submit" && $rtype == 1){
-            $intentText = $_POST["yixiangshu"];
-            if($intentText == "" || $intentText == null){
-                header('Content-Type: text/html; charset=utf-8');
-                echo '{"code":"-1","msg":"意向书不能为空"}';
-            }
-            $project = D("Project", "Service");
-            $result = $project->submitIntent($projectCode, $intentText);
-            if($result === true)
-                echo '{"code":"0","msg":"save success"}';
-            else
-                echo '{"code":"-1","msg":"save error"}';
-        }elseif($rtype != 1){
-            $project = D("Project", "Service");
-            $projectInfo = $project->getIntent($projectCode);
-            //dump($projectInfo);exit;
-            if($_GET['display']=="json"){
-                header('Content-Type: text/html; charset=utf-8');
-                dump($projectInfo);
-                exit;
-            }
-            $this->assign("projectInfo", $projectInfo);
-            $this->display("InnerStaff:intent");
-        }
-    }
-
-    /**
-    **@auth qianqiang
     **@breif 客服->尽职调查
     **@date 2015.12.19
     **/
@@ -536,6 +484,58 @@ class InnerStaffController extends Controller {
                 }
             }
     	}
+    }
+
+    /**
+    **@auth qianqiang
+    **@breif 客服->意向书
+    **@date 2015.12.28
+    **/
+    public function intent(){
+        isLogin($_COOKIE['email'], $_COOKIE['mEmail']);
+        authentication($_COOKIE['email'], 2);
+        $projectCode = $_POST['no'] ? $_POST['no']:$_GET['no'];
+        $mProjectCode = $_POST['token'] ? $_POST['token']:$_GET['token'];
+        isProjectCodeRight($projectCode, $mProjectCode);
+        $optype = $_POST['optype'] ? $_POST['optype']:$_GET['optype'];
+        $rtype = $_POST['rtype'] ? $_POST['rtype']:$_GET['rtype'];
+        if($optype == "save" && $rtype == 1){
+            $intentText = $_POST["yixiangshu"];
+            if($intentText == "" || $intentText == null){
+                header('Content-Type: text/html; charset=utf-8');
+                echo '{"code":"-1","msg":"意向书不能为空"}';
+            }
+            $project = D("Project", "Service");
+            //echo $projectCode;echo jj;exit;
+            $result = $project->saveIntent($projectCode, $intentText);
+            if($result === true)
+                echo '{"code":"0","msg":"save success"}';
+            else
+                echo '{"code":"-1","msg":"save error"}';
+        }elseif($optype == "submit" && $rtype == 1){
+            $intentText = $_POST["yixiangshu"];
+            if($intentText == "" || $intentText == null){
+                header('Content-Type: text/html; charset=utf-8');
+                echo '{"code":"-1","msg":"意向书不能为空"}';
+            }
+            $project = D("Project", "Service");
+            $result = $project->submitIntent($projectCode, $intentText);
+            if($result === true)
+                echo '{"code":"0","msg":"save success"}';
+            else
+                echo '{"code":"-1","msg":"save error"}';
+        }elseif($rtype != 1){
+            $project = D("Project", "Service");
+            $projectInfo = $project->getIntent($projectCode);
+            //dump($projectInfo);exit;
+            if($_GET['display']=="json"){
+                header('Content-Type: text/html; charset=utf-8');
+                dump($projectInfo);
+                exit;
+            }
+            $this->assign("projectInfo", $projectInfo);
+            $this->display("InnerStaff:intent");
+        }
     }
 
     /**

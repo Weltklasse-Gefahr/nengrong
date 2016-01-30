@@ -50,8 +50,7 @@
 				</div>
 				<div class="bd">
 					<foreach name="arrData.list" item="project">
-						<if condition="$project[status] eq 32 && $project[highlight_flag] eq 1">
-							<div class="new">
+							<div class="<if condition="$project[status] eq 31 && $project[highlight_flag] eq 1">new</if>">
 							<p class="c0"><a data-id="{$project[project_code]}" 
 							data-idm="{$project[m_project_code]}" href="javascript:;">{$project[project_code]}</a></p>
 							<p class="c1">{$project[type]}</p>

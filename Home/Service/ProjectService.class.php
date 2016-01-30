@@ -315,9 +315,9 @@ class ProjectService extends Model{
         $condition["delete_flag"] = array('neq',9999);
         $pushPro = M('Pushproject');
         if($page == -1){
-            $pushProInfo = $pushPro->where($condition)->select();
+            $pushProInfo = $pushPro->where($condition)->order('highlight_flag desc')->select();
         }else{
-            $pushProInfo = $pushPro->where($condition)->page($page, 6)->select();
+            $pushProInfo = $pushPro->where($condition)->order('highlight_flag desc')->page($page, 6)->select();
         }
         $projectInfo = $this->getProTypeListFromPushPro($pushProInfo);
         $projectList = $this->formatProject($projectInfo);
@@ -474,6 +474,7 @@ class ProjectService extends Model{
         }
         $project = M("Project");
         $data['status'] = 13;
+        $data['highlight_flag'] = 1;
         $data['change_date'] = date("Y-m-d H:i:s",time());
         $projectResult = $project->where("id='".$projectInfo['id']."' and (status=12 or status=22) and delete_flag!=9999")->save($data);
         if($projectResult == 0) return false;
@@ -653,6 +654,9 @@ class ProjectService extends Model{
         if($result > 0){
             $project = M("Project");
             $data['status'] = $status;
+            // if($status == 22){
+                $data['highlight_flag'] = 1;
+            // }
             $data['change_date'] = date("Y-m-d H:i:s",time());
             $projectResult = $project->where("id='".$proData['project_id']."' and status!=51 and status!=61 and delete_flag!=9999")->save($data);
             return true;
@@ -688,6 +692,7 @@ class ProjectService extends Model{
         $pushProject = D("Pushproject");
         $data = array();
         $data['project_code'] = $projectCode;
+        $data['highlight_flag'] = 1;
         $data['status'] = 41;
         $data['push_time'] = date("Y-m-d H:i:s",time());
         $i = 0;

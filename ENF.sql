@@ -253,6 +253,7 @@ create table ENF_PushProject
    investor_id          bigint comment '投资人id',
    project_code         varchar(100) comment '项目编号',
    push_time            datetime comment '推送时间',
+   highlight_flag       int default 0 comment '高亮标记，0不高亮，1高亮',
    status               int not null default 0 comment '状态类型：0正常、11项目未提交、12项目已提交（已提交）、13已提交意向书（已提交）、21已签意向合同（未尽职调查）、22已提交尽职调查（未签意向合同）、23已签意向合同（已尽职调查）、31已签融资合同、41已推送、42未推送、51尽职调查保存状态（尽职调查保存后项目状态）、52尽职调查提交状态、61意向书保存状态',
    delete_flag int not null default 0 comment '删除标记：0正常、9999删除',
    primary key (id),

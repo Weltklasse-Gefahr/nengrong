@@ -679,7 +679,7 @@ class ProjectProviderMyProController extends Controller {
         //获取签署意向书信息 
         if($optype == 'agree' &&  $rtype == 1)
         {
-            $res = $objProject->updateProjectStatus($data["id"],'21');
+            $res = $objProject->updateProjectStatus($data["id"],'23');
             if($res === false)
             {
                 echo '{"code":"-1","msg":"更新失败！"}'; 

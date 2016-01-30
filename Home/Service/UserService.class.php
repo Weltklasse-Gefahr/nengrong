@@ -22,30 +22,30 @@ class UserService extends Model{
         	exit;
         }
         if($keepFlag == 1){
-        	if($users['user_type'] == 2){
+        	if($users[0]['user_type'] == 2){
 	        	setcookie("userType", 2, time()+3600*24*7);
 	        	$innerName = urlencode("能融网客服");
 	        	setcookie("userName", $innerName, time()+3600*24*7);
-	        }elseif($users['user_type'] == 3){
+	        }elseif($users[0]['user_type'] == 3){
 	        	setcookie("userType", 3, time()+3600*24*7);
-	        	setcookie("userName", $users['company_name'], time()+3600*24*7);
-	        }elseif($users['user_type'] == 4){
+	        	setcookie("userName", $users[0]['company_name'], time()+3600*24*7);
+	        }elseif($users[0]['user_type'] == 4){
 	        	setcookie("userType", 4, time()+3600*24*7);
-	        	setcookie("userName", $users['company_name'], time()+3600*24*7);
+	        	setcookie("userName", $users[0]['company_name'], time()+3600*24*7);
 	        }
 	        setcookie("email", $email, time()+3600*24*7);
 	        setcookie("mEmail", MD5(addToken($email)), time()+3600*24*7);
         }else{
-	        if($users['user_type'] == 2){
+	        if($users[0]['user_type'] == 2){
 	        	setcookie("userType", 2, time()+3600*3);
 	        	$innerName = urlencode("能融网客服");
 	        	setcookie("userName", $innerName, time()+3600*3);
-	        }elseif($users['user_type'] == 3){
+	        }elseif($users[0]['user_type'] == 3){
 	        	setcookie("userType", 3, time()+3600*3);
-	        	setcookie("userName", $users['company_name'], time()+3600*3);
-	        }elseif($users['user_type'] == 4){
+	        	setcookie("userName", $users[0]['company_name'], time()+3600*3);
+	        }elseif($users[0]['user_type'] == 4){
 	        	setcookie("userType", 4, time()+3600*3);
-	        	setcookie("userName", $users['company_name'], time()+3600*3);
+	        	setcookie("userName", $users[0]['company_name'], time()+3600*3);
 	        }
 	        setcookie("email", $email, time()+3600*3);
 	        setcookie("mEmail", MD5(addToken($email)), time()+3600*3);
@@ -164,8 +164,10 @@ class UserService extends Model{
     **@date 2015.12.26
     **/
 	public function logoutService(){
-        setcookie("email", $email, time()-3600*24*7);
-        setcookie("mEmail", MD5(addToken($email)), time()-3600*24*7);
+        setcookie("email", "", time()-3600*24*7);
+        setcookie("mEmail", "", time()-3600*24*7);
+        setcookie("userType", "", time()-3600*24*7);
+        setcookie("userName", "", time()-3600*24*7);
         session_destroy();
     }
 
