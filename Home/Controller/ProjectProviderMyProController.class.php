@@ -366,6 +366,7 @@ class ProjectProviderMyProController extends Controller {
                 $arrProInfo["provider_id"] = $userInfo[0]['id'];//之后需要加一下项目提供方的id
                 //echo $email;exit;
                 //echo json_encode($userInfo);exit;
+                $arrProInfo["highlight_flag"] = 1;
                 $arrProInfo["create_time"] = date("Y-m-d H:i:s" ,time());
                 $arrProInfo["create_date"] = date("Y-m-d H:i:s" ,time());
                 $ret = $objProject->insertProject($arrProInfo);
