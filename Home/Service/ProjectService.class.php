@@ -315,9 +315,9 @@ class ProjectService extends Model{
         $condition["delete_flag"] = array('neq',9999);
         $pushPro = M('Pushproject');
         if($page == -1){
-            $pushProInfo = $pushPro->where($condition)->order('highlight_flag desc')->select();
+            $pushProInfo = $pushPro->where($condition)->order('highlight_flag desc, create_date desc')->select();
         }else{
-            $pushProInfo = $pushPro->where($condition)->order('highlight_flag desc')->page($page, 6)->select();
+            $pushProInfo = $pushPro->where($condition)->order('highlight_flag desc, create_date desc')->page($page, 6)->select();
         }
         $projectInfo = $this->getProTypeListFromPushPro($pushProInfo);
         $projectList = $this->formatProject($projectInfo);
@@ -774,9 +774,9 @@ class ProjectService extends Model{
     public function getProjectsInfo($condition, $page=-1, $pageSize=6){
         $objProject = new \Home\Model\ProjectModel(); 
         if($page == -1){
-            $projectInfo = $objProject->where($condition)->order('highlight_flag desc')->select();
+            $projectInfo = $objProject->where($condition)->order('highlight_flag desc, create_date desc')->select();
         }else{
-            $projectInfo = $objProject->where($condition)->page($page, $pageSize)->order('highlight_flag desc')->select();
+            $projectInfo = $objProject->where($condition)->page($page, $pageSize)->order('highlight_flag desc, create_date desc')->select();
         }
         return $projectInfo;
     }
@@ -961,10 +961,10 @@ class ProjectService extends Model{
             $pageSize = 6;
             $start = ($page-1)*$pageSize;
             if($housetopSql != ""){
-                $housetopSql = $housetopSql." order by highlight_flag desc"." limit ".$start.",".$pageSize;
+                $housetopSql = $housetopSql." order by highlight_flag desc, create_date desc"." limit ".$start.",".$pageSize;
             }
             if($groundSql != ""){
-                $groundSql = $groundSql." order by highlight_flag desc"." limit ".$start.",".$pageSize;
+                $groundSql = $groundSql." order by highlight_flag desc, create_date desc"." limit ".$start.",".$pageSize;
             }
         }
         /*
