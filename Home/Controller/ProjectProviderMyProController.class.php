@@ -782,7 +782,7 @@ class ProjectProviderMyProController extends Controller {
 
         //$bigJson = '{"step":{"state":"dueDiligence","substate":"submited"},"projectInfo":{},"intent":{},"dueDiligence":{}}';
         //$bigJson = json_encode($bigArr);
-        //echo json_encode($bigArr);exit;
+        // echo json_encode($bigArr);exit;
         $this->assign('data', $bigArr);
         if($data['project_type'] == 1){
             if($data['build_state'] == 1){
@@ -790,7 +790,7 @@ class ProjectProviderMyProController extends Controller {
             }elseif($data['build_state'] == 2){
                 $this->display("ProjectProvider:projectInfoView_housetop_build");
             }
-        }elseif($data['project_type'] == 2 || $objProjectInfo['project_type'] == 3){
+        }elseif($data['project_type'] == 2 || $data['project_type'] == 3){
             if($data['build_state'] == 1){
                 $this->display("ProjectProvider:projectInfoView_ground_nonbuild");
             }elseif($data['build_state'] == 2){
