@@ -670,7 +670,7 @@ class ProjectProviderMyProController extends Controller {
         $rtype        = $_POST['rtype']  ? $_POST['rtype']:$_GET['rtype'];
         //签署意向书的同意按钮，其实是去project和Housetop两个表中更新下status字段就可以了
         $objProject  = D("Project","Service");
-        $objProject->cancelProjectHighlight($projectCode);
+        $objProject->cancelProjectHighlight($projectCode, 3);
         $getJsonFlag = 1;
         //获取项目信息
         //echo XF7407-179K-X16-669723

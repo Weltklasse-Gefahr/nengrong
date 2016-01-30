@@ -1404,15 +1404,25 @@ class ProjectService extends Model{
     **@auth qianqiang
     **@breif 取消项目高亮标记
     **@param projectCode:项目编码
+    **@param userType:用户类型
     **@date 2016.1.30
     **/
-    public function cancelProjectHighlight($projectCode){
+    public function cancelProjectHighlight($projectCode, $userType){
         $projectObj = M('Project');
         $condition['project_code'] = $projectCode;
-        $condition['delete_flag'] = 0;
         $condition['highlight_flag'] = 1;
+        $condition['delete_flag'] = 0;
         $projectInfo = $projectObj->where($condition)->find();
         if(!empty($projectInfo)){
+            if($userType == 2){
+                if($projectInfo['status'] == 13 || $projectInfo['status'] == 22 ){
+                    return true;
+                }
+            }elseif($userType == 3){
+                if($projectInfo['status'] == 12 || $projectInfo['status'] == 23 || $projectInfo['status'] == 31){
+                    return true;
+                }
+            }
             $data['highlight_flag'] = 0;
             $res = $projectObj->where($condition)->save($data);
             if(!$res){
