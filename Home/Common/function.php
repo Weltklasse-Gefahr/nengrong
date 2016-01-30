@@ -259,17 +259,24 @@ function isAdminLogin($userName, $mUserName){
 **/
 function isProjectCodeRight($pc, $mpc){
     // return true;
-    if (empty($pc) || empty($mpc)) {
+    if(empty($pc) || empty($mpc)){
         header('Content-Type: text/html; charset=utf-8');
         echo '{"code":"-1","msg":"项目信息验证错误"}';
         // echo "<script type='text/javascript'>alert('项目错误，重新登录');location.href='?c=User&a=login'</script>";
         exit;
     }
-    if (!($mpc == MD5(addToken($pc)))) {
+    if(!($mpc == MD5(addToken($pc)))){
         header('Content-Type: text/html; charset=utf-8');
         echo '{"code":"-1","msg":"项目信息验证错误"}';
         // echo "<script type='text/javascript'>alert('项目错误，重新登录');location.href='?c=User&a=login'</script>";
         exit;
+    }
+    $projectObj = M('Project');
+    $condition['project_code'] = $pc;
+    $condition['delete_flag'] = 0;
+    $res = $projectObj->where($condition)->select();
+    if(empty($res)){
+        echo "<script type='text/javascript'>location.href='?c=User&a=login'</script>";
     }
     return true;
 }
@@ -284,7 +291,7 @@ function isProjectCodeRight($pc, $mpc){
 function isDataComplete($email, $flag=0){
     //return true;
     $user = M("User");
-    $objUser = $user->where("email='".$email."'")->find();
+    $objUser = $user->where("email='".$email."' and delete_flag!=9999")->find();
     //dump($objUser);
     //项目提供方/项目投资方有必填项：企业名称、联系人、联系人手机
     if($objUser["user_type"] == 3){

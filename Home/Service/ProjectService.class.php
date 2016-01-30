@@ -361,7 +361,7 @@ class ProjectService extends Model{
                 $projectList[$i]['statusStr'] = "未提交";
             }elseif($projectList[$i]['status'] == 12 || $projectList[$i]['status'] == 13){
                 $projectList[$i]['statusStr'] = "已提交";
-            }elseif($projectList[$i]['status'] == 21){
+            }elseif($projectList[$i]['status'] == 21 || $projectList[$i]['status'] == 23){
                 $projectList[$i]['statusStr'] = "已签意向合同";
             }elseif($projectList[$i]['status'] == 52 || $projectList[$i]['status'] == 22){
                 $projectList[$i]['statusStr'] = "已尽职调查";
@@ -1003,6 +1003,7 @@ class ProjectService extends Model{
     **/
     public function changeProjectStatus($projectCode, $oldStatus, $newStatus){
         $data['status'] = $newStatus;
+        $data['highlight_flag'] = 1;
         $projectObj = M('Project');
         $condition['project_code'] = $projectCode;
         $condition['status'] = $oldStatus;
@@ -1089,6 +1090,7 @@ class ProjectService extends Model{
         }
 
         $data["status"] = $status;
+        $data["highlight_flag"] = 1;
         $data['change_date'] = date("Y-m-d H:i:s",time());
         $res = $project->where("id='".$id."'")->save($data);
         if(!$res){

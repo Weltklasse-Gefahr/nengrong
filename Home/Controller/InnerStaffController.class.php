@@ -613,7 +613,7 @@ class InnerStaffController extends Controller {
         if($rtype == 1 && $optype == 'change'){
             $projectCode = $_GET['no'];
             $mProjectCode = $_GET['token'];
-            // isProjectCodeRight($projectCode, $mProjectCode);
+            isProjectCodeRight($projectCode, $mProjectCode);
             $oldStatus = $_GET['oldStatus'];
             $status = $_GET['status'];
             if($status == 11){//未提交
@@ -712,7 +712,7 @@ class InnerStaffController extends Controller {
             echo '{"code":"0","msg":"删除成功！"}';
         }else{
             header('Content-Type: text/html; charset=utf-8');
-            echo '{"code":"0","msg":"删除失败！"}';
+            echo '{"code":"-1","msg":"删除失败！"}';
         }
     }
 }

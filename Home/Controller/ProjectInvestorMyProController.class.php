@@ -148,7 +148,7 @@ class ProjectInvestorMyProController extends Controller {
             }elseif($data['build_state'] == 2){
                 $this->display("ProjectInvestor:projectInfoView_housetop_build");
             }
-        }elseif($data['project_type'] == 2 || $objProjectInfo['project_type'] == 3){
+        }elseif($data['project_type'] == 2 || $data['project_type'] == 3){
             if($data['build_state'] == 1){
                 $this->display("ProjectInvestor:projectInfoView_ground_nonbuild");
             }elseif($data['build_state'] == 2){
