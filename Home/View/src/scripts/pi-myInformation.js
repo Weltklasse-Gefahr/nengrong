@@ -1,31 +1,8 @@
 $(function() {
 
-	$(".l-nav").find(".myInformation").addClass("active")
-		.children("a").attr("href", "javascript:;");
-
-	// 省市区级联
-	require("common/erqi/AreaData");
-	require("common/erqi/cascadeSelect");
-	$(".detail.part1 .area select").cascadeSelect(AreaData);
-
-	require("common/erqi/customUpload");
+	$(".l-nav").find(".myInformation").addClass("active");
 	require("lib/jquery.form");
 	
-	// 上传图片
-	$(".detail.part2 .item input[type=file]").customUpload({
-		bg_url: "upload.png",
-		uploadType: "image",
-		width: "120px",
-		height: "120px"
-	});
-
-	// 上传文件
-	$(".detail.part2 .finance input[type=file]").customUpload({
-		content: "+",
-		uploadType: "file",
-		width: "20px",
-		height: "38px"
-	});
 
 	// 保存资料
 	var options = {
@@ -48,7 +25,7 @@ $(function() {
 	function successCallback(data) {
 		if(data.code == "0") {
 			alert("保存成功！");
-			location.href="?c=ProjectProviderMyPro&a=awaitingAssessment";
+			location.href="?c=ProjectInvestorMyPro&a=recommendedProject";
 		} else {
 			alert(data.msg || "保存失败！");
 		}
@@ -58,7 +35,6 @@ $(function() {
 	$form.validate({
 		ignore: ':hidden',
 		rules: {
-			"company_name": "required",
 			"company_contacts": "required",
 			"company_contacts_phone": {
 				"required": true,
@@ -66,7 +42,6 @@ $(function() {
 			}
 		},
 		messages: {
-			"company_name": "请填写企业名称",
 			"company_contacts": "请填写联系人",
 			"company_contacts_phone": {
 				"required": "请填写联系人手机",

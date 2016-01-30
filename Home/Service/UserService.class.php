@@ -24,7 +24,7 @@ class UserService extends Model{
         if($keepFlag == 1){
         	if($users[0]['user_type'] == 2){
 	        	setcookie("userType", 2, time()+3600*24*7);
-	        	$innerName = urlencode("能融网客服");
+	        	$innerName = "能融网客服";
 	        	setcookie("userName", $innerName, time()+3600*24*7);
 	        }elseif($users[0]['user_type'] == 3){
 	        	setcookie("userType", 3, time()+3600*24*7);
@@ -37,18 +37,18 @@ class UserService extends Model{
 	        setcookie("mEmail", MD5(addToken($email)), time()+3600*24*7);
         }else{
 	        if($users[0]['user_type'] == 2){
-	        	setcookie("userType", 2, time()+3600*3);
-	        	$innerName = urlencode("能融网客服");
-	        	setcookie("userName", $innerName, time()+3600*3);
+	        	setcookie("userType", 2);
+	        	$innerName = "能融网客服";
+	        	setcookie("userName", $innerName);
 	        }elseif($users[0]['user_type'] == 3){
-	        	setcookie("userType", 3, time()+3600*3);
-	        	setcookie("userName", $users[0]['company_name'], time()+3600*3);
+	        	setcookie("userType", 3);
+	        	setcookie("userName", $users[0]['company_name']);
 	        }elseif($users[0]['user_type'] == 4){
-	        	setcookie("userType", 4, time()+3600*3);
-	        	setcookie("userName", $users[0]['company_name'], time()+3600*3);
+	        	setcookie("userType", 4);
+	        	setcookie("userName", $users[0]['company_name']);
 	        }
-	        setcookie("email", $email, time()+3600*3);
-	        setcookie("mEmail", MD5(addToken($email)), time()+3600*3);
+	        setcookie("email", $email);
+	        setcookie("mEmail", MD5(addToken($email)));
         }
         session_start();
 

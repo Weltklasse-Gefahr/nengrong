@@ -1,18 +1,8 @@
 $(function(){
-	var keepFlag= 1;
+
 	function warning(temp) {
 		$("#warning").css('visibility','visible').html(temp);
 	}
-
-	$("#markbox").change(function(){
-		if(this.checked){
-			var keepFlag= 1;
-		}
-		else{
-			var keepFlag= 0;
-		}
-
-	})
 
 	$("#loginbtn").click(function(){ 
 		var mailval= $.trim($("#mailinput").val());
@@ -34,7 +24,7 @@ $(function(){
 		    data: {
 		    	email: mailval,
 		    	password: passval,
-		    	keepFlag: keepFlag,
+		    	keepFlag: $("#markbox").is(":checked") ? 1 : 0,
 		    	rtype: 1
 		    },
 			dataType: "json"

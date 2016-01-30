@@ -458,7 +458,19 @@ class InnerStaffController extends Controller {
     		$projectId = $objProjectInfo['id'];
     		$projectDetail = $objProject->getProjectInEvaluation($projectId, $objProjectInfo['project_type']);
             $projectDetail['state_type'] = $objProject->getTypeAndStateStr($objProjectInfo['project_type'], $objProjectInfo['build_state']);
-            
+            $common = D("Common","Service");
+            $projectDetail['companyType'] = $common->getProjectCompanyType($projectDetail['company_type']);
+            $projectDetail['housetopType'] = $common->getHousetopType($projectDetail['housetop_type']);
+            $projectDetail['synchronizeType'] = $common->getSynchronizeType($projectDetail['synchronize_type']);
+            $projectDetail['financingType'] = $common->getFinancingType($projectDetail['financing_type']);
+            // $projectDetail['electricityClearType'] = $common->getElectricityClearType($projectDetail['electricity_clear_type']);
+            $projectDetail['groundProperty'] = $common->getGroundProperty($projectDetail['ground_property']);
+            $projectDetail['groundCondition'] = $common->getGroundProperty($projectDetail['ground_condition']);
+            // $projectDetail['measurePoint'] = $common->getMeasurePoint($projectDetail['measure_point']);
+            // $projectDetail['projectHolderType'] = $common->getProjectHolderType($projectDetail['project_holder_type']);
+            $projectDetail['groundProjectType'] = $common->getGroundProjectType($projectDetail['ground_project_type']);
+            // $projectDetail['housetopDirection'] = $common->getHousetopDirection($projectDetail['housetop_direction']);
+
             $area = D("Area", "Service");
             $areaArray = $area->getAreaArrayById($projectDetail['project_area']);
 			
