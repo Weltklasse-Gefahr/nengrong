@@ -68,6 +68,7 @@ class ProjectInvestorMyProController extends Controller {
         $rtype        = $_POST['rtype']  ? $_POST['rtype']:$_GET['rtype'];
         //签署意向书的同意按钮，其实是去project和Housetop两个表中更新下status字段就可以了
         $objProject  = D("Project","Service");
+        $objProject->cancelPushHighlight($projectCode, $_COOKIE['email']);
         $getJsonFlag = 1;
         //获取项目信息
         $obj   = new ProjectProviderMyProController();

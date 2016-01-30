@@ -961,10 +961,10 @@ class ProjectService extends Model{
             $pageSize = 6;
             $start = ($page-1)*$pageSize;
             if($housetopSql != ""){
-                $housetopSql = $housetopSql." limit ".$start.",".$pageSize;
+                $housetopSql = $housetopSql." order by highlight_flag desc"." limit ".$start.",".$pageSize;
             }
             if($groundSql != ""){
-                $groundSql = $groundSql." limit ".$start.",".$pageSize;
+                $groundSql = $groundSql." order by highlight_flag desc"." limit ".$start.",".$pageSize;
             }
         }
         /*
@@ -1362,7 +1362,7 @@ class ProjectService extends Model{
     **/
     public function deleteProjectList($id){
         $project = M('Project');
-        $projectList = $project->where("provider_id='".$id."' and delete_flag=9999")->select();
+        $projectList = $project->where("provider_id='".$id."' and delete_flag=0")->select();
         if(empty($projectList)){
             return true;
         }
@@ -1395,6 +1395,61 @@ class ProjectService extends Model{
             echo '{"code":"-1","msg":"push project delete error!"}';
             exit;
         }
+        return true;
+    }
+
+    /**
+    **@auth qianqiang
+    **@breif 取消项目高亮标记
+    **@param projectCode:项目编码
+    **@date 2016.1.30
+    **/
+    public function cancelProjectHighlight($projectCode){
+        $projectObj = M('Project');
+        $condition['project_code'] = $projectCode;
+        $condition['delete_flag'] = 0;
+        $condition['highlight_flag'] = 1;
+        $projectInfo = $projectObj->where($condition)->find();
+        if(!empty($projectInfo)){
+            $data['highlight_flag'] = 0;
+            $res = $projectObj->where($condition)->save($data);
+            if(!$res){
+                echo '{"code":"-1","msg":"cancelProjectHighlight error!"}';
+                exit;
+            }
+        }
+        return true;
+    }
+
+    /**
+    **@auth qianqiang
+    **@breif 取消已推送项目高亮标记
+    **@param projectCode:项目编码
+    **@param email
+    **@date 2016.1.30
+    **/
+    public function cancelPushHighlight($projectCode, $email){
+        $user = M('User');
+        $objUser = $user->where("email='".$email."' and delete_flag=0")->find();
+        if(empty($objUser)){
+            echo '{"code":"-1","msg":"用户不存在"}';
+            exit;
+        }
+        $pushObj = M('Pushproject');
+        $condition['investor_id'] = $objUser['id'];
+        $condition['project_code'] = $projectCode;
+        $condition['highlight_flag'] = 1;
+        $condition['delete_flag'] = 0;
+        $pushInfo = $pushObj->where($condition)->find();
+        if(!empty($pushInfo)){
+            $data['highlight_flag'] = 0;
+            $res = $pushObj->where($condition)->save($data);
+            if(!$res){
+                echo '{"code":"-1","msg":"cancelPushHighlight error!"}';
+                exit;
+            }
+        }
+        
         return true;
     }
 
