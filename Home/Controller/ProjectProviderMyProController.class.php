@@ -669,6 +669,7 @@ class ProjectProviderMyProController extends Controller {
         $rtype        = $_POST['rtype']  ? $_POST['rtype']:$_GET['rtype'];
         //签署意向书的同意按钮，其实是去project和Housetop两个表中更新下status字段就可以了
         $objProject  = D("Project","Service");
+        $objProject->cancelProjectHighlight($projectCode);
         $getJsonFlag = 1;
         //获取项目信息
         //echo XF7407-179K-X16-669723
@@ -781,7 +782,7 @@ class ProjectProviderMyProController extends Controller {
 
         //$bigJson = '{"step":{"state":"dueDiligence","substate":"submited"},"projectInfo":{},"intent":{},"dueDiligence":{}}';
         //$bigJson = json_encode($bigArr);
-        //echo json_encode($bigArr);exit;
+        // echo json_encode($bigArr);exit;
         $this->assign('data', $bigArr);
         if($data['project_type'] == 1){
             if($data['build_state'] == 1){
@@ -789,7 +790,7 @@ class ProjectProviderMyProController extends Controller {
             }elseif($data['build_state'] == 2){
                 $this->display("ProjectProvider:projectInfoView_housetop_build");
             }
-        }elseif($data['project_type'] == 2 || $objProjectInfo['project_type'] == 3){
+        }elseif($data['project_type'] == 2 || $data['project_type'] == 3){
             if($data['build_state'] == 1){
                 $this->display("ProjectProvider:projectInfoView_ground_nonbuild");
             }elseif($data['build_state'] == 2){
