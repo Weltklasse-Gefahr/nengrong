@@ -10,76 +10,96 @@ class InnerStaffController extends Controller {
     **@auth qiujinhan
     **@breif 在客服中导出一个项目的信息
     **@date 2016.1.17
-    **@参数 ?c=InnerStaff&a=export&no=sss&token=xxxx
+    **@参数 ?c=InnerStaff&a=export&no=sss&token=xxxx&datatype=proinfo
     **/
     public function export()
     {
-        //echo jj;exit;
         
         isLogin($_COOKIE['email'],$_COOKIE['mEmail']);
         authentication($_COOKIE['email'], 2);
         $projectCode  = $_POST['no']     ? $_POST['no']:$_GET['no'];
         $mProjectCode = $_POST['token']  ? $_POST['token']:$_GET['token'];
         isProjectCodeRight($projectCode, $mProjectCode); 
-        $getJsonFlag = 1;
+        $fatherUrl  = $_SERVER['HTTP_REFERER'];
         
-        //-----------------------------------------导出项目投资方信息开始------------------------------------------//
+
+        //-----------------------------------------导出---项目投资方信息开始------------------------------------------//
         //获取项目投资方信息
-        list($userInfo,$areaStr,$docData) = $this->getProjectProviderInfo($projectCode, null, $getJsonFlag);
-        //*/
-        echo json_encode($userInfo);
-        exit;
-        import("Org.Util.PHPExcel");
-        $obpe = new \PHPExcel();
-        //var_dump($obpe);
-        //echo jj;
-        //exit;
-        $obpe_pro = $obpe->getProperties();
-        //var_dump($obpe_pro);exit;
-        $obpe->getProperties()->setCreator('midoks')//设置创建者
-             ->setLastModifiedBy('2013/2/16 15:00')//设置时间
-             ->setTitle('data')//设置标题
-             ->setSubject('beizhu')//设置备注
-             ->setDescription('miaoshu')//设置描述
-             ->setKeywords('keyword')//设置关键字 | 标记
-             ->setCategory('catagory');//设置类别
-            //设置当前sheet索引,用于后续的内容操作
-            //一般用在对个Sheet的时候才需要显示调用
-            //缺省情况下,PHPExcel会自动创建第一个SHEET被设置SheetIndex=0
-            //设置SHEET
-            $obpe->setactivesheetindex(0);
-            //写入多行数据
-            //模拟数据
-            $mulit_arr = array(
-                array('标题1', '标题2', '标题3'),
-                array('a', 'b', 'c'),
-                array('d', 'e', 'f')
-            );
-                       
-            //创建一个新的工作空间(sheet)
-            $obpe->createSheet();
-            //$obpe->setactivesheetindex(1);
-            //写入多行数据
-            foreach($mulit_arr as $k=>$v){
-                $k = $k+1;
-                /* @func 设置列 */
-                $obpe->getactivesheet()->setcellvalue('A'.$k, $v[0].'22');
-                $obpe->getactivesheet()->setcellvalue('B'.$k, $v[1].'55');
-                $obpe->getactivesheet()->setcellvalue('C'.$k, $v[2].'99');
-            }
-            import("Org.Util.PHPExcel.IOFactory");
-           
-            header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-            header('Content-Disposition: attachment;filename="daochdd.xls"');
-            header('Cache-Control: max-age=0');
-             
-            //$objWriter = PHPExcel_IOFactory::createWriter($obpe, 'PDF');
-            $objWriter = \PHPExcel_IOFactory::CreateWriter($obpe,"Excel2007");
-            $objWriter->save('php://output');
-            //var_dump($objWriter);exit;
-            //$objWriter->save('qiujinhan.xls');
-            //-----------------------------------------导出项目投资方信息结束------------------------------------------//
-       
+        if(false !== strpos($fatherUrl,'a=getProjectProviderInfo'))
+        {
+            $getJsonFlag = 1;
+            list($userInfo,$areaStr,$docData) = $this->getProjectProviderInfo($projectCode, null, $getJsonFlag);
+            
+            //echo json_encode($userInfo);exit;
+            
+            import("Org.Util.PHPExcel");
+            $obpe = new \PHPExcel();
+            $obpe_pro = $obpe->getProperties();
+            $obpe->getProperties()->setCreator('qiujinhan')//设置创建者
+                 ->setLastModifiedBy('2013/2/16 15:00')//设置时间
+                 ->setTitle('data')//设置标题
+                 ->setSubject('beizhu')//设置备注
+                 ->setDescription('miaoshu')//设置描述
+                 ->setKeywords('keyword')//设置关键字 | 标记
+                 ->setCategory('catagory');//设置类别
+                //设置当前sheet索引,用于后续的内容操作
+                //一般用在对个Sheet的时候才需要显示调用
+                //缺省情况下,PHPExcel会自动创建第一个SHEET被设置SheetIndex=0
+                //设置SHEET
+                $objActSheet = $obpe->setactivesheetindex(0);
+                //设置SHEET的名字
+                $obpe->getSheet(0)->setTitle('项目投资方信息');
+                           
+                
+
+                //创建一个新的工作空间(sheet)
+                //内容的列的宽度设置
+                $objActSheet->getColumnDimension('D')->setAutoSize(true);
+                /*$objActSheet->getColumnDimension('B')->setAutoSize("100");
+                $objActSheet->getColumnDimension('C')->setAutoSize("30");
+                $objActSheet->getColumnDimension('D')->setAutoSize("100");
+                $objActSheet->getColumnDimension('E')->setAutoSize("100");*/
+
+                $obpe->createSheet();
+                $obpe->getactivesheet()->setcellvalue('A1', "账户详细信息");
+                
+                $obpe->getactivesheet()->setcellvalue('A2', "E-mail");
+                $obpe->getactivesheet()->setcellvalue('A3', "联系人");
+                $obpe->getactivesheet()->setcellvalue('A4', "联系人手机");
+                $obpe->getactivesheet()->setcellvalue('A5', "所在地区");
+                $obpe->getactivesheet()->setcellvalue('A6', "详细地址");
+                $obpe->getactivesheet()->setcellvalue('A7', "企业注册资本");
+
+                $obpe->getactivesheet()->setcellvalue('B2', $userInfo["email"]);
+                $obpe->getactivesheet()->setcellvalue('B3', $userInfo["company_contacts"]);
+                $obpe->getactivesheet()->setcellvalue('B4', $userInfo["company_contacts_phone"]);
+                $obpe->getactivesheet()->setcellvalue('B5', $areaStr);
+                $obpe->getactivesheet()->setcellvalue('B6', $userInfo["company_address"]);
+                $obpe->getactivesheet()->setcellvalue('B7', $userInfo["company_capital"]);
+
+                $obpe->getactivesheet()->setcellvalue('D2', "企业名称");
+                $obpe->getactivesheet()->setcellvalue('D3', "企业类型");
+                $obpe->getactivesheet()->setcellvalue('D4', "公司传真");
+                $obpe->getactivesheet()->setcellvalue('D5', "其他手机");
+                $obpe->getactivesheet()->setcellvalue('D6', "座机");
+                $obpe->getactivesheet()->setcellvalue('D7', "企业法人");
+
+                $obpe->getactivesheet()->setcellvalue('E2', $userInfo["company_name"]);
+                $obpe->getactivesheet()->setcellvalue('E3', $userInfo["company_type"]);
+                $obpe->getactivesheet()->setcellvalue('E4', $userInfo["company_fax"]);
+                $obpe->getactivesheet()->setcellvalue('E5', $userInfo['company_telephone']);
+                $obpe->getactivesheet()->setcellvalue('E6', $userInfo["company_phone"]);
+                $obpe->getactivesheet()->setcellvalue('E7', $userInfo["company_person"]);
+               
+                import("Org.Util.PHPExcel.IOFactory");
+               
+                header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+                header('Content-Disposition: attachment;filename="daochdd.xls"');
+                header('Cache-Control: max-age=0');
+                $objWriter = \PHPExcel_IOFactory::CreateWriter($obpe,"Excel2007");
+                $objWriter->save('php://output');
+                //-----------------------------------------导出---项目投资方信息结束------------------------------------------//
+        }
 
     }
 
