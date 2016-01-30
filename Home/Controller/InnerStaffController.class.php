@@ -116,7 +116,7 @@ class InnerStaffController extends Controller {
         isProjectCodeRight($projectCode, $mProjectCode);
         $rtype = $_POST['rtype'] ? $_POST['rtype']:$_GET['rtype'];
         $objProject  = D("Project","Service");
-        $objProject->cancelProjectHighlight($projectCode);
+        $objProject->cancelProjectHighlight($projectCode, 2);
         $projectInfo = $objProject->getProjectInfo($projectCode);
         if($rtype == 1){
             $proData['comment'] = $_POST['comment'];
