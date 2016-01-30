@@ -15,20 +15,28 @@ class InnerStaffController extends Controller {
     public function export()
     {
         //echo jj;exit;
-        /*
+        
         isLogin($_COOKIE['email'],$_COOKIE['mEmail']);
         authentication($_COOKIE['email'], 2);
         $projectCode  = $_POST['no']     ? $_POST['no']:$_GET['no'];
         $mProjectCode = $_POST['token']  ? $_POST['token']:$_GET['token'];
         isProjectCodeRight($projectCode, $mProjectCode); 
         $getJsonFlag = 1;
+        
+        //-----------------------------------------导出项目投资方信息开始------------------------------------------//
         //获取项目投资方信息
-        $data = $this->getProjectProviderInfo($projectCode, null, $getJsonFlag);
-        */
+        list($userInfo,$areaStr,$docData) = $this->getProjectProviderInfo($projectCode, null, $getJsonFlag);
+        //*/
+        echo json_encode($userInfo);
+        exit;
         import("Org.Util.PHPExcel");
         $obpe = new \PHPExcel();
+        //var_dump($obpe);
+        //echo jj;
+        //exit;
         $obpe_pro = $obpe->getProperties();
-        $obpe_pro->setCreator('midoks')//设置创建者
+        //var_dump($obpe_pro);exit;
+        $obpe->getProperties()->setCreator('midoks')//设置创建者
              ->setLastModifiedBy('2013/2/16 15:00')//设置时间
              ->setTitle('data')//设置标题
              ->setSubject('beizhu')//设置备注
@@ -50,28 +58,28 @@ class InnerStaffController extends Controller {
                        
             //创建一个新的工作空间(sheet)
             $obpe->createSheet();
-            $obpe->setactivesheetindex(1);
+            //$obpe->setactivesheetindex(1);
             //写入多行数据
             foreach($mulit_arr as $k=>$v){
                 $k = $k+1;
                 /* @func 设置列 */
-                $obpe->getactivesheet()->setcellvalue('A'.$k, $v[0]);
-                $obpe->getactivesheet()->setcellvalue('B'.$k, $v[1]);
-                $obpe->getactivesheet()->setcellvalue('C'.$k, $v[2]);
+                $obpe->getactivesheet()->setcellvalue('A'.$k, $v[0].'22');
+                $obpe->getactivesheet()->setcellvalue('B'.$k, $v[1].'55');
+                $obpe->getactivesheet()->setcellvalue('C'.$k, $v[2].'99');
             }
             import("Org.Util.PHPExcel.IOFactory");
+           
+            header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+            header('Content-Disposition: attachment;filename="daochdd.xls"');
+            header('Cache-Control: max-age=0');
+             
+            //$objWriter = PHPExcel_IOFactory::createWriter($obpe, 'PDF');
             $objWriter = \PHPExcel_IOFactory::CreateWriter($obpe,"Excel2007");
-            //$objWriter->save('qiujinhan.xls');exit;
-            header('Pragma: public');
-            header('Expires: 0');
-            header('Cache-Control:must-revalidate,post-check=0,pre-check=0');
-            header('Content-Type:application/force-download');
-            header('Content-Type:application/vnd.ms-execl');
-            header('Content-Type:application/octet-stream');
-            header('Content-Type:application/download');
-            header("Content-Disposition:attachment;filename='qiujinhan.xls'");
-            header('Content-Transfer-Encoding:binary');
             $objWriter->save('php://output');
+            //var_dump($objWriter);exit;
+            //$objWriter->save('qiujinhan.xls');
+            //-----------------------------------------导出项目投资方信息结束------------------------------------------//
+       
 
     }
 
@@ -192,12 +200,18 @@ class InnerStaffController extends Controller {
     **@breif 客服->项目提供方信息（账户向详细信息）
     **@date 2015.12.19
     **/
-    public function getProjectProviderInfo(){
+    public function getProjectProviderInfo($projectCode=null, $rtype=null, $getJsonFlag=null, $innerToken=null){
         isLogin($_COOKIE['email'], $_COOKIE['mEmail']);
-        authentication($_COOKIE['email'], 2);
-        $projectCode = $_POST['no'] ? $_POST['no']:$_GET['no'];
-        $mProjectCode = $_POST['token'] ? $_POST['token']:$_GET['token'];
-        isProjectCodeRight($projectCode, $mProjectCode);
+        authentication($_COOKIE['email'], 2, $innerToken);
+
+
+        if($projectCode == null)
+        {
+            $projectCode  = $_POST['no']     ? $_POST['no']:$_GET['no'];
+            $mProjectCode = $_POST['token']  ? $_POST['token']:$_GET['token'];
+            isProjectCodeRight($projectCode, $mProjectCode);
+        }
+
         $objProject = D("Project", "Service");
         $objProjectInfo = $objProject->getProjectInfo($projectCode);
         $providerId = $objProjectInfo['provider_id'];
@@ -251,6 +265,13 @@ class InnerStaffController extends Controller {
             dump($docData);
             exit;
         }
+
+        //直接截断了,返回json了
+        if ($getJsonFlag == 1)
+        {
+          return array($userInfo[0],$areaStr,$docData);
+        }      
+          
         $this->assign('userInfo', $userInfo[0]);
         $this->assign('areaStr', $areaStr);
         $this->assign('docData', $docData);

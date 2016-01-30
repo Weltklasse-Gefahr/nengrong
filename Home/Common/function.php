@@ -1,6 +1,22 @@
 <?php 
 require_once dirname(dirname(__FILE__)).'/library/class.phpmailer.php';
 require_once dirname(dirname(__FILE__)).'/library/PHPMailerAutoload.php';
+
+
+/**
+ * @auth qiujinhan
+ * *brief 这里可以做一些配置文件  使用方法就是$res =  qiangge('12');
+ * @date 2016.1.7
+ */
+ function qiangge($num){
+
+    $aa = array(
+        '11' => '未提交', 
+        '12' => '提交', 
+        );  
+    return $aa[$num];  
+}
+
 /**
  * @auth qianqiang
  * @breif 系统邮件发送函数

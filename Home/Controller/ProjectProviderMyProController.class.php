@@ -700,7 +700,8 @@ class ProjectProviderMyProController extends Controller {
         //获取强哥的尽职调查信息
         $obj   = new InnerStaffController();
         $innerToken = "InternalCall";
-        list($picture,$docListInfo,$projectDetail,$areaArray,$evaluationInfo) = $obj->dueDiligence($projectCode, null, $getJsonFlag,$innerToken);
+        list($picture,$docListInfo,$projectDetail,$areaArray,$evaluationInfo) = 
+            $obj->dueDiligence($projectCode, null, $getJsonFlag,$innerToken);
 
         //先判断一下当前进度的状态
         //12项目已提交（客服未提交意向书）、
