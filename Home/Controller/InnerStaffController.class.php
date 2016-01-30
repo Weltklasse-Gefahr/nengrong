@@ -712,7 +712,7 @@ class InnerStaffController extends Controller {
             echo '{"code":"0","msg":"删除成功！"}';
         }else{
             header('Content-Type: text/html; charset=utf-8');
-            echo '{"code":"0","msg":"删除失败！"}';
+            echo '{"code":"-1","msg":"删除失败！"}';
         }
     }
 }
