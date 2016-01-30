@@ -30,7 +30,7 @@
 	<meta name="msapplication-TileImage" content="/EnergyFe/img/i/favicon.png">
 	<meta name="msapplication-TileColor" content="#0e90d2">
 	<link rel="stylesheet" href="/EnergyFe/prd/styles/x-common@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/styles/x-common.css.ver';</php>.css">
-	<link rel="stylesheet" href="/EnergyFe/prd/styles/pi-myinfo@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/styles/pi-myinfo.css.ver';</php>.css">
+	<link rel="stylesheet" href="/EnergyFe/prd/styles/pi-myInformation@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/styles/pi-myInformation.css.ver';</php>.css">
 <body>
 	<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/hf/erqi/header.html';</php>
 	<!-- 二期页面header -->
@@ -48,7 +48,7 @@
 					<ul>
 						<li><span class="lb">E-mail</span>{$data['email']}</li>
 						<li><span class="lb required">联系人</span><input name="company_contacts" value="{$data['company_contacts']}"/></li>
-						<li><span class="lb required">联系人手机</span><input name="company_contacts_phone" value="{$data['company_contacts_phone']}"/></li>
+						<li><span class="lb required">联系人手机</span><input name="company_contacts_phone" value="{$data['company_contacts_phone']}" maxlength="11" /></li>
 					</ul>
 					<ul>
 						<li><span class="lb">企业名称</span><input name="company_name" value="{$data['company_name']}"/></li>
@@ -65,6 +65,6 @@
 	<!-- 子页面footer:关于我们，联系方式 -->
 	
 	<script src="/EnergyFe/prd/scripts/x-common@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/scripts/x-common.js.ver';</php>.js"></script>
-	<script src="/EnergyFe/prd/scripts/pi-myinfo@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/scripts/pi-myinfo.js.ver';</php>.js"></script>
+	<script src="/EnergyFe/prd/scripts/pi-myInformation@<php>$baseDir=dirname(dirname(dirname(dirname(__FILE__))));include $baseDir.'/Home/View/ver/scripts/pi-myInformation.js.ver';</php>.js"></script>
 </body>
 </html>

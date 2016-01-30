@@ -46,7 +46,6 @@ $(function() {
 	}
 
 	function successCallback(data) {
-		$("#submit").removeClass("disabled");
 		if(data.code == "0") {
 			alert("保存成功！");
 			location.href="?c=ProjectProviderMyPro&a=awaitingAssessment";
