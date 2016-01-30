@@ -257,6 +257,7 @@ class ProjectProviderMyProController extends Controller {
                     "ground_opinion",//土地预审意见
                     "environment_assessment",//环评
                     "project_report",//项目可研报告/项目建议书
+
  
                 );
                 $arrFile = array(
@@ -264,6 +265,7 @@ class ProjectProviderMyProController extends Controller {
                     "ground_opinion",//土地预审意见
                     "environment_assessment",//环评
                     "project_report",//项目可研报告/项目建议书
+
                 );
                 $arrRes = $objDoc->uploadFileAndPictrue($arrPhotosAndFile, $arrFile); 
                 foreach($arrRes as $key=>$val)
@@ -305,6 +307,8 @@ class ProjectProviderMyProController extends Controller {
                         "is_old_project",//是否进入当年省光伏项目目录
                         "completion_report",//竣工验收报告
                         "completion_paper",//竣工图纸
+                        "electricity_bill",//电费结算票据
+                        "history_data",//历史发电量数据/辐照数据
      
                     );
                     $arrFile = array(
@@ -313,6 +317,8 @@ class ProjectProviderMyProController extends Controller {
                         "is_old_project",//是否进入当年省光伏项目目录
                         "completion_report",//竣工验收报告
                         "completion_paper",//竣工图纸
+                        "electricity_bill",//电费结算票据
+                        "history_data",//历史发电量数据/辐照数据
                     );
                     $arrRes = $objDoc->uploadFileAndPictrue($arrPhotosAndFile, $arrFile); 
                     foreach($arrRes as $key=>$val)
@@ -331,8 +337,8 @@ class ProjectProviderMyProController extends Controller {
                     $arrInfor['cooperation_type'] = $_POST['cooperation_type']; //与能融网合作方式（可多选）
                     $arrInfor['cooperation_type'] =  implode("&",$arrInfor['cooperation_type']);
                     $arrInfor['financing_type'] = $_POST['financing_type']; //融资方式
-                    $arrInfor['history_data'] = $_POST['history_data']; //历史发电量数据/辐照数据
-                    $arrInfor['electricity_bill'] = $_POST['electricity_bill']; //电费结算票据
+                    //$arrInfor['history_data'] = $_POST['history_data']; //历史发电量数据/辐照数据
+                    //$arrInfor['electricity_bill'] = $_POST['electricity_bill']; //电费结算票据
                     $arrInfor['electricity_data'] = $_POST['electricity_data']; //历史发电量数据
                 }
 
