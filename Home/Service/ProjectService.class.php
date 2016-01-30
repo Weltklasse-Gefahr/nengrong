@@ -315,9 +315,9 @@ class ProjectService extends Model{
         $condition["delete_flag"] = array('neq',9999);
         $pushPro = M('Pushproject');
         if($page == -1){
-            $pushProInfo = $pushPro->where($condition)->order('highlight_flag desc, create_date desc')->select();
+            $pushProInfo = $pushPro->where($condition)->order('highlight_flag desc, push_time desc')->select();
         }else{
-            $pushProInfo = $pushPro->where($condition)->order('highlight_flag desc, create_date desc')->page($page, 6)->select();
+            $pushProInfo = $pushPro->where($condition)->order('highlight_flag desc, push_time desc')->page($page, 6)->select();
         }
         $projectInfo = $this->getProTypeListFromPushPro($pushProInfo);
         $projectList = $this->formatProject($projectInfo);
