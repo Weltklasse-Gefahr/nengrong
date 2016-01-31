@@ -119,7 +119,7 @@ class UserController extends Controller
     public function forgetPassword(){
         if($_GET['r'] == 1){//点击邮件，验证邮件信息和展示设置新密码页
             $key = $_GET['key'];
-            $decryptKey = decrypt(urldecode($key), getKey());
+            $decryptKey = base64_decode(urldecode($key);
             $keyList = explode(",",$decryptKey);
             if(!($keyList[1] == md5(addToken($keyList[0])))){
                 header('Content-Type: text/html; charset=utf-8');
