@@ -134,20 +134,8 @@ class UserController extends Controller
                 echo '{"code":"-1","msg":"邮件已超时!"}';
                 exit;
             }
-            $this->assign('email', $keyList[0]);
-            $this->display("User:forgetpassmodify");
-        }elseif($_GET['f'] == 1){//设置新密码-下一步
-            $email = $_POST['email'];
-            $password = $_POST['password'];
-            $user = D('User','Service');
-            $userInfo = $user->resetPasswordService($email, $password);
-            if(!empty($userInfo)){
-                echo '{"code":"0","msg":"重设密码成功"}';
-            }else{
-                echo '{"code":"-1","msg":"重设密码失败"}';
-            }
-        }
-        if($_POST['rtype'] == 1 || $_GET['rtype'] == 1){//输入邮箱-下一步
+            header("Location: ?c=User&a=forgetpwdmodify&key=".$key);
+        }elseif($_POST['rtype'] == 1 || $_GET['rtype'] == 1){//输入邮箱-下一步
             $email = $_POST['email'];
             if ( empty($email) ) {
                 echo '{"code":"-1","msg":"邮箱或者新密码为空！"}';
@@ -160,10 +148,45 @@ class UserController extends Controller
                 echo '{"code":"-1","msg":"send email error!"}';
                 exit;
             }
-
             echo '{"code":"0","msg":"邮件发送成功！"}';
         }else{
             $this->display("User:forgetpassword");
+        }
+    }
+
+    /**
+    **@auth qianqiang
+    **@breif 忘记密码-重置新密码
+    **@date 2015.1.22
+    **/
+    public function forgetpwdmodify(){
+        if($_POST['rtype'] == 1 || $_GET['rtype'] == 1){
+            $key = $_GET['key'];
+            $password = $_POST['password'];
+            $decryptKey = base64_decode(urldecode($key));
+            $keyList = explode(",",$decryptKey);
+            if(!($keyList[1] == md5(addToken($keyList[0])))){
+                header('Content-Type: text/html; charset=utf-8');
+                echo '{"code":"-1","msg":"用户信息验证失败，不能重设密码!"}';
+                exit;
+            }
+            $zero1 = strtotime(date("Y-m-d H:i:s",time())); //当前时间
+            $zero2 = strtotime(date("Y-m-d H:i:s",$keyList[2])); //注册时间
+            $zero0 = ceil(($zero1-$zero2)/3600);
+            if($zero0 > 24){ //有效期24小时
+                header('Content-Type: text/html; charset=utf-8');
+                echo '{"code":"-1","msg":"邮件已超时!"}';
+                exit;
+            }
+            $user = D('User','Service');
+            $userInfo = $user->resetPasswordService($keyList[0], $password);
+            if(!empty($userInfo)){
+                echo '{"code":"0","msg":"重设密码成功"}';
+            }else{
+                echo '{"code":"-1","msg":"重设密码失败"}';
+            }
+        }else{
+            $this->display("User:forgetpassmodify");
         }
     }
 
