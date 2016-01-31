@@ -186,6 +186,10 @@ class UserController extends Controller
     }
 
     public function test1(){
+        $com = D('Common', 'Service');
+        $res = $com->getFileSize(1000230);
+        echo $res;exit;
+
         // $user = D("User", "Service");
         // $userInfo = $user->getAllCompanyName();
         // dump($userInfo);
@@ -206,10 +210,10 @@ class UserController extends Controller
         // dump($r);dump($key);dump($url);
         // exit;
 
-        $area = D("Area", "Service");
-        $res = $area->getAreaArrayByHighLevelId("130000");
-        header('Content-Type: text/html; charset=utf-8');
-        dump($res);
+        // $area = D("Area", "Service");
+        // $res = $area->getAreaArrayByHighLevelId("130000");
+        // header('Content-Type: text/html; charset=utf-8');
+        // dump($res);
         
         // $email = "qianqiang@qq.com";
         // isDataComplete($email);

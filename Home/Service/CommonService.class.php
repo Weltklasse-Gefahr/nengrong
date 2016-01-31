@@ -265,4 +265,28 @@ class CommonService{
 		return $str;
 	}
 
+	/**
+    **@auth qianqiang
+    **@breif 计算附件大小
+    **@date 2016.1.30
+	**/
+	public function getFileSize($size){
+		$i = 1;
+		$tempSize = $size/1024;
+		while($tempSize<0 || $tempSize>1024){
+			$size = $tempSize;
+			$tempSize = $size/1024;
+			$i += 1;
+		}
+		if($i == 1){
+			$str = round($tempSize)."B";
+		}elseif($i == 2){
+			$str = round($tempSize)."KB";
+		}elseif($i == 3){
+			$str = round($tempSize)."M";
+		}else{
+			$str = round($tempSize)."G";
+		}
+		return $str;
+	}
 }
