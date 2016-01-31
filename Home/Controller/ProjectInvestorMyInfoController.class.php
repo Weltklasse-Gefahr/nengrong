@@ -61,12 +61,12 @@ class ProjectInvestorMyInfoController extends Controller {
             $data['company_contacts_position'] = $companyContactsPosition;
             $data['company_phone'] = $companyPhone;
             $res = $user->updateUserInfo($condition, $data);
-            if($res){
-                setcookie("userName", $companyName, time()+3600*24*7);
-                echo '{"code":"0","msg":"修改成功"}';
-            }else{
+            if($res === false){
                 echo '{"code":"-1","msg":"save error"}';
                 exit;
+            }else{
+                setcookie("userName", $companyName, time()+3600*24*7);
+                echo '{"code":"0","msg":"修改成功"}';
             }
         }else{
             $userInfo = $user->getUserINfoByEmail($email);
