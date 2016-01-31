@@ -177,6 +177,7 @@ class UserController extends Controller
         $user = D('User','Service');
         $res = $user->activeService($key);
         if($res === true){
+            header("Location: ?c=User&a=login");
             $this->display("User:login");
         }else{
             $data['errmsg'] = $res;

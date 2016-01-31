@@ -129,32 +129,29 @@ class UserService extends Model{
 		$keyList = explode(",",$decryptKey);
 		if(!($keyList[1] == md5(addToken($keyList[0])))){
 			return "用户信息验证失败，激活失败!";
-			// header('Content-Type: text/html; charset=utf-8');
-			// echo '{"code":"-1","msg":"用户信息验证失败，激活失败!"}';
-			// exit;
 		}
 		$zero1 = strtotime(date("Y-m-d H:i:s",time())); //当前时间
 		$zero2 = strtotime(date("Y-m-d H:i:s",$keyList[2])); //注册时间
 		$zero0 = ceil(($zero1-$zero2)/3600);
 		if($zero0 > 24){ //有效期24小时
-			// header('Content-Type: text/html; charset=utf-8');
-			// echo '{"code":"-1","msg":"邮件已超时!"}';
 			return "邮件已超时!";
 		}
-		// dump($zero1);dump($zero2);dump($zero0);exit;
 
 		$user = M('user');
+		$userInfo = $user->where("email='".$keyList[0]."' and delete_flag=0")->find();
+		if(empty($userInfo)){
+			return "用户信息不存在";
+		}
+		if($userInfo['status']==1){
+			return "用户已激活";
+		}
 		$data['status'] = 1;
 		$data['change_date'] = date("Y-m-d H:i:s",time());
 		$result = $user->where("email='".$keyList[0]."' and status=2")->save($data);
-
 		if ($result == 0) {
-			return "用户信息不存在!";
-			// header('Content-Type: text/html; charset=utf-8');
-			// echo '{"code":"-1","msg":"用户信息不存在!"}';
-			// exit;
+			return "激活失败";
 		}
-
+		$this->logoutService();
 		return true;
 	}
 

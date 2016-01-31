@@ -600,39 +600,40 @@ class InnerStaffController extends Controller {
         isLogin($_COOKIE['email'], $_COOKIE['mEmail']);
         authentication($_COOKIE['email'], 2);
         $rtype = $_POST['rtype'] ? $_POST['rtype']:$_GET['rtype'];
-        // $projectCode = $_POST['project_code'] ? $_POST['project_code']:$_GET['project_code'];
         $projectCode = $_POST['no'] ? $_POST['no']:$_GET['no'];
         $mProjectCode = $_POST['token'] ? $_POST['token']:$_GET['token'];
         isProjectCodeRight($projectCode, $mProjectCode);
+        $projectObj = D('Project', 'Service');
         $investors = $_POST['investors'];
         $investorStr = substr($investors, 0, strlen($investors)-1);
         $investorList = explode(",",$investorStr);
         if($rtype == 1){
-            $projectObj = D('Project', 'Service');
             $result = $projectObj->pushProject($projectCode, $investorList);
             if($result === true)
                 echo '{"code":"0","msg":"push project success"}';
             else
                 echo '{"code":"-1","msg":"push project error"}';
         }else{
-            $page = $_GET['page'];
-            if(empty($page)) $page=1;
-            $pageSize = 6;
-            $investor = D('User', 'Service');
-            $investorList = $investor->getInvestorPush($projectCode, $page);
-            $investorTotal = $investor->getInvestorPush($projectCode, -1);
-            $data = array();
-            $data["list"] = $investorList;
-            $data["page"] = $page;
-            $data["count"] = sizeof($investorTotal);
-            $data["totalPage"] = ceil($data["count"]/$pageSize+1);
-            $data["endPage"] = ceil($data["count"]/$pageSize);
-            if($_GET['display']=="json"){
-                header('Content-Type: text/html; charset=utf-8');
-                dump($data);
-                exit;
+            if($projectObj->isPushProject($projectCode) === true){
+                $page = $_GET['page'];
+                if(empty($page)) $page=1;
+                $pageSize = 6;
+                $investor = D('User', 'Service');
+                $investorList = $investor->getInvestorPush($projectCode, $page);
+                $investorTotal = $investor->getInvestorPush($projectCode, -1);
+                $data = array();
+                $data["list"] = $investorList;
+                $data["page"] = $page;
+                $data["count"] = sizeof($investorTotal);
+                $data["totalPage"] = ceil($data["count"]/$pageSize+1);
+                $data["endPage"] = ceil($data["count"]/$pageSize);
+                if($_GET['display']=="json"){
+                    header('Content-Type: text/html; charset=utf-8');
+                    dump($data);
+                    exit;
+                }
+                $this->assign("arrData", $data);
             }
-            $this->assign("arrData", $data);
             $this->display("InnerStaff:pushProject");
         }
     }

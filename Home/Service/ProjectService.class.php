@@ -685,10 +685,10 @@ class ProjectService extends Model{
     **@date 2015.12.30
     **/ 
     public function pushProject($projectCode, $investorList){
-        if($this->isPushProject($projectCode) == false){
-            echo '{"code":"-1","msg":"该项目不能进行推送操作"}';
-            exit;
-        }
+        // if($this->isPushProject($projectCode) == false){
+        //     echo '{"code":"-1","msg":"该项目不能进行推送操作"}';
+        //     exit;
+        // }
         $pushProject = D("Pushproject");
         $data = array();
         $data['project_code'] = $projectCode;
@@ -707,15 +707,15 @@ class ProjectService extends Model{
 
     /**
     **@auth qianqiang
-    **@breif 判断项目是否可以进行推送
+    **@breif 判断项目是否可以进行推送,签署意向书后可进行推送操作
     **@return 可以推送返回true，不可以推送返回false
     **@date 2015.12.30
     **/ 
     public function isPushProject($projectCode){
         $projectObj = M("Project");
         $condition["project_code"] = $projectCode;
-        $condition["status"] = array('between','21,29');
-        $condition["delete_flag"] = array('neq',9999);
+        $condition["status"] = array('in','21,23');
+        $condition["delete_flag"] = 0;
         $res = $projectObj->where($condition)->select();
         if(empty($res)) 
             return false;
@@ -1461,7 +1461,6 @@ class ProjectService extends Model{
                 exit;
             }
         }
-        
         return true;
     }
 
