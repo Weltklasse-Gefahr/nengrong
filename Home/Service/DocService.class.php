@@ -68,7 +68,7 @@ class DocService extends Model{
                     //这个是处理文档的分支
                     $res = uploadFileOne($_FILES[$val], "ProjectProvider".$email);
                     //文档的保持路径url，中文名，和上传时间，保存到ENF_Doc表中
-                    $pictureUrl = "/userdata/file/".$res; 
+                    $pictureUrl = "/userdata/doc/".$res; 
                     $pictureName =  $_FILES[$val]["name"];
                     $pictureSize =  $_FILES[$val]["size"];
                     $objUser = D("Doc","Service");
