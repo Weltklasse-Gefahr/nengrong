@@ -21,7 +21,7 @@ $(function(){
 			dataType: "json"
 		}).done(function(data){
 			if (data.code== 0) {
-				location.href=data.url;
+				location.href="?c=user&a=login";
 			}
 			else{
 				warning(data.msg || "跳转失败");

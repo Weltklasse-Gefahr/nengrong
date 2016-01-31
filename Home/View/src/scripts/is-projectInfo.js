@@ -8,19 +8,11 @@ $(function(){
 		$.ajax({
 		    type: "post",
 		    url: "?c=InnerStaff&a=projectInfo&no="+param.no+"&token="+param.token,
-		    data: {
+		    data: {	
 		    	comment: commenttexval,
 		    	rtype: 1
 		    },
 			dataType: "json"
-		}).done(function(data) {
-			if(data && data.code == "0") {
-				alert("保存成功！");
-			} else {
-				alert(data.msg || "保存失败！");
-			}
-		}).fail(function() {
-			alert("保存失败！");
-		});
+		}).done(function(data){});
 	});
 });
