@@ -69,8 +69,8 @@ require_once dirname(dirname(__FILE__)).'/library/PHPMailerAutoload.php';
 function uploadPicOne($photo, $savePath = ''){
     // 实例化上传类
     $upload = new \Think\Upload();
-    // 设置附件上传大小
-    $upload->maxSize   =     3145728 ;
+    // 设置附件上传大小30M
+    $upload->maxSize   =     3145728 * 10 ;
     // 设置附件上传类型 .jpg .jpeg .gif .png .bmp .psd
     $upload->exts      =     array('jpg', 'gif', 'png', 'jpeg', 'bmp', 'psd');
     // 设置附件上传根目录
@@ -108,8 +108,8 @@ function uploadPicOne($photo, $savePath = ''){
 function uploadFileOne($file, $savePath = ''){
     // 实例化上传类
     $upload = new \Think\Upload();
-    // 设置附件上传大小
-    $upload->maxSize   =     3145728 ;
+    // 设置附件上传大小30M
+    $upload->maxSize   =     3145728 * 10 ;
     // 设置附件上传类型doc .docx .xls .xlsx .ppt .pptx .txt .pdf
     $upload->exts      =     array('pdf', 'doc', 'excel', 'txt', 'docx', 'xlsx', 'xls', 'ppt', 'pptx','jpg', 'gif', 'png', 'jpeg', 'bmp', 'psd');
     // 设置附件上传根目录
