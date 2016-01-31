@@ -104,7 +104,7 @@
 						</li>
 						<li>
 							<span class="lb">屋顶产权证明</span>
-							<span class="fname">{$data['projectInfo']['housetop_property_prove']['name']}<a class="download" href="{$data['projectInfo']['housetop_property_prove']['url']}">下载</a></span>
+							<?php if($data['projectInfo']['housetop_property_prove']['id']){ ?><span class="fname">{$data['projectInfo']['housetop_property_prove']['name']}<a class="download" href="{$data['projectInfo']['housetop_property_prove']['url']}">下载</a></span><?php }else{ ?><span class="lbw">无</span><?php } ?>
 						</li>
 						<li>
 							<span class="lb">年用电量</span>
@@ -116,7 +116,7 @@
 						</li>
 						<li>
 							<span class="lb">电费单（最近一年）</span>
-							<span class="fname">{$data['projectInfo']['electricity_pay_list']['name']}<a class="download" href="{$data['projectInfo']['electricity_pay_list']['url']}">下载</a></span>
+							<?php if($data['projectInfo']['electricity_pay_list']['id']){ ?><span class="fname">{$data['projectInfo']['electricity_pay_list']['name']}<a class="download" href="{$data['projectInfo']['electricity_pay_list']['url']}">下载</a></span><?php }else{ ?><span class="lbw">无</span><?php } ?>
 						</li>
 					</ul>
 
