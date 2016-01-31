@@ -109,15 +109,15 @@
 				</li>
 				<li>
 					<span class="lb">土地平整情况</span>
-					<span class="lbw">{$data['projectInfo']['ground_condition']}</span>
+					<span class="lbw">{$data['projectInfo']['groundCondition']}</span>
 				</li>
 				<li>
 					<span class="lb">附近有无遮挡</span>
-					<span class="lbw">{$data['projectInfo']['has_shelter']}</span>
+					<span class="lbw">{$data['projectInfo']['hasShelter']}</span>
 				</li>
 				<li>
 					<span class="lb">有无污染源</span>
-					<span class="lbw">{$data['projectInfo']['has_pollute']}</span>
+					<span class="lbw">{$data['projectInfo']['hasPollute']}</span>
 				</li>
 			</ul>
 
@@ -194,8 +194,8 @@
 					<span class="lbw">{$data['projectInfo']['groundProjectType']}</span>
 				</li>
 				<li>
-					<span class="lb">与能融网合作方式（可多选）</span>
-					<span class="lbw">{$data['projectInfo']['cooperation_type']}</span>
+					<span class="lb">与能融网合作方式</span>
+					<span class="lbw">{$data['projectInfo']['cooperationType']}</span>
 				</li>
 				<li>
 					<span class="lb">拟融资金额</span>
@@ -211,66 +211,66 @@
 			<ul class="detail part2">
 				<li>
 					<span class="lb">项目备案</span>
-					<?php if($data['projectInfo']['project_backup']){ ?><span class="fname">{$data['projectInfo']['project_backup']['name']}<a class="download" href="{$data['projectInfo']['project_backup']['url']}">下载</a></span><?php }
+					<?php if($data['projectInfo']['project_backup']['id']){ ?><span class="fname">{$data['projectInfo']['project_backup']['name']}<a class="download" href="{$data['projectInfo']['project_backup']['url']}">下载</a></span><?php }
 						else{ ?><span class="lbw">无</span><?php } ?>
 				</li>
 				<li>
 					<span class="lb">电网接入批复</span>
-					<?php if($data['projectInfo']['electricity_backup']){ ?><span class="fname">{$data['projectInfo']['electricity_backup']['name']}<a class="download" href="{$data['projectInfo']['electricity_backup']['url']}">下载</a></span><?php }
+					<?php if($data['projectInfo']['electricity_backup']['id']){ ?><span class="fname">{$data['projectInfo']['electricity_backup']['name']}<a class="download" href="{$data['projectInfo']['electricity_backup']['url']}">下载</a></span><?php }
 						else{ ?><span class="lbw">无</span><?php } ?>
 				</li>
 				<li>
 					<span class="lb">土地租赁协议</span>
-					<?php if($data['projectInfo']['ground_rent_agreement']){ ?><span class="fname">{$data['projectInfo']['ground_rent_agreement']['name']}<a class="download" href="{$data['projectInfo']['ground_rent_agreement']['url']}">下载</a></span><?php }
+					<?php if($data['projectInfo']['ground_rent_agreement']['id']){ ?><span class="fname">{$data['projectInfo']['ground_rent_agreement']['name']}<a class="download" href="{$data['projectInfo']['ground_rent_agreement']['url']}">下载</a></span><?php }
 						else{ ?><span class="lbw">无</span><?php } ?>
 				</li>
 				<li>
 					<span class="lb">土地预审意见</span>
-					<?php if($data['projectInfo']['ground_opinion']){ ?><span class="fname">{$data['projectInfo']['ground_opinion']['name']}<a class="download" href="{$data['projectInfo']['ground_opinion']['url']}">下载</a></span><?php }
+					<?php if($data['projectInfo']['ground_opinion']['id']){ ?><span class="fname">{$data['projectInfo']['ground_opinion']['name']}<a class="download" href="{$data['projectInfo']['ground_opinion']['url']}">下载</a></span><?php }
 						else{ ?><span class="lbw">无</span><?php } ?>
 				</li>
 				<li>
 					<span class="lb">项目可研报告</span>
-					<?php if($data['projectInfo']['project_proposal']){ ?><span class="fname">{$data['projectInfo']['project_proposal']['name']}<a class="download" href="{$data['projectInfo']['project_proposal']['url']}">下载</a></span><?php }
+					<?php if($data['projectInfo']['project_proposal']['id']){ ?><span class="fname">{$data['projectInfo']['project_proposal']['name']}<a class="download" href="{$data['projectInfo']['project_proposal']['url']}">下载</a></span><?php }
 						else{ ?><span class="lbw">无</span><?php } ?>
 				</li>
 				<li>
 					<span class="lb">环评</span>
-					<?php if($data['projectInfo']['environment_assessment']){ ?><span class="fname">{$data['projectInfo']['environment_assessment']['name']}<a class="download" href="{$data['projectInfo']['environment_assessment']['url']}">下载</a></span><?php }
+					<?php if($data['projectInfo']['environment_assessment']['id']){ ?><span class="fname">{$data['projectInfo']['environment_assessment']['name']}<a class="download" href="{$data['projectInfo']['environment_assessment']['url']}">下载</a></span><?php }
 						else{ ?><span class="lbw">无</span><?php } ?>
 				<li>
 					<span class="lb">土地证</span>
-					<?php if($data['projectInfo']['land_certificate']){ ?><span class="fname">{$data['projectInfo']['land_certificate']['name']}<a class="download" href="{$data['projectInfo']['land_certificate']['url']}">下载</a></span><?php }
+					<?php if($data['projectInfo']['land_certificate']['id']){ ?><span class="fname">{$data['projectInfo']['land_certificate']['name']}<a class="download" href="{$data['projectInfo']['land_certificate']['url']}">下载</a></span><?php }
 						else{ ?><span class="lbw">无</span><?php } ?>					
 				</li>
 				<li>
 					<span class="lb">物价局电价批复</span>
-					<?php if($data['projectInfo']['electricity_price_reply']){ ?><span class="fname">{$data['projectInfo']['electricity_price_reply']['name']}<a class="download" href="{$data['projectInfo']['electricity_price_reply']['url']}">下载</a></span><?php }
+					<?php if($data['projectInfo']['electricity_price_reply']['id']){ ?><span class="fname">{$data['projectInfo']['electricity_price_reply']['name']}<a class="download" href="{$data['projectInfo']['electricity_price_reply']['url']}">下载</a></span><?php }
 						else{ ?><span class="lbw">无</span><?php } ?>
 				</li>
 				<li>
 					<span class="lb">是否进入当年省光伏项目目录</span>
-					<?php if($data['projectInfo']['is_old_project']){ ?><span class="fname">{$data['projectInfo']['is_old_project']['name']}<a class="download" href="{$data['projectInfo']['is_old_project']['url']}">下载</a></span><?php }
+					<?php if($data['projectInfo']['is_old_project']['id']){ ?><span class="fname">{$data['projectInfo']['is_old_project']['name']}<a class="download" href="{$data['projectInfo']['is_old_project']['url']}">下载</a></span><?php }
 						else{ ?><span class="lbw">无</span><?php } ?>
 				</li>
 				<li>
 					<span class="lb">竣工验收报告</span>
-					<?php if($data['projectInfo']['completion_report']){ ?><span class="fname">{$data['projectInfo']['completion_report']['name']}<a class="download" href="{$data['projectInfo']['completion_report']['url']}">下载</a></span><?php }
+					<?php if($data['projectInfo']['completion_report']['id']){ ?><span class="fname">{$data['projectInfo']['completion_report']['name']}<a class="download" href="{$data['projectInfo']['completion_report']['url']}">下载</a></span><?php }
 						else{ ?><span class="lbw">无</span><?php }?>
 				</li>
 				<li>
 					<span class="lb">竣工图纸</span>
-					<?php if($data['projectInfo']['completion_paper']){ ?><span class="fname">{$data['projectInfo']['completion_paper']['name']}<a class="download" href="{$data['projectInfo']['completion_paper']['url']}">下载</a></span><?php }
+					<?php if($data['projectInfo']['completion_paper']['id']){ ?><span class="fname">{$data['projectInfo']['completion_paper']['name']}<a class="download" href="{$data['projectInfo']['completion_paper']['url']}">下载</a></span><?php }
 						else{ ?><span class="lbw">无</span><?php } ?>
 				</li>
 				<li>
 					<span class="lb">历史发电量数据/辐照数据</span>
-					<?php if($data['projectInfo']['history_data']){ ?><span class="fname">{$data['projectInfo']['history_data']['name']}<a class="download" href="{$data['projectInfo']['history_data']['url']}">下载</a></span><?php }
+					<?php if($data['projectInfo']['history_data']['id']){ ?><span class="fname">{$data['projectInfo']['history_data']['name']}<a class="download" href="{$data['projectInfo']['history_data']['url']}">下载</a></span><?php }
 						else{ ?><span class="lbw">无</span><?php } ?>
 				</li>
 				<li>
 					<span class="lb">电费结算票据</span>
-					<?php if($data['projectInfo']['electricity_bill']){ ?><span class="fname">{$data['projectInfo']['electricity_bill']['name']}<a class="download" href="{$data['projectInfo']['electricity_bill']['url']}">下载</a></span> <?php }
+					<?php if($data['projectInfo']['electricity_bill']['id']){ ?><span class="fname">{$data['projectInfo']['electricity_bill']['name']}<a class="download" href="{$data['projectInfo']['electricity_bill']['url']}">下载</a></span> <?php }
 						else{ ?><span class="lbw">无</span><?php } ?>
 				</li>
 			</ul>

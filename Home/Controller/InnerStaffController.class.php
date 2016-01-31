@@ -161,6 +161,10 @@ class InnerStaffController extends Controller {
             $data['projectHolderType'] = $common->getProjectHolderType($data['project_holder_type']);
             $data['groundProjectType'] = $common->getGroundProjectType($data['ground_project_type']);
             $data['housetopDirection'] = $common->getHousetopDirection($data['housetop_direction']);
+            $data['cooperationType'] = $common->getCooperationType($data['cooperation_type']);
+            $data['hasShelter'] = $common->getHasShelterOrPollution($data['has_shelter']);
+            $data['hasPollute'] = $common->getHasShelterOrPollution($data['has_pollute']);
+            $data['hasPollution'] = $common->getHasShelterOrPollution($data['has_pollution']);
             $dataBig  = array('projectInfo' => $data);
             $this->assign('data',$dataBig);
             if ($_GET['display'] == 'json') {

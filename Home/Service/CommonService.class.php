@@ -289,4 +289,45 @@ class CommonService{
 		}
 		return $str;
 	}
+
+	/**
+    **@auth qianqiang
+    **@breif 获取与能融网合作方式
+    **@param arrayStr合作方式数组
+    **@date 2016.1.31
+	**/
+	public function getCooperationType($arrayStr){
+		$typeStr = "";
+		$i = 0;
+		while($arrayStr[$i]){
+			if($arrayStr[$i] == 1){
+				$typeStr = $typeStr."EPC ";
+			}elseif($arrayStr[$i] == 2){
+				$typeStr = $typeStr."申请融资 ";
+			}elseif($arrayStr[$i] == 3){
+				$typeStr = $typeStr."推介项目 ";
+			}elseif($arrayStr[$i] == 4){
+				$typeStr = $typeStr."转让 ";
+			}
+			$i += 1;
+		}
+		return $typeStr;
+	}
+
+	/**
+    **@auth qianqiang
+    **@breif 获取有无遮挡,有无污染物
+    **@date 2016.1.31
+	**/
+	public function getHasShelterOrPollution($no){
+		if($no == null){
+			return null;
+		}
+		if(1 == $no){
+			$str = '有';
+		}else{
+			$str = '无';
+		}
+		return $str;
+	}
 }

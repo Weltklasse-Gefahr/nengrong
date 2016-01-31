@@ -1364,7 +1364,7 @@ class ProjectService extends Model{
     **/
     public function deleteProjectList($id){
         $project = M('Project');
-        $projectList = $project->where("provider_id='".$id."' and delete_flag=0")->select();
+        $projectList = $project->where("provider_id='".$id."' and delete_flag=9999")->select();
         if(empty($projectList)){
             return true;
         }
