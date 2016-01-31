@@ -182,7 +182,7 @@ C.项目经济收益情况<?php } ?>
 										</textarea></div>
 									</div>
 									<div class="item">
-										<div class="hd">B、工程建设质量和系统运行情况</div>
+										<div class="hd">B、工程建设可行性</div>
 										<div class="bd"><textarea name="project_quality_situation"><?php if($evaluationInfo['project_quality_situation']){ 
 										 echo $evaluationInfo['project_quality_situation'];
 										 }else{ ?>默认内容<?php } ?>
@@ -200,7 +200,7 @@ C.项目经济收益情况<?php } ?>
 								</td>
 							</tr>
 							<tr>
-								<td>评价结果</td>
+								<td name="evaluation_result_mark">评价结果</td>
 								<td>
 									<table class="result-info">
 										<tr>
@@ -304,8 +304,8 @@ C.项目经济收益情况<?php } ?>
 				</div>
 				<div class="operator">
 					<span class="tips">保存后还可以修改噢～</span>
-					<input data-optype="save" type="submit" value="保存">
-					<input data-optype="submit" type="submit" value="提交" class="last">
+					<input data-optype="save" type="button" value="保存">
+					<input data-optype="submit" type="submit" value="提交">
 				</div>
 			</form>
 		<?php }else{ ?>
@@ -402,7 +402,7 @@ C.项目经济收益情况<?php } ?>
 										<div class="bd"><textarea readonly>{$evaluationInfo['document_review']}</textarea></div>
 									</div>
 									<div class="item">
-										<div class="hd">B、工程建设质量和系统运行情况</div>
+										<div class="hd">B、工程建设可行性</div>
 										<div class="bd"><textarea readonly>{$evaluationInfo['project_quality_situation']}</textarea></div>
 									</div>
 									<div class="item">
