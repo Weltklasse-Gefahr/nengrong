@@ -426,7 +426,7 @@ class ProjectService extends Model{
         if($this->hasSaveHousetopOrGround($projectInfo['id'], 61, $projectInfo['project_type'])){
             $projectDetails = $this->getProjectDetails($projectInfo['id'], 61, $projectInfo['project_type']);//61意向书保存状态（项目已提交）
         }else{
-            $projectDetails = $this->getProjectDetails($projectInfo['id'], 12, $projectInfo['project_type']);//12项目已提交（客服未提交意向书）
+            $projectDetails = $this->getProjectDetails($projectInfo['id'], 22, $projectInfo['project_type']);//22客服未提交意向书
             $projectDetails['id'] = null;
         }
         $projectDetails['project_intent'] = $intentText;
