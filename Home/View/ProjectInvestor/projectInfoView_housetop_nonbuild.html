@@ -56,582 +56,172 @@
 				<form id="infoForm" class="housetop_nonBuild">
 					<ul class="detail part1">
 						<li class="clrfix">
-							<span class="lb not-empty">项目类型</span>
+							<span class="lb">项目类型：</span>
+							<span class="lbw">{$data['projectInfo']['typeStr']}</span>
+						</li>
+						<li class="clrfix">
+							<span class="lb">项目地点：</span>
+							<span class="lbw">{$data['projectInfo']['areaStr']}</span>
+						</li>
+						<li class="clrfix">
+							<span class="lb">项目图片：</span>
 							<div class="item">
-								<div class="filter">
-									<span data-filter="1" {$data['projectInfo']['project_type'] == 1?'class="active"':''}>屋顶分布式</span>
-									<span data-filter="2" {$data['projectInfo']['project_type'] == 2?'class="active"':''}>地面分布式</span>
-									<span data-filter="3" {$data['projectInfo']['project_type'] == 3?'class="active"':''}>大型地面</span>
-								</div>
-								<div class="filter">
-									<span data-filter="1" {$data['projectInfo']['build_state'] == 1?'class="active"':''}>未建</span>
-									<span data-filter="2" {$data['projectInfo']['build_state'] == 2?'class="active"':''}>已建</span>
-								</div>
-							</div>
-						</li>
-						<li class="clrfix">
-							<span class="lb not-empty">选择位置</span>
-							<div class="item area">
-								<select name="province" class="first" data-code="{$data['projectInfo']['province']}">
-									<option value="">选择省</option>
-								</select>省
-								<select name="city" data-code="{$data['projectInfo']['city']}">
-									<option value="">选择市</option>
-								</select>市
-								<select name="county" data-code="{$data['projectInfo']['county']}">
-									<option value="">选择区</option>
-								</select>区
-							</div>
-						</li>
-						<li class="clrfix">
-							<span class="lb not-empty">详细地址</span>
-							<div class="item area">
-								<input name="project_address" value="{$data['projectInfo']['project_address']}" />
-							</div>
-						</li>
-						<li class="clrfix notall housetop_nonBuild_item housetop_build_item">
-							<span class="lb not-empty">上传图片</span>
-							<div class="item clrfix">
 								<div class="img-ct">
-									<div class="preview" style="width:120px;height:120px;">
-										<a target="_blank" href="{$data['projectInfo']['picture_full']['url']}">
-											<img src="{$data['projectInfo']['picture_full']['url']}"/>
-										</a>
-									</div>
+									<a target="_blank" href="{$data['projectInfo']['picture_full']['url']}"><img src="{$data['projectInfo']['picture_full']['url']}" style="width:120px;height:120px;" /></a>
 									<p>屋顶全景图</p>
 								</div>
 								<div class="img-ct">
-									<div class="preview" style="width:120px;height:120px;">
-										<a target="_blank" href="{$data['projectInfo']['picture_south']['url']}">
-											<img src="{$data['projectInfo']['picture_south']['url']}"/>
-										</a>
-									</div>
+									<a target="_blank" href="{$data['projectInfo']['picture_south']['url']}"><img src="{$data['projectInfo']['picture_south']['url']}" style="width:120px;height:120px;" /></a>
 									<p>屋顶正南向照片</p>
 								</div>
 								<foreach name="data.projectInfo.picture_mul" item="vo" key="k" >
 								<div class="img-ct">
 									<div class="preview" style="width:120px;height:120px;">
 										<a target="_blank" href="{$vo['url']}">
-											<img src="{$vo['url']}" alt="{$vo['name']}"/>
+											<img src="{$vo['url']}" alt="{$vo['name']}" style="width:120px;height:120px;"/>
 										</a>
 									</div>
 									<p title="{$vo['name']}">{$vo['name']}</p>
 								</div>
 								</foreach>
-								<p class="tip">备注：请上传近期高清照片，从不同角度拍摄。</p>
-							</div>
-						</li>
-						<li class="clrfix notall ground_nonBuild_item ground_build_item">
-							<span class="lb not-empty">上传图片</span>
-							<div class="item clrfix">
-								<div class="img-ct">
-									<div class="preview" style="width:120px;height:120px;">
-										<a target="_blank" href="{$data['projectInfo']['picture_full']['url']}">
-											<img src="{$data['projectInfo']['picture_full']['url']}"/>
-										</a>
-									</div>
-									<p>场地情况全景图</p>
-								</div>
-								<div class="img-ct">
-									<div class="preview" style="width:120px;height:120px;">
-										<a target="_blank" href="{$data['projectInfo']['picture_field']['url']}">
-											<img src="{$data['projectInfo']['picture_field']['url']}"/>
-										</a>
-									</div>
-									<p>场平照片</p>
-								</div>
-								<div class="img-ct">
-									<div class="preview" style="width:120px;height:120px;">
-										<a target="_blank" href="{$data['projectInfo']['picture_transformer']['url']}">
-											<img src="{$data['projectInfo']['picture_transformer']['url']}"/>
-										</a>
-									</div>
-									<p>变电站照片</p>
-								</div>
-								<foreach name="data.projectInfo.picture_mul" item="vo" key="k" >
-								<div class="img-ct">
-									<div class="preview" style="width:120px;height:120px;">
-										<a target="_blank" href="{$vo['url']}">
-											<img src="{$vo['url']}" alt="{$vo['name']}"/>
-										</a>
-									</div>
-									<p title="{$vo['name']}">{$vo['name']}</p>
-								</div>
-								</foreach>
-								<p class="tip">备注：请上传近期高清照片，从不同角度拍摄。</p>
-							</div>
-						</li>
-						<li class="clrfix notall housetop_nonBuild_item housetop_build_item">
-							<span class="lb">参考示例图片：</span>
-							<div class="item">
-								<div class="demo">
-									<a target="_blank" href="/EnergyFe/img/demo1.jpg"><img src="/EnergyFe/img/demo1.jpg" style="width:110px;height:72px;" /></a>
-									<p>屋顶全景图</p>
-								</div>
-								<div class="demo">
-									<a target="_blank" href="/EnergyFe/img/demo2.jpg"><img src="/EnergyFe/img/demo2.jpg" src="" style="width:100px;height:72px;" /></a>
-									<p>屋顶正南向照片</p>
-								</div>
-								<div class="demo">
-									<a target="_blank" href="/EnergyFe/img/demo3.jpg"><img src="/EnergyFe/img/demo3.jpg" src="" style="width:139px;height:72px;" /></a>
-									<p>彩钢瓦具体结构</p>
-								</div>
-							</div>
-						</li>
-						<li class="clrfix notall ground_nonBuild_item ground_build_item">
-							<span class="lb">参考示例图片：</span>
-							<div class="item">
-								<div class="demo">
-									<a target="_blank" href="/EnergyFe/img/demo4.jpg"><img src="/EnergyFe/img/demo4.jpg" style="width:110px;height:72px;" /></a>
-									<p>场地情况全景图</p>
-								</div>
-								<div class="demo">
-									<a target="_blank" href="/EnergyFe/img/demo5.jpg"><img src="/EnergyFe/img/demo5.jpg" src="" style="width:100px;height:72px;" /></a>
-									<p>场平照片</p>
-								</div>
-								<div class="demo">
-									<a target="_blank" href="/EnergyFe/img/demo6.jpg"><img src="/EnergyFe/img/demo6.jpg" src="" style="width:139px;height:72px;" /></a>
-									<p>变电站照片</p>
-								</div>
 							</div>
 						</li>
 					</ul>
-					<p class="title notall housetop_nonBuild_item housetop_build_item">屋顶业主信息</p>
-					<ul class="detail part2 notall housetop_nonBuild_item housetop_build_item">
+
+					<p class="title">屋顶业主信息</p>
+					<ul class="detail part2">
 						<li>
-							<span class="lb not-empty">屋顶业主名称</span>
-							<input name="housetop_owner" value="{$data['projectInfo']['housetop_owner']}"><span class="gray">公司</span>
+							<span class="lb">屋顶业主名称</span>
+							<span class="lbw">{$data['projectInfo']['housetop_owner']}</span>
 						</li>
 						<li>
-							<span class="lb not-empty">企业类型</span>
-							<select name="company_type">
-								<option value="1" {$data['projectInfo']['company_type'] == 1?'selected':''}>国企（上市公司）</option>
-								<option value="2" {$data['projectInfo']['company_type'] == 2?'selected':''}>外企（上市公司）</option>
-								<option value="3" {$data['projectInfo']['company_type'] == 3?'selected':''}>私企（上市公司）</option>
-								<option value="4" {$data['projectInfo']['company_type'] == 4?'selected':''}>国企（非上市公司）</option>
-								<option value="5" {$data['projectInfo']['company_type'] == 5?'selected':''}>外企（非上市公司）</option>
-								<option value="6" {$data['projectInfo']['company_type'] == 6?'selected':''}>私企（非上市公司）</option>
-							</select>
+							<span class="lb">企业类型</span>
+							<span class="lbw">{$data['projectInfo']['companyType']}</span>
 						</li>
 						<li>
-							<span class="lb not-empty">注册资本金</span>
-							<input name="company_capital" value="{$data['projectInfo']['company_capital']}"><span class="gray">万</span>
+							<span class="lb">注册资本金</span>
+							<span class="lbw">{$data['projectInfo']['company_capital']}万元</span>
 						</li>
 						<li>
-							<span class="lb not-empty">屋顶产权证明</span>   
-							<select data-with-file="true">
-								<option value="1" {$data['projectInfo']['housetop_property_prove']['name']?'selected':''}>有</option>
-								<option value="2" {$data['projectInfo']['housetop_property_prove']['name']?'':'selected'} >无</option>
-							</select>
+							<span class="lb">屋顶产权证明</span>
 							<span class="fname">{$data['projectInfo']['housetop_property_prove']['name']}<a class="download" href="{$data['projectInfo']['housetop_property_prove']['url']}">下载</a></span>
 						</li>
 						<li>
-							<span class="lb not-empty">年用电量</span>
-							<input name="electricity_total" value="{$data['projectInfo']['electricity_total']}"><span class="gray">万度</span>
+							<span class="lb">年用电量</span>
+							<span class="lbw">{$data['projectInfo']['electricity_total']}万度</span>
 						</li>
 						<li>
-							<span class="lb not-empty">电费</span>
-							<input name="electricity_pay" value="{$data['projectInfo']['electricity_pay']}"><span class="gray">万元</span>
+							<span class="lb">电费</span>
+							<span class="lbw">{$data['projectInfo']['electricity_pay']}万元</span>
 						</li>
 						<li>
-							<span class="gray not-empty">电费单(最近一年)(备注：请上传近12个月，每月电费明细)</span>
+							<span class="lb">电费单（最近一年）</span>
 							<span class="fname">{$data['projectInfo']['electricity_pay_list']['name']}<a class="download" href="{$data['projectInfo']['electricity_pay_list']['url']}">下载</a></span>
 						</li>
 					</ul>
-					<p class="title notall housetop_nonBuild_item housetop_build_item">屋顶情况</p>
-					<ul class="detail part2 notall housetop_nonBuild_item housetop_build_item">
+
+					<p class="title">屋顶情况</p>
+					<ul class="detail part2">
 						<li>
-							<span class="lb not-empty">屋顶类型</span>
-							<select name="housetop_type" data-with-other="true">
-								<option value="1"{$data['projectInfo']['housetop_type'] == 1?' selected':''}>混凝土</option>
-								<option value="2"{$data['projectInfo']['housetop_type'] == 2?' selected':''}>彩钢瓦</option>
-								<option value="0"{$data['projectInfo']['housetop_type'] === "0"?' selected':''}>其他（可填写）</option>
-							</select>
-							<input class="other" name="housetop_type_other" style="display: none;" value="{$data['projectInfo']['housetop_type_other']}">
+							<span class="lb">屋顶类型</span>
+							<span class="lbw">{$data['projectInfo']['housetopType']}</span>
 						</li>
 						<li>
-							<span class="lb not-empty">屋顶面积</span>
-							<input name="housetop_area" value="{$data['projectInfo']['housetop_area']}"><span class="gray">m<sup>2</sup></span>
-						</li>
-						<li class="notall housetop_build_item">
-							<span class="lb not-empty">屋顶防水周期</span>
-							<input name="housetop_waterproof_time" value="{$data['projectInfo']['housetop_waterproof_time']}"><span class="gray"年</span>
+							<span class="lb">屋顶面积</span>
+							<span class="lbw">{$data['projectInfo']['housetop_area']}m2</span>
 						</li>
 						<li>
-							<span class="lb not-empty">屋顶使用寿命</span>
-							<input name="housetop_age" value="{$data['projectInfo']['housetop_age']}"><span class="gray">年</span>
+							<span class="lb">屋顶使用寿命</span>
+							<span class="lbw">{$data['projectInfo']['housetop_age']}年</span>
 						</li>
 						<li>
-							<span class="lb not-empty">屋顶朝向</span>
-							<select name="housetop_direction" data-with-other="true">
-								<option value="1" {$data['projectInfo']['housetop_direction'] === "1"?'selected':''}>正南</option>
-								<option value="2" {$data['projectInfo']['housetop_direction'] === "2"?'selected':''}>东西向</option>
-								<option value="0" {$data['projectInfo']['housetop_direction'] === "0"?'selected':''}>其他（可填写）</option>
-							</select>
-							<input class="other" name="housetop_direction_other" style="display: none;" value="{$data['projectInfo']['housetop_direction_other']}">
-						</li>
-						<li class="notall housetop_build_item">
-							<span class="lb not-empty">屋顶活载荷</span>
-							<input name="housetop_load" value="{$data['projectInfo']['housetop_load']}"><span class="gray">kN/m<sup>2</sup></span>
-						</li>
-						<li class="notall housetop_build_item">
-							<span class="lb not-empty">附近有无遮挡</span>
-							<select name="has_shelter">
-								<option value="1" {$data['projectInfo']['has_shelter'] == 1?'selected':''} >有</option>
-								<option value="2" {$data['projectInfo']['has_shelter'] == 2?'selected':''} >无</option>
-							</select>
-						</li>
-						<li class="notall housetop_build_item">
-							<span class="lb not-empty">有无污染源</span>
-							<select name="has_pollution">
-								<option value="1" {$data['projectInfo']['has_pollution'] == 1?'selected':''}>有</option>
-								<option value="2" {$data['projectInfo']['has_pollution'] == 2?'selected':''}>无</option>
-							</select>
+							<span class="lb">屋顶朝向</span>
+							<span class="lbw">{$data['projectInfo']['housetopDirection']}</span>
 						</li>
 					</ul>
-					<p class="title notall ground_nonBuild_item ground_build_item">土地情况</p>
-					<ul class="detail part2 notall ground_nonBuild_item ground_build_item">
-						<li>
-							<span class="lb not-empty">土地性质</span>
-							<select name="ground_property" data-with-other="true">
-								<option value="1"{$data['projectInfo']['ground_property'] == 1?' selected':''}>一般农田</option>
-								<option value="2"{$data['projectInfo']['ground_property'] == 2?' selected':''}>林地</option>
-								<option value="3"{$data['projectInfo']['ground_property'] == 3?' selected':''}>荒地</option>
-								<option value="4"{$data['projectInfo']['ground_property'] == 4?' selected':''}>鱼塘</option>
-								<option value="5"{$data['projectInfo']['ground_property'] == 5?' selected':''}>基本农田</option>
-								<option value="0"{$data['projectInfo']['ground_property'] === "0"?' selected':''}>其他</option>
-							</select>
-							<input class="other" name="ground_property_other" style="display: none;" value="{$data['projectInfo']['ground_property_other']}">
-						</li>
-						<li>
-							<span class="lb not-empty">租赁土地面积</span>
-							<input name="ground_area" value="{$data['projectInfo']['ground_area']}"><span class="gray">m<sup>2</sup></span>
-						</li>
-						<li>
-							<span class="lb not-empty">租赁年限</span>
-							<input name="rent_time" value="{$data['projectInfo']['rent_time']}"><span class="gray">年</span>
-						</li>
-						<li>
-							<span class="lb not-empty">租赁租金</span>
-							<input name="rent_pay" value="{$data['projectInfo']['rent_pay']}"><span class="gray">元/年</span>
-						</li>
-						<li class="notall ground_build_item">
-							<span class="lb not-empty">中控室建筑面积</span>
-							<input name="control_room_area" value="{$data['projectInfo']['control_room_area']}"><span class="gray">m<sup>2</sup></span>
-						</li>
-						<li class="notall ground_build_item">
-							<span class="lb not-empty">出让金额</span>
-							<input name="sell_sum" value="{$data['projectInfo']['sell_sum']}"><span class="gray">元</span>
-						</li>
-						<li>
-							<span class="lb not-empty">土地平整情况</span>
-							<select name="ground_condition">
-								<option value="1" {$data['projectInfo']['ground_condition'] == 1?'selected':''}>平地</option>
-								<option value="2" {$data['projectInfo']['ground_condition'] == 2?'selected':''}>山坡</option>
-								<option value="3" {$data['projectInfo']['ground_condition'] == 3?'selected':''}>水面</option>
-							</select>
-						</li>
-						<li class="notall ground_build_item">
-							<span class="lb not-empty">附近有无遮挡</span>
-							<select name="has_shelter">
-								<option value="1" {$data['projectInfo']['has_shelter'] == 1?'selected':''} >有</option>
-								<option value="2" {$data['projectInfo']['has_shelter'] == 2?'selected':''} >无</option>
-							</select>
-						</li>
-						<li class="notall ground_build_item">
-							<span class="lb not-empty">有无污染源</span>
-							<select name="has_pollute">
-								<option value="1" {$data['projectInfo']['has_pollute'] == 1?'selected':''} >有</option>
-								<option value="2" {$data['projectInfo']['has_pollute'] == 2?'selected':''}>无</option>
-							</select>
-						</li>
-					</ul>
+
 					<p class="title">电网接入</p>
 					<ul class="detail part2">
 						<li>
-							<span class="lb not-empty">上级变压器容量</span>
-							<input name="transformer_capacity" value="{$data['projectInfo']['transformer_capacity']}"><span class="gray">kVA</span>
+							<span class="lb">上级变压器容量</span>
+							<span class="lbw">{$data['projectInfo']['transformer_capacity']}kVA</span>
 						</li>
 						<li>
-							<span class="lb not-empty">并网电压等级</span>
-							<input name="voltage_level" value="{$data['projectInfo']['voltage_level']}"><span class="gray">kV</span>
+							<span class="lb">并网电压等级</span>
+							<span class="lbw">{$data['projectInfo']['voltage_level']}kV</span>
 						</li>
-						<li class="notall housetop_build_item ground_nonBuild_item ground_build_item">
-							<span class="lb not-empty">电网接入点距离</span>
-							<input name="electricity_distance" value="{$data['projectInfo']['electricity_distance']}"><span class="gray">m</span>
-						</li>
-						<li class="notall housetop_nonBuild_item housetop_build_item">
-							<span class="lb not-empty">并网方式</span>
-							<select name="synchronize_type">
-								<option value="1" {$data['projectInfo']['synchronize_type'] == 1?'selected':''}>自发自用</option>
-								<option value="2" {$data['projectInfo']['synchronize_type'] == 2?'selected':''}>全额上网</option>
-								<option value="3" {$data['projectInfo']['synchronize_type'] == 3?'selected':''}>自发自用,全额上网</option>
-							</select>
-						</li>
-						<li class="notall ground_nonBuild_item ground_build_item">
-							<span class="lb not-empty">计量点</span>
-							<select name="measure_point">
-								<option value="1" {$data['projectInfo']['measure_point'] == 1?'selected':''}>站内</option>
-								<option value="2" {$data['projectInfo']['measure_point'] == 2?'selected':''}>变电站</option>
-							</select>
+						<li>
+							<span class="lb">并网方式</span>
+							<span class="lbw">{$data['projectInfo']['synchronizeType']}</span>
 						</li>
 					</ul>
+
 					<p class="title">项目情况</p>
 					<ul class="detail part2">
-						<li class="notall housetop_nonBuild_item ground_nonBuild_item">
-							<span class="lb not-empty">拟建设容量</span>
-							<input name="plan_build_volume" value="{$data['projectInfo']['plan_build_volume']}"><span class="gray">kW</span>
-						</li>
-						<li class="notall housetop_build_item ground_build_item">
-							<span class="lb not-empty">建设容量</span>
-							<input name="plan_build_volume" value="{$data['projectInfo']['plan_build_volume']}"><span class="gray">kW</span>
-						</li>
-						<li class="notall housetop_build_item ground_build_item">
-							<span class="lb not-empty">单位投资</span>
-							<input name="company_invest" value="{$data['projectInfo']['company_invest']}"><span class="gray">元/W</span>
-						</li>
-						<li class="notall housetop_build_item ground_build_item">
-							<span class="lb not-empty">EPC厂家</span>
-							<input name="company_EPC" value="{$data['projectInfo']['company_EPC']}">
-						</li>
-						<li class="notall housetop_build_item ground_build_item">
-							<span class="lb not-empty">资质等级</span>
-							<input name="capacity_level" value="{$data['projectInfo']['capacity_level']}">
-						</li>
-						<!--新增第一次进来什么都没有，就显示一项-->
-						<!--编辑页进来的话，有几项就显示几项-->
-						<!--component_company的数组-->
-						<li class="notall housetop_build_item ground_build_item component">
-							<span class="name not-empty">组件</span>
-							<foreach name="data.projectInfo.components" item="vo" key="k" >
-							    <div class="item">
-								    <div><span class="c0">组件厂家</span><input class="c0" name="component_company[]" value="{$vo['component_company']}"/></div>
-								    <div><span class="c0">规格型号</span><input class="c0" name="component_type[]" value="{$vo['component_type']}"/><span class="c1">数量</span><input class="c1" name="component_count[]" value="{$vo['component_count']}"/>个</div>
-							    </div>
-							</foreach>
-						</li>
-						<li class="notall housetop_build_item ground_build_item component inverter">
-							<span class="name not-empty">逆变器</span>
-							<foreach name="data.projectInfo.inverters" item="vo" key="k" >
-							    <div class="item">
-								    <div><span class="c0">逆变器厂家</span><input class="c0" name="inverter_company[]" value="{$vo['inverter_company']}"/></div>
-								   <div><span class="c0">规格型号</span><input class="c0" name="inverter_type[]" value="{$vo['inverter_type']}"/><span class="c1">数量</span><input class="c1" name="inverter_count[]" value="{$vo['inverter_count']}"/>个</div>
-							    </div>
-							</foreach> 
-						</li>
-						<li class="notall housetop_build_item ground_build_item">
-							<span class="lb not-empty">并网时间</span>
-							<input name="synchronize_date" data-type="date" readonly value="{$data['projectInfo']['synchronize_date']}">
-						</li>
-						<li class="notall housetop_build_item ground_build_item">
-							<span class="lb not-empty">历史发电量数据（最近一年）</span>
-							<input name="electricity_data" value="{$data['projectInfo']['electricity_data']}"><span class="gray">万度</span>
-						</li>
-						<li class="notall ground_nonBuild_item ground_build_item">
-							<span class="lb not-empty">项目支架类型</span>
-							<select name="project_holder_type">
-								<option value="1" {$data['projectInfo']['project_holder_type'] == 1?'selected':''} >地面固定式</option>
-								<option value="2" {$data['projectInfo']['project_holder_type'] == 2?'selected':''} >单轴</option>
-								<option value="3" {$data['projectInfo']['project_holder_type'] == 3?'selected':''} >双轴</option>
-							</select>
-						</li>
-						<li class="notall ground_nonBuild_item ground_build_item">
-							<span class="lb not-empty">项目类型</span>
-							<select name="ground_project_type">
-								<option value="1" {$data['projectInfo']['ground_project_type'] == 1?'selected':''} >地面</option>
-								<option value="2" {$data['projectInfo']['ground_project_type'] == 2?'selected':''} >农光互补</option>
-								<option value="3" {$data['projectInfo']['ground_project_type'] == 3?'selected':''} >鱼光互补</option>
-							</select>
-						</li>
-						<li class="notall housetop_nonBuild_item ground_nonBuild_item">
-							<span class="lb not-empty">与能融网合作方式（可多选）</span>
-							<span class="citem"><input type="checkbox" name="cooperation_type[]" value="1" id="cooperation_type_nonBuild1" <?php if(in_array(1, $data['projectInfo']['cooperation_type'])) echo "checked";?>><label class="gray" for="cooperation_type_nonBuild1">EPC</label></span>
-							<span class="citem"><input type="checkbox" name="cooperation_type[]" value="2" id="cooperation_type_nonBuild2" <?php if(in_array(2, $data['projectInfo']['cooperation_type'])) echo "checked";?>><label class="gray" for="cooperation_type_nonBuild2">申请融资</label></span>
-							<span class="citem"><input type="checkbox" name="cooperation_type[]" value="3" id="cooperation_type_nonBuild3" <?php if(in_array(3, $data['projectInfo']['cooperation_type'])) echo "checked";?>><label class="gray" for="cooperation_type_nonBuild3">推介项目</label></span>
-						</li>
-						<li class="notall housetop_build_item ground_build_item">
-							<span class="lb not-empty">与能融网合作方式（可多选）</span>
-							<span class="citem"><input type="checkbox" name="cooperation_type[]" value="2" id="cooperation_type_build1" <?php if(in_array(2, $data['projectInfo']['cooperation_type'])) echo "checked";?>><label class="gray" for="cooperation_type_build1">申请融资</label></span>
-							<span class="citem"><input type="checkbox" name="cooperation_type[]" value="4" id="cooperation_type_build2" <?php if(in_array(4, $data['projectInfo']['cooperation_type'])) echo "checked";?>><label class="gray" for="cooperation_type_build2">转让</label></span>
+						<li>
+							<span class="lb">拟建设容量</span>
+							<span class="lbw">{$data['projectInfo']['plan_build_volume']}kW</span>
 						</li>
 						<li>
-							<span class="lb not-empty">拟融资金额</span>
-							<input name="plan_financing" value="{$data['projectInfo']['plan_financing']}"><span class="gray">万元</span>
+							<span class="lb">与能融网合作方式</span>
+							<span class="lbw">{$data['projectInfo']['cooperationType']}</span>
 						</li>
-						<li class="notall housetop_nonBuild_item ground_nonBuild_item">
-							<span class="lb not-empty">融资方式</span>
-							<select name="financing_type">
-								<option value="1" {$data['projectInfo']['financing_type'] == 1?'selected':''} >融资租赁（直租）</option>
-								<option value="2" {$data['projectInfo']['financing_type'] == 2?'selected':''} >融资租赁（回租）</option>
-								<option value="3" {$data['projectInfo']['financing_type'] == 3?'selected':''} >股权融资</option>
-							</select>
+						<li>
+							<span class="lb">拟融资金额</span>
+							<span class="lbw">{$data['projectInfo']['plan_financing']}万元</span>
 						</li>
-						<li class="notall housetop_build_item ground_build_item">
-							<span class="lb not-empty">融资方式</span>
-							<select name="financing_type">
-								<option value="2" {$data['projectInfo']['financing_type'] == 2?'selected':''} >融资租赁（回租）</option>
-								<option value="3" {$data['projectInfo']['financing_type'] == 3?'selected':''} >股权融资</option>
-							</select>
+						<li>
+							<span class="lb">融资方式</span>
+							<span class="lbw">{$data['projectInfo']['financingType']}</span>
 						</li>
 					</ul>
+
 					<p class="title">项目文件</p>
 					<ul class="detail part2">
 						<li>
 							<span class="lb">项目备案</span>
-							<select data-with-file="true">
-								<option value="1" {$data['projectInfo']['project_backup']['name']?'selected':''}>有</option>
-								<option value="2" {$data['projectInfo']['project_backup']['name']?'':'selected'}>无</option>
-							</select>
-							<span class="fname">{$data['projectInfo']['project_backup']['name']}<a class="download" href="{$data['projectInfo']['project_backup']['url']}">下载</a></span>
+							<?php if($data['projectInfo']['project_backup']['id']){ ?><span class="fname">{$data['projectInfo']['project_backup']['name']}<a class="download" href="{$data['projectInfo']['project_backup']['url']}">下载</a></span><?php }else{ ?><span class="lbw">无</span><?php } ?>
 						</li>
 						<li>
-							<span class="lb">电网接入备案</span>
-							<select data-with-file="true">
-								<option value="1"{$data['projectInfo']['electricity_backup']['name']?' selected':''}>有</option>
-								<option value="2"{$data['projectInfo']['electricity_backup']['name']?'':' selected'}>无</option>
-							</select>
-							<span class="fname">{$data['projectInfo']['electricity_backup']['name']}<a class="download" href="{$data['projectInfo']['electricity_backup']['url']}">下载</a></span>
+							<span class="lb">电网接入批复</span>
+							<?php if($data['projectInfo']['electricity_backup']['id']){ ?><span class="fname">{$data['projectInfo']['electricity_backup']['name']}<a class="download" href="{$data['projectInfo']['electricity_backup']['url']}">下载</a></span><?php }
+								else{ ?><span class="lbw">无</span><?php } ?>
 						</li>
-						<li class="notall housetop_nonBuild_item housetop_build_item">
+						<li>
 							<span class="lb">屋顶租赁协议</span>
-							<select data-with-file="true">
-								<option value="1"{$data['projectInfo']['house_rent_agreement']['name']?' selected':''}>有</option>
-								<option value="2"{$data['projectInfo']['house_rent_agreement']['name']?'':' selected'}>无</option>
-							</select>
-							<span class="fname">{$data['projectInfo']['house_rent_agreement']['name']}<a class="download" href="{$data['projectInfo']['house_rent_agreement']['url']}">下载</a></span>
+							<?php if($data['projectInfo']['house_rent_agreement']['id']){ ?><span class="fname">{$data['projectInfo']['house_rent_agreement']['name']}<a class="download" href="{$data['projectInfo']['house_rent_agreement']['url']}">下载</a></span><?php }
+								else{ ?><span class="lbw">无</span><?php } ?>
 						</li>
-						<li class="notall ground_nonBuild_item ground_build_item">
-							<span class="lb">土地租赁协议</span>
-							<select data-with-file="true">
-								<option value="1" {$data['projectInfo']['ground_rent_agreement']['name']?'selected':''}>有</option>
-								<option value="2" {$data['projectInfo']['ground_rent_agreement']['name']?'':'selected'}>无</option>
-							</select>
-							<span class="fname">{$data['projectInfo']['ground_rent_agreement']['name']}<a class="download" href="{$data['projectInfo']['ground_rent_agreement']['url']}">下载</a></span>
-						</li>
-						<li class="notall housetop_nonBuild_item housetop_build_item">
+						<li>
 							<span class="lb">租赁年限</span>
-							<input name="rent_time" value="{$data['projectInfo']['rent_time']} "><span class="gray">年</span>
+							<span class="lbw">{$data['projectInfo']['rent_time']}年</span>
 						</li>
-						<li class="notall housetop_nonBuild_item housetop_build_item">
+						<li>
 							<span class="lb">租赁租金</span>
-							<input name="rent_pay" value="{$data['projectInfo']['rent_pay']}"><span class="gray">元/年</span>
+							<span class="lbw">{$data['projectInfo']['rent_pay']}元/年</span>
 						</li>
-						<li class="notall housetop_nonBuild_item housetop_build_item">
+						<li>
 							<span class="lb">合同能源管理协议</span>
-							<select data-with-file="true">
-								<option value="1"{$data['projectInfo']['power_manage_agreement']['name']?' selected':''}>有</option>
-								<option value="2"{$data['projectInfo']['power_manage_agreement']['name']?'':' selected'}>无</option>
-							</select>
-							<span class="fname">{$data['projectInfo']['power_manage_agreement']['name']}<a class="download" href="{$data['projectInfo']['power_manage_agreement']['url']}">下载</a></span>
+							<?php if($data['projectInfo']['power_manage_agreement']['id']){ ?><span class="fname">{$data['projectInfo']['power_manage_agreement']['name']}<a class="download" href="{$data['projectInfo']['power_manage_agreement']['url']}">下载</a></span><?php }
+								else{ ?><span class="lbw">无</span><?php } ?>
 						</li>
-						<li class="notall housetop_nonBuild_item housetop_build_item">
+						<li>
 							<span class="lb">电价结算方式</span>
-							<select name="electricity_clear_type">
-								<option value="1" {$data['projectInfo']['electricity_clear_type'] == 1?'selected':''} >峰谷平电价打折</option>
-								<option value="2" {$data['projectInfo']['electricity_clear_type'] == 2?'selected':''} >平均电价打折</option>
-								<option value="3" {$data['projectInfo']['electricity_clear_type'] == 3?'selected':''} >固定电价</option>
-							</select>
+							<span class="lbw">{$data['projectInfo']['electricityClearType']}</span>
 						</li>
-						<li class="notall housetop_nonBuild_item housetop_build_item">
+						<li>
 							<span class="lb">结算电价</span>
-							<input name="electricity_clear" value="{$data['projectInfo']['electricity_clear']}">
+							<span class="lbw">{$data['projectInfo']['electricity_clear']}</span>
 						</li>
-						<li class="notall ground_nonBuild_item ground_build_item">
-							<span class="lb">土地预审意见</span>
-							<select data-with-file="true">
-								<option value="1" {$data['projectInfo']['ground_opinion']['name']?'selected':''}>有</option>
-								<option value="2" {$data['projectInfo']['ground_opinion']['name']?'':'selected'}>无</option>
-							</select>
-							<span class="fname">{$data['projectInfo']['ground_opinion']['name']}<a class="download" href="{$data['projectInfo']['ground_opinion']['url']}">下载</a></span>
-						</li>
-						<li class="notall housetop_nonBuild_item housetop_build_item">
+						<li>
 							<span class="lb">项目建议书</span>
-							<select data-with-file="true">
-								<option value="1" {$data['projectInfo']['project_proposal']['name']?'selected':''}>有</option>
-								<option value="2" {$data['projectInfo']['project_proposal']['name']?'':'selected'}>无</option>
-							</select>
-							<span class="fname">{$data['projectInfo']['project_proposal']['name']}<a class="download" href="{$data['projectInfo']['project_proposal']['url']}">下载</a></span>
-						</li>
-						<li class="notall ground_nonBuild_item ground_build_item">
-							<span class="lb">项目可研报告</span>
-							<select data-with-file="true">
-								<option value="1" {$data['project_report']['name']?'selected':''}>有</option>
-								<option value="2" {$data['project_report']['name']?'':'selected'}>无</option>
-							</select>
-							<span class="fname">{$data['projectInfo']['project_proposal']['name']}<a class="download" href="{$data['projectInfo']['project_proposal']['url']}">下载</a></span>
-						</li>
-						<li class="notall housetop_nonBuild_item housetop_build_item">
+							<?php if($data['projectInfo']['project_proposal']['id']){ ?><span class="fname">{$data['projectInfo']['project_proposal']['name']}<a class="download" href="{$data['projectInfo']['project_proposal']['url']}">下载</a></span><?php }
+								else{ ?><span class="lbw">无</span><?php } ?>
+						<li>
 							<span class="lb">屋顶载荷证明</span>
-							<select data-with-file="true">
-								<option value="1" {$data['projectInfo']['housetop_load_prove']['name']?'selected':''}>有</option>
-								<option value="2" {$data['projectInfo']['housetop_load_prove']['name']?'':'selected'}>无</option>
-							</select>
-							<span class="fname">{$data['projectInfo']['housetop_load_prove']['name']}<a class="download" href="{$data['projectInfo']['housetop_load_prove']['url']}">下载</a></span>
-						</li>
-						<li class="notall ground_nonBuild_item ground_build_item">
-							<span class="lb">环评</span>
-							<select data-with-file="true">
-								<option value="1" {$data['projectInfo']['environment_assessment']['name']?'selected':''}>有</option>
-								<option value="2" {$data['projectInfo']['environment_assessment']['name']?'':'selected'}>无</option>
-							</select>
-							<span class="fname">{$data['projectInfo']['environment_assessment']['name']}<a class="download" href="{$data['projectInfo']['environment_assessment']['url']}">下载</a></span>
-						</li>
-						<li class="notall ground_build_item">
-							<span class="lb">土地证</span>
-							<select data-with-file="true">
-								<option value="1" {$data['projectInfo']['land_certificate']['name']?'selected':''}>有</option>
-								<option value="2" {$data['projectInfo']['land_certificate']['name']?'':'selected'}>无</option>
-							</select>
-							<span class="fname">{$data['projectInfo']['land_certificate']['name']}<a class="download" href="{$data['projectInfo']['land_certificate']['url']}">下载</a></span>
-						</li>
-						<li class="notall ground_build_item">
-							<span class="lb">物价局电价批复</span>
-							<select data-with-file="true">
-								<option value="1" {$data['projectInfo']['electricity_price_reply']['name']?'selected':''}>有</option>
-								<option value="2" {$data['projectInfo']['electricity_price_reply']['name']?'':'selected'}>无</option>
-							</select>
-							<span class="fname">{$data['projectInfo']['electricity_price_reply']['name']}<a class="download" href="{$data['projectInfo']['electricity_price_reply']['url']}">下载</a></span>
-						</li>
-						<li class="notall ground_build_item">
-							<span class="lb">是否进入当年省光伏项目目录</span>
-							<select data-with-file="true">
-								<option value="1" {$data['projectInfo']['is_old_project']['name']?'selected':''}>有</option>
-								<option value="2" {$data['projectInfo']['is_old_project']['name']?'':'selected'}>无</option>
-							</select>
-							<span class="fname">{$data['projectInfo']['is_old_project']['name']}<a class="download" href="{$data['projectInfo']['is_old_project']['url']}">下载</a></span>
-						</li>
-						<li class="notall housetop_build_item ground_build_item">
-							<span class="lb">竣工验收报告</span>
-							<select data-with-file="true">
-								<option value="1" {$data['projectInfo']['completion_report']['name']?'selected':''}>有</option>
-								<option value="2" {$data['projectInfo']['completion_report']['name']?'':'selected'}  >无</option>
-							</select>
-							<span class="fname">{$data['projectInfo']['completion_report']['name']}<a class="download" href="{$data['projectInfo']['completion_report']['url']}">下载</a></span>
-						</li>
-						<li class="notall housetop_build_item ground_build_item">
-							<span class="lb">竣工图纸</span>
-							<select data-with-file="true">
-								<option value="1" {$data['projectInfo']['completion_paper']['name']?'selected':''}>有</option>
-								<option value="2" {$data['projectInfo']['completion_paper']['name']?'':'selected'}>无</option>
-							</select>
-							<span class="fname">{$data['projectInfo']['completion_paper']['name']}<a class="download" href="{$data['projectInfo']['completion_paper']['url']}">下载</a></span>
-						</li>
-						<li class="notall housetop_build_item ground_build_item">
-							<span class="lb">历史发电量数据/辐照数据</span>
-							<select data-with-file="true">
-								<option value="1" {$data['projectInfo']['history_data']['name']?'selected':''}>有</option>
-								<option value="2" {$data['projectInfo']['history_data']['name']?'':'selected'}>无</option>
-							</select>
-							<span class="fname">{$data['projectInfo']['history_data']['name']}<a class="download" href="{$data['projectInfo']['history_data']['url']}">下载</a></span>
-						</li>
-						<li class="notall housetop_build_item ground_build_item">
-							<span class="lb">电费结算票据</span>
-							<select data-with-file="true">
-								<option value="1" {$data['projectInfo']['electricity_bill']['name']?'selected':''}>有</option>
-								<option value="2" {$data['projectInfo']['electricity_bill']['name']?'':'selected'}>无</option>
-							</select>
-							<span class="fname">{$data['projectInfo']['electricity_bill']['name']}<a class="download" href="{$data['projectInfo']['electricity_bill']['url']}">下载</a></span>
-						</li>
+							<?php if($data['projectInfo']['housetop_load_prove']['id']){ ?><span class="fname">{$data['projectInfo']['housetop_load_prove']['name']}<a class="download" href="{$data['projectInfo']['housetop_load_prove']['url']}">下载</a></span><?php }
+								else{ ?><span class="lbw">无</span><?php } ?>
+						</li>				
 					</ul>
 				</form>
 			</div>
