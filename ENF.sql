@@ -187,7 +187,7 @@ create table ENF_Housetop
    housetop_waterproof_time double comment '屋顶防水周期',
    housetop_load        double comment '屋顶活载荷',
    has_shelter          varchar(8) comment '附近有无遮挡（1有、2无）',
-   has_pollute        varchar(8) comment '有无污染源（1有、2无）',
+   has_pollution        varchar(8) comment '有无污染源（1有、2无）',
    transformer_capacity double comment '上级变压器容量',
    voltage_level        double comment '并网电压等级',
    synchronize_type     int comment '并网方式（1自发自用、2全额上网、3自发自用全额上网）',

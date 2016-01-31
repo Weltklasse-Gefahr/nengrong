@@ -433,13 +433,4 @@ class AdminController extends Controller
         echo '{"code":"0","msg":"recovery project success"}';
     }
 
-
-    public function addAdmin(){
-        $manager = M('Admin');
-        $data['user_name'] = 'admin';
-        $data['password'] = MD5("admin");
-        $manager->add($data);
-        echo '{"code":"0","msg":"添加管理员"}';
-    }
-
 }
