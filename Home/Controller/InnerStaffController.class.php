@@ -28,8 +28,10 @@ class InnerStaffController extends Controller {
         if(false !== strpos($fatherUrl,'a=getProjectProviderInfo'))
         {
             $getJsonFlag = 1;
-            list($userInfo,$areaStr,$docData) = $this->getProjectProviderInfo($projectCode, null, $getJsonFlag);       
+            list($userInfo,$areaStr,$docData) = $this->getProjectProviderInfo($projectCode, null, $getJsonFlag);
+            
             //echo json_encode($userInfo);exit;
+            
             import("Org.Util.PHPExcel");
             $obpe = new \PHPExcel();
             $obpe_pro = $obpe->getProperties();
@@ -47,6 +49,12 @@ class InnerStaffController extends Controller {
                 $objActSheet = $obpe->setactivesheetindex(0);
                 //设置SHEET的名字
                 $obpe->getActiveSheet()->setTitle('项目投资方信息');
+                           
+                
+
+                //创建一个新的工作空间(sheet)
+                //内容的列的宽度设置
+                //$objActSheet->getColumnDimension('A')->setAutoSize(1000);
                 //这里还有点问题啊，列的宽度设置下
                 $obpe->getActiveSheet()->getColumnDimension('B')->setAutoSize(true);
                 $obpe->getActiveSheet()->getColumnDimension('A')->setAutoSize(true);
@@ -121,6 +129,7 @@ class InnerStaffController extends Controller {
         $projectInfo = $objProject->getProjectInfo($projectCode);
         if($rtype == 1){
             $proData['comment'] = $_POST['comment'];
+            // $proData['comment'] = "sldfjiofnosdkfj是的发生的";
             $res = $objProject->saveProjectDetail($projectCode, $projectInfo['project_type'], $proData);
             if($res > 0){
                 header('Content-Type: text/html; charset=utf-8');
