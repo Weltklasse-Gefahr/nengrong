@@ -5,32 +5,32 @@
 create database nengrongweb;
 use nengrongweb;
 
-drop table if exists ENF_Area;
+drop table if exists enf_area;
 
-drop table if exists ENF_Doc;
+drop table if exists enf_doc;
 
-drop table if exists ENF_Evaluation;
+drop table if exists enf_evaluation;
 
-drop table if exists ENF_Ground;
+drop table if exists enf_ground;
 
-drop table if exists ENF_Housetop;
+drop table if exists enf_housetop;
 
-drop table if exists ENF_Project;
+drop table if exists enf_project;
 
-drop table if exists ENF_PushProject;
+drop table if exists enf_pushproject;
 
-drop table if exists ENF_User;
+drop table if exists enf_user;
 
-drop table if exists ENF_Admin;
+drop table if exists enf_admin;
 
-drop table if exists ENF_Component;
+drop table if exists enf_component;
 
-drop table if exists ENF_Inverter;
+drop table if exists enf_inverter;
 
 /*==============================================================*/
-/* Table: ENF_Area                                              */
+/* Table: enf_Area                                              */
 /*==============================================================*/
-create table ENF_Area
+create table enf_area
 (
    id                   varchar(10) not null comment 'id',
    area                 varchar(50) not null comment '地区描述',
@@ -38,12 +38,12 @@ create table ENF_Area
    primary key (id)
 )ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
-alter table ENF_Area comment '地区表';
+alter table enf_area comment '地区表';
 
 /*==============================================================*/
-/* Table: ENF_Doc                                               */
+/* Table: enf_Doc                                               */
 /*==============================================================*/
-create table ENF_Doc
+create table enf_doc
 (
    id                   bigint not null auto_increment,
    file_name            varchar(100) not null comment '文件名称',
@@ -53,12 +53,12 @@ create table ENF_Doc
    primary key (id)
 )ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
-alter table ENF_Doc comment '附件表';
+alter table enf_doc comment '附件表';
 
 /*==============================================================*/
-/* Table: ENF_Evaluation                                        */
+/* Table: enf_Evaluation                                        */
 /*==============================================================*/
-create table ENF_Evaluation
+create table enf_evaluation
 (
    id                   bigint not null auto_increment,
    project_id           bigint comment '归属项目id',
@@ -83,39 +83,39 @@ create table ENF_Evaluation
    INDEX `evaluation_project_id` (`project_id`)
 )ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
-alter table ENF_Evaluation comment '尽职调查表';
+alter table enf_evaluation comment '尽职调查表';
 
 /*==============================================================*/
-/* Table: ENF_Ground                                            */
+/* Table: enf_Ground                                            */
 /*==============================================================*/
-create table ENF_Ground
+create table enf_ground
 (
    id                   bigint not null auto_increment,
    project_id           bigint not null comment '归属项目id',
    project_intent       text comment '项目意向书',
    project_area         varchar(10) comment '项目地区',
-   project_address     	varchar(60) comment '项目详细地址',
+   project_address      varchar(60) comment '项目详细地址',
    picture_full         varchar(100) comment '地面全景',
    picture_field        varchar(100) comment '场平图片',
    picture_transformer  varchar(100) comment '变电站图片',
    picture_mul          varchar(100) comment '动态图片集合', 
    contract             varchar(20) comment '合同的docID',
-   project_name			varchar(50) comment '项目名称',
-   project_finish_date	datetime comment '项目完工时间',
+   project_name   varchar(50) comment '项目名称',
+   project_finish_date datetime comment '项目完工时间',
    project_electricity_price double comment '项目电价',
-   project_investment	double comment '项目总投资',
+   project_investment double comment '项目总投资',
    ground_property      int comment '土地性质（0其他、1一般农田、2林地、3荒地、4鱼塘、5基本农田）',
    ground_property_other varchar(20) comment '其土地性质信息',
    ground_area          double comment '租赁土地面积',
    rent_time            double comment '租赁年限',
    rent_pay             double comment '租赁租金',
    control_room_area    double comment '中控室建筑面积',
-   sell_sum				double comment '出让金额',
+   sell_sum    double comment '出让金额',
    ground_condition     int comment '土地平整情况（1平地、2山坡、3水面）',
    has_shelter          varchar(8) comment '附近有无遮挡（1有、2无）',
    has_pollute          varchar(8) comment '有无污染源（1有、2无）',
    transformer_capacity double comment '上级变压器容量',
-   voltage_level    	varchar(50) comment '并网电压等级',
+   voltage_level     varchar(50) comment '并网电压等级',
    electricity_distance double comment '电网接入点距离',
    measure_point        int comment '计量点（1站内、2变电站）',
    plan_build_volume    double comment '拟建设容量',
@@ -154,18 +154,18 @@ create table ENF_Ground
    INDEX `ground_project_id` (`project_id`)
 )ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
-alter table ENF_Ground comment '大型地面电站/地面分布式';
+alter table enf_ground comment '大型地面电站/地面分布式';
 
 /*==============================================================*/
-/* Table: ENF_Housetop                                          */
+/* Table: enf_Housetop                                          */
 /*==============================================================*/
-create table ENF_Housetop
+create table enf_housetop
 (
    id                   bigint not null auto_increment,
    project_id           bigint not null comment '归属项目id',
    project_intent       text comment '项目意向书',
    project_area         varchar(10) comment '项目地区',
-   project_address     	varchar(60) comment '项目详细地址',
+   project_address      varchar(60) comment '项目详细地址',
    picture_full         varchar(100) comment '屋顶全景',
    picture_south        varchar(100) comment '屋顶正南图片',
    picture_mul          varchar(100) comment '动态图片集合', 
@@ -187,7 +187,7 @@ create table ENF_Housetop
    housetop_waterproof_time double comment '屋顶防水周期',
    housetop_load        double comment '屋顶活载荷',
    has_shelter          varchar(8) comment '附近有无遮挡（1有、2无）',
-   has_pollution        varchar(8) comment '有无污染源（1有、2无）',
+   has_pollution        varchar(8) comment '有无污染源（1有、2无）', 
    transformer_capacity double comment '上级变压器容量',
    voltage_level        double comment '并网电压等级',
    synchronize_type     int comment '并网方式（1自发自用、2全额上网、3自发自用全额上网）',
@@ -224,18 +224,18 @@ create table ENF_Housetop
    INDEX `housetop_project_id` (`project_id`)
 )ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
-alter table ENF_Housetop comment '屋顶分布项目表';
+alter table enf_housetop comment '屋顶分布项目表';
 
 /*==============================================================*/
-/* Table: ENF_Project                                           */
+/* Table: enf_Project                                           */
 /*==============================================================*/
-create table ENF_Project
+create table enf_project
 (
    id                   bigint not null auto_increment,
    project_code         varchar(30) not null comment '项目编号',
    project_type         int comment '项目类型：1屋顶分布式、2地面分布式、3大型地面',
    build_state          int comment '建设状态：1未建、2已建',
-   provider_id			bigint comment '项目提供方id',
+   provider_id   bigint comment '项目提供方id',
    highlight_flag       int default 0 comment '高亮标记，0不高亮，1高亮',
    status               int not null default 0 comment '状态类型：0正常、11项目未提交、12项目已提交（已提交）、13已提交意向书（已提交）、21已签意向合同（未尽职调查）、22已提交尽职调查（未签意向合同）、23已签意向合同（已尽职调查）、31已签融资合同、41已推送、42未推送、51尽职调查保存状态（尽职调查保存后项目状态）、52尽职调查提交状态、61意向书保存状态',
    delete_flag int not null default 0 comment '删除标记：0正常、9999删除',
@@ -245,9 +245,9 @@ create table ENF_Project
 )ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 /*==============================================================*/
-/* Table: ENF_PushProject                                       */
+/* Table: enf_PushProject                                       */
 /*==============================================================*/
-create table ENF_PushProject
+create table enf_pushproject
 (
    id                   bigint not null auto_increment,
    investor_id          bigint comment '投资人id',
@@ -257,22 +257,22 @@ create table ENF_PushProject
    status               int not null default 0 comment '状态类型：0正常、11项目未提交、12项目已提交（已提交）、13已提交意向书（已提交）、21已签意向合同（未尽职调查）、22已提交尽职调查（未签意向合同）、23已签意向合同（已尽职调查）、31已签融资合同、41已推送、42未推送、51尽职调查保存状态（尽职调查保存后项目状态）、52尽职调查提交状态、61意向书保存状态',
    delete_flag int not null default 0 comment '删除标记：0正常、9999删除',
    primary key (id),
-   INDEX `pushProject_investor` (`investor_id`)
+   INDEX `pushproject_investor` (`investor_id`)
 )ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
-alter table ENF_PushProject comment '推送到投资方的项目表';
+alter table enf_pushproject comment '推送到投资方的项目表';
 
 /*==============================================================*/
-/* Table: ENF_User                                              */
+/* Table: enf_User                                              */
 /*==============================================================*/
-create table ENF_User
+create table enf_user
 (
    id                   bigint not null auto_increment,
    email                varchar(100) not null comment '注册邮箱',
    password             varchar(100) not null comment '密码',
    user_type            int not null comment '用户类型：1管理员、2业务员、3项目提供方、4投资人',
-   code					varchar(100) comment '业务员编码',
-   name					varchar(20) comment '业务员姓名',
+   code     varchar(100) comment '业务员编码',
+   name     varchar(20) comment '业务员姓名',
    company_name         varchar(100) comment '企业名称',
    company_type         int comment '企业注册资本/类型：1央企国企、2中外合资、3外商独资、4大型民营、5小型民营',
    company_person       varchar(100) comment '企业法人',
@@ -300,12 +300,12 @@ create table ENF_User
    INDEX `user_email` (`email`)
 )ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
-alter table ENF_User comment '用户表';
+alter table enf_user comment '用户表';
 
 /*==============================================================*/
-/* Table: ENF_Admin                                           */
+/* Table: enf_Admin                                           */
 /*==============================================================*/
-create table ENF_Admin
+create table enf_admin
 (
    id                   bigint not null auto_increment,
    user_name            varchar(100) not null unique comment '用户名',
@@ -313,19 +313,19 @@ create table ENF_Admin
    primary key (id)
 )ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
-alter table ENF_Admin comment '管理员表';
-insert into ENF_Admin value(1,'admin','21232f297a57a5a743894a0e4a801fc3');/*密码admin*/
+alter table enf_admin comment '管理员表';
+insert into enf_admin value(1,'admin','21232f297a57a5a743894a0e4a801fc3');/*密码admin*/
 
 /*==============================================================*/
-/* Table: ENF_Component                                           */
+/* Table: enf_Component                                           */
 /*==============================================================*/
-create table ENF_Component
+create table enf_component
 (
    id                   bigint not null auto_increment,
    project_id           bigint not null comment '项目id',
    component_company    varchar(100) comment '组件厂家',
    component_type       varchar(100) comment '组件规格型号',
-   component_count	    int comment '组件数量',
+   component_count     int comment '组件数量',
    create_date          datetime comment '创建时间',
    change_date          datetime comment '修改时间',
    delete_flag int not null default 0 comment '删除标记：0正常、9999删除',
@@ -333,18 +333,18 @@ create table ENF_Component
    INDEX `component_project` (`project_id`)
 )ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
-alter table ENF_Component comment '组件表';
+alter table enf_component comment '组件表';
 
 /*==============================================================*/
-/* Table: ENF_Inverter                                           */
+/* Table: enf_Inverter                                           */
 /*==============================================================*/
-create table ENF_Inverter
+create table enf_inverter
 (
    id                   bigint not null auto_increment,
    project_id           bigint not null comment '项目id',
    inverter_company     varchar(100) comment '逆变器厂家',
    inverter_type        varchar(100) comment '逆变器规格型号',
-   inverter_count	    int comment '逆变器数量',
+   inverter_count     int comment '逆变器数量',
    create_date          datetime comment '创建时间',
    change_date          datetime comment '修改时间',
    delete_flag int not null default 0 comment '删除标记：0正常、9999删除',
@@ -352,5 +352,5 @@ create table ENF_Inverter
    INDEX `inverter_project` (`project_id`)
 )ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
-alter table ENF_Inverter comment '逆变器表';
+alter table enf_inverter comment '逆变器表';
 
