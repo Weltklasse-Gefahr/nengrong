@@ -21,7 +21,7 @@ $(function(){
 			dataType: "json"
 		}).done(function(data){
 			if (data.code== 0) {
-				location.href="?c=user&a=login";
+				location.href="?c=user&a=forgetpassprompt";
 			}
 			else{
 				warning(data.msg || "跳转失败");
