@@ -5,14 +5,14 @@ $(function(){
 	}
 
 	$("#jumpbtn").click(function(){ 
-		var newpasslval= $.trim($("#newpassinput").val());
-		var repeatpasslval= $.trim($("#repeatpassinput").val());
+		var newpassval= $.trim($("#newpassinput").val());
+		var repeatpassval= $.trim($("#repeatpassinput").val());
 
-		if (!passval) {
+		if (!newpassval) {
 			warning("密码不能为空");
 			return ;
 		};
-		if(passval!== repeatpassval) {
+		if(newpassval!== repeatpassval) {
 			warning("密码不一致");
 			return ;
 		}
@@ -21,7 +21,7 @@ $(function(){
 		    type: "post",
 		    url: "?c=user&a=forgetpassmodify&key="+param.key ,
 		    data: {
-		    	password: newpasslval,
+		    	password: newpassval,
 		    	rtype: 1
 		    },
 			dataType: "json"
