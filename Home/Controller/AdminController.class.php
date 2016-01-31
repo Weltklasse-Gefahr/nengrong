@@ -297,7 +297,7 @@ class AdminController extends Controller
             dump($users);
             exit;
         }    
-        $this->display("admin:admin_provider");
+        $this->display("Admin:admin_provider");
     }
 
     /**
