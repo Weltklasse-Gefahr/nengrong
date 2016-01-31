@@ -113,39 +113,30 @@ application/zip,application/x-zip-compressed',
 	   	// target: '#output',          //把服务器返回的内容放入id为output的元素中      
 	   	beforeSubmit: beforeSubmit, //提交前的回调函数  
 	   	success: successCallback,  	//提交后的回调函数
-	   	dataType: "json"           //html(默认), xml, script, json...接受服务端返回的类型  
+	   	dataType: "json",           //html(默认), xml, script, json...接受服务端返回的类型  
 	   	// clearForm: true,         //成功提交后，清除所有表单元素的值  
 	   	// resetForm: true,         //成功提交后，重置所有表单元素的值  
-	   	// timeout: 6000               //限制请求的时间，当请求大于3秒后，跳出请求
+	   	timeout: 6000               //限制请求的时间，当请求大于3秒后，跳出请求
 	};
-
-	function check() {
-		return true;
-	}
 	  
 	function beforeSubmit(formData, jqForm, options) {
 
-		if($("#submit").hasClass("disabled")) {
-			return false;
+		// if($("#submit").hasClass("disabled")) {
+		// 	return false;
+		// }
+
+		var optype = $form.find("[name=optype]").val();
+		if(optype === "save") { // 保存不加校验
+			return true;
 		}
 
-	   	//formData: 数组对象，提交表单时，Form插件会以Ajax方式自动提交这些数据，格式如：[{name:user,value:val },{name:pwd,value:pwd}]  
-	   	//jqForm:   jQuery对象，封装了表单的元素
-	   	//options:  options对象
-	   	var queryString = $.param(formData);   //name=1&address=2  
-	   	var formElement = jqForm[0];              //将jqForm转换为DOM对象  
-	   	
-	   	if(!check()) {
-	   		return false;
-	   	}
-
-	   	$("#submit").addClass("disabled");
+	   	// $("#submit").addClass("disabled");
 
 	   	return true;
 	}
 
 	function successCallback(data) {
-		$("#submit").removeClass("disabled");
+		// $("#submit").removeClass("disabled");
 		var optype = $form.find("[name=optype]").val(),
 			optext = optype === "save" ? "保存" : "提交";
 		if(data.code == "0") {
@@ -167,21 +158,205 @@ application/zip,application/x-zip-compressed',
 	});
 
 	$form = $("#infoForm");
+	$form.validate({
+		ignore: ':hidden, [data-with-file="true"]',
+		rules: {
+			"IRR": {
+				"required": true,
+   				"number": true,
+   				"min": 0,
+   				"max": 100
+			},
+			"static_payback_time": {
+				"required": true,
+   				"number": true,
+   				"min": 0
+			},
+			"dynamic_payback_time": {
+				"required": true,
+   				"number": true,
+   				"min": 0
+			},
+			"LCOE": {
+				"required": true,
+   				"number": true,
+   				"min": 0,
+   				"max": 1
+			},
+			"npv": {
+				"required": true,
+   				"number": true,
+   				"min": 0
+			},
+			"power_asset_current_value": {
+				"required": true,
+   				"number": true,
+   				"min": 0
+			},
+
+			"housetop_owner": "required",
+			"plan_build_volume": "required",
+			"province": "required",
+			"city": "required",
+			"county": "required",
+			"project_address": "required",
+			"housetop_type_other": {
+   				"required": function() {
+   					if($('[name="housetop_type"]').is(":visible") && $('[name="housetop_type"]').val() == "0") {
+   						return true;
+   					}
+   					return false;
+	   			}
+	   		},
+	   		"plan_financing": {
+	   			"required": true,
+	   			"number": true,
+	   			"min": 0
+	   		},
+
+			"project_name": "required",
+			"project_finish_date": {
+				"required": true,
+	   			"dateISO": true
+			},
+			"project_electricity_price": {
+				"required": true,
+	   			"number": true,
+	   			"min": 0
+			},
+			"ground_property_other": {
+   				"required": function() {
+   					if($('[name="ground_property"]').is(":visible") && $('[name="ground_property"]').val() == "0") {
+   						return true;
+   					}
+   					return false;
+	   			}
+	   		},
+	   		"ground_area": {
+   				"required": true,
+   				"number": true,
+   				"min": 0
+   			},
+   			"project_investment": {
+   				"required": true,
+   				"number": true,
+   				"min": 0
+   			},
+   			"document_review": "required",
+   			"project_quality_situation": "required",
+   			"project_invest_situation": "required",
+   			"project_earnings_situation": "required"
+		},
+		messages: {
+			"IRR": {
+				"required": "请填写内部收益率",
+				"number": "内部收益率应为[0,100]之间的数字",
+				"min": "内部收益率应为[0,100]之间的数字",
+				"max": "内部收益率应为[0,100]之间的数字"
+			},
+			"static_payback_time": {
+				"required": "请填写静态投资回收年",
+   				"number": "静态投资回收年应为大于0的数字",
+   				"min": "静态投资回收年应为大于0的数字"
+			},
+			"dynamic_payback_time": {
+				"required": "请填写动态投资回收年",
+   				"number": "动态投资回收年应为大于0的数字",
+   				"min": "动态投资回收年应为大于0的数字"
+			},
+			"LCOE": {
+				"required": "请填写LCOE",
+   				"number": "LCOE应为[0,1]之间的数字",
+   				"min": "LCOE应为[0,1]之间的数字",
+   				"max": "LCOE应为[0,1]之间的数字"
+			},
+			"npv": {
+				"required": "请填写净现值npv",
+   				"number": "净现值npv应为大于0的数字",
+   				"min": "净现值npv应为大于0的数字"
+			},
+			"power_asset_current_value": {
+				"required": "请填写电站资产累计现值",
+   				"number": "电站资产累计现值应为大于0的数字",
+   				"min": "电站资产累计现值应为大于0的数字"
+			},
+
+			"housetop_owner": "请填写屋顶业主名称",
+			"plan_build_volume": "请填写建设容量",
+			"province": "请选择省份",
+			"city": "请选择市",
+			"county": "请选择区",
+			"project_address": "请填写详细地址",
+			"housetop_type_other": "请填写屋顶类型",
+			"plan_financing": {
+	   			"required": "请填写拟融资金额",
+	   			"number": "拟融资金额应为大于0的数字",
+	   			"min": "拟融资金额应为大于0的数字"
+	   		},
+
+			"project_name": "请填写项目名称",
+			"project_finish_date": {
+				"required": "请填写项目完工时间",
+	   			"dateISO": "项目完工时间输入格式不对，应为yyyy-MM-dd"
+			},
+			"project_electricity_price": {
+				"required": "请填写项目电价",
+	   			"number": "项目电价应为大于0的数字",
+	   			"min": "项目电价应为大于0的数字"
+			},
+			"ground_property_other": "请填写土地性质",
+			"ground_area": {
+				"required": "请填写租赁土地面积",
+				"number": "租赁土地面积应为大于0的数字",
+				"min": "租赁土地面积应为大于0的数字"
+			},
+			"project_investment": {
+   				"required": "请填写项目总投资",
+   				"number": "项目总投资应为大于0的数字",
+   				"min": "项目总投资应为大于0的数字"
+   			},
+   			"document_review": "请填写文件审查",
+   			"project_quality_situation": "请填写工程建设可行性",
+   			"project_invest_situation": "请填写项目建设投资情况",
+   			"project_earnings_situation": "请填写项目经济收益情况"
+		},
+		errorClass: 'validate-error',
+   		focusInvalid: false,
+   		errorPlacement: function(error, element) {
+   			element.focus();
+   		},
+   		submitHandler: function(form) {
+   			// 二次拦截校验
+			if(!$("input[name=evaluation_result]").val()) {
+				alert("请选择评价结果");
+				$("[name=evaluation_result_mark]").focus();
+				return false;
+			}
+			
+   			$.confirm("提交后无法修改，是否确认提交？").done(function() {
+				$form.ajaxSubmit(options);
+			});
+   		},
+   		invalidHandler: function(event, validator) {
+   			try{
+   				alert(validator.errorList[0].message);
+   			} catch(ex) {
+   			}
+   		}
+   	});
+
 	var param = $.parseQueryParam();
 	$form.attr("action", $form.attr("action")+"&no="+param.no+"&token="+param.token);
-	$form.find("input[type=submit]").click(function() {
+	$form.find("input[type=submit], input[type=button]").click(function() {
 		var optype = $(this).data("optype");
 		
 		$form.find("[name=optype]").val(optype);
 
 		if(optype === "save") {
 			$form.ajaxSubmit(options);
-		} else {
-			$.confirm("提交后无法修改，是否确认提交？").done(function() {
-				$form.ajaxSubmit(options);
-			});
+			return false;
 		}
 
-		return false;
+		return true;
 	});
 });

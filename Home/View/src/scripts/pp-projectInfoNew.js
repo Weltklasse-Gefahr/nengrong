@@ -628,7 +628,7 @@ $(function() {
 		}
 	}
 
-	$form.find("input[type=submit]").click(function() {
+	$form.find("input[type=submit], input[type=button]").click(function() {
 		var optype = $(this).data("optype");
 		if(optype === "delete") {
 			$.confirm("删除项目后将无法恢复，是否确认删除？").done(function() {
