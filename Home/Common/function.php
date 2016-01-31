@@ -76,6 +76,10 @@ function uploadPicOne($photo, $savePath = ''){
     $upload->exts      =    $allType; 
     // 设置附件上传根目录
     $dirNengrongUserDataImg = dirname(dirname(dirname(__FILE__))).'/userdata/img/';
+    if(!is_dir($dirNengrongUserDataImg)) 
+    {
+         mkdir($dirNengrongUserDataImg, 0777, true);
+    }
     $upload->rootPath  =      $dirNengrongUserDataImg; 
     //图片的保持名字
     $fileName = $photo["name"];
@@ -122,7 +126,11 @@ function uploadFileOne($file, $savePath = ''){
     $allType      =     array('pdf', 'doc', 'excel', 'txt', 'docx', 'xlsx', 'xls', 'ppt', 'pptx','jpg', 'gif', 'png', 'jpeg', 'bmp', 'psd');
     $upload->exts      =    $allType;
     // 设置附件上传根目录
-    $dirNengrongUserDataDoc = dirname(dirname(dirname(__FILE__))).'/userdata/doc/'; 
+    $dirNengrongUserDataDoc = dirname(dirname(dirname(__FILE__))).'/userdata/doc/';
+    if(!is_dir($dirNengrongUserDataDoc)) 
+    {
+         mkdir($dirNengrongUserDataDoc, 0777, true);
+    } 
     $upload->rootPath  =      $dirNengrongUserDataDoc; 
     //doc的文件不变
     $fileName = $file["name"];
