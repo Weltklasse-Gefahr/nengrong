@@ -124,7 +124,7 @@ class AdminController extends Controller
 
     	$id = $_POST['id'];
     	if ( empty($id) ) {
-    		echo '{"code":"-1","msg":"邮箱为空！"}';
+    		echo '{"code":"-1","msg":"用户为空！"}';
     		exit;
     	}
 

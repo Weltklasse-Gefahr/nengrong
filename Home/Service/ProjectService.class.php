@@ -359,8 +359,10 @@ class ProjectService extends Model{
                 $projectList[$i]['statusStr'] = "已删除";
             }elseif($projectList[$i]['status'] == 11){
                 $projectList[$i]['statusStr'] = "未提交";
-            }elseif($projectList[$i]['status'] == 12 || $projectList[$i]['status'] == 13){
+            }elseif($projectList[$i]['status'] == 12){
                 $projectList[$i]['statusStr'] = "已提交";
+            }elseif($projectList[$i]['status'] == 13){
+                $projectList[$i]['statusStr'] = "已提交意向书";
             }elseif($projectList[$i]['status'] == 21 || $projectList[$i]['status'] == 23){
                 $projectList[$i]['statusStr'] = "已签意向合同";
             }elseif($projectList[$i]['status'] == 52 || $projectList[$i]['status'] == 22){
@@ -398,7 +400,7 @@ class ProjectService extends Model{
 
             $condition['project_id'] = $projectList[$i]['id'];
             $condition['status'] = $projectList[$i]['status'];
-            $condition['delete_flag'] = array('neq',9999);
+            // $condition['delete_flag'] = array('neq',9999);
             $proDetails = $proObj->where($condition)->find();
             $areaObj = D('Area', 'Service');
             $areaStr = $areaObj->getAreaById($proDetails['project_area']);
@@ -1371,8 +1373,7 @@ class ProjectService extends Model{
     **/
     public function deleteProjectList($id){
         $project = M('Project');
-        $projectList = $project->where("provider_id='".$id."' and delete_flag=9999")->select();
-        if(empty($projectList)){
+        $projectList = $project->where("provider_id='".$id."' and delete_flag!=9999")->select();        if(empty($projectList)){
             return true;
         }
         $i = 0;

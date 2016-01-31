@@ -221,8 +221,10 @@ function isLogin($userName, $mUserName, $flag=0){
     }
     if (!($mUserName == MD5(addToken($userName)))) {
         //登录信息错误，弹框提示，并且跳转到登陆页
-        setcookie("email", $userName, time()-3600*24*7);
-        setcookie("mEmail", $mUserName, time()-3600*24*7);
+        setcookie("email", "", time()-3600*24*7);
+        setcookie("mEmail", "", time()-3600*24*7);
+        setcookie("userType", "", time()-3600*24*7);
+        setcookie("userName", "", time()-3600*24*7);
         header('Content-Type: text/html; charset=utf-8');
         echo "<script type='text/javascript'>alert('登录信息错误');location.href='?c=User&a=login'</script>";
         exit;
@@ -230,6 +232,20 @@ function isLogin($userName, $mUserName, $flag=0){
     if($flag == 1){
         return false;
     }
+    $user = M('User');
+    $condition['email'] = $userName;
+    $condition['delete_flag'] = 0;
+    $res = $user->where($condition)->find();
+    if(!$res){//用户被删除
+        setcookie("email", "", time()-3600*24*7);
+        setcookie("mEmail", "", time()-3600*24*7);
+        setcookie("userType", "", time()-3600*24*7);
+        setcookie("userName", "", time()-3600*24*7);
+        header('Content-Type: text/html; charset=utf-8');
+        echo "<script type='text/javascript'>alert('没有登录');location.href='?c=User&a=login'</script>";
+        exit;
+    }
+
     return true;
 }
 
@@ -381,66 +397,66 @@ function getKey(){
     return "ENFESDFSrwdsccxh33922@&@##22KKSKSNF";
 }
 
-/**
-**@auth qianqiang
-**@breif 加密
-**@date 2016.1.7
-**/
-function encrypt($data, $key)  
-{  
-    $key    =   md5($key);  
-    $x      =   0;  
-    $len    =   strlen($data);  
-    $l      =   strlen($key);  
-    for ($i = 0; $i < $len; $i++)  
-    {  
-        if ($x == $l)   
-        {  
-            $x = 0;  
-        }  
-        $char .= $key{$x};  
-        $x++;  
-    }  
-    for ($i = 0; $i < $len; $i++)  
-    {  
-        $str .= chr(ord($data{$i}) + (ord($char{$i})) % 256);  
-    }  
-    return base64_encode($str);  
-}  
+// /**
+// **@auth qianqiang
+// **@breif 加密
+// **@date 2016.1.7
+// **/
+// function encrypt($data, $key)  
+// {  
+//     $key    =   md5($key);  
+//     $x      =   0;  
+//     $len    =   strlen($data);  
+//     $l      =   strlen($key);  
+//     for ($i = 0; $i < $len; $i++)  
+//     {  
+//         if ($x == $l)   
+//         {  
+//             $x = 0;  
+//         }  
+//         $char .= $key{$x};  
+//         $x++;  
+//     }  
+//     for ($i = 0; $i < $len; $i++)  
+//     {  
+//         $str .= chr(ord($data{$i}) + (ord($char{$i})) % 256);  
+//     }  
+//     return base64_encode($str);  
+// }  
 
-/**
-**@auth qianqiang
-**@breif 解密
-**@date 2016.1.7
-**/
-function decrypt($data, $key)  
-{  
-    $key = md5($key);  
-    $x = 0;  
-    $data = base64_decode($data);  
-    $len = strlen($data);  
-    $l = strlen($key);  
-    for ($i = 0; $i < $len; $i++)  
-    {  
-        if ($x == $l)   
-        {  
-            $x = 0;  
-        }  
-        $char .= substr($key, $x, 1);  
-        $x++;  
-    }  
-    for ($i = 0; $i < $len; $i++)  
-    {  
-        if (ord(substr($data, $i, 1)) < ord(substr($char, $i, 1)))  
-        {  
-            $str .= chr((ord(substr($data, $i, 1)) + 256) - ord(substr($char, $i, 1)));  
-        }  
-        else  
-        {  
-            $str .= chr(ord(substr($data, $i, 1)) - ord(substr($char, $i, 1)));  
-        }  
-    }  
-    return $str;  
-}  
+// /**
+// **@auth qianqiang
+// **@breif 解密
+// **@date 2016.1.7
+// **/
+// function decrypt($data, $key)  
+// {  
+//     $key = md5($key);  
+//     $x = 0;  
+//     $data = base64_decode($data);  
+//     $len = strlen($data);  
+//     $l = strlen($key);  
+//     for ($i = 0; $i < $len; $i++)  
+//     {  
+//         if ($x == $l)   
+//         {  
+//             $x = 0;  
+//         }  
+//         $char .= substr($key, $x, 1);  
+//         $x++;  
+//     }  
+//     for ($i = 0; $i < $len; $i++)  
+//     {  
+//         if (ord(substr($data, $i, 1)) < ord(substr($char, $i, 1)))  
+//         {  
+//             $str .= chr((ord(substr($data, $i, 1)) + 256) - ord(substr($char, $i, 1)));  
+//         }  
+//         else  
+//         {  
+//             $str .= chr(ord(substr($data, $i, 1)) - ord(substr($char, $i, 1)));  
+//         }  
+//     }  
+//     return $str;  
+// }  
 
 ?>
