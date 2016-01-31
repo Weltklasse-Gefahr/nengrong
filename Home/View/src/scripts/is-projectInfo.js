@@ -7,8 +7,8 @@ $(function(){
 
 		$.ajax({
 		    type: "post",
-		    url: "?c=innerstaff&a=projectInfo&no="+param.no+"&token="+param.token,
-		    data: {	
+		    url: "?c=InnerStaff&a=projectInfo&no="+param.no+"&token="+param.token,
+		    data: {
 		    	comment: commenttexval,
 		    	rtype: 1
 		    },
