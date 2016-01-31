@@ -133,12 +133,12 @@ $(function() {
 		var $parent = $(this).parent();
 		$parent.append($parent.hasClass("inverter") ? '<div class="item">\
 <a href="javascript:;" class="del">删除</a>\
-<div><span class="c0">逆变器厂家</span><input class="c0" name="inverter_company[]"/></div>\
-<div><span class="c0">规格型号</span><input class="c0" name="inverter_type[]"/><span class="c1">数量</span><input class="c1" name="inverter_count[]"/>个</div>\
+<div><span class="c0">逆变器厂家</span><input class="c0" r-name="inverter_company" name="inverter_company[]"/></div>\
+<div><span class="c0">规格型号</span><input class="c0" r-name="inverter_type" name="inverter_type[]"/><span class="c1">数量</span><input class="c1" r-name="inverter_count" name="inverter_count[]"/>个</div>\
 </div>' : '<div class="item">\
 <a href="javascript:;" class="del">删除</a>\
-<div><span class="c0">组件厂家</span><input class="c0" name="component_company[]"/></div>\
-<div><span class="c0">规格型号</span><input class="c0" name="component_type[]"/><span class="c1">数量</span><input class="c1" name="component_count[]"/>个</div>\
+<div><span class="c0">组件厂家</span><input class="c0" r-name="component_company" name="component_company[]"/></div>\
+<div><span class="c0">规格型号</span><input class="c0" r-name="component_type" name="component_type[]"/><span class="c1">数量</span><input class="c1" r-name="component_count" name="component_count[]"/>个</div>\
 </div>');
 	}).on("click", ".del", function() {
 		var $parent = $(this).parent(),
@@ -173,8 +173,16 @@ $(function() {
 			"county": "required",
    			"project_address": "required",
    			"housetop_owner": "required",
-   			"company_capital": "required",
-   			"electricity_total": "required",
+   			"company_capital": {
+   				"required": true,
+   				"number": true,
+   				"min": 0
+   			},
+   			"electricity_total": {
+   				"required": true,
+   				"number": true,
+   				"min": 0
+   			},
    			"electricity_pay": "required",
 
    			"housetop_type_other": {
@@ -185,9 +193,21 @@ $(function() {
    					return false;
 	   			}
 	   		},
-   			"housetop_area": "required",
-   			"housetop_waterproof_time": "required",
-   			"housetop_age": "required",
+   			"housetop_area": {
+   				"required": true,
+   				"number": true,
+   				"min": 0
+   			},
+   			"housetop_waterproof_time": {
+   				"required": true,
+   				"number": true,
+   				"min": 0
+   			},
+   			"housetop_age": {
+   				"required": true,
+   				"number": true,
+   				"min": 0
+   			},
    			"housetop_direction_other": {
    				"required": function() {
    					if($('[name="housetop_direction"]').is(":visible") && $('[name="housetop_direction"]').val() == "0") {
@@ -196,7 +216,11 @@ $(function() {
    					return false;
 	   			}
 	   		},
-	   		"housetop_load": "required",
+	   		"housetop_load": {
+   				"required": true,
+   				"number": true,
+   				"min": 0
+   			},
 
 	   		"ground_property_other":  {
    				"required": function() {
@@ -206,17 +230,45 @@ $(function() {
    					return false;
 	   			}
 	   		},
-	   		"ground_area": "required",
-	   		"rent_time": "required",
-	   		"rent_pay": "required",
-	   		"control_room_area": "required",
-	   		"sell_sum": "required",
+	   		"ground_area": {
+   				"required": true,
+   				"number": true,
+   				"min": 0
+   			},
+	   		// "rent_time": "required",
+	   		// "rent_pay": "required",
+	   		"control_room_area": {
+   				"required": true,
+   				"number": true,
+   				"min": 0
+   			},
+	   		"sell_sum": {
+   				"required": true,
+   				"number": true,
+   				"min": 0
+   			},
 
-	   		"transformer_capacity": "required",
-	   		"voltage_level": "required",
-	   		"electricity_distance": "required",
+	   		"transformer_capacity": {
+   				"required": true,
+   				"number": true,
+   				"min": 0
+   			},
+	   		"voltage_level": {
+   				"required": true,
+   				"number": true,
+   				"min": 0
+   			},
+	   		"electricity_distance": {
+   				"required": true,
+   				"number": true,
+   				"min": 0
+   			},
 
-	   		"company_invest": "required",
+	   		"company_invest": {
+   				"required": true,
+   				"number": true,
+   				"min": 0
+   			},
 	   		"company_EPC": "required",
 	   		"capacity_level": "required",
 
@@ -241,45 +293,101 @@ $(function() {
 			"county": "请选择区",
 			"project_address": "请填写详细地址",
 			"housetop_owner": "请填写屋顶业主名称",
-			"company_capital": "请填写注册资本金",
-   			"electricity_total": "请填写年用电量",
-   			"electricity_pay": "请填写电费",
+			"company_capital": {
+				"required": "请填写注册资本金",
+				"number": "注册资本金应为大于0的数字",
+				"min": "注册资本金应为大于0的数字"
+			},
+   			"electricity_total": {
+				"required": "请填写年用电量",
+				"number": "年用电量应为大于0的数字",
+				"min": "年用电量应为大于0的数字"
+			},
+   			"electricity_pay": {
+				"required": "请填写电费",
+				"number": "电费应为大于0的数字",
+				"min": "电费应为大于0的数字"
+			},
 
    			"housetop_type_other": "请填写屋顶类型",
-   			"housetop_area": "请填写屋顶面积",
-   			"housetop_waterproof_time": "请填写屋顶防水周期",
-   			"housetop_age": "请填写屋顶使用寿命",
+   			"housetop_area": {
+				"required": "请填写屋顶面积",
+				"number": "屋顶面积应为大于0的数字",
+				"min": "屋顶面积应为大于0的数字"
+			},
+   			"housetop_waterproof_time":  {
+				"required": "请填写屋顶防水周期",
+				"number": "屋顶防水周期应为大于0的数字",
+				"min": "屋顶防水周期应为大于0的数字"
+			},
+   			"housetop_age": {
+				"required": "请填写屋顶使用寿命",
+				"number": "屋顶使用寿命应为大于0的数字",
+				"min": "屋顶使用寿命应为大于0的数字"
+			},
    			"housetop_direction_other": "请填写屋顶朝向",
-   			"housetop_load": "请填写屋顶活载荷",
+   			"housetop_load": {
+				"required": "请填写屋顶活载荷",
+				"number": "屋顶活载荷应为大于0的数字",
+				"min": "屋顶活载荷应为大于0的数字"
+			},
 
    			"ground_property_other": "请填写土地性质",
-   			"ground_area": "请填写租赁土地面积",
-   			"rent_time": "请填写租赁年限",
-   			"rent_pay": "请填写租赁租金",
-	   		"control_room_area": "请填写中控室建筑面积",
-	   		"sell_sum": "请填写出让金额",
+   			"ground_area": {
+				"required": "请填写租赁土地面积",
+				"number": "租赁土地面积应为大于0的数字",
+				"min": "租赁土地面积应为大于0的数字"
+			},
+   			// "rent_time": "请填写租赁年限",
+   			// "rent_pay": "请填写租赁租金",
+	   		"control_room_area": {
+				"required": "请填写中控室建筑面积",
+				"number": "中控室建筑面积应为大于0的数字",
+				"min": "中控室建筑面积应为大于0的数字"
+			},
+	   		"sell_sum": {
+				"required": "请填写出让金额",
+				"number": "出让金额应为大于0的数字",
+				"min": "出让金额应为大于0的数字"
+			},
 
-	   		"transformer_capacity": "请填写上级变压器容量",
-	   		"voltage_level": "请填写并网电压等级",
-	   		"electricity_distance": "请填写电网接入点距离",
+	   		"transformer_capacity": {
+				"required": "请填写上级变压器容量",
+				"number": "上级变压器容量应为大于0的数字",
+				"min": "上级变压器容量应为大于0的数字"
+			},
+	   		"voltage_level": {
+				"required": "请填写并网电压等级",
+				"number": "并网电压等级应为大于0的数字",
+				"min": "并网电压等级应为大于0的数字"
+			},
+	   		"electricity_distance": {
+				"required": "请填写电网接入点距离",
+				"number": "电网接入点距离应为大于0的数字",
+				"min": "电网接入点距离应为大于0的数字"
+			},
 
-	   		"company_invest": "请填写单位投资",
+	   		"company_invest": {
+				"required": "请填写单位投资",
+				"number": "单位投资应为大于0的数字",
+				"min": "单位投资应为大于0的数字"
+			},
 	   		"company_EPC": "请填写EPC厂家",
 	   		"capacity_level": "请填写资质等级",
 
 	   		"synchronize_date": {
 	   			"required": "请填写并网时间",
-	   			"dateISO": "并网时间输入格式不对"
+	   			"dateISO": "并网时间输入格式不对，应为yyyy-MM-dd"
 	   		},
 	   		"electricity_data": {
 	   			"required": "请填写历史发电量数据",
-	   			"number": "历史发电量数据应为数字",
-	   			"min": "历史发电量数据应大于0"
+	   			"number": "历史发电量数据应为大于0的数字",
+	   			"min": "历史发电量数据应为大于0的数字"
 	   		},
 	   		"plan_financing": {
 	   			"required": "请填写拟融资金额",
-	   			"number": "拟融资金额应为数字",
-	   			"min": "拟融资金额应大于0"
+	   			"number": "拟融资金额应为大于0的数字",
+	   			"min": "拟融资金额应为大于0的数字"
 	   		}
    		},
    		errorClass: 'validate-error',
@@ -369,15 +477,44 @@ $(function() {
 					$picture_transformer.focus();
 					return false;
 				}
+
+				var $rent_time = $('.ground_nonBuild_item [name=rent_time]'),
+					$rent_time_val = $.trim($rent_time.val() || "");
+				if(!$rent_time_val) {
+					alert("请填写租赁年限");
+					$rent_time.focus();
+					return false;
+				} else if( !($rent_time_val && /^\d+(\.\d+)?$/.test($rent_time_val) && parseFloat($rent_time_val) > 0) ) {
+					alert("租赁年限应为大于0的数字");
+					$rent_time.focus();
+					return false;
+				}
+
+				var $rent_pay = $('.ground_nonBuild_item [name=rent_pay]'),
+					$rent_pay_val = $.trim($rent_pay.val() || "");
+				if(!$rent_pay_val) {
+					alert("请填写租赁租金");
+					$rent_pay.focus();
+					return false;
+				} else if( !($rent_pay_val && /^\d+(\.\d+)?$/.test($rent_pay_val) && parseFloat($rent_pay_val) > 0) ) {
+					alert("租赁租金应为大于0的数字");
+					$rent_pay.focus();
+					return false;
+				}
 				break;
 		}
 
 		switch(state) {
 			case "housetop_nonBuild":
 			case "ground_nonBuild":
-				var $plan_build_volume = $('.housetop_nonBuild_item [name=plan_build_volume]');
-				if(!$plan_build_volume.val()) {
+				var $plan_build_volume = $('.housetop_nonBuild_item [name=plan_build_volume]'),
+					$plan_build_volume_val = $.trim($plan_build_volume.val() || "");
+				if(!$plan_build_volume_val) {
 					alert("请填写拟建设容量");
+					$plan_build_volume.focus();
+					return false;
+				} else if( !($plan_build_volume_val && /^\d+(\.\d+)?$/.test($plan_build_volume_val) && parseFloat($plan_build_volume_val) > 0) ) {
+					alert("拟建设容量应为大于0的数字");
 					$plan_build_volume.focus();
 					return false;
 				}
@@ -391,12 +528,77 @@ $(function() {
 				break;
 			case "housetop_build":
 			case "ground_build":
-				var $plan_build_volume = $('.housetop_build_item [name=plan_build_volume]');
-				if(!$plan_build_volume.val()) {
+				var $plan_build_volume = $('.housetop_build_item [name=plan_build_volume]'),
+					$plan_build_volume_val = $.trim($plan_build_volume.val() || "");
+				if(!$plan_build_volume_val) {
 					alert("请填写建设容量");
 					$plan_build_volume.focus();
 					return false;
+				} else if( !($plan_build_volume_val && /^\d+(\.\d+)?$/.test($plan_build_volume_val) && parseFloat($plan_build_volume_val) > 0) ) {
+					alert("建设容量应为大于0的数字");
+					$plan_build_volume.focus();
+					return false;
 				}
+
+				// 组件
+				$("li.component").not(".inverter").children(".item").each(function() {
+					var $component = $(this),
+						$component_company = $component.find('[r-name=component_company]'),
+						$component_type = $component.find('[r-name=component_type]'),
+						$component_count = $component.find('[r-name=component_count]');
+					if(!$component_company.val()) {
+						alert("请填写组件厂家");
+						$component_company.focus();
+						return false;
+					}
+
+					if(!$component_type.val()) {
+						alert("请填写组件规格型号");
+						$component_type.focus();
+						return false;
+					}
+
+					var $component_count_val = $.trim($component_count.val() || "");
+					if(!$component_count.val()) {
+						alert("请填写组件数量");
+						$component_count.focus();
+						return false;
+					} else if( !($component_count_val && /^\d+(\.\d+)?$/.test($component_count_val) && parseFloat($component_count_val) > 0) ) {
+						alert("组件数量应为正整数");
+						$component_count.focus();
+						return false;
+					}
+				});
+
+				// 逆变器
+				$("li.component.inverter").children(".item").each(function() {
+					var $inverter = $(this),
+						$inverter_company = $inverter.find('[r-name=inverter_company]'),
+						$inverter_type = $inverter.find('[r-name=inverter_type]'),
+						$inverter_count = $inverter.find('[r-name=inverter_count]');
+					if(!$inverter_company.val()) {
+						alert("请填写逆变器厂家");
+						$inverter_company.focus();
+						return false;
+					}
+
+					if(!$inverter_type.val()) {
+						alert("请填写逆变器规格型号");
+						$inverter_type.focus();
+						return false;
+					}
+
+					var $inverter_count_val = $.trim($inverter_count.val() || "");
+					if(!$inverter_count.val()) {
+						alert("请填写逆变器数量");
+						$inverter_count.focus();
+						return false;
+					} else if( !($inverter_count_val && /^\d+(\.\d+)?$/.test($inverter_count_val) && parseFloat($inverter_count_val) > 0) ) {
+						alert("逆变器数量应为正整数");
+						$inverter_count.focus();
+						return false;
+					}
+				});
 
 				var $cooperation_type = $('.housetop_build_item [r-name=cooperation_type]');
 				if(!$cooperation_type.filter(":checked").length) {
