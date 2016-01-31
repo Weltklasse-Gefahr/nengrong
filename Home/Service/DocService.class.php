@@ -68,7 +68,7 @@ class DocService extends Model{
                     //这个是处理文档的分支
                     $res = uploadFileOne($_FILES[$val], "ProjectProvider".$email);
                     //文档的保持路径url，中文名，和上传时间，保存到ENF_Doc表中
-                    $pictureUrl = "/userdata/doc/".$res; 
+                    $pictureUrl = "/nengrongfile/doc/".$res; 
                     $pictureName =  $_FILES[$val]["name"];
                     $pictureSize =  $_FILES[$val]["size"];
                     $objUser = D("Doc","Service");
@@ -79,7 +79,7 @@ class DocService extends Model{
                     //这个是处理图片的分支
                     $res = uploadPicOne($_FILES[$val], "ProjectProvider".$email);
                     //图片的保持路径url，中文名，和上传时间，保存到ENF_Doc表中
-                    $pictureUrl = "/userdata/img/".$res; 
+                    $pictureUrl = "/nengrongfile/img/".$res; 
                     $pictureName =  $_FILES[$val]["name"];
                     $pictureSize =  $_FILES[$val]["size"];
                     $objUser = D("Doc","Service");
@@ -132,7 +132,7 @@ class DocService extends Model{
                 //这个是处理图片的分支
                 $res = uploadPicOne($val, "ProjectProvider".$email);
                 //图片的保持路径url，中文名，和上传时间，保存到ENF_Doc表中
-                $pictureUrl = "/userdata/img/".$res; 
+                $pictureUrl = "/nengrongfile/img/".$res; 
                 $pictureName =  $val["name"];
                 $pictureSize =  $val["size"];
                 $objUser = D("Doc","Service");

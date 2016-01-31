@@ -72,12 +72,20 @@ function uploadPicOne($photo, $savePath = ''){
     // 设置附件上传大小30M
     $upload->maxSize   =     3145728 * 10 ;
     // 设置附件上传类型 .jpg .jpeg .gif .png .bmp .psd
-    $upload->exts      =     array('jpg', 'gif', 'png', 'jpeg', 'bmp', 'psd');
+    $allType = array('jpg', 'gif', 'png', 'jpeg', 'bmp', 'psd');
+    $upload->exts      =    $allType; 
     // 设置附件上传根目录
     $dirNengrongUserDataImg = dirname(dirname(dirname(__FILE__))).'/userdata/img/';
     $upload->rootPath  =      $dirNengrongUserDataImg; 
     //图片的保持名字
-    $upload->saveName = array('uniqid','');
+    $fileName = $photo["name"];
+    foreach($allType as $val)
+    {
+        $fileType = '.'.$val;
+        $fileName = str_replace($fileType,'',$fileName);
+           
+    }
+    $upload->saveName = array('uniqid',""); 
     // 开启子目录保存 并调用自定义函数get_user_id生成子目录
     $upload->autoSub = true;
     $upload->subName = "img";
@@ -111,12 +119,23 @@ function uploadFileOne($file, $savePath = ''){
     // 设置附件上传大小30M
     $upload->maxSize   =     3145728 * 10 ;
     // 设置附件上传类型doc .docx .xls .xlsx .ppt .pptx .txt .pdf
-    $upload->exts      =     array('pdf', 'doc', 'excel', 'txt', 'docx', 'xlsx', 'xls', 'ppt', 'pptx','jpg', 'gif', 'png', 'jpeg', 'bmp', 'psd');
+    $allType      =     array('pdf', 'doc', 'excel', 'txt', 'docx', 'xlsx', 'xls', 'ppt', 'pptx','jpg', 'gif', 'png', 'jpeg', 'bmp', 'psd');
+    $upload->exts      =    $allType;
     // 设置附件上传根目录
     $dirNengrongUserDataDoc = dirname(dirname(dirname(__FILE__))).'/userdata/doc/'; 
     $upload->rootPath  =      $dirNengrongUserDataDoc; 
     //doc的文件不变
-    $upload->saveName =  array('uniqid','');
+    $fileName = $file["name"];
+    foreach($allType as $val)
+    {
+        $fileType = '.'.$val;
+        $fileName = str_replace($fileType,'',$fileName);
+           
+    }
+
+    //$fileName=iconv("gb18030","UTF-8", $fileName);
+    //echo $fileName;exit;
+    $upload->saveName =  array('uniqid',"");
     // 开启子目录保存 并调用自定义函数get_user_id生成子目录
     $upload->autoSub = true;
     $upload->subName = "file";
