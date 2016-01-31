@@ -525,6 +525,10 @@ class InnerStaffController extends Controller {
             $data['projectHolderType'] = $common->getProjectHolderType($data['project_holder_type']);
             $data['groundProjectType'] = $common->getGroundProjectType($data['ground_project_type']);
             $data['housetopDirection'] = $common->getHousetopDirection($data['housetop_direction']);
+            $data['cooperationType'] = $common->getCooperationType($data['cooperation_type']);
+            $data['hasShelter'] = $common->getHasShelterOrPollution($data['has_shelter']);
+            $data['hasPollute'] = $common->getHasShelterOrPollution($data['has_pollute']);
+            $data['hasPollution'] = $common->getHasShelterOrPollution($data['has_pollution']);
             $dataBig  = array('projectInfo' => $data);
             $this->assign('data',$dataBig);
             if ($_GET['display'] == 'json') {
@@ -725,6 +729,7 @@ class InnerStaffController extends Controller {
                 $proData['project_area'] = $_POST['county'];
                 $proData['project_address'] = $_POST['project_address'];
                 $proData['project_name'] = $_POST['project_name'];
+                $proData['ground_project_type'] = $_POST['ground_project_type'];
                 $proData['project_finish_date'] = $_POST['project_finish_date'];
                 $proData['project_electricity_price'] = $_POST['project_electricity_price'];
                 $proData['project_investment'] = $_POST['project_investment'];
@@ -794,6 +799,7 @@ class InnerStaffController extends Controller {
                 $proData['project_area'] = $_POST['county'];
                 $proData['project_address'] = $_POST['project_address'];
                 $proData['project_name'] = $_POST['project_name'];
+                $proData['ground_project_type'] = $_POST['ground_project_type'];
                 $proData['project_finish_date'] = $_POST['project_finish_date'];
                 $proData['project_electricity_price'] = $_POST['project_electricity_price'];
                 $proData['project_investment'] = $_POST['project_investment'];
@@ -863,6 +869,7 @@ class InnerStaffController extends Controller {
             // $projectDetail['projectHolderType'] = $common->getProjectHolderType($projectDetail['project_holder_type']);
             $projectDetail['groundProjectType'] = $common->getGroundProjectType($projectDetail['ground_project_type']);
             // $projectDetail['housetopDirection'] = $common->getHousetopDirection($projectDetail['housetop_direction']);
+            $projectDetail['project_finish_date'] = date('Y-m-d', strtotime($projectDetail['project_finish_date']));
 
             $area = D("Area", "Service");
             $areaArray = $area->getAreaArrayById($projectDetail['project_area']);

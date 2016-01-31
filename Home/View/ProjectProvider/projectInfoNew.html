@@ -377,8 +377,8 @@
 						<foreach name="data.components" item="vo" key="k" >
 						    <div class="item"><input type="hidden" name="component_company_hiddenId[]" value="{$vo['id']}" />
 							    <a href="javascript:;" class="del">删除</a>
-							    <div><span class="c0">组件厂家</span><input class="c0" name="component_company[]" value="{$vo['component_company']}"/></div>
-							    <div><span class="c0">规格型号</span><input class="c0" name="component_type[]" value="{$vo['component_type']}"/><span class="c1">数量</span><input class="c1" name="component_count[]" value="{$vo['component_count']}"/>个</div>
+							    <div><span class="c0">组件厂家</span><input class="c0" r-name="component_company" name="component_company[]" value="{$vo['component_company']}"/></div>
+							    <div><span class="c0">规格型号</span><input class="c0" r-name="component_type" name="component_type[]" value="{$vo['component_type']}"/><span class="c1">数量</span><input class="c1" r-name="component_count" name="component_count[]" value="{$vo['component_count']}"/>个</div>
 						    </div>
 						</foreach>
 					</li>
@@ -387,8 +387,8 @@
 						<foreach name="data.inverters" item="vo" key="k" >
 						    <div class="item"><input type="hidden" name="inverter_company_hiddenId[]" value="{$vo['id']}" />
 							    <a href="javascript:;" class="del">删除</a>
-							    <div><span class="c0">逆变器厂家</span><input class="c0" name="inverter_company[]" value="{$vo['inverter_company']}"/></div>
-							   <div><span class="c0">规格型号</span><input class="c0" name="inverter_type[]" value="{$vo['inverter_type']}"/><span class="c1">数量</span><input class="c1" name="inverter_count[]" value="{$vo['inverter_count']}"/>个</div>
+							    <div><span class="c0">逆变器厂家</span><input class="c0" r-name="inverter_company" name="inverter_company[]" value="{$vo['inverter_company']}"/></div>
+							   <div><span class="c0">规格型号</span><input class="c0" r-name="inverter_type" name="inverter_type[]" value="{$vo['inverter_type']}"/><span class="c1">数量</span><input class="c1" r-name="inverter_count" name="inverter_count[]" value="{$vo['inverter_count']}"/>个</div>
 						    </div>
 						</foreach> 
 					</li>
@@ -397,7 +397,7 @@
 						<input name="synchronize_date" data-type="date" readonly value="{$data['synchronize_date']}">
 					</li>
 					<li class="notall housetop_build_item ground_build_item">
-						<span class="lb">历史发电量数据（最近一年）</span>
+						<span class="lb not-empty">历史发电量数据（最近一年）</span>
 						<input name="electricity_data" value="{$data['electricity_data']}"><span class="gray">万度</span>
 					</li>
 					<li class="notall ground_nonBuild_item ground_build_item">

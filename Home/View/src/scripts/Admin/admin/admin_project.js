@@ -8,7 +8,7 @@ $(function(){
 		});
 	});
 
-	$(".delete_id").click(function(){ 
+	$("#DataTables_Table_0").on("click", ".delete_id", function(){ 
 		var item_id = $(this).parent().parent().data("id");
 		$("#confirm_delete_id").off("click.delete");
 		$("#confirm_delete_id").on("click.delete", function(){
@@ -44,7 +44,7 @@ $(function(){
 		location.href="?c=Admin&a=getAllProjectInfo";
 	});
 
-	$(".recover_id").click(function(){ 
+	$("#DataTables_Table_0").on("click", ".recover_id", function(){ 
 		var item_id = $(this).parent().parent().data("id");
 		$("#confirm_recover_id").off("click.recover");
 		$("#confirm_recover_id").on("click.recover", function(){

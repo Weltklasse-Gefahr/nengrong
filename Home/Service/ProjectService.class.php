@@ -359,8 +359,10 @@ class ProjectService extends Model{
                 $projectList[$i]['statusStr'] = "已删除";
             }elseif($projectList[$i]['status'] == 11){
                 $projectList[$i]['statusStr'] = "未提交";
-            }elseif($projectList[$i]['status'] == 12 || $projectList[$i]['status'] == 13){
+            }elseif($projectList[$i]['status'] == 12){
                 $projectList[$i]['statusStr'] = "已提交";
+            }elseif($projectList[$i]['status'] == 13){
+                $projectList[$i]['statusStr'] = "已提交意向书";
             }elseif($projectList[$i]['status'] == 21 || $projectList[$i]['status'] == 23){
                 $projectList[$i]['statusStr'] = "已签意向合同";
             }elseif($projectList[$i]['status'] == 52 || $projectList[$i]['status'] == 22){
@@ -398,7 +400,7 @@ class ProjectService extends Model{
 
             $condition['project_id'] = $projectList[$i]['id'];
             $condition['status'] = $projectList[$i]['status'];
-            $condition['delete_flag'] = array('neq',9999);
+            // $condition['delete_flag'] = array('neq',9999);
             $proDetails = $proObj->where($condition)->find();
             $areaObj = D('Area', 'Service');
             $areaStr = $areaObj->getAreaById($proDetails['project_area']);
@@ -424,7 +426,7 @@ class ProjectService extends Model{
         if($this->hasSaveHousetopOrGround($projectInfo['id'], 61, $projectInfo['project_type'])){
             $projectDetails = $this->getProjectDetails($projectInfo['id'], 61, $projectInfo['project_type']);//61意向书保存状态（项目已提交）
         }else{
-            $projectDetails = $this->getProjectDetails($projectInfo['id'], 12, $projectInfo['project_type']);//12项目已提交（客服未提交意向书）
+            $projectDetails = $this->getProjectDetails($projectInfo['id'], 22, $projectInfo['project_type']);//22客服未提交意向书
             $projectDetails['id'] = null;
         }
         $projectDetails['project_intent'] = $intentText;
@@ -860,6 +862,7 @@ class ProjectService extends Model{
     public function searchService($companyName, $companyType, $situation, $startDate, $endDate, $status, $cooperationType, $page){
         $housetopSql = "";
         $groundSql = "";
+        $projectSql = "";
         if($companyType == null || $companyType == 'all'){
             $housetopSql = "select p.id,p.project_code,p.project_type,p.build_state,p.provider_id,p.highlight_flag,p.create_date,h.id as h_id,h.project_id,h.project_area,h.project_address,h.status,u.id as u_id,u.email,u.user_type,u.company_name from enf_project p join enf_housetop h on p.id=h.project_id join enf_user u on p.provider_id=u.id where h.delete_flag!=9999 and h.status!=51 and h.status!=61 and h.status!=11";
             $groundSql = "select p.id,p.project_code,p.project_type,p.build_state,p.provider_id,p.highlight_flag,p.create_date,g.id as g_id,g.project_id,g.project_area,g.project_address,g.status,u.id as u_id,u.email,u.user_type,u.company_name from enf_project p join enf_ground g on p.id=g.project_id join enf_user u on p.provider_id=u.id where g.delete_flag!=9999 and g.status!=51 and g.status!=61 and g.status!=11";
@@ -957,9 +960,15 @@ class ProjectService extends Model{
                 $groundSql = $groundSql." and g.create_date>=date('".$startDate."') and g.create_date<=date('".$endDate."')";
             }
         }
+        if($housetopSql != "" && $groundSql != ""){
+            $projectSql = $housetopSql." union ".$groundSql;
+        }
         if($page != -1){
             $pageSize = 6;
             $start = ($page-1)*$pageSize;
+            if($projectSql != ""){
+                $projectSql = $projectSql." order by highlight_flag desc, create_date desc"." limit ".$start.",".$pageSize;
+            }
             if($housetopSql != ""){
                 $housetopSql = $housetopSql." order by highlight_flag desc, create_date desc"." limit ".$start.",".$pageSize;
             }
@@ -967,26 +976,26 @@ class ProjectService extends Model{
                 $groundSql = $groundSql." order by highlight_flag desc, create_date desc"." limit ".$start.",".$pageSize;
             }
         }
-        /*
-        header('Content-Type: text/html; charset=utf-8');
-        dump($housetopSql);
-        dump($groundSql);
-        exit;
-        */
+        
+        // header('Content-Type: text/html; charset=utf-8');
+        // dump($projectSql);
+        // echo jj ;
+        // exit;
 
         $Dao = M();
-        if($housetopSql != ""){
+        if($housetopSql != "" && $groundSql == ""){
             $housetopList = $Dao->query($housetopSql);
-        }
-        if($groundSql != ""){
+        }elseif($groundSql != "" && $housetopSql == ""){
             $groundList = $Dao->query($groundSql);
+        }else{
+            $housetopAndGroundList = $Dao->query($projectSql);
         }
         if(!empty($housetopList) && empty($groundList)){
             $projectList = $housetopList;
         }elseif(empty($housetopList) && !empty($groundList)){
             $projectList = $groundList;
-        }elseif(!empty($housetopList) && !empty($groundList)){
-            $projectList = array_merge($housetopList, $groundList);
+        }else{
+            $projectList = $housetopAndGroundList;
         }
         $resList = $this->formatProject($projectList);
         return $resList;
@@ -1364,7 +1373,7 @@ class ProjectService extends Model{
     **/
     public function deleteProjectList($id){
         $project = M('Project');
-        $projectList = $project->where("provider_id='".$id."' and delete_flag=0")->select();
+        $projectList = $project->where("provider_id='".$id."' and delete_flag!=9999")->select();
         if(empty($projectList)){
             return true;
         }
@@ -1391,12 +1400,12 @@ class ProjectService extends Model{
         }
         $pushProjectObj = M('Pushproject');
         $data['delete_flag'] = 9999;
-        $data['change_date'] = date("Y-m-d H:i:s",time());
+        // $data['change_date'] = date("Y-m-d H:i:s",time());
         $res = $pushProjectObj->where("investor_id='".$id."'")->save($data);
-        if(!$res){
-            echo '{"code":"-1","msg":"push project delete error!"}';
-            exit;
-        }
+        // if(!$res){
+        //     echo '{"code":"-1","msg":"push project delete error!"}';
+        //     exit;
+        // }
         return true;
     }
 

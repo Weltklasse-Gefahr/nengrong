@@ -7,27 +7,27 @@
 }
 
 .r-content  .remark {
-	position: absolute;
-	margin-left: 750px;
-	margin-top: 20px;
-	margin-right: 50px;
-	width: 200px;
-	height: 500px;
+	position: fixed;
+	top: 120px;
+	right: 15px;
+	width: 250px;
+	height: 350px;
 }
 
 .r-content  .remark textarea{
-	width: 120px;
-	height: 480px;
+	width: 100%;
+	height: 90%;
 }
 
 .r-content  .remark button {
 	border-radius: 5px;
 	color: #fff;
-	font-size: 18px;
+	font-size: 15px;
 	background-color: #ffa500;
-	width:100%;
-	height:50px;
+	width:30%;
+	height:8%;
 	border-width:0; 
+	margin: 0 auto 0 150px;
 	
 }
 

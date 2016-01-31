@@ -8,7 +8,7 @@ $(function(){
 		});
 	});
 
-	$(".edit_id").click(function(){
+	$("#DataTables_Table_0").on("click", ".edit_id", function(){
 		var item_id = $(this).parent().parent().data("id");
 		location.href="?c=Admin&a=getEditUserInfo&id="+item_id;
 	});
@@ -48,7 +48,7 @@ $(function(){
 		$("#myAlert_edit_failed").hide();
 	});
 
-	$(".reset_id").click(function(){ 
+	$("#DataTables_Table_0").on("click", ".reset_id", function(){ 
 		var item_id = $(this).parent().parent().data("id");
 		$("#confirm_reset_id").off("click.reset");
 		$("#confirm_reset_id").on("click.reset", function(){
@@ -78,7 +78,7 @@ $(function(){
 		$("#myAlert_reset_failed").hide();
 	});
 
-	$(".delete_id").click(function(){ 
+	$("#DataTables_Table_0").on("click", ".delete_id", function(){ 
 		var item_id = $(this).parent().parent().data("id");
 		$("#confirm_delete_id").off("click.delete");
 		$("#confirm_delete_id").on("click.delete", function(){
