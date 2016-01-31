@@ -344,7 +344,7 @@ class ProjectInvestorMyProController extends Controller {
             exit;
         }
         $this->assign('arrData', $data);
-        $this->display("projectInvestor:recommendedProject");
+        $this->display("ProjectInvestor:recommendedProject");
 	}
 
 	/**
@@ -358,7 +358,7 @@ class ProjectInvestorMyProController extends Controller {
 		$email = $_COOKIE['email'];
         isDataComplete($email);
 		//是否需要做？需要建立项目投资表还是加一个字段
-		$this->display("projectInvestor:investmentProject");
+		$this->display("ProjectInvestor:investmentProject");
 	}
 /**
     **@auth qiujinhan
