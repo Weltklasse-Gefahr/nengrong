@@ -18,8 +18,8 @@ class AdminService extends Model{
         	exit;
         }
 
-        setcookie("adminName", $userName, time()+3600);
-        setcookie("mAdminName", MD5(addToken($userName)), time()+3600);
+        setcookie("adminName", $userName);
+        setcookie("mAdminName", MD5(addToken($userName)));
         session_start();
 
         return $objManager[0];
@@ -66,7 +66,7 @@ class AdminService extends Model{
     **@breif 真删除用户
     **@date 2015.1.21
     **/
-    public function deleteUserService($id){
+    public function dropUserService($id){
         $user = M('User');
         $objUser = $user->where("id='".$id."' and delete_flag!=9999")->select();
         if(sizeof($objUser) == 0){
