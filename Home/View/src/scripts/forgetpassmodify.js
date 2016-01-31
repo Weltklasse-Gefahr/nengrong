@@ -19,7 +19,7 @@ $(function(){
 
 		$.ajax({
 		    type: "post",
-		    url: "?c=user&a=forgetpassmodify&key="+param.key ,
+		    url: "?c=user&a=forgetpwdmodify&key="+param.key ,
 		    data: {
 		    	password: newpassval,
 		    	rtype: 1
