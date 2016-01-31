@@ -164,7 +164,9 @@ class DocService extends Model{
         while($docList[$i]){
             $condition['id'] = $docList[$i];
             $objDoc = M("Doc");
+            $com = D('Common','Service');
             $docInfo = $objDoc->where($condition)->select();
+            $docInfo[0]['file_size'] = $com->getFileSize($docInfo[0]['file_size']);
             $docListInfo[$i] = $docInfo;
             $i += 1;
         }
