@@ -423,7 +423,7 @@
 					<div class="fileQueue">
 						<foreach name="data.dueDiligence.docListInfo" item="vo" >
 						<div class="uploadifive-queue-item complete">
-						    <a class="close" href="#">下载</a>
+						    <a class="close" href="{$vo[0]['file_rename']}">下载</a>
 						    <div>
 						        <img class="attachment-logo" src="/EnergyFe/img/attachment.png">
 						        <span class="filename" title="{$vo[0]['file_name']}">{$vo[0]['file_name']}</span>

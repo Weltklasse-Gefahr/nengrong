@@ -1373,7 +1373,8 @@ class ProjectService extends Model{
     **/
     public function deleteProjectList($id){
         $project = M('Project');
-        $projectList = $project->where("provider_id='".$id."' and delete_flag!=9999")->select();        if(empty($projectList)){
+        $projectList = $project->where("provider_id='".$id."' and delete_flag!=9999")->select();
+        if(empty($projectList)){
             return true;
         }
         $i = 0;
@@ -1399,12 +1400,12 @@ class ProjectService extends Model{
         }
         $pushProjectObj = M('Pushproject');
         $data['delete_flag'] = 9999;
-        $data['change_date'] = date("Y-m-d H:i:s",time());
+        // $data['change_date'] = date("Y-m-d H:i:s",time());
         $res = $pushProjectObj->where("investor_id='".$id."'")->save($data);
-        if(!$res){
-            echo '{"code":"-1","msg":"push project delete error!"}';
-            exit;
-        }
+        // if(!$res){
+        //     echo '{"code":"-1","msg":"push project delete error!"}';
+        //     exit;
+        // }
         return true;
     }
 
