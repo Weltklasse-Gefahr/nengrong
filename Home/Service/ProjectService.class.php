@@ -699,7 +699,7 @@ class ProjectService extends Model{
         $data['push_time'] = date("Y-m-d H:i:s",time());
         $i = 0;
         while($investorList[$i]){
-            $data['investor_id'] = $investorList[$i]['id'];
+            $data['investor_id'] = $investorList[$i];
             $res = $pushProject->add($data);
             if($res === false) return false;
             $i += 1;
