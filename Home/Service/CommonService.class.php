@@ -313,4 +313,21 @@ class CommonService{
 		}
 		return $typeStr;
 	}
+
+	/**
+    **@auth qianqiang
+    **@breif 获取有无遮挡,有无污染物
+    **@date 2016.1.31
+	**/
+	public function getHasShelterOrPollution($no){
+		if($no == null){
+			return null;
+		}
+		if(1 == $no){
+			$str = '有';
+		}else{
+			$str = '无';
+		}
+		return $str;
+	}
 }
