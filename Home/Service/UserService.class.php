@@ -281,15 +281,15 @@ class UserService extends Model{
     **/
 	public function deleteUserService($id){
 		$user = M('User');
-		$objUser = $user->where("id='".$id."' and delete_flag!=9999")->select();
-		if(sizeof($objUser) == 0){
+		$objUser = $user->where("id='".$id."' and delete_flag!=9999")->find();
+		if(empty($objUser)){
 			echo '{"code":"-1","msg":"用户不存在!"}';
 			exit;
 		}
 
 		$data["delete_flag"] = 9999;
         $data['change_date'] = date("Y-m-d H:i:s",time());
-        $user->where("id='".$id."'")->save($data);
+        $res = $user->where("id='".$id."'")->save($data);
         if($objUser['user_type'] == 3){
         	$projectObj = D('Project', 'Service');
         	$projectObj->deleteProjectList($objUser['id']);
@@ -298,8 +298,7 @@ class UserService extends Model{
         	$projectObj->deletePushProject($objUser['id']);
         }
 
-        $objUser = $user->where("id='".$id."' and delete_flag!=9999")->select();
-		if (sizeof($objUser) != 0) {
+		if (!$res) {
 			echo '{"code":"-1","msg":"mysql error!"}';
 			exit;
 		}

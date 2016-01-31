@@ -359,8 +359,10 @@ class ProjectService extends Model{
                 $projectList[$i]['statusStr'] = "已删除";
             }elseif($projectList[$i]['status'] == 11){
                 $projectList[$i]['statusStr'] = "未提交";
-            }elseif($projectList[$i]['status'] == 12 || $projectList[$i]['status'] == 13){
+            }elseif($projectList[$i]['status'] == 12){
                 $projectList[$i]['statusStr'] = "已提交";
+            }elseif($projectList[$i]['status'] == 13){
+                $projectList[$i]['statusStr'] = "已提交意向书";
             }elseif($projectList[$i]['status'] == 21 || $projectList[$i]['status'] == 23){
                 $projectList[$i]['statusStr'] = "已签意向合同";
             }elseif($projectList[$i]['status'] == 52 || $projectList[$i]['status'] == 22){
@@ -398,7 +400,7 @@ class ProjectService extends Model{
 
             $condition['project_id'] = $projectList[$i]['id'];
             $condition['status'] = $projectList[$i]['status'];
-            $condition['delete_flag'] = array('neq',9999);
+            // $condition['delete_flag'] = array('neq',9999);
             $proDetails = $proObj->where($condition)->find();
             $areaObj = D('Area', 'Service');
             $areaStr = $areaObj->getAreaById($proDetails['project_area']);
@@ -424,7 +426,7 @@ class ProjectService extends Model{
         if($this->hasSaveHousetopOrGround($projectInfo['id'], 61, $projectInfo['project_type'])){
             $projectDetails = $this->getProjectDetails($projectInfo['id'], 61, $projectInfo['project_type']);//61意向书保存状态（项目已提交）
         }else{
-            $projectDetails = $this->getProjectDetails($projectInfo['id'], 12, $projectInfo['project_type']);//12项目已提交（客服未提交意向书）
+            $projectDetails = $this->getProjectDetails($projectInfo['id'], 22, $projectInfo['project_type']);//22客服未提交意向书
             $projectDetails['id'] = null;
         }
         $projectDetails['project_intent'] = $intentText;
@@ -1371,7 +1373,7 @@ class ProjectService extends Model{
     **/
     public function deleteProjectList($id){
         $project = M('Project');
-        $projectList = $project->where("provider_id='".$id."' and delete_flag=9999")->select();
+        $projectList = $project->where("provider_id='".$id."' and delete_flag!=9999")->select();
         if(empty($projectList)){
             return true;
         }
@@ -1398,12 +1400,12 @@ class ProjectService extends Model{
         }
         $pushProjectObj = M('Pushproject');
         $data['delete_flag'] = 9999;
-        $data['change_date'] = date("Y-m-d H:i:s",time());
+        // $data['change_date'] = date("Y-m-d H:i:s",time());
         $res = $pushProjectObj->where("investor_id='".$id."'")->save($data);
-        if(!$res){
-            echo '{"code":"-1","msg":"push project delete error!"}';
-            exit;
-        }
+        // if(!$res){
+        //     echo '{"code":"-1","msg":"push project delete error!"}';
+        //     exit;
+        // }
         return true;
     }
 
