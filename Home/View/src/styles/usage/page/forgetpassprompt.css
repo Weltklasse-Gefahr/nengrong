@@ -1,0 +1,41 @@
+.md {
+	width: 50%;
+	font-weight: bold;
+	margin: 100px auto 150px auto;
+}
+.md .title{
+	width: 250px;
+	font-size: 22px;
+	margin: 50px auto 30px auto;
+}
+.md .part1{
+	width: 550px;
+	font-size: 16px;
+	padding-left: 10px;
+	margin: 30px 20px 30px 20px;
+}
+.md .part2{
+	width: 580px;
+	font-size: 16px;
+	padding-left: 10px;
+	margin: 30px 0 20px 20px;
+}
+.md button {
+	border-radius: 5px;
+	color: #fff;
+	font-size: 18px;
+	background-color: #ffa500;
+	width:30%;
+	height:40px;
+	border-width:0; 
+	margin-left: 150px;
+	margin-top: 15px;
+	
+}
+.md button[type="submit"]:hover {
+	background-color: #F1920C;
+}
+
+.md button[type="submit"].disabled {
+	background-color: #ccc;
+}
