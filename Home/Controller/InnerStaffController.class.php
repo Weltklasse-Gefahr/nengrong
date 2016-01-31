@@ -28,10 +28,8 @@ class InnerStaffController extends Controller {
         if(false !== strpos($fatherUrl,'a=getProjectProviderInfo'))
         {
             $getJsonFlag = 1;
-            list($userInfo,$areaStr,$docData) = $this->getProjectProviderInfo($projectCode, null, $getJsonFlag);
-            
+            list($userInfo,$areaStr,$docData) = $this->getProjectProviderInfo($projectCode, null, $getJsonFlag);       
             //echo json_encode($userInfo);exit;
-            
             import("Org.Util.PHPExcel");
             $obpe = new \PHPExcel();
             $obpe_pro = $obpe->getProperties();
@@ -49,20 +47,23 @@ class InnerStaffController extends Controller {
                 $objActSheet = $obpe->setactivesheetindex(0);
                 //设置SHEET的名字
                 $obpe->getActiveSheet()->setTitle('项目投资方信息');
-                           
-                
-
-                //创建一个新的工作空间(sheet)
-                //内容的列的宽度设置
-                //$objActSheet->getColumnDimension('A')->setAutoSize(1000);
+                //这里还有点问题啊，列的宽度设置下
                 $obpe->getActiveSheet()->getColumnDimension('B')->setAutoSize(true);
                 $obpe->getActiveSheet()->getColumnDimension('A')->setAutoSize(true);
-                //$objActSheet->getColumnDimension('D')->setAutoSize(100);
-                //$objActSheet->getColumnDimension('E')->setAutoSize(100);
+                $obpe->getActiveSheet()->getColumnDimension('D')->setAutoSize(true);
+                $obpe->getActiveSheet()->getColumnDimension('E')->setAutoSize(true);
 
                 $obpe->createSheet();
+                $obpe->getActiveSheet()->getStyle( 'A1')->getFill()->setFillType(\PHPExcel_Style_Fill::FILL_SOLID);
+                $obpe->getActiveSheet()->getStyle( 'A1')->getFill()->getStartColor()->setARGB('FFC78E');
                 $obpe->getactivesheet()->setcellvalue('A1', "账户详细信息");
-                
+                $obpe->getActiveSheet()->getStyle( 'B')->getAlignment()->setHorizontal(\PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+                $obpe->getActiveSheet()->getStyle('A2:A3')->getFont()->getColor()->setARGB('D94600');
+                $obpe->getActiveSheet()->getStyle('A4:A5')->getFont()->getColor()->setARGB('D94600');
+                $obpe->getActiveSheet()->getStyle('A6:A7')->getFont()->getColor()->setARGB('D94600');
+                $obpe->getActiveSheet()->getStyle('A8:A9')->getFont()->getColor()->setARGB('D94600');
+                $obpe->getActiveSheet()->getStyle('A10:A11')->getFont()->getColor()->setARGB('D94600');
+                $obpe->getActiveSheet()->getStyle('A12:A13')->getFont()->getColor()->setARGB('D94600');
                 $obpe->getactivesheet()->setcellvalue('A2', "E-mail");
                 $obpe->getactivesheet()->setcellvalue('A3', "联系人");
                 $obpe->getactivesheet()->setcellvalue('A4', "联系人手机");
@@ -73,28 +74,28 @@ class InnerStaffController extends Controller {
                 $obpe->getactivesheet()->setcellvalue('B2', $userInfo["email"]);
                 $obpe->getactivesheet()->setcellvalue('B3', $userInfo["company_contacts"]);
                 $obpe->getactivesheet()->setcellvalue('B4', $userInfo["company_contacts_phone"]);
+
                 $obpe->getactivesheet()->setcellvalue('B5', $areaStr);
                 $obpe->getactivesheet()->setcellvalue('B6', $userInfo["company_address"]);
                 $obpe->getactivesheet()->setcellvalue('B7', $userInfo["company_capital"]);
 
-                $obpe->getactivesheet()->setcellvalue('D2', "企业名称");
-                $obpe->getactivesheet()->setcellvalue('D3', "企业类型");
-                $obpe->getactivesheet()->setcellvalue('D4', "公司传真");
-                $obpe->getactivesheet()->setcellvalue('D5', "其他手机");
-                $obpe->getactivesheet()->setcellvalue('D6', "座机");
-                $obpe->getactivesheet()->setcellvalue('D7', "企业法人");
+                $obpe->getactivesheet()->setcellvalue('A8', "企业名称");
+                $obpe->getactivesheet()->setcellvalue('A9', "企业类型");
+                $obpe->getactivesheet()->setcellvalue('A10', "公司传真");
+                $obpe->getactivesheet()->setcellvalue('A11', "其他手机");
+                $obpe->getactivesheet()->setcellvalue('A12', "座机");
+                $obpe->getactivesheet()->setcellvalue('A13', "企业法人");
 
-                $obpe->getactivesheet()->setcellvalue('E2', $userInfo["company_name"]);
-                $obpe->getactivesheet()->setcellvalue('E3', $userInfo["company_type"]);
-                $obpe->getactivesheet()->setcellvalue('E4', $userInfo["company_fax"]);
-                $obpe->getactivesheet()->setcellvalue('E5', $userInfo['company_telephone']);
-                $obpe->getactivesheet()->setcellvalue('E6', $userInfo["company_phone"]);
-                $obpe->getactivesheet()->setcellvalue('E7', $userInfo["company_person"]);
-               
-                import("Org.Util.PHPExcel.IOFactory");
-               
+                $obpe->getactivesheet()->setcellvalue('B8', $userInfo["company_name"]);
+                $obpe->getactivesheet()->setcellvalue('B9', $userInfo["company_type"]);
+                $obpe->getactivesheet()->setcellvalue('B10', $userInfo["company_fax"]);
+                $obpe->getactivesheet()->setcellvalue('B11', $userInfo['company_telephone']);
+                $obpe->getactivesheet()->setcellvalue('B12', $userInfo["company_phone"]);
+                $obpe->getactivesheet()->setcellvalue('B13', $userInfo["company_person"]);  
+                $obpe->getactivesheet()->setcellvalue('A16', "注:相关上传的图片资料,请到页面点击下载");
+                import("Org.Util.PHPExcel.IOFactory");  
                 header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-                header('Content-Disposition: attachment;filename="daochdd.xls"');
+                header('Content-Disposition: attachment;filename="'.$projectCode.'_项目提供方信息.xls"');
                 header('Cache-Control: max-age=0');
                 $objWriter = \PHPExcel_IOFactory::CreateWriter($obpe,"Excel2007");
                 $objWriter->save('php://output');
