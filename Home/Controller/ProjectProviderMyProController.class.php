@@ -520,13 +520,20 @@ class ProjectProviderMyProController extends Controller {
                         $condition["id"] = $vid;
                         $docInfo = $objUser->getDocInfo($condition);
                         $temp = array();
+                        if(empty($docInfo[0]["id"]))
+                        {
+                            continue;
+                        }
                         $temp["id"] = $docInfo[0]["id"];
                         $temp["token"] = md5(addToken($docInfo[0]["id"]));
                         $temp["name"] = $docInfo[0]["file_name"];
                         $temp["url"] = $docInfo[0]["file_rename"];
                         $projectInfo["picture_mul"][] = $temp;
                     }
-                    $projectInfo["picture_mul"][] = "";
+                    if($projectInfo['status']== 11)
+                    {
+                        $projectInfo["picture_mul"][] = "";
+                    }
                 }
                 else
                 {
