@@ -121,7 +121,6 @@ class InnerStaffController extends Controller {
         $projectInfo = $objProject->getProjectInfo($projectCode);
         if($rtype == 1){
             $proData['comment'] = $_POST['comment'];
-            // $proData['comment'] = "sldfjiofnosdkfj是的发生的";
             $res = $objProject->saveProjectDetail($projectCode, $projectInfo['project_type'], $proData);
             if($res > 0){
                 header('Content-Type: text/html; charset=utf-8');

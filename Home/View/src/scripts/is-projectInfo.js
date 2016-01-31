@@ -1,4 +1,5 @@
 $(function(){
+	var param = $.parseQueryParam();
 	$(".l-nav").find(".projectInfo").addClass("active");
 
 	$("#commentbtn").click(function(){ 
@@ -6,12 +7,20 @@ $(function(){
 
 		$.ajax({
 		    type: "post",
-		    url: "?c=InnerStaff&a=projectInfo" ,
-		    data: {	
+		    url: "?c=InnerStaff&a=projectInfo&no="+param.no+"&token="+param.token,
+		    data: {
 		    	comment: commenttexval,
 		    	rtype: 1
 		    },
 			dataType: "json"
-		}).done(function(data){});
+		}).done(function(data) {
+			if(data && data.code == "0") {
+				alert("保存成功！");
+			} else {
+				alert(data.msg || "保存失败！");
+			}
+		}).fail(function() {
+			alert("保存失败！");
+		});
 	});
 });
