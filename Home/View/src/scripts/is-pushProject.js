@@ -1,5 +1,7 @@
 $(function() {
 
+	var param = $.parseQueryParam();
+
 	$(".l-nav").find(".pushProject").addClass("active")
 		.children("a").attr("href", "javascript:;");
 	  
@@ -39,7 +41,7 @@ $(function() {
 		if(item_id != "")
 		{
 			$.confirm('<div id="u139" class="text">'+
-				'<p><span>项目编号：</span><span>******</span></p>'+
+				'<p><span>项目编号：</span><span>'+param.no+'</span></p>'+
 				'<p><span>融资机构：</span></p>'+str+
 				'<p><span style="visibility:hidden">融资机构：</span><span>确认推送？</span></p></div>').done(function()
 			{
@@ -71,7 +73,7 @@ $(function() {
 			
 			var sel_project=$(this);
 			$.confirm('<div id="u139" class="text">'+
-				'<p><span>项目编号：</span><span>******</span></p>'+
+				'<p><span>项目编号：</span><span>'+param.no+'</span></p>'+
 				'<p><span>融资机构：</span></p>'+
 				'<p><span style="visibility:hidden">融资机构：</span><span>'+str+'</span></p>'+
 				'<p><span style="visibility:hidden">融资机构：</span><span>确认推送？</span></p></div>').done(function()
