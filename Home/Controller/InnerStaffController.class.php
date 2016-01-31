@@ -550,46 +550,6 @@ class InnerStaffController extends Controller {
                 }
             }
         }
-        // $projectCode = $_POST['project_code'] ? $_POST['project_code']:$_GET['project_code'];
-        /*$projectCode = 'qwertyuio';
-        $objProject = D("Project", "Service");
-        $projectInfo = $objProject->getProjectInfo($projectCode);
-        if($rtype == 1){
-            $proData['comment'] = $_POST['comment'];
-            // $proData['comment'] = "sldfjiofnosdkfj是的发生的";
-            $res = $objProject->saveProjectDetail($projectCode, $projectInfo['project_type'], $proData);
-            if($res > 0){
-                header('Content-Type: text/html; charset=utf-8');
-                echo '{"code":"0","msg":"保存成功"}';
-            }else{
-                header('Content-Type: text/html; charset=utf-8');
-                echo '{"code":"-1","msg":"保存失败"}';
-            }
-        }else{
-            $projectDetail = $objProject->getProjectDetail($projectInfo['id'], $projectInfo['project_type']);
-            if ($_GET['display'] == 'json') {
-                header('Content-Type: text/html; charset=utf-8');
-                dump($projectDetail);
-                exit;
-            }
-            $this->assign("projectDetail", $projectDetail);
-            if($projectInfo['project_type'] == 1){
-                if($projectInfo['build_state'] == 1){
-                    $this->display("InnerStaff:housetop_nonbuild");
-                }elseif($projectInfo['build_state'] == 2){
-                    $this->display("InnerStaff:housetop_build");
-                }
-            }elseif($projectInfo['project_type'] == 2 || $projectInfo['project_type'] == 3){
-                if($projectInfo['build_state'] == 1){
-                    $this->display("InnerStaff:ground_nonbuild");
-                }elseif($projectInfo['build_state'] == 2){
-                    $this->display("InnerStaff:ground_build");
-                }
-            }else{
-                // 应该是异常界面
-                $this->display("User:login");
-            }
-        }*/
     }
 
     /**
@@ -1043,19 +1003,6 @@ class InnerStaffController extends Controller {
         $optype = $_POST['optype'] ? $_POST['optype']:$_GET['optype'];
         $projectObj = D("Project", "Service");
         $userObj = D("User", "Service");
-        // if($rtype == 1 && $optype == 'delete'){
-        //     $projectCode = $_GET['no'];
-        //     $mProjectCode = $_GET['token'];
-        //     isProjectCodeRight($projectCode, $mProjectCode);
-        //     $condition['status'] = $_POST['status'];
-        //     $condition['project_code'] = $projectCode;
-        //     $proInfo = $projectObj->where($condition)->find();
-        //     $res = $projectObj->deleteProjectService($proInfo['id']);
-        //     if($res){
-        //         header('Content-Type: text/html; charset=utf-8');
-        //         echo '{"code":"0","msg":"删除成功！"}';
-        //     }
-        // }else
         if($rtype == 1 && $optype == 'change'){
             $projectCode = $_GET['no'];
             $mProjectCode = $_GET['token'];
@@ -1073,9 +1020,6 @@ class InnerStaffController extends Controller {
             }elseif($status == 15){//已签融资合同
                 $newStatus = 31;
             }
-            // $projectCode = 'testintent';
-            // $oldStatus = 13;
-            // $newStatus = 12;
             $res = $projectObj->changeProjectStatus($projectCode, $oldStatus, $newStatus);
             if($res === true){
                 header('Content-Type: text/html; charset=utf-8');
@@ -1092,26 +1036,13 @@ class InnerStaffController extends Controller {
             $endDate = $_GET['endDate'];
             $status = $_GET['status'];
             $cooperationType = $_GET['cooperation_type'];
-            // $companyName = "哈哈哈公司";
-            // $companyType = "地面分布式-未建";
-            // $situation = '110000';
-            // $startDate = '2016-01-01' ;
-            // $endDate = '2016-01-11' ;
-            // $status = "已签意向书";
-            // $cooperationType = "EPC";
-            // header('Content-Type: text/html; charset=utf-8');
-            // dump($companyName);dump($companyType);
-            //     exit;
             $page = $_GET['page'];
             if(empty($page)) $page=1;
             $pageSize = 6;
-            // if($rtype == 1){
-                $projectList = $projectObj->searchService($companyName, $companyType, $situation, $startDate, $endDate, $status, $cooperationType, $page);
-                $projectTotal = $projectObj->searchService($companyName, $companyType, $situation, $startDate, $endDate, $status, $cooperationType, -1);
-            // }else{
-            //     $projectList = $projectObj->searchService(null, null, null, null, null, null, null, $page);
-            //     $projectTotal = $projectObj->searchService(null, null, null, null, null, null, null, -1);
-            // }
+
+            $projectList = $projectObj->searchService($companyName, $companyType, $situation, $startDate, $endDate, $status, $cooperationType, $page);
+            $projectTotal = $projectObj->searchService($companyName, $companyType, $situation, $startDate, $endDate, $status, $cooperationType, -1);
+
             $companyNameList = $userObj->getAllCompanyName();
             $data = array();
             $data["list"] = $projectList;
