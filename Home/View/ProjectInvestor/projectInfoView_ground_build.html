@@ -192,6 +192,7 @@
 							<span class="lb">并网时间</span>
 							<span class="lbw">{$data['projectInfo']['synchronize_date']}</span>
 						</li>
+<<<<<<< HEAD
 						<li>
 							<span class="lb">历史发电量数据（最近一年）</span>
 							<span class="lbw">{$data['projectInfo']['capacity_level']}万度</span>
@@ -215,6 +216,57 @@
 						<li>
 							<span class="lb">融资方式</span>
 							<span class="lbw">{$data['projectInfo']['financingType']}</span>
+=======
+						<li class="notall housetop_build_item ground_build_item">
+							<span class="lb not-empty">历史发电量数据（最近一年）</span>
+							<input name="electricity_data" value="{$data['projectInfo']['electricity_data']}"><span class="gray">万度</span>
+						</li>
+						<li class="notall ground_nonBuild_item ground_build_item">
+							<span class="lb not-empty">项目支架类型</span>
+							<select name="project_holder_type">
+								<option value="1" {$data['projectInfo']['project_holder_type'] == 1?'selected':''} >地面固定式</option>
+								<option value="2" {$data['projectInfo']['project_holder_type'] == 2?'selected':''} >单轴</option>
+								<option value="3" {$data['projectInfo']['project_holder_type'] == 3?'selected':''} >双轴</option>
+							</select>
+						</li>
+						<li class="notall ground_nonBuild_item ground_build_item">
+							<span class="lb not-empty">项目类型</span>
+							<select name="ground_project_type">
+								<option value="1" {$data['projectInfo']['ground_project_type'] == 1?'selected':''} >地面</option>
+								<option value="2" {$data['projectInfo']['ground_project_type'] == 2?'selected':''} >农光互补</option>
+								<option value="3" {$data['projectInfo']['ground_project_type'] == 3?'selected':''} >鱼光互补</option>
+							</select>
+						</li>
+						<li class="notall housetop_nonBuild_item ground_nonBuild_item">
+							<span class="lb not-empty">与能融网合作方式（可多选）</span>
+							<span class="citem"><input type="checkbox" name="cooperation_type[]" value="1" id="cooperation_type_nonBuild1" <?php if(in_array(1, $data['projectInfo']['cooperation_type'])) echo "checked";?>><label class="gray" for="cooperation_type_nonBuild1">EPC</label></span>
+							<span class="citem"><input type="checkbox" name="cooperation_type[]" value="2" id="cooperation_type_nonBuild2" <?php if(in_array(2, $data['projectInfo']['cooperation_type'])) echo "checked";?>><label class="gray" for="cooperation_type_nonBuild2">申请融资</label></span>
+							<span class="citem"><input type="checkbox" name="cooperation_type[]" value="3" id="cooperation_type_nonBuild3" <?php if(in_array(3, $data['projectInfo']['cooperation_type'])) echo "checked";?>><label class="gray" for="cooperation_type_nonBuild3">推介项目</label></span>
+						</li>
+						<li class="notall housetop_build_item ground_build_item">
+							<span class="lb not-empty">与能融网合作方式（可多选）</span>
+							<span class="citem"><input type="checkbox" name="cooperation_type[]" value="2" id="cooperation_type_build1" <?php if(in_array(2, $data['projectInfo']['cooperation_type'])) echo "checked";?>><label class="gray" for="cooperation_type_build1">申请融资</label></span>
+							<span class="citem"><input type="checkbox" name="cooperation_type[]" value="4" id="cooperation_type_build2" <?php if(in_array(4, $data['projectInfo']['cooperation_type'])) echo "checked";?>><label class="gray" for="cooperation_type_build2">转让</label></span>
+						</li>
+						<li>
+							<span class="lb not-empty">拟融资金额</span>
+							<input name="plan_financing" value="{$data['projectInfo']['plan_financing']}"><span class="gray">万元</span>
+						</li>
+						<li class="notall housetop_nonBuild_item ground_nonBuild_item">
+							<span class="lb not-empty">融资方式</span>
+							<select name="financing_type">
+								<option value="1" {$data['projectInfo']['financing_type'] == 1?'selected':''} >融资租赁（直租）</option>
+								<option value="2" {$data['projectInfo']['financing_type'] == 2?'selected':''} >融资租赁（回租）</option>
+								<option value="3" {$data['projectInfo']['financing_type'] == 3?'selected':''} >股权融资</option>
+							</select>
+						</li>
+						<li class="notall housetop_build_item ground_build_item">
+							<span class="lb not-empty">融资方式</span>
+							<select name="financing_type">
+								<option value="2" {$data['projectInfo']['financing_type'] == 2?'selected':''} >融资租赁（回租）</option>
+								<option value="3" {$data['projectInfo']['financing_type'] == 3?'selected':''} >股权融资</option>
+							</select>
+>>>>>>> 5ef54cc27e476c78d964bcbe1b38676b74e34c11
 						</li>
 					</ul>
 
