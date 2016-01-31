@@ -48,17 +48,17 @@ class InnerStaffController extends Controller {
                 //设置SHEET
                 $objActSheet = $obpe->setactivesheetindex(0);
                 //设置SHEET的名字
-                $obpe->getSheet(0)->setTitle('项目投资方信息');
+                $obpe->getActiveSheet()->setTitle('项目投资方信息');
                            
                 
 
                 //创建一个新的工作空间(sheet)
                 //内容的列的宽度设置
-                $objActSheet->getColumnDimension('D')->setAutoSize(true);
-                /*$objActSheet->getColumnDimension('B')->setAutoSize("100");
-                $objActSheet->getColumnDimension('C')->setAutoSize("30");
-                $objActSheet->getColumnDimension('D')->setAutoSize("100");
-                $objActSheet->getColumnDimension('E')->setAutoSize("100");*/
+                //$objActSheet->getColumnDimension('A')->setAutoSize(1000);
+                $obpe->getActiveSheet()->getColumnDimension('B')->setAutoSize(true);
+                $obpe->getActiveSheet()->getColumnDimension('A')->setAutoSize(true);
+                //$objActSheet->getColumnDimension('D')->setAutoSize(100);
+                //$objActSheet->getColumnDimension('E')->setAutoSize(100);
 
                 $obpe->createSheet();
                 $obpe->getactivesheet()->setcellvalue('A1', "账户详细信息");
