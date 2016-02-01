@@ -205,7 +205,7 @@ class AdminController extends Controller
         isAdminLogin($_COOKIE['adminName'],$_COOKIE['mAdminName']);
 
         $email = $_POST['email'];
-        $companyName = $_POST['companyName'];
+        // $companyName = $_POST['companyName'];
         $password = "123456";
         $userType = 3;
         if (empty($email)) {
@@ -215,7 +215,7 @@ class AdminController extends Controller
 
         $user = D('User','Service');
         $users = $user->registerService($email, $password, $userType);
-        $objUser = $user->changeProjectInvestorByManager($users['id'], $email, $companyName);
+        // $objUser = $user->changeProjectInvestorByManager($users['id'], $email, $companyName);
 
         $display = $_GET['display'];
         if ($display == 'json') {

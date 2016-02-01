@@ -3,15 +3,44 @@ namespace Home\Controller;
 use Think\Controller;
 class OurModeController extends Controller {
     public function index(){
-        $this->display();
+        if($_COOKIE["lang"]=="en")
+        {
+            $this->display(index_en);
+        }
+        else
+        {
+            $this->display();
+        }
     }
     public function ourProject(){
-        $this->display();
+        if($_COOKIE["lang"]=="en")
+        {
+            $this->display(ourProject_en);
+        }
+        else
+        {
+            $this->display();
+        }
     }
     public function finance(){
-        $this->display();
+        if($_COOKIE["lang"]=="en")
+        {
+            $this->display(finance_en);
+        }
+        else
+        {
+            $this->display();
+        }
     }
     public function manage(){
-        $this->display();
+        if($_COOKIE["lang"]=="en")
+        {
+            $this->display(manage_en);
+        }
+        else
+        {
+            $this->display();
+        }
     }
 }
+
