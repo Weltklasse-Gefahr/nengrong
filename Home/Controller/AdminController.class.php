@@ -35,7 +35,7 @@ class AdminController extends Controller
             
             echo '{"code":"0","msg":"登录成功！"}';
         }else {
-            $this->display("admin:admin_login");
+            $this->display("Admin:admin_login");
         }
     }
 
@@ -48,7 +48,7 @@ class AdminController extends Controller
         isAdminLogin($_COOKIE['adminName'],$_COOKIE['mAdminName']);
         $manager = D('Admin','Service');
         $objManager = $manager->logoutService();
-        $this->display("admin:admin_login");
+        $this->display("Admin:admin_login");
     }
 
     /**
@@ -85,7 +85,7 @@ class AdminController extends Controller
             }
             echo '{"code":"0","msg":"change password success"}';        
         }else{
-            $this->display("admin:admin_change_pwd");
+            $this->display("Admin:admin_change_pwd");
         }
     }
 
@@ -317,7 +317,7 @@ class AdminController extends Controller
             dump($users);
             exit;
         }    
-        $this->display("admin:admin_investors");
+        $this->display("Admin:admin_investors");
     }
 
     /**
@@ -338,7 +338,7 @@ class AdminController extends Controller
             exit;
         }
             
-        $this->display("admin:admin_inner_staff");
+        $this->display("Admin:admin_inner_staff");
     }
 
     /**
@@ -361,11 +361,11 @@ class AdminController extends Controller
         }
         
         if(intval($users[0]["user_type"]) == 2){
-            $this->display("admin:admin_inner_staff_edit");
+            $this->display("Admin:admin_inner_staff_edit");
         }else if(intval($users[0]["user_type"]) == 3){
-            $this->display("admin:admin_provider_edit");
+            $this->display("Admin:admin_provider_edit");
         }else if(intval($users[0]["user_type"]) == 4){
-            $this->display("admin:admin_investors_edit");
+            $this->display("Admin:admin_investors_edit");
         }else{
             echo '{"code":"-1","msg":"user type not exist"}';
         }
@@ -390,7 +390,7 @@ class AdminController extends Controller
             dump($projectList);
             exit;
         }    
-        $this->display("admin:admin_project");
+        $this->display("Admin:admin_project");
     }
 
     /**
