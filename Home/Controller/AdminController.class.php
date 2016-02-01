@@ -198,6 +198,35 @@ class AdminController extends Controller
 
     /**
     **@auth qianqiang
+    **@breif 投资方管理->添加项目提供方
+    **@date 2016.2.1
+    **/
+    public function addProjectProvider(){
+        isAdminLogin($_COOKIE['adminName'],$_COOKIE['mAdminName']);
+
+        $email = $_POST['email'];
+        $companyName = $_POST['companyName'];
+        $password = "123456";
+        $userType = 3;
+        if (empty($email)) {
+            echo '{"code":"-1","msg":"邮箱为空！"}';
+            exit;
+        }
+
+        $user = D('User','Service');
+        $users = $user->registerService($email, $password, $userType);
+        $objUser = $user->changeProjectInvestorByManager($users['id'], $email, $companyName);
+
+        $display = $_GET['display'];
+        if ($display == 'json') {
+            dump($objUser);
+            exit;
+        }
+        echo '{"code":"0","msg":"add user success"}';
+    }
+
+    /**
+    **@auth qianqiang
     **@breif 项目提供方管理->编辑
     **@date 2015.12.12
     **/

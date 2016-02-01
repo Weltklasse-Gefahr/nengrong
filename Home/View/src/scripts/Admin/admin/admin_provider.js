@@ -116,4 +116,44 @@ $(function(){
 		location.href="?c=Admin&a=getAllProjectProviderInfo";
 	});
 
+	$("#add_provider").click(function(){ 
+		var email= $.trim($("#add_mail").val());
+
+		if(!email || !company_name) {
+			warning();
+			return ;
+		}
+
+		$.ajax({
+		    type: "post",
+		    url: "?c=Admin&a=addProjectProvider" ,
+		    data: {
+		    	email: email
+		    },
+			dataType: "json"
+		}).done(function(data){
+			if (data.code== 0)
+				{
+					$("#modal-add-event").hide();
+					$("#myAlert_add_success").show();
+				}
+			else 
+				{
+					$("#myAlert_add_failed").show();
+				}
+		});
+
+		
+	});
+
+	$(".myAlert_add_success_closed").click(function(){
+		$("#myAlert_add_success").hide();
+		location.href="?c=Admin&a=getAllProjectProviderInfo";
+	});
+
+	$(".myAlert_add_failed_closed").click(function(){
+		$("#myAlert_add_failed").hide();
+		location.href="?c=Admin&a=getAllProjectProviderInfo";
+	});
+
 });
