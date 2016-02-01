@@ -17,6 +17,7 @@ class UserController extends Controller
     public function login(){
         if($_POST['rtype'] == 1 || $_GET['rtype'] == 1){
             $email = $_POST['email'];
+
             $password = $_POST['password'];
             $keepFlag = $_POST['keepFlag'];
             if (empty($email) || empty($password) ) {

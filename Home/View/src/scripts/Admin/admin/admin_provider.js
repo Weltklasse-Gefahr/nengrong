@@ -119,7 +119,7 @@ $(function(){
 	$("#add_provider").click(function(){ 
 		var email= $.trim($("#add_mail").val());
 
-		if(!email || !company_name) {
+		if(!email) {
 			warning();
 			return ;
 		}

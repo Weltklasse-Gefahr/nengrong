@@ -9,6 +9,7 @@ class NewsController extends Controller {
         //$baseDir = '/home/ubuntu/enetfPlatform/nengrong/Home/View/';
         //$this->assign('baseDir',$baseDir);
         $page  = $_GET['page'];
+		$display  = $_GET['display']; 
         if(empty($page)) 
         {
             $page=1;
@@ -20,7 +21,7 @@ class NewsController extends Controller {
         $conn=mysql_connect($mysql_server_name, $mysql_username,$mysql_password);
         $start = $page*5-5;
         $end = 5;
-        $strsql="SELECT id,title,time FROM news order by id desc limit $start,$end";
+        $strsql="SELECT id,title,time FROM news order by time desc limit $start,$end";
         $result=mysql_db_query($mysql_database, $strsql, $conn);
         $data = array();
         while($row=mysql_fetch_row($result))
@@ -36,9 +37,19 @@ class NewsController extends Controller {
         $data["count"] = $row['0'];
         $data["totalPage"] = ceil($data["count"]/5+1);
         $data["endPage"] = ceil($data["count"]/5);
-        //echo json_encode($data);
+		if($display == "json")
+        {
+			echo json_encode($data);exit;
+		}  
         $this->assign('arrData',$data);
-        $this->display();
+        if($_COOKIE["lang"]=="en")
+        {
+            $this->display(newsList_en);
+        }
+        else
+        {
+            $this->display();
+        }
     }
     public function newsDelete(){
         //$baseDir = '/home/ubuntu/enetfPlatform/nengrong/Home/View/';
@@ -73,7 +84,14 @@ class NewsController extends Controller {
         $data["endPage"] = ceil($data["count"]/5);
         //echo json_encode($data);
         $this->assign('arrData',$data);
-        $this->display();
+        if($_COOKIE["lang"]=="en")
+        {
+            $this->display(newsDelete_en);
+        }
+        else
+        {
+            $this->display();
+        }
     }
     public function newsContent(){
         $id  = $_GET['id'];
@@ -108,7 +126,14 @@ class NewsController extends Controller {
         //echo json_encode($data);
         //echo $data["list"][2];
         $this->assign('arrData',$data);
-        $this->display();
+        if($_COOKIE["lang"]=="en")
+        {
+            $this->display(newsContent_en);
+        }
+        else
+        {
+            $this->display();
+        }
     }
     public function docList(){
         $page  = $_GET['page'];
@@ -141,7 +166,14 @@ class NewsController extends Controller {
         $data["endPage"] = ceil($data["count"]/5);
         //echo json_encode($data);
         $this->assign('arrData',$data);
-        $this->display();
+        if($_COOKIE["lang"]=="en")
+        {
+            $this->display(docList_en);
+        }
+        else
+        {
+            $this->display();
+        }
     }
     public function docDelete(){
         $page  = $_GET['page'];
@@ -174,7 +206,14 @@ class NewsController extends Controller {
         $data["endPage"] = ceil($data["count"]/5);
         //echo json_encode($data);
         $this->assign('arrData',$data);
-        $this->display();
+        if($_COOKIE["lang"]=="en")
+        {
+            $this->display(docDelete_en);
+        }
+        else
+        {
+            $this->display();
+        }
     }
     public function downloadDoc(){
          $docId  = $_GET['docid'];
@@ -341,10 +380,24 @@ class NewsController extends Controller {
          }
     }
     public function docInsert(){
-        $this->display();
+        if($_COOKIE["lang"]=="en")
+        {
+            $this->display(docInsert_en);
+        }
+        else
+        {
+            $this->display();
+        }
     }
     public function newsInsert(){
-        $this->display();
+        if($_COOKIE["lang"]=="en")
+        {
+            $this->display(newsInsert_en);
+        }
+        else
+        {
+            $this->display();
+        }
     }
     public function uploadpic(){
 	    if ($_FILES["file"]["size"] < 20000)
@@ -373,3 +426,4 @@ class NewsController extends Controller {
 	    }
     }
 }
+
