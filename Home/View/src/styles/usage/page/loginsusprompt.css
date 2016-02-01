@@ -13,7 +13,7 @@
 .md .part1{
 	width: 550px;
 	font-size: 16px;
-	padding-left: 10px;
+	padding-left: 45px;
 	margin: 30px 20px 30px 20px;
 }
 .md .part1 a{
@@ -28,7 +28,7 @@
 .md .part2{
 	width: 550px;
 	font-size: 16px;
-	padding-left: 10px;
+	padding-left: 45px;
 	margin: 20px 20px 20px 20px;
 }
 .md .part2 dl{
@@ -39,7 +39,7 @@
 	text-align: center;
 	width: 350px;
 	padding-left: 10px;
-	margin: 40px 20px 30px 20px;
+	margin: 40px auto 30px auto;
 }
 .md .part3 a{
 	font-size: 14px;
