@@ -159,6 +159,10 @@ class InnerStaffController extends Controller {
         if(false !== strpos($fatherUrl,'a=pushProject'))
         {  
             $data = $this->pushProject($projectCode, null, $getJsonFlag, $innerToken);
+            if(empty($data)){
+                echo "<script type='text/javascript'>alert('没有推送记录');</script>";
+                exit;
+            }
             //echo json_encode($data);exit;
             $objActSheet = $obpe->setactivesheetindex(0);
             //设置SHEET的名字
@@ -1090,6 +1094,37 @@ class InnerStaffController extends Controller {
         }else{
             header('Content-Type: text/html; charset=utf-8');
             echo '{"code":"-1","msg":"删除失败！"}';
+        }
+    }
+
+    /**
+    **@auth qianqiang
+    **@breif 客服->修改密码
+    **@date 2015.12.05
+    **/
+    public function securityCenter()
+    {
+        isLogin($_COOKIE['email'], $_COOKIE['mEmail']);
+        authentication($_COOKIE['email'], 2);
+        if($_POST['rtype'] == 1 || $_GET['rtype'] == 1){
+            $email = $_COOKIE['email'];
+            $pwd = $_POST['password'];
+            $newPwd = $_POST['newPassword'];
+            if ( empty($pwd) || empty($newPwd) ) {
+                echo '{"code":"-1","msg":"新旧密码不可为空！"}';
+                exit;
+            }
+
+            $user = D('User','Service');
+            $objUser = $user->changePasswordService($email, $pwd, $newPwd);
+            if ($_GET['display'] == 'json') {
+                dump($objUser);
+                exit;
+            }
+            $user->logoutService();
+            echo '{"code":"0","msg":"success"}';
+        }else{
+            $this->display("InnerStaff:securityCenter");
         }
     }
 }
