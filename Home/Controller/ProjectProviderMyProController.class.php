@@ -363,6 +363,7 @@ class ProjectProviderMyProController extends Controller {
 
             if (empty($arrProInfo['project_code']))  
             {
+                //echo $_POST['project_type'];exit;
                 //插入
                 $getProjectCode = getProjectCode($_POST['project_type'], $_POST['financing_type'], $_POST['county'] );
                 $arrProInfo["project_code"] = $getProjectCode;
