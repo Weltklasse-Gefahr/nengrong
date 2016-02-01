@@ -110,6 +110,30 @@
           <div class="widget-title"> <span class="icon"><i class="icon-th"></i></span>
 
             <h5>项目提供方列表</h5>
+
+			<div class="buttons"> 
+				<a id="add-event" data-toggle="modal" href="#modal-add-event" class="btn btn-inverse btn-mini"><i class="icon-plus icon-white"></i>添加项目提供方</a>
+              <div aria-hidden="true" style="display: none;" class="modal hide" id="modal-add-event">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">×</button>
+                  <h3>添加项目提供方</h3>
+                </div>
+				<div class="modal-body">
+
+				  <p>项目提供方邮箱:</p>
+                  <p>
+                    <input id="add_mail" type="text">
+                  </p>
+
+				  <p>项目提供方公司名称:</p>
+                  <p>
+                    <input id="add_company_name" type="text">
+                  </p>
+                
+                </div>
+                <div class="modal-footer"> <a href="#" class="btn" data-dismiss="modal">取消</a> <a href="#" id="add_provider" class="btn btn-primary">添加</a> </div>
+              </div>
+			  </div>
 				
           </div>
 
@@ -239,6 +263,30 @@
               </div>
               <div class="modal-footer"> 
 				<a data-dismiss="modal" class="btn myAlert_delete_failed_closed" href="#">关闭</a> 
+			  </div>
+</div>
+<div id="myAlert_add_success" class="modal hide"  style="display: none;">
+              <div class="modal-header">
+                <button data-dismiss="modal" class="close myAlert_add_success_closed" type="button">×</button>
+                <h3>提示</h3>
+              </div>
+              <div class="modal-body">
+                <p>添加项目提供方成功！</p>
+              </div>
+              <div class="modal-footer"> 
+				<a data-dismiss="modal" class="btn myAlert_add_success_closed" href="#">关闭</a> 
+			  </div>
+</div>
+<div id="myAlert_add_failed" class="modal hide"  style="display: none;">
+              <div class="modal-header">
+                <button data-dismiss="modal" class="close myAlert_add_failed_closed" type="button">×</button>
+                <h3>提示</h3>
+              </div>
+              <div class="modal-body">
+                <p>添加项目提供方失败！</p>
+              </div>
+              <div class="modal-footer"> 
+				<a data-dismiss="modal" class="btn myAlert_add_failed_closed" href="#">关闭</a> 
 			  </div>
 </div>
 <!--Footer-part-->
