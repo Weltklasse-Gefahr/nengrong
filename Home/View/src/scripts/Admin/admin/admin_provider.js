@@ -118,7 +118,6 @@ $(function(){
 
 	$("#add_provider").click(function(){ 
 		var email= $.trim($("#add_mail").val());
-		var company_name= $.trim($("#add_company_name").val());
 
 		if(!email || !company_name) {
 			warning();
@@ -129,8 +128,7 @@ $(function(){
 		    type: "post",
 		    url: "?c=Admin&a=addProjectProvider" ,
 		    data: {
-		    	email: email,
-		    	companyName: company_name
+		    	email: email
 		    },
 			dataType: "json"
 		}).done(function(data){
