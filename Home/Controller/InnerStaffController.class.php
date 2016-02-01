@@ -1018,10 +1018,22 @@ class InnerStaffController extends Controller {
             }elseif($status == 12){//已提交
                 $newStatus = 12;
             }elseif($status == 14){//已尽职调查
+                if($oldStatus == 12){
+                    echo '{"code":"-1","msg":"项目不可修改为已尽职调查"}';
+                    exit;
+                }
                 $newStatus = 22;
             }elseif($status == 13){//已签意向书
+                if($oldStatus == 12 || $oldStatus == 13 || $oldStatus == 22){
+                    echo '{"code":"-1","msg":"项目不可修改为已签意向书"}';
+                    exit;
+                }
                 $newStatus = 23;
             }elseif($status == 15){//已签融资合同
+                if($oldStatus == 12 || $oldStatus == 13 || $oldStatus == 22 || $oldStatus == 23){
+                    echo '{"code":"-1","msg":"项目不可修改为已签融资合同"}';
+                    exit;
+                }
                 $newStatus = 31;
             }
             $res = $projectObj->changeProjectStatus($projectCode, $oldStatus, $newStatus);
