@@ -4,3 +4,7 @@
 #4. 导出按钮
 5. 租赁资金有两个
 #6. 网站备案号添加
+7.上传附件允许格式：
+	1、所有图片格式，包括 .jpg .jpeg .gif .png .bmp .psd等；所有文档格式
+	2、所有文档格式，包括.doc .docx .xls .xlsx .ppt .pptx .txt .pdf
+	3、所有压缩格式，包括rar,zip,tar,7-zip,gzip,bz2等
