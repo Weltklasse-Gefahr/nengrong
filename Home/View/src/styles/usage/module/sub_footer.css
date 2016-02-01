@@ -1,8 +1,7 @@
 /* ¶þ¼¶Ò³ÃæÒ³½Å */
-.sub-footer{
+.sub-footer {
 	background-color:#000000;
-	height: 58px;
-    line-height: 58px;
+	/*padding: 10px 0;*/
     width: 100%;
     min-width: 1200px;
     text-align: center;
@@ -10,9 +9,18 @@
     font-size: 14px;
 }
 
-.sub-footer a{
+.sub-footer .info {
+    height: 58px;
+    line-height: 58px;
+}
+
+.sub-footer .icp {
+
+}
+
+.sub-footer a {
 	color:#fff;
 }
-.sub-footer a:hover{
+.sub-footer a:hover {
 	color:#666;
 }
