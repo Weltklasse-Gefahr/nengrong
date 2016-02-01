@@ -254,4 +254,15 @@ class UserController extends Controller
     //     // echo json_encode($new);
     // }
 
+    // public function adduser123(){
+    //     $userAdd = M('user');
+    //     $data['email'] = "lufang@eifesun.com";
+    //     $data['password'] = md5("123456");
+    //     $data['user_type'] = 3;
+    //     $data['status'] = 1;
+    //     $data['create_date'] = date("Y-m-d H:i:s",time());
+    //     $data['change_date'] = date("Y-m-d H:i:s",time());
+    //     $userAdd->add($data);
+    // }
+
 }
