@@ -87,7 +87,9 @@ class UserController extends Controller
                 dump($users);
                 exit;
             }
-            echo '{"code":"0","msg":"注册成功！","url":"?c=User&a=loginsus"}';
+
+            $key = urlencode(base64_encode($email)); 
+            echo '{"code":"0","msg":"注册成功！","url":"?c=User&a=loginsusprompt&key='.$key.'"}';
 
             $res = $user->sendEmail($email, 0);
             if($res == false){
@@ -98,6 +100,18 @@ class UserController extends Controller
         }else {
             $this->display("User:register");
         }
+    }
+
+    /**
+    **@auth qianqiang
+    **@breif 注册成功
+    **@date 
+    **/ 
+    public function loginsusprompt(){
+        $key = $_GET['key'];
+        $data['email'] = base64_decode(urldecode($key));
+        $this->assign('data', $data);
+        $this->display("User:loginsusprompt");
     }
 
     /**
@@ -201,8 +215,8 @@ class UserController extends Controller
         $user = D('User','Service');
         $res = $user->activeService($key);
         if($res === true){
-            header("Location: ?c=User&a=login");
-            $this->display("User:login");
+            header("Location: ?c=User&a=loginsus");
+            // $this->display("User:login");
         }else{
             $data['errmsg'] = $res;
             $this->assign('data', $data);

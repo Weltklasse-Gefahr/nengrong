@@ -72,11 +72,10 @@ class UserService extends Model{
 		$userAdd = M('user');
         $data['email'] = $email;
         $data['password'] = md5($password);
-        if(empty($userType) ) {
+        if(empty($userType) ) {//注册时$userType为空
             $data['user_type'] = 3;
             $data['status'] = 2;
-        }
-        else{
+        }else{//管理员添加时$userType不为空
             $data['user_type'] = $userType;
             $data['status'] = 1;
         }
