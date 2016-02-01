@@ -107,6 +107,7 @@
 	float: left;
 	text-align: center;
 	margin-right: 16px;
+	height: 144px;
 }
 
 .r-content form .part1 .item .img-ct:nth-of-type(6n) {

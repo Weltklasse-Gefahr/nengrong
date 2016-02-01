@@ -29,8 +29,8 @@ $(function() {
 			$tmp = $('<div><ul class="status-list">\
 <li><input id="r1" type="radio" name="status" value="11"/><label for="r1">未提交</label></li>\
 <li><input id="r2" type="radio" name="status" value="12"/><label for="r2">已提交</label></li>\
-<li><input id="r3" type="radio" name="status" value="13"/><label for="r3">已签意向书</label></li>\
 <li><input id="r4" type="radio" name="status" value="14"/><label for="r4">已尽职调查</label></li>\
+<li><input id="r3" type="radio" name="status" value="13"/><label for="r3">已签意向书</label></li>\
 <li><input id="r5" type="radio" name="status" value="15"/><label for="r5">已签融资合同</label></li>\
 </ul></div>');
 
