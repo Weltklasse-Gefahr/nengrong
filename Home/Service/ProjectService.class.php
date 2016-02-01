@@ -185,6 +185,7 @@ class ProjectService extends Model{
             $data['component_company'] = $ArrCompany[$index];
             $data['component_type'] = $ArrType[$index];
             $data['component_count'] = $ArrCount[$index];
+            $index = $index +1;
             $result = $obj->add($data);
         }
         return $result;
@@ -258,6 +259,7 @@ class ProjectService extends Model{
             $data['inverter_company'] = $ArrCompany[$index];
             $data['inverter_type'] = $ArrType[$index];
             $data['inverter_count'] = $ArrCount[$index];
+            $index = $index+1;
             $result = $obj->add($data);
         }
         return $result;
