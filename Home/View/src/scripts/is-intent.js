@@ -74,7 +74,7 @@ $(function() {
 			return false;
 		});
 
-		if($('input[type=submit][data-optype="submit"]').is(":disabled")) {
+		if($('input[type=submit][data-optype="save"]').is(":disabled")) {
 			ue.disable(true);
 		}
     });
