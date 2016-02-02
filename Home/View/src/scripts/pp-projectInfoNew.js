@@ -496,8 +496,8 @@ $(function() {
 					alert("请填写租赁租金");
 					$rent_pay.focus();
 					return false;
-				} else if( !($rent_pay_val && /^\d+(\.\d+)?$/.test($rent_pay_val) && parseFloat($rent_pay_val) > 0) ) {
-					alert("租赁租金应为大于0的数字");
+				} else if( !($rent_pay_val && /^\d+(\.\d+)?$/.test($rent_pay_val)) ) {
+					alert("租赁租金应为数字");
 					$rent_pay.focus();
 					return false;
 				}

@@ -8,27 +8,27 @@
 	height: 8px;
 	margin: 20px auto;
 	position: relative;
-	background: #FD7945;
+	background: #ffa500;
 }
 
-.md .td:before {
+.md .td .before {
 	display: block;
 	width: 34px;
 	height: 34px;
 	position: absolute;
 	border-radius: 50%;
-	background: #FD7945;
-	top:-17px;
-	left:-17px;
+	background: #ffa500;
+	top:-15px;
+	left:-15px;
 }
-.md .td:after {
+.md .td .after {
 	width: 34px;
 	height: 34px;
 	position: absolute;
 	border-radius: 50%;
-	background: #FD7945;
-	top:-17px;
-	right:-17px;
+	background: #ffa500;
+	top:-15px;
+	right:-15px;
 }
 
 .md .warning {
