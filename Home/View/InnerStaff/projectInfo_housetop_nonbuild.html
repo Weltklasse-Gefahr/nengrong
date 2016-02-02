@@ -113,7 +113,8 @@
 			<ul class="detail part2">
 				<li>
 					<span class="lb">屋顶类型</span>
-					<span class="lbw">{$data['projectInfo']['housetopType']}</span>
+					<span class="lbw"><if condition="$data.projectInfo.housetop_type eq 0"> {$data['projectInfo']['housetop_type_other']}
+<else />{$data['projectInfo']['housetopType']}</if></span>
 				</li>
 				<li>
 					<span class="lb">屋顶面积</span>

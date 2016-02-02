@@ -391,12 +391,12 @@ class UserService extends Model{
 
 	/**
     **@auth qianqiang
-    **@breif 得到所有用户的公司名称
+    **@breif 得到所有项目提供方的公司名称
     **@date 2016.1.10
     **/
 	public function getAllCompanyName(){
 		$userObj = M('User');
-		$sql = "select distinct company_name from enf_user where company_name is not null and company_name != '';";
+		$sql = "select distinct company_name from enf_user where company_name is not null and company_name != '' and user_type=3;";
 		$companyName = $userObj->query($sql);
 		return $companyName;
 	}
