@@ -85,7 +85,8 @@
 			<ul class="detail part2">
 				<li>
 					<span class="lb">土地性质</span>
-					<span class="lbw">{$data['projectInfo']['groundProperty']}</span>
+					<span class="lbw"><if condition="$data.projectInfo.ground_property eq 0"> {$data['projectInfo']['ground_property_other']}
+<else />{$data['projectInfo']['groundProperty']}</if></span>
 				</li>
 				<li>
 					<span class="lb">租赁土地面积</span>
