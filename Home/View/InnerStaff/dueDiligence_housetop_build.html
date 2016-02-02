@@ -154,18 +154,6 @@
 								</td>
 							</tr>
 							<tr>
-								<td>评价内容</td>
-								<td>
-									<textarea name="evaluation_content" readonly><?php if($evaluationInfo['evaluation_content']){ 
-										 echo $evaluationInfo['evaluation_content'];
-										 }else{ ?>A.文件审查
-B.工程建设质量和系统运行情况
-C.项目建设投资情况
-D.项目经济收益情况<?php } ?>
-									</textarea>
-								</td>
-							</tr>
-							<tr>
 								<td>评价情况</td>
 								<td>
 									<div class="item">
@@ -344,13 +332,13 @@ D.项目经济收益情况<?php } ?>
 								</div>
 								<div class="item">
 									<img src="/EnergyFe/img/dueDiligence/3.png"/>
-									<div><span class="result">{$evaluationInfo['lcoe']}</span></div>
+									<div><span class="result">{$evaluationInfo['lcoe']}元</span></div>
 									<span>LCOE</span>
 								</div>
 							</div>
 							<div class="bottom">
 								<span>净现值npv<span class="result">{$evaluationInfo['npv']}</span>万元</span>
-								<span class="last">电站资产累计现值<span class="result">{$evaluationInfo['power_asset_current_value']}</span></span>
+								<span class="last">电站资产累计现值<span class="result">{$evaluationInfo['power_asset_current_value']}</span>万元</span>
 							</div>
 						</div>
 						<img class="rec" src="/EnergyFe/img/dueDiligence/4.png" />
@@ -391,12 +379,6 @@ D.项目经济收益情况<?php } ?>
 											</tr>
 										</tbody>
 									</table>
-								</td>
-							</tr>
-							<tr>
-								<td>评价内容</td>
-								<td>
-									<textarea readonly>{$evaluationInfo['evaluation_content']}</textarea>
 								</td>
 							</tr>
 							<tr>
