@@ -67,11 +67,11 @@ class CommonService{
 			return null;
 		}
 		if(1 == $no){
-			$synchronizeTypeStr = '自发自用';
+			$synchronizeTypeStr = '全部自发自用';
 		}elseif(2 == $no){
 			$synchronizeTypeStr = '全额上网';
 		}elseif(3 == $no){
-			$synchronizeTypeStr = '自发自用全额上网';
+			$synchronizeTypeStr = '自发自用，余额上网';
 		}else{
 			$synchronizeTypeStr = '其他';
 		}

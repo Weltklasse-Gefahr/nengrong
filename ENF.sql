@@ -190,7 +190,7 @@ create table enf_housetop
    has_pollution        varchar(8) comment '有无污染源（1有、2无）', 
    transformer_capacity double comment '上级变压器容量',
    voltage_level        double comment '并网电压等级',
-   synchronize_type     int comment '并网方式（1自发自用、2全额上网、3自发自用全额上网）',
+   synchronize_type     int comment '并网方式（1全部自发自用、2全额上网、3自发自用，余额上网）',
    electricity_distance double comment '电网接入点距离',
    plan_build_volume    double comment '拟建设容量',
    cooperation_type     varchar(30) comment '与能融网合作方式:1EPC、2申请融资、3推介项目、4转让',
