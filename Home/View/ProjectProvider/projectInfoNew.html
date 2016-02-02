@@ -446,6 +446,17 @@
 							<option value="3" {$data['financing_type'] == 3?'selected':''} >股权融资</option>
 						</select>
 					</li>
+					<li>
+						<span class="lb not-empty">行业</span>
+						<select name="project_industry">
+							<option value="I" {$data['project_industry'] == 'I' ? 'selected' : ''} >工业</option>
+							<option value="C" {$data['project_industry'] == 'C' ? 'selected' : ''} >商业</option>
+							<option value="A" {$data['project_industry'] == 'A' ? 'selected' : ''} >农业</option>
+							<option value="R" {$data['project_industry'] == 'R' ? 'selected' : ''} >居民</option>
+							<option value="F" {$data['project_industry'] == 'F' ? 'selected' : ''} >渔光互补</option>
+							<option value="X" {$data['project_industry'] == 'X' ? 'selected' : ''} >其他</option>
+						</select>
+					</li>
 				</ul>
 				<p class="title">项目文件</p>
 				<ul class="detail part2">
