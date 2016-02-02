@@ -171,7 +171,7 @@ function uploadFileOne($file, $savePath = ''){
 **@return 更新成功返回文件的存储路径  上传失败返回false
 **@date 2015.12.05
 **/
-function getProjectCode($projectType, $area, $financingType){
+function getProjectCode($projectType, $area, $financingType, $projectIndustry){
     //项目类型
     if($projectType == 1) //屋顶
     {
