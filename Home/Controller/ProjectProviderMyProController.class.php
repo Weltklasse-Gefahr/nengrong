@@ -120,6 +120,7 @@ class ProjectProviderMyProController extends Controller {
             $arrInfor['transformer_capacity'] = $_POST['transformer_capacity'];//上级变压器容量
             $arrInfor['voltage_level'] = $_POST['voltage_level'];//并网电压等级
             $arrInfor['plan_financing'] = $_POST['plan_financing'];//拟融资金额
+            $arrInfor['project_industry'] = $_POST['project_industry'];//行业选择项
 
 
             //上传公用的图片和文件
@@ -363,8 +364,10 @@ class ProjectProviderMyProController extends Controller {
 
             if (empty($arrProInfo['project_code']))  
             {
+                //echo $_POST['project_type'];exit;
                 //插入
-                $getProjectCode = getProjectCode($_POST['project_type'], $_POST['financing_type'], $_POST['county'] );
+                $getProjectCode = getProjectCode($_POST['project_type'], 
+                     $_POST['financing_type'], $_POST['county'],$_POST['project_industry']);
                 $arrProInfo["project_code"] = $getProjectCode;
                 //$arrProInfo["project_code"] = '2323DDDDDDDDDDd'.time();  //之后需要加一下这个生成项目id的功能
                 $objUser  = D("User","Service");

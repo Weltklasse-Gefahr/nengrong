@@ -66,7 +66,8 @@ $(function() {
 application/msword,application/vnd.ms-excel,application/vnd.ms-powerpoint,\
 .docx,xlsx,pptx,\
 text/plain,application/pdf,\
-application/zip,application/x-zip-compressed',
+application/zip,application/x-zip-compressed,\
+rar,arj,gz,z,tar,7z,gzip,bz2',
 
         overrideEvents: ['onUploadComplete'],
 
@@ -164,8 +165,7 @@ application/zip,application/x-zip-compressed',
 			"IRR": {
 				"required": true,
    				"number": true,
-   				"min": 0,
-   				"max": 100
+   				"min": 0
 			},
 			"static_payback_time": {
 				"required": true,
@@ -250,9 +250,8 @@ application/zip,application/x-zip-compressed',
 		messages: {
 			"IRR": {
 				"required": "请填写内部收益率",
-				"number": "内部收益率应为[0,100]之间的数字",
-				"min": "内部收益率应为[0,100]之间的数字",
-				"max": "内部收益率应为[0,100]之间的数字"
+				"number": "内部收益率应为大于0的数字",
+				"min": "内部收益率应为大于0的数字"
 			},
 			"static_payback_time": {
 				"required": "请填写静态投资回收年",

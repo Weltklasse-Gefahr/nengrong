@@ -1005,7 +1005,7 @@ class ProjectService extends Model{
 
     /**
     **@auth qianqiang
-    **@breif 修改项目状态，如果存在保存的状态删掉，如果有尽职调查删掉
+    **@breif 修改项目状态，如果存在保存的状态删掉，如果有尽职调查删掉,如果有推送项目撤销
     **@param projectCode 项目编码
     **@param oldStatus 需要修改项目的当前状态
     **@param newStatus 需要改后的项目状态
@@ -1070,6 +1070,18 @@ class ProjectService extends Model{
                     echo '{"code":"-1","msg":"delete evaluation error"}';
                     exit;
                 }
+            }
+        }
+        //如果新状态为11或12或13或22，如果有推送记录，删除
+        $pushProjectObj = M('Pushproject');
+        if($newStatus == 11 || $newStatus == 12 || $newStatus == 13 || $newStatus == 22){
+            $pcondition['project_code'] = $projectInfo['project_code'];
+            $pcondition['delete_flag'] = 0;
+            $edata['delete_flag'] = 9999;
+            $res = $pushProjectObj->where($pcondition)->save($edata);
+            if($res === false){
+                echo '{"code":"-1","msg":"delete evaluation error"}';
+                exit;
             }
         }
         return true;

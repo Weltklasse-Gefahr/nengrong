@@ -384,6 +384,7 @@ class ProjectInvestorMyProController extends Controller {
         $obj   = new ProjectProviderMyProController();
         $innerToken = "InternalCall";
         $data = $obj->projectInfoEdit($projectCode, null, $getJsonFlag,$innerToken);
+        // dump($data);exit;
         //echo $data['project_type'];exit;
         //获取签署意向书信息 
         if($optype == 'agree' &&  $rtype == 1)

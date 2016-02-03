@@ -363,9 +363,9 @@
 						<li class="notall housetop_nonBuild_item housetop_build_item">
 							<span class="lb not-empty">并网方式</span>
 							<select name="synchronize_type">
-								<option value="1" {$data['projectInfo']['synchronize_type'] == 1?'selected':''}>自发自用</option>
+								<option value="1" {$data['projectInfo']['synchronize_type'] == 1?'selected':''}>全部自发自用</option>
 								<option value="2" {$data['projectInfo']['synchronize_type'] == 2?'selected':''}>全额上网</option>
-								<option value="3" {$data['projectInfo']['synchronize_type'] == 3?'selected':''}>自发自用,全额上网</option>
+								<option value="3" {$data['projectInfo']['synchronize_type'] == 3?'selected':''}>自发自用，余额上网</option>
 							</select>
 						</li>
 						<li class="notall ground_nonBuild_item ground_build_item">
@@ -471,6 +471,17 @@
 							<select name="financing_type">
 								<option value="2" {$data['projectInfo']['financing_type'] == 2?'selected':''} >融资租赁（回租）</option>
 								<option value="3" {$data['projectInfo']['financing_type'] == 3?'selected':''} >股权融资</option>
+							</select>
+						</li>
+						<li>
+							<span class="lb not-empty">行业</span>
+							<select name="project_industry">
+								<option value="I" {$data['projectInfo']['project_industry'] == 'I' ? 'selected' : ''} >工业</option>
+								<option value="C" {$data['projectInfo']['project_industry'] == 'C' ? 'selected' : ''} >商业</option>
+								<option value="A" {$data['projectInfo']['project_industry'] == 'A' ? 'selected' : ''} >农业</option>
+								<option value="R" {$data['projectInfo']['project_industry'] == 'R' ? 'selected' : ''} >居民</option>
+								<option value="F" {$data['projectInfo']['project_industry'] == 'F' ? 'selected' : ''} >渔光互补</option>
+								<option value="X" {$data['projectInfo']['project_industry'] == 'X' ? 'selected' : ''} >其他</option>
 							</select>
 						</li>
 					</ul>

@@ -57,11 +57,11 @@
 					<ul class="detail part1">
 						<li class="clrfix">
 							<span class="lb">项目类型：</span>
-							<span class="lbw">{$data['projectInfo']['typeStr']}</span>
+							<span class="lbw">{$data['dueDiligence']['projectDetail']['state_type']}</span>
 						</li>
 						<li class="clrfix">
 							<span class="lb">项目地点：</span>
-							<span class="lbw">{$data['projectInfo']['areaStr']}</span>
+							<span class="lbw">{$data['dueDiligence']['areaArray'][3]}</span>
 						</li>
 						<li class="clrfix">
 							<span class="lb">项目图片：</span>
@@ -124,7 +124,8 @@
 					<ul class="detail part2">
 						<li>
 							<span class="lb">屋顶类型</span>
-							<span class="lbw">{$data['projectInfo']['housetopType']}</span>
+							<span class="lbw"><if condition="$data.projectInfo.housetop_type eq 0"> {$data['projectInfo']['housetop_type_other']}
+<else />{$data['projectInfo']['housetopType']}</if></span>
 						</li>
 						<li>
 							<span class="lb">屋顶面积</span>
@@ -140,7 +141,8 @@
 						</li>
 						<li>
 							<span class="lb">屋顶朝向</span>
-							<span class="lbw">{$data['projectInfo']['housetopDirection']}</span>
+							<span class="lbw"><if condition="$data.projectInfo.housetop_direction eq 0"> {$data['projectInfo']['housetop_direction_other']}
+<else />{$data['projectInfo']['housetopDirection']}</if></span>
 						</li>
 						<li>
 							<span class="lb">屋顶活载荷</span>

@@ -194,7 +194,7 @@
 					</li>
 					<li>
 						<span class="lb not-empty">屋顶产权证明</span>
-						<input type="file" accept="application/pdf,application/msword,application/vnd.ms-powerpoint,aplication/zip" name="housetop_property_prove" style="visibility: hidden;" data-url="{$data['housetop_property_prove']['url']}" data-name="{$data['housetop_property_prove']['name']}" data-id="{$data['housetop_property_prove']['id']}" />
+						<input type="file" accept="image/*,application/msword,application/vnd.ms-excel,application/vnd.ms-powerpoint,.docx,xlsx,pptx,text/plain,application/pdf,application/zip,application/x-zip-compressed,rar,arj,gz,z,tar,7z,gzip,bz2" name="housetop_property_prove" style="visibility: hidden;" data-url="{$data['housetop_property_prove']['url']}" data-name="{$data['housetop_property_prove']['name']}" data-id="{$data['housetop_property_prove']['id']}" />
 					</li>
 					<li>
 						<span class="lb not-empty">年用电量</span>
@@ -206,7 +206,7 @@
 					</li>
 					<li>
 						<span class="gray not-empty">电费单(最近一年)(备注：请上传近12个月，每月电费明细)</span>
-						<input type="file" accept="application/pdf,application/msword,application/vnd.ms-powerpoint,aplication/zip" name="electricity_pay_list" style="visibility: hidden;" data-url="{$data['electricity_pay_list']['url']}" data-name="{$data['electricity_pay_list']['name']}" data-id="{$data['electricity_pay_list']['id']}" />
+						<input type="file" accept="image/*,application/msword,application/vnd.ms-excel,application/vnd.ms-powerpoint,.docx,xlsx,pptx,text/plain,application/pdf,application/zip,application/x-zip-compressed,rar,arj,gz,z,tar,7z,gzip,bz2" name="electricity_pay_list" style="visibility: hidden;" data-url="{$data['electricity_pay_list']['url']}" data-name="{$data['electricity_pay_list']['name']}" data-id="{$data['electricity_pay_list']['id']}" />
 					</li>
 				</ul>
 				<p class="title notall housetop_nonBuild_item housetop_build_item">屋顶情况</p>
@@ -334,9 +334,9 @@
 					<li class="notall housetop_nonBuild_item housetop_build_item">
 						<span class="lb not-empty">并网方式</span>
 						<select name="synchronize_type">
-							<option value="1" {$data['synchronize_type'] == 1?'selected':''}>自发自用</option>
+							<option value="1" {$data['synchronize_type'] == 1?'selected':''}>全部自发自用</option>
 							<option value="2" {$data['synchronize_type'] == 2?'selected':''}>全额上网</option>
-							<option value="3" {$data['synchronize_type'] == 3?'selected':''}>自发自用,全额上网</option>
+							<option value="3" {$data['synchronize_type'] == 3?'selected':''}>自发自用，余额上网</option>
 						</select>
 					</li>
 					<li class="notall ground_nonBuild_item ground_build_item">
@@ -446,6 +446,17 @@
 							<option value="3" {$data['financing_type'] == 3?'selected':''} >股权融资</option>
 						</select>
 					</li>
+					<li>
+						<span class="lb not-empty">行业</span>
+						<select name="project_industry">
+							<option value="I" {$data['project_industry'] == 'I' ? 'selected' : ''} >工业</option>
+							<option value="C" {$data['project_industry'] == 'C' ? 'selected' : ''} >商业</option>
+							<option value="A" {$data['project_industry'] == 'A' ? 'selected' : ''} >农业</option>
+							<option value="R" {$data['project_industry'] == 'R' ? 'selected' : ''} >居民</option>
+							<option value="F" {$data['project_industry'] == 'F' ? 'selected' : ''} >渔光互补</option>
+							<option value="X" {$data['project_industry'] == 'X' ? 'selected' : ''} >其他</option>
+						</select>
+					</li>
 				</ul>
 				<p class="title">项目文件</p>
 				<ul class="detail part2">
@@ -455,7 +466,7 @@
 							<option value="1" {$data['project_backup']['name']?'selected':''}>有</option>
 							<option value="2" {$data['project_backup']['name']?'':$data['project_code']?'selected':''}>无</option>
 						</select>
-						<input type="file" accept="application/pdf,application/msword,application/vnd.ms-powerpoint,aplication/zip" name="project_backup" style="visibility: hidden;"  data-url="{$data['project_backup']['url']}" data-name="{$data['project_backup']['name']}" data-id="{$data['project_backup']['id']}"/>
+						<input type="file" accept="image/*,application/msword,application/vnd.ms-excel,application/vnd.ms-powerpoint,.docx,xlsx,pptx,text/plain,application/pdf,application/zip,application/x-zip-compressed,rar,arj,gz,z,tar,7z,gzip,bz2" name="project_backup" style="visibility: hidden;"  data-url="{$data['project_backup']['url']}" data-name="{$data['project_backup']['name']}" data-id="{$data['project_backup']['id']}"/>
 					</li>
 					<li>
 						<span class="lb">电网接入备案</span>
@@ -463,7 +474,7 @@
 							<option value="1" {$data['electricity_backup']['name']?'selected':''}>有</option>
 							<option value="2" {$data['electricity_backup']['name']?'':$data['project_code']?'selected':''}>无</option>
 						</select>
-						<input type="file" accept="application/pdf,application/msword,application/vnd.ms-powerpoint,aplication/zip" name="electricity_backup" style="visibility: hidden;" data-url="{$data['electricity_backup']['url']}" data-name="{$data['electricity_backup']['name']}" data-id="{$data['electricity_backup']['id']}" />
+						<input type="file" accept="image/*,application/msword,application/vnd.ms-excel,application/vnd.ms-powerpoint,.docx,xlsx,pptx,text/plain,application/pdf,application/zip,application/x-zip-compressed,rar,arj,gz,z,tar,7z,gzip,bz2" name="electricity_backup" style="visibility: hidden;" data-url="{$data['electricity_backup']['url']}" data-name="{$data['electricity_backup']['name']}" data-id="{$data['electricity_backup']['id']}" />
 					</li>
 					<li class="notall housetop_nonBuild_item housetop_build_item">
 						<span class="lb">屋顶租赁协议</span>
@@ -471,7 +482,7 @@
 							<option value="1" {$data['house_rent_agreement']['name']?'selected':''}>有</option>
 							<option value="2" {$data['house_rent_agreement']['name']?'':$data['project_code']?'selected':''}>无</option>
 						</select>
-						<input type="file" accept="application/pdf,application/msword,application/vnd.ms-powerpoint,aplication/zip" name="house_rent_agreement" style="visibility: hidden;" data-url="{$data['house_rent_agreement']['url']}" data-name="{$data['house_rent_agreement']['name']}" data-id="{$data['house_rent_agreement']['id']}"/>
+						<input type="file" accept="image/*,application/msword,application/vnd.ms-excel,application/vnd.ms-powerpoint,.docx,xlsx,pptx,text/plain,application/pdf,application/zip,application/x-zip-compressed,rar,arj,gz,z,tar,7z,gzip,bz2" name="house_rent_agreement" style="visibility: hidden;" data-url="{$data['house_rent_agreement']['url']}" data-name="{$data['house_rent_agreement']['name']}" data-id="{$data['house_rent_agreement']['id']}"/>
 					</li>
 					<li class="notall ground_nonBuild_item ground_build_item">
 						<span class="lb">土地租赁协议</span>
@@ -479,7 +490,7 @@
 							<option value="1" {$data['ground_rent_agreement']['name']?'selected':''}>有</option>
 							<option value="2" {$data['ground_rent_agreement']['name']?'':$data['project_code']?'selected':''}>无</option>
 						</select>
-						<input type="file" accept="application/pdf,application/msword,application/vnd.ms-powerpoint,aplication/zip" name="ground_rent_agreement" style="visibility: hidden;" data-url="{$data['ground_rent_agreement']['url']}" data-name="{$data['ground_rent_agreement']['name']}" data-id="{$data['ground_rent_agreement']['id']}" />
+						<input type="file" accept="image/*,application/msword,application/vnd.ms-excel,application/vnd.ms-powerpoint,.docx,xlsx,pptx,text/plain,application/pdf,application/zip,application/x-zip-compressed,rar,arj,gz,z,tar,7z,gzip,bz2" name="ground_rent_agreement" style="visibility: hidden;" data-url="{$data['ground_rent_agreement']['url']}" data-name="{$data['ground_rent_agreement']['name']}" data-id="{$data['ground_rent_agreement']['id']}" />
 					</li>
 					<li class="notall housetop_nonBuild_item housetop_build_item">
 						<span class="lb">租赁年限</span>
@@ -495,7 +506,7 @@
 							<option value="1" {$data['power_manage_agreement']['name']?'selected':''}>有</option>
 							<option value="2" {$data['power_manage_agreement']['name']?'':$data['project_code']?'selected':''}>无</option>
 						</select>
-						<input type="file" accept="application/pdf,application/msword,application/vnd.ms-powerpoint,aplication/zip" name="power_manage_agreement" style="visibility: hidden;" data-url="{$data['power_manage_agreement']['url']}" data-name="{$data['power_manage_agreement']['name']}" data-id="{$data['power_manage_agreement']['id']}"/>
+						<input type="file" accept="image/*,application/msword,application/vnd.ms-excel,application/vnd.ms-powerpoint,.docx,xlsx,pptx,text/plain,application/pdf,application/zip,application/x-zip-compressed,rar,arj,gz,z,tar,7z,gzip,bz2" name="power_manage_agreement" style="visibility: hidden;" data-url="{$data['power_manage_agreement']['url']}" data-name="{$data['power_manage_agreement']['name']}" data-id="{$data['power_manage_agreement']['id']}"/>
 					</li>
 					<li class="notall housetop_nonBuild_item housetop_build_item">
 						<span class="lb">电价结算方式</span>
@@ -515,7 +526,7 @@
 							<option value="1" {$data['ground_opinion']['name']?'selected':''}>有</option>
 							<option value="2" {$data['ground_opinion']['name']?'':$data['project_code']?'selected':''}>无</option>
 						</select>
-						<input type="file" accept="application/pdf,application/msword,application/vnd.ms-powerpoint,aplication/zip" name="ground_opinion" style="visibility: hidden;" data-url="{$data['ground_opinion']['url']}" data-name="{$data['ground_opinion']['name']}" data-id="{$data['ground_opinion']['id']}"/>
+						<input type="file" accept="image/*,application/msword,application/vnd.ms-excel,application/vnd.ms-powerpoint,.docx,xlsx,pptx,text/plain,application/pdf,application/zip,application/x-zip-compressed,rar,arj,gz,z,tar,7z,gzip,bz2" name="ground_opinion" style="visibility: hidden;" data-url="{$data['ground_opinion']['url']}" data-name="{$data['ground_opinion']['name']}" data-id="{$data['ground_opinion']['id']}"/>
 					</li>
 					<li class="notall housetop_nonBuild_item housetop_build_item">
 						<span class="lb">项目建议书</span>
@@ -523,7 +534,7 @@
 							<option value="1" {$data['project_proposal']['name']?'selected':''}>有</option>
 							<option value="2" {$data['project_proposal']['name']?'':$data['project_code']?'selected':''}>无</option>
 						</select>
-						<input type="file" accept="application/pdf,application/msword,application/vnd.ms-powerpoint,aplication/zip" name="project_proposal" style="visibility: hidden;" data-url="{$data['project_proposal']['url']}" data-name="{$data['project_proposal']['name']}" data-id="{$data['project_proposal']['id']}"/>
+						<input type="file" accept="image/*,application/msword,application/vnd.ms-excel,application/vnd.ms-powerpoint,.docx,xlsx,pptx,text/plain,application/pdf,application/zip,application/x-zip-compressed,rar,arj,gz,z,tar,7z,gzip,bz2" name="project_proposal" style="visibility: hidden;" data-url="{$data['project_proposal']['url']}" data-name="{$data['project_proposal']['name']}" data-id="{$data['project_proposal']['id']}"/>
 					</li>
 					<li class="notall ground_nonBuild_item ground_build_item">
 						<span class="lb">项目可研报告</span>
@@ -531,7 +542,7 @@
 							<option value="1" {$data['project_report']['name']?'selected':''}>有</option>
 							<option value="2" {$data['project_report']['name']?'':$data['project_code']?'selected':''}>无</option>
 						</select>
-						<input type="file" accept="application/pdf,application/msword,application/vnd.ms-powerpoint,aplication/zip" name="project_report" style="visibility: hidden;" data-url="{$data['project_report']['url']}" data-name="{$data['project_report']['name']}" data-id="{$data['project_report']['id']}"/>
+						<input type="file" accept="image/*,application/msword,application/vnd.ms-excel,application/vnd.ms-powerpoint,.docx,xlsx,pptx,text/plain,application/pdf,application/zip,application/x-zip-compressed,rar,arj,gz,z,tar,7z,gzip,bz2" name="project_report" style="visibility: hidden;" data-url="{$data['project_report']['url']}" data-name="{$data['project_report']['name']}" data-id="{$data['project_report']['id']}"/>
 					</li>
 					<li class="notall housetop_nonBuild_item housetop_build_item">
 						<span class="lb">屋顶载荷证明</span>
@@ -539,7 +550,7 @@
 							<option value="1" {$data['housetop_load_prove']['name']?'selected':''}>有</option>
 							<option value="2" {$data['housetop_load_prove']['name']?'':$data['project_code']?'selected':''}>无</option>
 						</select>
-						<input type="file" accept="application/pdf,application/msword,application/vnd.ms-powerpoint,aplication/zip" name="housetop_load_prove" style="visibility: hidden;" data-url="{$data['housetop_load_prove']['url']}" data-name="{$data['housetop_load_prove']['name']}" data-id="{$data['housetop_load_prove']['id']}"/>
+						<input type="file" accept="image/*,application/msword,application/vnd.ms-excel,application/vnd.ms-powerpoint,.docx,xlsx,pptx,text/plain,application/pdf,application/zip,application/x-zip-compressed,rar,arj,gz,z,tar,7z,gzip,bz2" name="housetop_load_prove" style="visibility: hidden;" data-url="{$data['housetop_load_prove']['url']}" data-name="{$data['housetop_load_prove']['name']}" data-id="{$data['housetop_load_prove']['id']}"/>
 					</li>
 					<li class="notall ground_nonBuild_item ground_build_item">
 						<span class="lb">环评</span>
@@ -547,7 +558,7 @@
 							<option value="1" {$data['environment_assessment']['name']?'selected':''}>有</option>
 							<option value="2" {$data['environment_assessment']['name']?'':$data['project_code']?'selected':''}>无</option>
 						</select>
-						<input type="file" accept="application/pdf,application/msword,application/vnd.ms-powerpoint,aplication/zip" name="environment_assessment" style="visibility: hidden;" data-url="{$data['environment_assessment']['url']}" data-name="{$data['environment_assessment']['name']}" data-id="{$data['environment_assessment']['id']}"/>
+						<input type="file" accept="image/*,application/msword,application/vnd.ms-excel,application/vnd.ms-powerpoint,.docx,xlsx,pptx,text/plain,application/pdf,application/zip,application/x-zip-compressed,rar,arj,gz,z,tar,7z,gzip,bz2" name="environment_assessment" style="visibility: hidden;" data-url="{$data['environment_assessment']['url']}" data-name="{$data['environment_assessment']['name']}" data-id="{$data['environment_assessment']['id']}"/>
 					</li>
 					<li class="notall ground_build_item">
 						<span class="lb">土地证</span>
@@ -555,7 +566,7 @@
 							<option value="1" {$data['land_certificate']['name']?'selected':''}>有</option>
 							<option value="2" {$data['land_certificate']['name']?'':$data['project_code']?'selected':''}>无</option>
 						</select>
-						<input type="file" accept="application/pdf,application/msword,application/vnd.ms-powerpoint,aplication/zip" name="land_certificate" style="visibility: hidden;" data-url="{$data['land_certificate']['url']}" data-name="{$data['land_certificate']['name']}" data-id="{$data['land_certificate']['id']}"/>
+						<input type="file" accept="image/*,application/msword,application/vnd.ms-excel,application/vnd.ms-powerpoint,.docx,xlsx,pptx,text/plain,application/pdf,application/zip,application/x-zip-compressed,rar,arj,gz,z,tar,7z,gzip,bz2" name="land_certificate" style="visibility: hidden;" data-url="{$data['land_certificate']['url']}" data-name="{$data['land_certificate']['name']}" data-id="{$data['land_certificate']['id']}"/>
 					</li>
 					<li class="notall ground_build_item">
 						<span class="lb">物价局电价批复</span>
@@ -563,7 +574,7 @@
 							<option value="1" {$data['electricity_price_reply']['name']?'selected':''}>有</option>
 							<option value="2" {$data['electricity_price_reply']['name']?'':$data['project_code']?'selected':''}  >无</option>
 						</select>
-						<input type="file" accept="application/pdf,application/msword,application/vnd.ms-powerpoint,aplication/zip" name="electricity_price_reply" style="visibility: hidden;" data-url="{$data['electricity_price_reply']['url']}" data-name="{$data['electricity_price_reply']['name']}" data-id="{$data['electricity_price_reply']['id']}"/>
+						<input type="file" accept="image/*,application/msword,application/vnd.ms-excel,application/vnd.ms-powerpoint,.docx,xlsx,pptx,text/plain,application/pdf,application/zip,application/x-zip-compressed,rar,arj,gz,z,tar,7z,gzip,bz2" name="electricity_price_reply" style="visibility: hidden;" data-url="{$data['electricity_price_reply']['url']}" data-name="{$data['electricity_price_reply']['name']}" data-id="{$data['electricity_price_reply']['id']}"/>
 					</li>
 					<li class="notall ground_build_item">
 						<span class="lb">是否进入当年省光伏项目目录</span>
@@ -571,7 +582,7 @@
 							<option value="1" {$data['is_old_project']['name']?'selected':''}>有</option>
 							<option value="2" {$data['is_old_project']['name']?'':$data['project_code']?'selected':''}  >无</option>
 						</select>
-						<input type="file" accept="application/pdf,application/msword,application/vnd.ms-powerpoint,aplication/zip" name="is_old_project" style="visibility: hidden;" data-url="{$data['is_old_project']['url']}" data-name="{$data['is_old_project']['name']}" data-id="{$data['is_old_project']['id']}"/>
+						<input type="file" accept="image/*,application/msword,application/vnd.ms-excel,application/vnd.ms-powerpoint,.docx,xlsx,pptx,text/plain,application/pdf,application/zip,application/x-zip-compressed,rar,arj,gz,z,tar,7z,gzip,bz2" name="is_old_project" style="visibility: hidden;" data-url="{$data['is_old_project']['url']}" data-name="{$data['is_old_project']['name']}" data-id="{$data['is_old_project']['id']}"/>
 					</li>
 					<li class="notall housetop_build_item ground_build_item">
 						<span class="lb">竣工验收报告</span>
@@ -579,7 +590,7 @@
 							<option value="1" {$data['completion_report']['name']?'selected':''}>有</option>
 							<option value="2" {$data['completion_report']['name']?'':$data['project_code']?'selected':''}  >无</option>
 						</select>
-						<input type="file" accept="application/pdf,application/msword,application/vnd.ms-powerpoint,aplication/zip" name="completion_report" style="visibility: hidden;" data-url="{$data['completion_report']['url']}" data-name="{$data['completion_report']['name']}" data-id="{$data['completion_report']['id']}"/>
+						<input type="file" accept="image/*,application/msword,application/vnd.ms-excel,application/vnd.ms-powerpoint,.docx,xlsx,pptx,text/plain,application/pdf,application/zip,application/x-zip-compressed,rar,arj,gz,z,tar,7z,gzip,bz2" name="completion_report" style="visibility: hidden;" data-url="{$data['completion_report']['url']}" data-name="{$data['completion_report']['name']}" data-id="{$data['completion_report']['id']}"/>
 					</li>
 					<li class="notall housetop_build_item ground_build_item">
 						<span class="lb">竣工图纸</span>
@@ -587,15 +598,15 @@
 							<option value="1" {$data['completion_paper']['name']?'selected':''}>有</option>
 							<option value="2" {$data['completion_paper']['name']?'':$data['project_code']?'selected':''}  >无</option>
 						</select>
-						<input type="file" accept="application/pdf,application/msword,application/vnd.ms-powerpoint,aplication/zip" name="completion_paper" style="visibility: hidden;" data-url="{$data['completion_paper']['url']}" data-name="{$data['completion_paper']['name']}" data-id="{$data['completion_paper']['id']}"/>
+						<input type="file" accept="image/*,application/msword,application/vnd.ms-excel,application/vnd.ms-powerpoint,.docx,xlsx,pptx,text/plain,application/pdf,application/zip,application/x-zip-compressed,rar,arj,gz,z,tar,7z,gzip,bz2" name="completion_paper" style="visibility: hidden;" data-url="{$data['completion_paper']['url']}" data-name="{$data['completion_paper']['name']}" data-id="{$data['completion_paper']['id']}"/>
 					</li>
 					<li class="notall housetop_build_item ground_build_item">
 						<span class="lb">历史发电量数据/辐照数据</span>
-						<input type="file" accept="application/pdf,application/msword,application/vnd.ms-powerpoint,aplication/zip" name="history_data" style="visibility: hidden;" data-url="{$data['history_data']['url']}" data-name="{$data['history_data']['name']}" data-id="{$data['history_data']['id']}"/>
+						<input type="file" accept="image/*,application/msword,application/vnd.ms-excel,application/vnd.ms-powerpoint,.docx,xlsx,pptx,text/plain,application/pdf,application/zip,application/x-zip-compressed,rar,arj,gz,z,tar,7z,gzip,bz2" name="history_data" style="visibility: hidden;" data-url="{$data['history_data']['url']}" data-name="{$data['history_data']['name']}" data-id="{$data['history_data']['id']}"/>
 					</li>
 					<li class="notall housetop_build_item ground_build_item">
 						<span class="lb">电费结算票据</span>
-						<input type="file" accept="application/pdf,application/msword,application/vnd.ms-powerpoint,aplication/zip" name="electricity_bill" style="visibility: hidden;" data-url="{$data['electricity_bill']['url']}" data-name="{$data['electricity_bill']['name']}" data-id="{$data['electricity_bill']['id']}"/>
+						<input type="file" accept="image/*,application/msword,application/vnd.ms-excel,application/vnd.ms-powerpoint,.docx,xlsx,pptx,text/plain,application/pdf,application/zip,application/x-zip-compressed,rar,arj,gz,z,tar,7z,gzip,bz2" name="electricity_bill" style="visibility: hidden;" data-url="{$data['electricity_bill']['url']}" data-name="{$data['electricity_bill']['name']}" data-id="{$data['electricity_bill']['id']}"/>
 					</li>
 				</ul>
 				<div class="operator">

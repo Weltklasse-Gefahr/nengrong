@@ -171,7 +171,7 @@ function uploadFileOne($file, $savePath = ''){
 **@return 更新成功返回文件的存储路径  上传失败返回false
 **@date 2015.12.05
 **/
-function getProjectCode($projectType, $area, $financingType){
+function getProjectCode($projectType, $area, $financingType, $projectIndustry){
     //项目类型
     if($projectType == 1) //屋顶
     {
@@ -210,23 +210,23 @@ function getProjectCode($projectType, $area, $financingType){
     //融资模式
     if($financingType == 1) //直租
     {
-        $proType = "D";
+        $proTyper = "D";
     }
     elseif($financingType == 2) //回租
     {
-        $proType = "B";
+        $proTyper = "B";
     }
     elseif($financingType == 3) //股权融
     {
-        $proType = "E";
+        $proTyper = "E";
     }
     else
     {
-        $proType = "X"; //其他
+        $proTyper = "X"; //其他
     }
     //客户号yu 序列号
     $mul = rand(100000,999999);
-    return $proType.$industryType.$areaType.'-'.$projectScale.'-'.$proType.$year.'-'.$mul;
+    return $proType.$industryType.$areaType.'-'.$projectScale.'-'.$proTyper.$year.'-'.$mul;
 
 }
 
