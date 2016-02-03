@@ -565,9 +565,7 @@ class InnerStaffController extends Controller {
         isLogin($_COOKIE['email'], $_COOKIE['mEmail']);
         authentication($_COOKIE['email'], 2, $innerToken);
 
-
-        if($projectCode == null)
-        {
+        if($projectCode == null){
             $projectCode  = $_POST['no']     ? $_POST['no']:$_GET['no'];
             $mProjectCode = $_POST['token']  ? $_POST['token']:$_GET['token'];
             isProjectCodeRight($projectCode, $mProjectCode);
@@ -708,7 +706,7 @@ class InnerStaffController extends Controller {
             $evaData = array();
             $evaData['project_id'] = $projectId;
             $evaData['IRR'] = $_POST['IRR'];
-            $evaData['evaluation_result'] = $_POST['evaluation_result'];
+            $evaData['evaluation_result'] = $_POST['evaluation_result'].",".$_POST['evaluation_result_text'];
             $evaData['static_payback_time'] = $_POST['static_payback_time'];
             $evaData['dynamic_payback_time'] = $_POST['dynamic_payback_time'];
             $evaData['LCOE'] = $_POST['LCOE'];
@@ -719,6 +717,7 @@ class InnerStaffController extends Controller {
             $evaData['project_quality_situation'] = $_POST['project_quality_situation'];
             $evaData['project_invest_situation'] = $_POST['project_invest_situation'];
             $evaData['project_earnings_situation'] = $_POST['project_earnings_situation'];
+            $evaData['duty_person'] = $_POST['duty_person'];
             $evaData['doc_mul'] = implode(",", $_POST['doc_mul']);
 
             $res = $objProject->saveHousetopOrGround($proData, 51, $objProjectInfo['project_type']);
@@ -778,7 +777,7 @@ class InnerStaffController extends Controller {
             $evaData = array();
             $evaData['project_id'] = $projectId;
             $evaData['IRR'] = $_POST['IRR'];
-            $evaData['evaluation_result'] = $_POST['evaluation_result'];
+            $evaData['evaluation_result'] = $_POST['evaluation_result'].",".$_POST['evaluation_result_text'];
             $evaData['static_payback_time'] = $_POST['static_payback_time'];
             $evaData['dynamic_payback_time'] = $_POST['dynamic_payback_time'];
             $evaData['LCOE'] = $_POST['LCOE'];
@@ -789,6 +788,7 @@ class InnerStaffController extends Controller {
             $evaData['project_quality_situation'] = $_POST['project_quality_situation'];
             $evaData['project_invest_situation'] = $_POST['project_invest_situation'];
             $evaData['project_earnings_situation'] = $_POST['project_earnings_situation'];
+            $evaData['duty_person'] = $_POST['duty_person'];
             $evaData['doc_mul'] = implode(",", $_POST['doc_mul']);
 
             $projectInfo = $objProject->where("id=".$proData['project_id']." and delete_flag!=9999")->find();
@@ -821,6 +821,7 @@ class InnerStaffController extends Controller {
     		$projectId = $objProjectInfo['id'];
     		$projectDetail = $objProject->getProjectInEvaluation($projectId, $objProjectInfo['project_type']);
             $projectDetail['state_type'] = $objProject->getTypeAndStateStr($objProjectInfo['project_type'], $objProjectInfo['build_state']);
+            
             $common = D("Common","Service");
             $projectDetail['companyType'] = $common->getProjectCompanyType($projectDetail['company_type']);
             $projectDetail['housetopType'] = $common->getHousetopType($projectDetail['housetop_type']);
@@ -840,6 +841,9 @@ class InnerStaffController extends Controller {
 			
 			$objEvaluation = D("Evaluation", "Service");
 			$evaluationInfo = $objEvaluation->getEvaluation($projectId);
+            $evaluationResult = explode(',', $evaluationInfo['evaluation_result']);
+            $evaluationInfo['evaluation_result'] = $evaluationResult[0];
+            $evaluationInfo['evaluation_result_text'] = $evaluationResult[1];
 
             $objDoc = D("Doc", "Service");
             $condition['id'] = $projectDetail['picture_full'];
@@ -965,32 +969,32 @@ class InnerStaffController extends Controller {
             else
                 echo '{"code":"-1","msg":"push project error"}';
         }else{
-            if($projectObj->isPushProject($projectCode) === true){
-                $page = $_GET['page'];
-                if(empty($page)) $page=1;
-                $pageSize = 6;
-                $investor = D('User', 'Service');
-                $investorList = $investor->getInvestorPush($projectCode, $page);
-                $investorTotal = $investor->getInvestorPush($projectCode, -1);
-                $data = array();
-                $data["list"] = $investorList;
-                $data["page"] = $page;
-                $data["count"] = sizeof($investorTotal);
-                $data["totalPage"] = ceil($data["count"]/$pageSize+1);
-                $data["endPage"] = ceil($data["count"]/$pageSize);
-                if($_GET['display']=="json"){
-                    header('Content-Type: text/html; charset=utf-8');
-                    dump($data);
-                    exit;
-                }
-
-                //直接截断了,返回json了
-                if ($getJsonFlag == 1)
-                {
-                  return $data;
-                }
-                $this->assign("arrData", $data);
+            // if($projectObj->isPushProject($projectCode) === true){
+            $page = $_GET['page'];
+            if(empty($page)) $page=1;
+            $pageSize = 6;
+            $investor = D('User', 'Service');
+            $investorList = $investor->getInvestorPush($projectCode, $page);
+            $investorTotal = $investor->getInvestorPush($projectCode, -1);
+            $data = array();
+            $data["list"] = $investorList;
+            $data["page"] = $page;
+            $data["count"] = sizeof($investorTotal);
+            $data["totalPage"] = ceil($data["count"]/$pageSize+1);
+            $data["endPage"] = ceil($data["count"]/$pageSize);
+            if($_GET['display']=="json"){
+                header('Content-Type: text/html; charset=utf-8');
+                dump($data);
+                exit;
             }
+
+            //直接截断了,返回json了
+            if ($getJsonFlag == 1)
+            {
+              return $data;
+            }
+            $this->assign("arrData", $data);
+            // }
             $this->display("InnerStaff:pushProject");
         }
     }

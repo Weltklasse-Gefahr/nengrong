@@ -689,10 +689,10 @@ class ProjectService extends Model{
     **@date 2015.12.30
     **/ 
     public function pushProject($projectCode, $investorList){
-        // if($this->isPushProject($projectCode) == false){
-        //     echo '{"code":"-1","msg":"该项目不能进行推送操作"}';
-        //     exit;
-        // }
+        if($this->isPushProject($projectCode) == false){
+            echo '{"code":"-1","msg":"请先完成意向书签署"}';
+            exit;
+        }
         $pushProject = D("Pushproject");
         $data = array();
         $data['project_code'] = $projectCode;
