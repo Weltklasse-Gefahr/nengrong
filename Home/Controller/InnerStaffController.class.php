@@ -1073,7 +1073,7 @@ class InnerStaffController extends Controller {
             $data["endPage"] = ceil($data["count"]/$pageSize);
             $data["searchInfo"]["companyName"] = $companyName;
             $data["searchInfo"]["companyType"] = $companyType;
-            $data["searchInfo"]["situation"] = $situation;
+            $data["searchInfo"]["province"] = $situation;
             $data["searchInfo"]["startDate"] = $startDate;
             $data["searchInfo"]["endDate"] = $endDate;
             $data["searchInfo"]["status"] = $status;
