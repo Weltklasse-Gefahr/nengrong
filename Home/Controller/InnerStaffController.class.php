@@ -524,7 +524,7 @@ class InnerStaffController extends Controller {
             $data['financingType'] = $common->getFinancingType($data['financing_type']);
             $data['electricityClearType'] = $common->getElectricityClearType($data['electricity_clear_type']);
             $data['groundProperty'] = $common->getGroundProperty($data['ground_property']);
-            $data['groundCondition'] = $common->getGroundProperty($data['ground_condition']);
+            $data['groundCondition'] = $common->getGroundCondition($data['ground_condition']);
             $data['measurePoint'] = $common->getMeasurePoint($data['measure_point']);
             $data['projectHolderType'] = $common->getProjectHolderType($data['project_holder_type']);
             $data['groundProjectType'] = $common->getGroundProjectType($data['ground_project_type']);

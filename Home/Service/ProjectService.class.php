@@ -406,6 +406,12 @@ class ProjectService extends Model{
             $proDetails = $proObj->where($condition)->find();
             $areaObj = D('Area', 'Service');
             $areaStr = $areaObj->getAreaById($proDetails['project_area']);
+            // dump($projectList[$i]);
+            // echo jj;dump($proDetails);
+            // dump($projectList[$i]['id']) ;
+            // echo $projectList[$i]['status'];
+            // echo $proDetails['project_area'];
+            // echo $areaStr;exit;
             $projectList[$i]['area'] = $areaStr.$proDetails['project_address'];
             $i += 1;
         }        
