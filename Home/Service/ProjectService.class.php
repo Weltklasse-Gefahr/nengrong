@@ -820,6 +820,25 @@ class ProjectService extends Model{
     }
 
     /**
+    **@auth qiujinhan
+    **@breif 更新项目编号 enf_project和enf_pushproject表
+    **@return 保存成功返回project id，失败返回false
+    **@date 2015.12.23
+    **/ 
+    public function updateProjectCode($oldProjectCode, $newProjectCode){
+        $project = M("Project");
+        $condition["project_code"] = $oldProjectCode;
+        $condition["delete_flag"] = array('neq',9999);
+        $data["project_code"] = $newProjectCode;
+        $res = $project->where($condition)->where("status!=51")->save($data);
+
+        $Pushproject = M("Pushproject");
+        $res = $Pushproject->where($condition)->where("status!=51")->save($data);
+
+        return true;
+    }
+
+    /**
     **@auth qianqiang
     **@breif 更新housetop/ground表信息
     **@return 保存成功返回影响数据数，失败返回false
