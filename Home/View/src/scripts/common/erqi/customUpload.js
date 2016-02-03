@@ -4,7 +4,7 @@ $(function($) {
 		var match = url.match(/\.([^.]+)$/),
 			suffix = match && match[1];
 		suffix = suffix && suffix.toLowerCase();
-		if(!skipImg && suffix && $.inArray(suffix, ["jpg", "jpeg", "png"]) !== -1) {
+		if(!skipImg && suffix && $.inArray(suffix, ["jpg", "jpeg", "png", "gif", "bmp", "ico"]) !== -1) {
 			return url;
 		} else {
 			var name = {
