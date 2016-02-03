@@ -409,7 +409,7 @@ class ProjectService extends Model{
             // dump($projectList[$i]);
             // echo jj;dump($proDetails);
             // dump($projectList[$i]['id']) ;
-            // echo $projectList[$i]['status'];
+            // dump($projectList[$i]['status']) ;
             // echo $proDetails['project_area'];
             // echo $areaStr;exit;
             $projectList[$i]['area'] = $areaStr.$proDetails['project_address'];
