@@ -52,13 +52,13 @@
 					<?php if($projectInfo['display_flag'] == 12 || $projectInfo['display_flag'] == 22){  ?>
 					<input data-optype="save" type="submit" value="保存" />
 					<?php if($projectInfo['display_flag'] == 22){  ?>
-					<input data-optype="submit" type="submit" value="提交" class="last"/>
+					<input data-optype="submit" type="submit" value="提交" />
 					<?php }else{ ?>
-					<input data-optype="submit" class="last disabled" type="submit" value="提交" disabled />
+					<input data-optype="submit" type="submit" value="提交" class="disabled" />
 					<?php } ?>
 					<?php }else{ ?>
-					<input data-optype="save" class="disabled" type="submit" value="保存" disabled />
-					<input data-optype="submit" class="last disabled" type="submit" value="已提交" disabled />
+					<input data-optype="save" type="submit" value="保存" class="disabled" disabled />
+					<input data-optype="submit" type="submit" value="已提交" class="disabled" disabled />
 					<?php } ?>
 				</div>
 			</form>
