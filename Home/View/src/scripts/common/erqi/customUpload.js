@@ -1,4 +1,21 @@
 $(function($) {
+
+	function getPreviewImg(url, skipImg) {
+		var match = url.match(/\.([^.]+)$/),
+			suffix = match && match[1];
+		suffix = suffix && suffix.toLowerCase();
+		if(!skipImg && suffix && $.inArray(suffix, ["jpg", "jpeg", "png"]) !== -1) {
+			return url;
+		} else {
+			var name = {
+				"doc": "doc",
+				"docx": "doc",
+				"pdf": "pdf"
+			}[suffix || "doc"];
+			return "/EnergyFe/img/" + name + ".png";
+		}
+	}
+
 	$.fn.customUpload = function(option) {
 
 		option = option || {
@@ -72,14 +89,14 @@ $(function($) {
 					alink = $preview.show().find("a");
 				if(uploadType === "image") {
 					alink.attr("href", url).find("img").attr({
-	                    src: url,
+	                    src: getPreviewImg(url),
 	                    alt: name
 	                });
 					$inputWrap.hide();
 				} else {
 					alink.attr("href", url).text(name);
 				}
-				$(this).removeAttr("data-url").removeAttr("data-name");
+				$(this).removeAttr("data-url").removeAttr("data-name").removeAttr("data-id");
 			}
 
 			$this.change(function(e) {
@@ -88,30 +105,36 @@ $(function($) {
 				var	resultFile = this.files[0];
 
 				if(resultFile && resultFile.name) {
-					// if(uploadType === "image") {
-						var reader = new FileReader();
+					var alink = $preview.show().find("a");
 
-						reader.onload = function (e) {
-		                    var alink = $preview.show().find("a");
+					if(uploadType === "image") {
+						if(resultFile.type.toLowerCase().match(/^image\/.*/)) {
+							var reader = new FileReader();
 
-		                    if(uploadType === "image") {
+							reader.onload = function (e) {
+
 		                    	alink.attr("href", this.result).find("img").attr({
 				                    src: this.result,
 				                    alt: resultFile.name
 				                });
 				                $inputWrap.hide();
-			                } else {
-			                	alink.attr("href", "javascript:;").text(resultFile.name);
-			                }
 
-			                option.callback && option.callback.call(item, "add");
-		                };
+				                option.callback && option.callback.call(item, "add");
+			                };
 
-		                reader.readAsDataURL(resultFile);
-		        	// } else {
-		        	// 	$preview.find("a")
-		        	// 	$inputWrap.hide();
-		        	// }
+			                reader.readAsDataURL(resultFile);
+			            } else {
+			            	alink.attr("href", "javascript:;").find("img").attr({
+			                    src: getPreviewImg(resultFile.name, true),
+			                    alt: resultFile.name
+			                });
+			            	$inputWrap.hide();
+			            	option.callback && option.callback.call(item, "add");
+			            }
+		        	} else {
+		        		alink.attr("href", "javascript:;").text(resultFile.name);
+		        		option.callback && option.callback.call(item, "add");
+		        	}
 				}
 
 			});
