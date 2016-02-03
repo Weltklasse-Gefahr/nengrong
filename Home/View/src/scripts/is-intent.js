@@ -45,6 +45,11 @@ $(function() {
     	}
 
 		$("input[type=submit]").click(function(e) {
+			var optype = $(this).data("optype");
+			if(optype === "submit" && $(this).hasClass("disabled")) {
+				alert("请先完成尽职调查");
+				return false;
+			}
 
 			var yixiangshu = ue.getContent();
     		if(!yixiangshu || !$.trim(yixiangshu)) {
@@ -52,7 +57,7 @@ $(function() {
     			return false;
     		}
 
-			var optype = $(this).data("optype");
+			
 			if(optype === "save") {
 				saveOrSubmitIntent({
 					optype: optype
