@@ -576,6 +576,8 @@ class InnerStaffController extends Controller {
         $providerId = $objProjectInfo['provider_id'];
         $userObj = D("User", "Service");
         $userInfo = $userObj->getUserINfoById($providerId);
+        $common = D("Common", "Service");
+        $userInfo[0]['companyType'] = $common->getUserCompanyType($userInfo[0]['company_type']);
 
         $areaObj = D("Area", "Service");
         $areaStr = $areaObj->getAreaById($userInfo[0]['company_area']);

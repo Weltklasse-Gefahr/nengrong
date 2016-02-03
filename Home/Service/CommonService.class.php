@@ -15,15 +15,15 @@ class CommonService{
 			return null;
 		}
 		if(1 == $no){
-			$companyTypeStr = '央企国企';
+			$companyTypeStr = '国有企业';
 		}elseif(2 == $no){
 			$companyTypeStr = '中外合资';
 		}elseif(3 == $no){
 			$companyTypeStr = '外商独资';
 		}elseif(4 == $no){
-			$companyTypeStr = '大型民营';
+			$companyTypeStr = '集体企业';
 		}elseif(5 == $no){
-			$companyTypeStr = '小型民营';
+			$companyTypeStr = '民营企业';
 		}else{
 			$companyTypeStr = '其他';
 		}

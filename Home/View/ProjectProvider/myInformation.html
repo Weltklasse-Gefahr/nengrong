@@ -66,11 +66,12 @@
 						<li><span class="lb not-empty">企业名称</span><input name="company_name" value="{$data['company_name']}"/></li>
 						<li><span class="lb">企业类型</span>
 							<select name="company_type">
-								<option value="1" {$data['company_type'] == 1?'selected':''}>央企国企</option>
+								<option value="1" {$data['company_type'] == 1?'selected':''}>国有企业</option>
 								<option value="2" {$data['company_type'] == 2?'selected':''}>中外合资</option>
 								<option value="3" {$data['company_type'] == 3?'selected':''}>外商独资</option>
-								<option value="4" {$data['company_type'] == 4?'selected':''}>大型民营</option>
-								<option value="5" {$data['company_type'] == 5?'selected':''}>小型民营</option>
+								<option value="4" {$data['company_type'] == 4?'selected':''}>集体企业</option>
+								<option value="5" {$data['company_type'] == 5?'selected':''}>民营企业</option>
+								<option value="0" {$data['company_type'] == 0?'selected':''}>其他</option>
 							</select>
 						</li>
 						<li><span class="lb">公司传真</span><input name="company_fax" value="{$data['company_fax']}"/></li>
