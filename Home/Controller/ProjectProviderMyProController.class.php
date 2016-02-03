@@ -435,6 +435,15 @@ class ProjectProviderMyProController extends Controller {
                  echo '{"code":"-1","msg":"插入数据库失败111！"}';
                  exit;
             }
+
+            //最后项目提交后，更新成最后的编号，涉及到enf_project和enf_pushproject表
+            if($optype == "submit")
+            {
+                $getNewProjectCode = getProjectCode($_POST['project_type'], 
+                     $_POST['financing_type'], $_POST['county'],$_POST['project_industry']);
+                $ret = $objProject->updateProjectCode($arrProInfo['project_code'], $getNewProjectCode);
+                $arrProInfo["project_code"] = $getNewProjectCode;
+            }
             echo '{"code":"0","msg":"","id":"'.$arrProInfo["project_code"].'","idm":"'
                  .MD5(addToken($arrProInfo["project_code"])).'"}';
 

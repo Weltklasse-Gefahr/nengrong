@@ -524,7 +524,7 @@ class InnerStaffController extends Controller {
             $data['financingType'] = $common->getFinancingType($data['financing_type']);
             $data['electricityClearType'] = $common->getElectricityClearType($data['electricity_clear_type']);
             $data['groundProperty'] = $common->getGroundProperty($data['ground_property']);
-            $data['groundCondition'] = $common->getGroundProperty($data['ground_condition']);
+            $data['groundCondition'] = $common->getGroundCondition($data['ground_condition']);
             $data['measurePoint'] = $common->getMeasurePoint($data['measure_point']);
             $data['projectHolderType'] = $common->getProjectHolderType($data['project_holder_type']);
             $data['groundProjectType'] = $common->getGroundProjectType($data['ground_project_type']);
@@ -576,6 +576,8 @@ class InnerStaffController extends Controller {
         $providerId = $objProjectInfo['provider_id'];
         $userObj = D("User", "Service");
         $userInfo = $userObj->getUserINfoById($providerId);
+        $common = D("Common", "Service");
+        $userInfo[0]['companyType'] = $common->getUserCompanyType($userInfo[0]['company_type']);
 
         $areaObj = D("Area", "Service");
         $areaStr = $areaObj->getAreaById($userInfo[0]['company_area']);

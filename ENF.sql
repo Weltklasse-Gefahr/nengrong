@@ -277,7 +277,7 @@ create table enf_user
    code     varchar(100) comment '业务员编码',
    name     varchar(20) comment '业务员姓名',
    company_name         varchar(100) comment '企业名称',
-   company_type         int comment '企业注册资本/类型：1央企国企、2中外合资、3外商独资、4大型民营、5小型民营',
+   company_type         int comment '企业注册资本/类型：0其他、1国有企业、2中外合资、3外商独资、4集体企业、5民营企业',
    company_person       varchar(100) comment '企业法人',
    company_capital      float comment '企业注册资本',
    company_fax          varchar(20) comment '公司传真',

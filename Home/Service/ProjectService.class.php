@@ -406,6 +406,12 @@ class ProjectService extends Model{
             $proDetails = $proObj->where($condition)->find();
             $areaObj = D('Area', 'Service');
             $areaStr = $areaObj->getAreaById($proDetails['project_area']);
+            // dump($projectList[$i]);
+            // echo jj;dump($proDetails);
+            // dump($projectList[$i]['id']) ;
+            // echo $projectList[$i]['status'];
+            // echo $proDetails['project_area'];
+            // echo $areaStr;exit;
             $projectList[$i]['area'] = $areaStr.$proDetails['project_address'];
             $i += 1;
         }        
@@ -811,6 +817,25 @@ class ProjectService extends Model{
         $condition["delete_flag"] = array('neq',9999);
         $projectInfo = $project->where($condition)->where("status!=51")->select();
         return !empty($projectInfo) ? $projectInfo[0]["id"]:false;
+    }
+
+    /**
+    **@auth qiujinhan
+    **@breif 更新项目编号 enf_project和enf_pushproject表
+    **@return 保存成功返回project id，失败返回false
+    **@date 2015.12.23
+    **/ 
+    public function updateProjectCode($oldProjectCode, $newProjectCode){
+        $project = M("Project");
+        $condition["project_code"] = $oldProjectCode;
+        $condition["delete_flag"] = array('neq',9999);
+        $data["project_code"] = $newProjectCode;
+        $res = $project->where($condition)->where("status!=51")->save($data);
+
+        $Pushproject = M("Pushproject");
+        $res = $Pushproject->where($condition)->where("status!=51")->save($data);
+
+        return true;
     }
 
     /**
