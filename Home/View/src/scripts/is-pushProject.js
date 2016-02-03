@@ -57,7 +57,7 @@ $(function() {
 					if (data.code== 0)
 						{window.location.reload();}
 					else 
-						{alert('推送失败！');}
+						{alert(data.msg);}
 				});
 				
 			}).fail(function() {
@@ -92,7 +92,7 @@ $(function() {
 					if (data.code== 0)
 						{window.location.reload();}
 					else 
-						{alert('推送失败！');}
+						{alert(data.msg);}
 				});
 				
 			}).fail(function() {
