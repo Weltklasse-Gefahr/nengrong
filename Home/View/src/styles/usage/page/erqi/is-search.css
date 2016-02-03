@@ -62,7 +62,7 @@
 	margin-right: 50px;
 }
 
-.search .operator input.last {
+.search .operator input:last-child {
 	margin-right: 0;
 }
 
