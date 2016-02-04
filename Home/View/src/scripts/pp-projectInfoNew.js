@@ -496,8 +496,8 @@ $(function() {
 					alert("请填写租赁租金");
 					$rent_pay.focus();
 					return false;
-				} else if( !($rent_pay_val && /^\d+(\.\d+)?$/.test($rent_pay_val)) ) {
-					alert("租赁租金应为数字");
+				} else if( !($rent_pay_val && /^\d+(\.\d+)?$/.test($rent_pay_val) && parseFloat($rent_pay_val) > 0) ) {
+					alert("租赁租金应为大于0的数字");
 					$rent_pay.focus();
 					return false;
 				}
@@ -563,7 +563,7 @@ $(function() {
 						alert("请填写组件数量");
 						$component_count.focus();
 						return false;
-					} else if( !($component_count_val && /^\d+(\.\d+)?$/.test($component_count_val) && parseFloat($component_count_val) > 0) ) {
+					} else if( !($component_count_val && /^\d+$/.test($component_count_val) && parseInt($component_count_val) > 0) ) {
 						alert("组件数量应为正整数");
 						$component_count.focus();
 						return false;
@@ -593,7 +593,7 @@ $(function() {
 						alert("请填写逆变器数量");
 						$inverter_count.focus();
 						return false;
-					} else if( !($inverter_count_val && /^\d+(\.\d+)?$/.test($inverter_count_val) && parseFloat($inverter_count_val) > 0) ) {
+					} else if( !($inverter_count_val && /^\d+$/.test($inverter_count_val) && parseInt($inverter_count_val) > 0) ) {
 						alert("逆变器数量应为正整数");
 						$inverter_count.focus();
 						return false;
