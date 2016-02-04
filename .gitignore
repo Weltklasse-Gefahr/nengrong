@@ -33,3 +33,7 @@ Thumbs.db
 
 # package
 *.rar
+*.zip
+*.tar
+*.tar.gz
+*.tar.bz2
