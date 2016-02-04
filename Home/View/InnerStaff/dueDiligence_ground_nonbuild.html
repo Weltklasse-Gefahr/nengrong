@@ -362,7 +362,9 @@
 											</tr>
 											<tr>
 												<td class="c0">土地性质</td>
-												<td class="c1">{$projectDetail['groundProperty']}</td>
+												<td class="c1"><if condition="$projectDetail['ground_property'] eq 0">{projectDetail['ground_property_other']}
+					<else />{projectDetail['groundProperty']}
+					</if></td>
 												<td class="c2">租赁土地面积</td>
 												<td class="c3">{$projectDetail['ground_area']}<span class="gray">m<sup>2</sup></span>
 												</td>

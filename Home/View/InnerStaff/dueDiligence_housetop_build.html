@@ -367,7 +367,8 @@
 											</tr>
 											<tr>
 												<td class="c0">屋顶类型</td>
-												<td class="c1">{$projectDetail['housetopType']}</td>
+												<td class="c1"><if condition="$projectDetail['housetop_type'] eq 0"> {$projectDetail['housetop_type_other']}
+<else />{$projectDetail['housetopType']}</if></td>
 												<td class="c2">并网方式</td>
 												<td class="c3">{$projectDetail['synchronizeType']}</td>
 											</tr>
