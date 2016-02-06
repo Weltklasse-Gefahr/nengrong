@@ -367,19 +367,21 @@ class ProjectProviderMyProController extends Controller {
             {
                 //echo $_POST['project_type'];exit;
                 //插入
-                $getProjectCode = getProjectCode($_POST['project_type'], 
-                     $_POST['financing_type'], $_POST['county'],$_POST['project_industry']);
-                $arrProInfo["project_code"] = $getProjectCode;
-                //$arrProInfo["project_code"] = '2323DDDDDDDDDDd'.time();  //之后需要加一下这个生成项目id的功能
                 $objUser  = D("User","Service");
                 $userInfo = $objUser->getUserINfoByEmail($email);
                 $arrProInfo["provider_id"] = $userInfo[0]['id'];//之后需要加一下项目提供方的id
+                $getProjectCode = getProjectCode($_POST['project_type'], 
+                     $_POST['financing_type'], $_POST['county'],$_POST['project_industry'],$_POST['plan_build_volume'],$arrProInfo["provider_id"]);
+                $arrProInfo["project_code"] = $getProjectCode;
+                //$arrProInfo["project_code"] = '2323DDDDDDDDDDd'.time();  //之后需要加一下这个生成项目id的功能
+
                 //echo $email;exit;
                 //echo json_encode($userInfo);exit;
                 $arrProInfo["highlight_flag"] = 1;
                 $arrProInfo["create_time"] = date("Y-m-d H:i:s" ,time());
                 $arrProInfo["create_date"] = date("Y-m-d H:i:s" ,time());
                 $ret = $objProject->insertProject($arrProInfo);
+                //echo json_encode($arrProInfo);exit;
                 if ($ret === false)
                 {
                      echo '{"code":"-1","msg":"插入数据库失败9999999999！"}';
@@ -440,8 +442,11 @@ class ProjectProviderMyProController extends Controller {
             //最后项目提交后，更新成最后的编号，涉及到enf_project和enf_pushproject表
             if($optype == "submit")
             {
+                $objUser  = D("User","Service");
+                $userInfo = $objUser->getUserINfoByEmail($email);
+                $arrProInfo["provider_id"] = $userInfo[0]['id'];//之后需要加一下项目提供方的id
                 $getNewProjectCode = getProjectCode($_POST['project_type'], 
-                     $_POST['financing_type'], $_POST['county'],$_POST['project_industry']);
+                     $_POST['financing_type'], $_POST['county'],$_POST['project_industry'],$_POST['plan_build_volume'],$arrProInfo["provider_id"]);
                 $ret = $objProject->updateProjectCode($arrProInfo['project_code'], $getNewProjectCode);
                 $arrProInfo["project_code"] = $getNewProjectCode;
             }

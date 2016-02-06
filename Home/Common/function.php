@@ -172,7 +172,7 @@ function uploadFileOne($file, $savePath = ''){
 **@return 更新成功返回文件的存储路径  上传失败返回false
 **@date 2015.12.05
 **/
-function getProjectCode($projectType, $area, $financingType, $projectIndustry){
+function getProjectCode($projectType, $financingType, $area, $projectIndustry,$planBuildVolume,$providerId){
     //项目类型
     if($projectType == 1) //屋顶
     {
@@ -191,7 +191,7 @@ function getProjectCode($projectType, $area, $financingType, $projectIndustry){
         $proType = "X"; //其他
     }
     //行业
-    $industry = array(
+    /*$industry = array(
         '1' => "I", 
         '2' => "C", 
         '3' => "A", 
@@ -199,13 +199,41 @@ function getProjectCode($projectType, $area, $financingType, $projectIndustry){
         '5' => "F", 
         '6' => "X", 
         );
-    $index = rand(1,6);
+    $index = rand(1,6);*/
     $industryType =  $projectIndustry;
     //地区
     //$areaType = empty($area)?"0101":$area;
-    $areaType = rand(1000,9999);
-    //项目规模
-    $projectScale = rand(100,999)."K";
+    if (empty($area))
+    {
+        $areaType = '0000';
+    }
+    else
+    {
+        $areaType = substr( $area, 0, 4 );
+    }
+    //项目规模  19800kw表示为0198M  100kw 表示为 0100k    1001kw 表示为  0010M
+    if($planBuildVolume >= 1000 && $planBuildVolume < 1000000)
+    {
+        $planBuildVolume = floor($planBuildVolume/100);
+        //echo $planBuildVolume.'jjj';
+        $planBuildVolume = '0000'.strval($planBuildVolume);
+        //echo $planBuildVolume; exit;
+        $planBuildVolume = substr($planBuildVolume,-4).'M';
+    }
+    elseif($planBuildVolume >= 1000000 && $planBuildVolume < 1000000000)
+    {
+        $planBuildVolume = floor($planBuildVolume/100000);
+        $planBuildVolume = '0000'.strval($planBuildVolume);
+
+        $planBuildVolume = substr($planBuildVolume,-4).'G';
+    }
+    else
+    {
+        $planBuildVolume = floor($planBuildVolume/1);
+        $planBuildVolume = '0000'.strval($planBuildVolume);
+        $planBuildVolume = substr($planBuildVolume,-4).'K';
+    }
+    $projectScale = $planBuildVolume;
     //年份
     $year = substr(date('Y'),2,2);
     //融资模式
@@ -226,8 +254,18 @@ function getProjectCode($projectType, $area, $financingType, $projectIndustry){
         $proTyper = "X"; //其他
     }
     //客户号yu 序列号
-    $mul = rand(100000,999999);
-    return $proType.$industryType.$areaType.'-'.$projectScale.'-'.$proTyper.$year.'-'.$mul;
+    $providerId = '00'.strval($providerId);
+    $providerId = substr($providerId,-3);
+    $strAll = '1234567890abcdefghijklnnopqrstuvwxyzQWRTYUIOPLKJHGFDSAZXCVBNM';
+    $index1 = rand(1,60);
+    $index2 = rand(1,60);
+    $index3 = rand(1,60);
+    $mul1 = substr( $strAll, $index1, 1 );
+    $mul2 = substr( $strAll, $index2, 1 );
+    $mul3 = substr( $strAll, $index3, 1 );
+    $mulAll = $providerId.$mul1.$mul2.$mul3;
+    
+    return $proType.$industryType.$areaType.'-'.$projectScale.'-'.$proTyper.$year.'-'.$mulAll;
 
 }
 
