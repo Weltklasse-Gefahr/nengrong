@@ -24,6 +24,7 @@ class InnerStaffController extends Controller {
         $getJsonFlag = 1;
         $innerToken = "InternalCall";
         import("Org.Util.PHPExcel");
+        import("Org.Util.PHPExcel.Writer.PDF");
         $obpe = new \PHPExcel();
         $obpe_pro = $obpe->getProperties();
         $obpe->getProperties()->setCreator('qiujinhan')//设置创建者
@@ -142,11 +143,35 @@ class InnerStaffController extends Controller {
             $obpe->getActiveSheet()->getStyle('A3')->getFont()->getColor()->setARGB('D94600');
             $obpe->getactivesheet()->setcellvalue('A3', $tips);            
             import("Org.Util.PHPExcel.IOFactory");  
-            header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-            header('Content-Disposition: attachment;filename="'.$projectCode.'_项目意向书.xls"');
-            header('Cache-Control: max-age=0');
-            $objWriter = \PHPExcel_IOFactory::CreateWriter($obpe,"Excel2007");
-            $objWriter->save('php://output');
+            //header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+            /*header('Content-Disposition: attachment;filename="'.$projectCode.'_项目意向书.xls"');
+            header('Cache-Control: max-age=0');*/
+            //Vendor('\PhpExcel.PHPExcel.Writer.PDF.DomPDF');
+            header("Pragma: public");
+            header("Expires: 0");
+            header("Cache-Control:must-revalidate, post-check=0, pre-check=0");
+            header("Content-Type:application/force-download");
+            header("Content-Type: application/pdf");
+            header("Content-Type:application/octet-stream");
+            header("Content-Type:application/download");
+            $fileName  = $projectCode.'_项目意向书.pdf';
+            header("Content-Disposition:attachment;filename=".$fileName);
+            header("Content-Transfer-Encoding:binary");
+
+            //$objWriter = \PHPExcel_IOFactory::CreateWriter($obpe,"PDF");
+            //$objWriter =new \PHPExcel_Writer_PDF($obpe);
+
+            //$objWriter->save('php://output');
+            $html2 ='数字'; 
+            $intent= $intent."\n".$tips;
+
+            header("Content-type: application/octet-stream"); 
+            header("Accept-Ranges: bytes"); 
+            header("Accept-Length: ".strlen($html2));
+            header('Content-Disposition: attachment;filename="'.$projectCode.'_项目意向书.doc"'); 
+            header("Pragma:no-cache"); 
+            header("Expires:0"); 
+            echo $intent;
             //-----------------------------------------导出---意向书导出结束------------------------------------------//
         }
 
