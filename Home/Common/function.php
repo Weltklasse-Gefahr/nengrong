@@ -73,7 +73,7 @@ function uploadPicOne($photo, $savePath = ''){
     $upload->maxSize   =     3145728 * 10 +100;
     // 设置附件上传类型 .jpg .jpeg .gif .png .bmp .psd
     //$allType = array('jpg', 'gif', 'png', 'jpeg', 'bmp', 'psd');
-    $allType      =     array('ico','pdf', 'doc', 'excel', 'txt', 'docx', 'xlsx', 'xls', 'ppt', 'pptx','jpg', 'gif', 'png', 'jpeg', 'bmp', 'psd'"rar","zip","tar","7-zip","gzip","bz2");
+    $allType      =     array('ico','pdf', 'doc', 'excel', 'txt', 'docx', 'xlsx', 'xls', 'ppt', 'pptx','jpg', 'gif', 'png', 'jpeg', 'bmp', 'psd',"rar","zip","tar","7-zip","gzip","bz2");
     $upload->exts      =    $allType; 
     // 设置附件上传根目录
     $dirNengrongUserDataImg = dirname(dirname(dirname(__FILE__))).'/userdata/img/';
