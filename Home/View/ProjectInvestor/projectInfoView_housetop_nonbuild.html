@@ -65,7 +65,7 @@
 						</li>
 						<li class="clrfix">
 							<span class="lb">项目地点：</span>
-							<span class="lbw">{$data['dueDiligence']['areaArray'][3]}</span>
+							<span class="lbw">{$data['projectInfo']['areaStr']}</span>
 						</li>
 						<li class="clrfix">
 							<span class="lb">项目图片：</span>
@@ -310,7 +310,8 @@
 											</tr>
 											<tr>
 												<td class="c0">屋顶类型</td>
-												<td class="c1">{$data['dueDiligence']['projectDetail']['housetopType']}</td>
+												<td class="c1"><if condition="$data['dueDiligence']['projectDetail']['housetop_type'] eq 0"> {$data['dueDiligence']['projectDetail']['housetop_type_other']}
+<else />{$data['dueDiligence']['projectDetail']['housetopType']}</if></td>
 												<td class="c2">并网方式</td>
 												<td class="c3">{$data['dueDiligence']['projectDetail']['synchronizeType']}</td>
 											</tr>
