@@ -515,9 +515,10 @@ class InnerStaffController extends Controller {
             $data = $obj->projectInfoEdit($projectCode, null, $getJsonFlag, $innerToken);
             $data['typeStr'] = $objProject->getTypeAndStateStr($data['project_type'], $data['build_state']);
             $areaObj = D('Area', 'Service');
-            $areaInfo = $data['county']?$data['county']:$data['city'];
-            $areaInfo = $areaInfo?$areaInfo:$data['province'];
-            $data['areaStr'] = $areaObj->getAreaById($areaInfo);
+            // $areaInfo = $data['county']?$data['county']:$data['city'];
+            // $areaInfo = $areaInfo?$areaInfo:$data['province'];
+            // $data['areaStr'] = $areaObj->getAreaById($areaInfo);
+            $data['areaStr'] = $areaObj->getAreaById($data['project_area']).$data['project_address'];
             $data['companyType'] = $common->getProjectCompanyType($data['company_type']);
             $data['housetopType'] = $common->getHousetopType($data['housetop_type']);
             $data['synchronizeType'] = $common->getSynchronizeType($data['synchronize_type']);
