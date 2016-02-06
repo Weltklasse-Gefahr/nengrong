@@ -236,8 +236,8 @@
 	height: 30px;
 }
 
-.r-content form .part2 table .result_text .r #evaluation_result_text{
-	width: 830px;
+.r-content form .part2 table #evaluation_result_text{
+	width: 680px;
 }
 
 .r-content form .part3 .attachment-ct {
