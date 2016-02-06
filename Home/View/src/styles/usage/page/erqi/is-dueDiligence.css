@@ -231,6 +231,15 @@
 	background-color: #6D8BC0;
 }
 
+.r-content form .part2 table .result_text .r{
+	width: 830px;
+	height: 30px;
+}
+
+.r-content form .part2 table .result_text .r #evaluation_result_text{
+	width: 830px;
+}
+
 .r-content form .part3 .attachment-ct {
 	background-color: #ccc;
 }
