@@ -100,9 +100,16 @@ $(function($) {
 			}
 
 			$this.change(function(e) {
-				$hiddenId.val("");
-
 				var	resultFile = this.files[0];
+
+				if(option.fileSizeLimit) {
+					if(resultFile.size > option.fileSizeLimit.size) {
+						alert("该附件太大，有可能导致上传不成功，请尽量选择" + $.bytesToSize(option.fileSizeLimit.size) + "以内的文件，或分批上传！");
+						// return false;
+					}
+				}
+
+				$hiddenId.val("");
 
 				if(resultFile && resultFile.name) {
 					var alink = $preview.show().find("a");

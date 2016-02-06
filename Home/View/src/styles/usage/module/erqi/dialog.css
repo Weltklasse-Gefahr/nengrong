@@ -51,6 +51,10 @@
 .layer-mask .layer .bd .content {
 	float: left;
 }
+.layer-mask .layer .bd .content .dot {
+	font-size: 20px;
+	color: red;
+}
 
 .layer-mask .layer .bd .control {
 	text-align: center;

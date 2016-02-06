@@ -70,10 +70,10 @@ function uploadPicOne($photo, $savePath = ''){
     // 实例化上传类
     $upload = new \Think\Upload();
     // 设置附件上传大小30M
-    $upload->maxSize   =     3145728 * 10 ;
+    $upload->maxSize   =     3145728 * 10 +100;
     // 设置附件上传类型 .jpg .jpeg .gif .png .bmp .psd
     //$allType = array('jpg', 'gif', 'png', 'jpeg', 'bmp', 'psd');
-    $allType      =     array('ico','pdf', 'doc', 'excel', 'txt', 'docx', 'xlsx', 'xls', 'ppt', 'pptx','jpg', 'gif', 'png', 'jpeg', 'bmp', 'psd');
+    $allType      =     array('ico','pdf', 'doc', 'excel', 'txt', 'docx', 'xlsx', 'xls', 'ppt', 'pptx','jpg', 'gif', 'png', 'jpeg', 'bmp', 'psd',"rar","zip","tar","7-zip","gzip","bz2");
     $upload->exts      =    $allType; 
     // 设置附件上传根目录
     $dirNengrongUserDataImg = dirname(dirname(dirname(__FILE__))).'/userdata/img/';
@@ -122,9 +122,9 @@ function uploadFileOne($file, $savePath = ''){
     // 实例化上传类
     $upload = new \Think\Upload();
     // 设置附件上传大小30M
-    $upload->maxSize   =     3145728 * 10 ;
+    $upload->maxSize   =     3145728 * 10 + 100 ;
     // 设置附件上传类型doc .docx .xls .xlsx .ppt .pptx .txt .pdf
-    $allType      =     array('ico','pdf', 'doc', 'excel', 'txt', 'docx', 'xlsx', 'xls', 'ppt', 'pptx','jpg', 'gif', 'png', 'jpeg', 'bmp', 'psd');
+    $allType      =     array('ico','pdf', 'doc', 'excel', 'txt', 'docx', 'xlsx', 'xls', 'ppt', 'pptx','jpg', 'gif', 'png', 'jpeg', 'bmp', 'psd',"rar","zip","tar","7-zip","gzip","bz2");
     $upload->exts      =    $allType;
     // 设置附件上传根目录
     $dirNengrongUserDataDoc = dirname(dirname(dirname(__FILE__))).'/userdata/doc/';

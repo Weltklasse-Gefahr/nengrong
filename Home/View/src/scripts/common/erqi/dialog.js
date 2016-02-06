@@ -24,6 +24,47 @@ $(function($) {
 	}
 
 	$.extend($, {
+
+		_loadingDialog: null,
+
+		loading: function(text) {
+			if(!this._loadingDialog) {
+				this._loadingDialog = $('<div class="layer-mask">\
+							<div class="layer">\
+								<div class="hd">\
+									<img class="title" src="/EnergyFe/img/dialog/title.png" />\
+								</div>\
+								<div class="bd" style="width: 423px;">\
+									<div class="content-wrap clrfix">\
+										<img class="icon" src="/EnergyFe/img/dialog/icon.png" />\
+										<div class="content"></div>\
+									</div>\
+									<div class="control"></div>\
+								</div>\
+							</div>\
+						</div>').appendTo($(document.body));
+			}
+			this._loadingDialog.show().find(".content").html((text || '加载中，请稍侯') + '<span class="dot">......</span>');
+			this._loadingDialog.timeStamp = new Date().getTime();
+
+			var $dot = this._loadingDialog.find(".content .dot"),
+				time = 0,
+				textArr = [".", "..", "...", "....", ".....", "......"];
+			this._loadingDialog.interval = setInterval(function() {
+				$dot.text(textArr[time++]);
+				if(time === 6) {
+					time = 0;
+				}
+			}, 500);
+		},
+
+		closeLoading: function() {
+			if(this._loadingDialog && this._loadingDialog.is(":visible")) {
+				clearInterval(this._loadingDialog.interval);
+				this._loadingDialog.hide();
+			}
+		},
+
 		confirm: function(opt) {
 			opt = opt || {};
 			if(typeof opt === "string") {

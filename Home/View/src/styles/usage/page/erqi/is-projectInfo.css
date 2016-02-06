@@ -118,6 +118,56 @@
 	display: inline-block;
 }
 
+.r-content .part2 li.component .name {
+	width: 60px;
+	display: inline-block;
+}
+
+.r-content .part2 li.component .add, .r-content .part2 li.component .del {
+	color: #FD7940;
+}
+
+.r-content .part2 li.component .item {
+	width: 490px;
+	height: 100px;
+	margin: 10px 0;
+	padding: 6px 10px;
+	border: 1px solid #ccc;
+	position: relative;
+}
+
+.r-content .part2 li.component .item > div {
+	line-height: 45px;
+}
+
+.r-content .part2 li.component .item .del {
+	position: absolute;
+	top: 6px;
+	right: 12px;
+}
+
+.r-content .part2 li.component .item .c0:nth-child(odd) {
+	display: inline-block;
+	width: 80px;
+}
+
+.r-content .part2 li.component .item .c0:nth-child(even) {
+	width: 200px;
+	display: inline-block;
+}
+
+.r-content .part2 li.component .item .c1:nth-child(odd) {
+	display: inline-block;
+	width: 50px;
+	text-align: right;
+	margin-right: 2px;
+}
+
+.r-content .part2 li.component .item .c1:nth-child(even) {
+	margin-left: 8px;
+	margin-right: 2px;
+}
+
 .r-content  .part2 .preview {
 	display: inline-block;
 	line-height: 30px;

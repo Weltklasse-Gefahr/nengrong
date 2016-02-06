@@ -62,11 +62,12 @@
 	width: 75px;
 }
 
-.r-content form .part1 .brief-info .top span, .r-content form .part1 .brief-info .bottom span {
+.r-content form .part1 .brief-info .top > span, .r-content form .part1 .brief-info .bottom > span {
 	margin-right: 10px;
+	white-space: nowrap;
 }
 
-.r-content form .part1 .brief-info .top span.last, .r-content form .part1 .brief-info .bottom span.last {
+.r-content form .part1 .brief-info .top > span:last-of-type, .r-content form .part1 .brief-info .bottom > span:last-of-type {
 	margin-right: 0;
 }
 
@@ -228,6 +229,15 @@
 }
 .r-content form .part2 table .result-info .s-c {
 	background-color: #6D8BC0;
+}
+
+.r-content form .part2 table .result_text .r{
+	width: 830px;
+	height: 30px;
+}
+
+.r-content form .part2 table .result_text .r #evaluation_result_text{
+	width: 830px;
 }
 
 .r-content form .part3 .attachment-ct {
