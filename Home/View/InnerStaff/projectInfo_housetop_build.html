@@ -185,8 +185,8 @@
 					<span class="lb">资质等级</span>
 					<span class="lbw">{$data['projectInfo']['capacity_level']}</span>
 				</li>
-				<li>
-					<span class="lb">组件</span>
+				<li class="component">
+					<span class="name">组件</span>
 					<foreach name="data.projectInfo.components" item="vo" key="k" >
 					    <div class="item">
 						    <div><span class="c0">组件厂家</span><span class="c0">{$vo['component_company']}</span></div>
@@ -194,12 +194,12 @@
 					    </div>
 					</foreach>
 				</li>
-				<li>
-					<span class="lb">逆变器</span>
+				<li class="component">
+					<span class="name">逆变器</span>
 					<foreach name="data.projectInfo.inverters" item="vo" key="k" >
 					    <div class="item">
 						    <div><span class="c0">逆变器厂家</span><span class="c0">{$vo['inverter_company']}</span></div>
-						   <div><span class="c0">规格型号</span><span class="c0">{$vo['inverter_type']}</span><span class="c1">数量</span><span class="c1">{$vo['inverter_count']}</span>个</div>
+						   	<div><span class="c0">规格型号</span><span class="c0">{$vo['inverter_type']}</span><span class="c1">数量</span><span class="c1">{$vo['inverter_count']}</span>个</div>
 					    </div>
 					</foreach> 
 				</li>
