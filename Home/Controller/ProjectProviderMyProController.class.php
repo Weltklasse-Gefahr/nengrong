@@ -121,6 +121,7 @@ class ProjectProviderMyProController extends Controller {
             $arrInfor['voltage_level'] = $_POST['voltage_level'];//并网电压等级
             $arrInfor['plan_financing'] = $_POST['plan_financing'];//拟融资金额
             $arrInfor['project_industry'] = $_POST['project_industry'];//行业选择项
+            $arrInfor['project_name'] = $_POST['project_name'];//项目名称
 
 
             //上传公用的图片和文件

@@ -200,7 +200,7 @@ function getProjectCode($projectType, $area, $financingType, $projectIndustry){
         '6' => "X", 
         );
     $index = rand(1,6);
-    $industryType =  $industry[$index];
+    $industryType =  $projectIndustry;
     //地区
     //$areaType = empty($area)?"0101":$area;
     $areaType = rand(1000,9999);
