@@ -122,6 +122,10 @@ class ProjectProviderMyProController extends Controller {
             $arrInfor['plan_financing'] = $_POST['plan_financing'];//拟融资金额
             $arrInfor['project_industry'] = $_POST['project_industry'];//行业选择项
 
+            $arrInfor['project_name'] = $_POST['project_name'];//项目名称
+            $arrInfor['contacts_name'] = $_POST['contacts_name'];//联系人名称
+            $arrInfor['contacts_phone'] = $_POST['contacts_phone'];//联系方式
+            $arrInfor['contacts_email'] = $_POST['contacts_email'];//邮件地址
 
             //上传公用的图片和文件
             $arrPhotosAndFile = array(
