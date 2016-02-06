@@ -81,6 +81,9 @@ $(function() {
 		uploadType: "image",
 		width: "120px",
 		height: "120px",
+		fileSizeLimit: {
+			size: 10*1024*1024
+		},
 		callback: uploadCallback
 	});
 
@@ -90,7 +93,10 @@ $(function() {
 		content: "上传附件",
 		uploadType: "file",
 		width: "80px",
-		height: "20px"
+		height: "20px",
+		fileSizeLimit: {
+			size: 10*1024*1024
+		}
 	});
 
 	// 有无（附件）
@@ -156,8 +162,9 @@ $(function() {
 			rtype: 1
 		},
 	   	// target: '#output',          //把服务器返回的内容放入id为output的元素中      
-	   	beforeSubmit: beforeSubmit, //提交前的回调函数  
+	   	beforeSubmit: beforeSubmit, //提交前的回调函数
 	   	success: successCallback,  	//提交后的回调函数
+	   	error: failCallback,		//服务器出错的回调函数
 	   	dataType: "json",           //html(默认), xml, script, json...接受服务端返回的类型  
 	   	// clearForm: true,         //成功提交后，清除所有表单元素的值  
 	   	// resetForm: true,         //成功提交后，重置所有表单元素的值  
@@ -410,6 +417,7 @@ $(function() {
 		
 		var optype = $form.find("[name=optype]").val();
 		if(optype === "save") { // 保存不加校验
+			$.loading("正在保存，请稍侯");
 			return true;
 		}
 
@@ -609,23 +617,42 @@ $(function() {
 				break;
 		}
 
+		$.loading("正在提交，请稍侯");
+
 	   	return true;
 	}
 
 	function successCallback(data) {
-		if(data.code == "0") {
-			var optype = $form.find("[name=optype]").val();
-			if(optype === "save") {
-				location.href = "?c=ProjectProviderMyPro&a=projectInfoEdit&no=" + data.id + "&token=" + data.idm;
+		var takeTime = new Date().getTime() - $._loadingDialog.timeStamp;
+		setTimeout(function() {
+			$.closeLoading();
+			if(data.code == "0") {
+				var optype = $form.find("[name=optype]").val();
+				if(optype === "save") {
+					location.href = "?c=ProjectProviderMyPro&a=projectInfoEdit&no=" + data.id + "&token=" + data.idm;
+				} else {
+					location.href = "?c=ProjectProviderMyPro&a=awaitingAssessment";
+				}
 			} else {
-				location.href = "?c=ProjectProviderMyPro&a=awaitingAssessment";
+				// $form.find('[data-type="mul"]').each(function() {
+				// 	$(this).attr("name", $(this).attr("name").replace(/^([^\[\]]*)\[\]$/, "$1"));
+				// });
+				alert(data.msg || "操作失败,请稍后再试！");
 			}
-		} else {
-			// $form.find('[data-type="mul"]').each(function() {
-			// 	$(this).attr("name", $(this).attr("name").replace(/^([^\[\]]*)\[\]$/, "$1"));
-			// });
-			alert(data.msg || "操作失败！");
-		}
+		}, takeTime > 1000 ? 0 : 1000 - takeTime);
+		
+	}
+
+	function failCallback(xhr, status, error, $form) {
+		var takeTime = new Date().getTime() - $._loadingDialog.timeStamp;
+		setTimeout(function() {
+			$.closeLoading();
+			if(xhr.status === 413) {
+				alert("本次提交的附件太大，请尽量上传小附件，或者分批保存再提交！");
+			} else {
+				alert("操作失败,请稍后再试！");
+			}
+		}, takeTime > 1000 ? 0 : 1000 - takeTime);
 	}
 
 	$form.find("input[type=submit], input[type=button]").click(function() {
