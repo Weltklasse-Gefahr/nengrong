@@ -384,6 +384,24 @@ class ProjectInvestorMyProController extends Controller {
         $obj   = new ProjectProviderMyProController();
         $innerToken = "InternalCall";
         $data = $obj->projectInfoEdit($projectCode, null, $getJsonFlag,$innerToken);
+        $common = D("Common","Service");
+        $areaObj = D('Area', 'Service');
+        $data['areaStr'] = $areaObj->getAreaById($data['project_area']).$data['project_address'];
+        $data['companyType'] = $common->getProjectCompanyType($data['company_type']);
+        $data['housetopType'] = $common->getHousetopType($data['housetop_type']);
+        $data['synchronizeType'] = $common->getSynchronizeType($data['synchronize_type']);
+        $data['financingType'] = $common->getFinancingType($data['financing_type']);
+        $data['electricityClearType'] = $common->getElectricityClearType($data['electricity_clear_type']);
+        $data['groundProperty'] = $common->getGroundProperty($data['ground_property']);
+        $data['groundCondition'] = $common->getGroundCondition($data['ground_condition']);
+        $data['measurePoint'] = $common->getMeasurePoint($data['measure_point']);
+        $data['projectHolderType'] = $common->getProjectHolderType($data['project_holder_type']);
+        $data['groundProjectType'] = $common->getGroundProjectType($data['ground_project_type']);
+        $data['housetopDirection'] = $common->getHousetopDirection($data['housetop_direction']);
+        $data['cooperationType'] = $common->getCooperationType($data['cooperation_type']);
+        $data['hasShelter'] = $common->getHasShelterOrPollution($data['has_shelter']);
+        $data['hasPollute'] = $common->getHasShelterOrPollution($data['has_pollute']);
+        $data['hasPollution'] = $common->getHasShelterOrPollution($data['has_pollution']);
         // dump($data);exit;
         //echo $data['project_type'];exit;
         //获取签署意向书信息 
