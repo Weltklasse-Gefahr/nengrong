@@ -175,10 +175,23 @@ $(function() {
 	$form.validate({
 		ignore: ':hidden, [data-with-file="true"]',
 		rules: {
+			"project_name": "required",
 			"province": "required",
 			"city": "required",
 			"county": "required",
    			"project_address": "required",
+
+   			"contacts_name": "required",
+   			"contacts_phone": {
+   				"required": true,
+				"mobile": true
+
+   			},
+   			"contacts_email": {
+   				"required": true,
+   				"email": true
+   			},
+
    			"housetop_owner": "required",
    			"company_capital": {
    				"required": true,
@@ -295,10 +308,22 @@ $(function() {
 	   		}
    		},
    		messages: {
+   			"project_name": "请填写项目名称",
    			"province": "请选择省份",
    			"city": "请选择市",
 			"county": "请选择区",
 			"project_address": "请填写详细地址",
+
+			"contacts_name": "请填写项目联系人",
+			"contacts_phone": {
+   				"required": "请填写联系方式",
+				"mobile": "联系人手机号格式不对"
+   			},
+   			"contacts_email": {
+   				"required": "请填写联系人邮件地址",
+   				"email": "联系人邮箱地址格式不对"
+   			},
+
 			"housetop_owner": "请填写屋顶业主名称",
 			"company_capital": {
 				"required": "请填写注册资本金",
@@ -398,9 +423,9 @@ $(function() {
 	   		}
    		},
    		errorClass: 'validate-error',
-   		focusInvalid: false,
+   		focusInvalid: true,
    		errorPlacement: function(error, element) {
-   			element.focus();
+   			// element.focus();
    		},
    		submitHandler: function(form) {
    			$form.ajaxSubmit(options);
