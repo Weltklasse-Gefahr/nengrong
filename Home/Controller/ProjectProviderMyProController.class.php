@@ -495,9 +495,9 @@ class ProjectProviderMyProController extends Controller {
             //根据project_code去查询项目信息
             $objProject  = D("Project","Service");
             $projectInfo = $objProject->getProjectInfo($projectCode);
-            //echo $projectCode;exit;
+            // echo $projectCode;exit;
             //echo jj;exit;
-            //echo json_encode($projectInfo);exit;
+            // echo json_encode($projectInfo);exit;
             //在去Housetop，or  Ground 取一下数据
             $projectInfoDetail = $objProject->getProjectDetail($projectInfo['id'], $projectInfo['project_type']);
             //获取组件信息
