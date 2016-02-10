@@ -552,7 +552,15 @@ class ProjectProviderMyProController extends Controller {
                         $temp["url"] = $docInfo[0]["file_rename"];
                         $projectInfo["picture_mul"][] = $temp;
                     }
-                    if($projectInfo['status']== 11)
+                    //echo count($arrDocId);exit;
+                    $flagOne = 0;
+                    if($projectInfo['project_type'] == 1 && count($arrDocId) >= 10){
+                       $flagOne = 1;
+                    }
+                    if($projectInfo['project_type'] == 2 && count($arrDocId) >= 9){
+                       $flagOne = 1;
+                    }
+                    if($projectInfo['status']== 11 && $flagOne == 0)
                     {
                         $projectInfo["picture_mul"][] = "";
                     }
@@ -589,7 +597,7 @@ class ProjectProviderMyProController extends Controller {
              create mode 100755 Home/View/ProjectProvider/projectInfoEdit_housetop_nonbuild.html
              翔哥改动了前端，我后端也要调整下
             */
-            
+
             if($projectInfo['project_type'] == 1){
                 if($projectInfo['build_state'] == 1){
                     $this->display("ProjectProvider:projectInfoEdit_housetop_nonbuild");
