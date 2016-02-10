@@ -215,7 +215,7 @@ class InnerStaffController extends Controller {
                 $i = $i +1;
                 $obpe->getactivesheet()->setcellvalue('A'.$i, $val['company_name']);
                 $obpe->getactivesheet()->setcellvalue('B'.$i, $val['push_flag']);
-                $obpe->getactivesheet()->setcellvalue('C'.$i, $val['company_phone']);
+                $obpe->getactivesheet()->setcellvalue('C'.$i, $val['company_contacts_phone']);
             }          
             import("Org.Util.PHPExcel.IOFactory");  
             header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
