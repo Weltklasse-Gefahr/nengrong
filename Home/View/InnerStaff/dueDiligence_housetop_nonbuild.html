@@ -276,6 +276,10 @@
 								<td></td>
 								<td clsss="r"><input id="evaluation_result_text" name="evaluation_result_text" value="{$evaluationInfo['evaluation_result_text']}" /></td>
 							</tr>
+							<tr class="duty_person">
+								<td>责任人</td>
+								<td clsss="r"><input id="duty_person" name="duty_person" value="{$evaluationInfo['duty_person']}" /></td>
+							</tr>
 						</tbody>
 					</table>
 				</div>
@@ -394,6 +398,10 @@
 							<tr style="height: 100px;">
 								<td>评价结果</td>
 								<td class="result">{$evaluationInfo['evaluation_result']},{$evaluationInfo['evaluation_result_text']}</td>
+							</tr>
+							<tr>
+								<td>责任人</td>
+								<td class="result">{$evaluationInfo['duty_person']}</td>
 							</tr>
 						</tbody>
 					</table>
