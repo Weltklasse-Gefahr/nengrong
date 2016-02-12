@@ -495,14 +495,13 @@
 							</select>
 						</li>
 						<li>
-							<span class="lb not-empty">行业</span>
+							<span class="lb not-empty">自发自用用电分类</span>
 							<select name="project_industry">
-								<option value="I" {$data['projectInfo']['project_industry'] == 'I' ? 'selected' : ''} >工业</option>
-								<option value="C" {$data['projectInfo']['project_industry'] == 'C' ? 'selected' : ''} >商业</option>
-								<option value="A" {$data['projectInfo']['project_industry'] == 'A' ? 'selected' : ''} >农业</option>
-								<option value="R" {$data['projectInfo']['project_industry'] == 'R' ? 'selected' : ''} >居民</option>
-								<option value="F" {$data['projectInfo']['project_industry'] == 'F' ? 'selected' : ''} >渔光互补</option>
-								<option value="X" {$data['projectInfo']['project_industry'] == 'X' ? 'selected' : ''} >其他</option>
+								<option value="I" {$data['projectInfo']['project_industry'] == 'I' ? 'selected' : ''}>大工业</option>
+								<option value="C" {$data['projectInfo']['project_industry'] == 'C' ? 'selected' : ''}>一般工商业</option>
+								<option value="A" {$data['projectInfo']['project_industry'] == 'A' ? 'selected' : ''}>农业</option>
+								<option value="R" {$data['projectInfo']['project_industry'] == 'R' ? 'selected' : ''}>居民</option>
+								<option value="X" {$data['projectInfo']['project_industry'] == 'X' ? 'selected' : ''}>其他</option>
 							</select>
 						</li>
 					</ul>
@@ -780,7 +779,11 @@
 							</tr>
 							<tr style="height: 100px;">
 								<td>评价结果</td>
-								<td class="result">{$data['dueDiligence']['evaluationInfo']['evaluation_result']} {$data['dueDiligence']['evaluationInfo']['evaluation_result_text']}</td>
+								<td class="result">{$data['dueDiligence']['evaluationInfo']['evaluation_result']},{$data['dueDiligence']['evaluationInfo']['evaluation_result_text']}</td>
+							</tr>
+							<tr style="height: 100px;">
+								<td>责任人</td>
+								<td class="result">{$data['dueDiligence']['evaluationInfo']['duty_person']}</td>
 							</tr>
 						</tbody>
 					</table>

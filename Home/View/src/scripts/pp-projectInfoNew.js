@@ -178,7 +178,7 @@ $(function() {
 			"project_name": "required",
 			"province": "required",
 			"city": "required",
-			"county": "required",
+			// "county": "required",
    			"project_address": "required",
 
    			"contacts_name": "required",
@@ -311,7 +311,7 @@ $(function() {
    			"project_name": "请填写项目名称",
    			"province": "请选择省份",
    			"city": "请选择市",
-			"county": "请选择区",
+			// "county": "请选择区",
 			"project_address": "请填写详细地址",
 
 			"contacts_name": "请填写项目联系人",

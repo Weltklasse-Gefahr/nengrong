@@ -198,7 +198,7 @@ rar,arj,gz,z,tar,7z,gzip,bz2',
 			"plan_build_volume": "required",
 			"province": "required",
 			"city": "required",
-			"county": "required",
+			// "county": "required",
 			"project_address": "required",
 			"housetop_type_other": {
    				"required": function() {
@@ -284,7 +284,7 @@ rar,arj,gz,z,tar,7z,gzip,bz2',
 			"plan_build_volume": "请填写建设容量",
 			"province": "请选择省份",
 			"city": "请选择市",
-			"county": "请选择区",
+			// "county": "请选择区",
 			"project_address": "请填写详细地址",
 			"housetop_type_other": "请填写屋顶类型",
 			"plan_financing": {

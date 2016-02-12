@@ -340,6 +340,7 @@ class ProjectService extends Model{
             $condition["delete_flag"] = array('neq',9999);
             $projectInfo = $projectObj->where($condition)->find();
             $pushProInfo[$i]['project_type'] = $projectInfo['project_type'];
+            $pushProInfo[$i]['build_state'] = $projectInfo['build_state'];
             $pushProInfo[$i]['status'] = $projectInfo['status'];
             $i += 1;
         }

@@ -1284,8 +1284,7 @@ class InnerStaffController extends Controller {
     	isLogin($_COOKIE['email'], $_COOKIE['mEmail']);
         authentication($_COOKIE['email'], 2, $innerToken);
     	$optype = $_POST['optype'] ? $_POST['optype']:$_GET['optype'];
-        if( $rtype == null)
-        {
+        if($rtype == null){
             $rtype = $_POST['rtype'] ? $_POST['rtype']:$_GET['rtype'];
         }
         if($optype == "upload" && $rtype == 1){
@@ -1315,41 +1314,47 @@ class InnerStaffController extends Controller {
                 $proData['project_id'] = $projectId;
                 $proData['housetop_owner'] = $_POST['housetop_owner']; 
                 $proData['company_type'] = $_POST['company_type'];
-                $proData['plan_build_volume'] = $_POST['plan_build_volume'];
-                $proData['project_area'] = $_POST['county'];
+                $proData['plan_build_volume'] = $_POST['plan_build_volume']==""?null:$_POST['plan_build_volume'];
+                // $proData['project_area'] = $_POST['county'];
+                $proArea = $_POST['county']?$_POST['county']:$_POST['city'];
+                $proArea = $proArea?$proArea:$_POST['province'];
+                $proData['project_area'] = $proArea;
                 $proData['project_address'] = $_POST['project_address'];
                 $proData['housetop_type'] = $_POST['housetop_type'];
                 $proData['housetop_type_other'] = $_POST['housetop_type_other'];
                 $proData['synchronize_type'] = $_POST['synchronize_type'];
-                $proData['plan_financing'] = $_POST['plan_financing'];
+                $proData['plan_financing'] = $_POST['plan_financing']==""?null:$_POST['plan_financing'];
                 $proData['financing_type'] = $_POST['financing_type'];
             }elseif($objProjectInfo['project_type'] == 2 || $objProjectInfo['project_type'] == 3){
                 $proData['project_id'] = $projectId;
-                $proData['plan_build_volume'] = $_POST['plan_build_volume'];
-                $proData['project_area'] = $_POST['county'];
+                $proData['plan_build_volume'] = $_POST['plan_build_volume']==""?null:$_POST['plan_build_volume'];
+                // $proData['project_area'] = $_POST['county'];
+                $proArea = $_POST['county']?$_POST['county']:$_POST['city'];
+                $proArea = $proArea?$proArea:$_POST['province'];
+                $proData['project_area'] = $proArea;
                 $proData['project_address'] = $_POST['project_address'];
                 $proData['project_name'] = $_POST['project_name'];
                 $proData['ground_project_type'] = $_POST['ground_project_type'];
                 $proData['project_finish_date'] = $_POST['project_finish_date'];
-                $proData['project_electricity_price'] = $_POST['project_electricity_price'];
-                $proData['project_investment'] = $_POST['project_investment'];
+                $proData['project_electricity_price'] = $_POST['project_electricity_price']==""?null:$_POST['project_electricity_price'];
+                $proData['project_investment'] = $_POST['project_investment']==""?null:$_POST['project_investment'];
                 $proData['ground_condition'] = $_POST['ground_condition'];
                 $proData['ground_property'] = $_POST['ground_property'];
                 $proData['ground_property_other'] = $_POST['ground_property_other'];
-                $proData['ground_area'] = $_POST['ground_area'];
-                $proData['plan_financing'] = $_POST['plan_financing'];
+                $proData['ground_area'] = $_POST['ground_area']==""?null:$_POST['ground_area'];
+                $proData['plan_financing'] = $_POST['plan_financing']==""?null:$_POST['plan_financing'];
                 $proData['financing_type'] = $_POST['financing_type'];
             }
     		
             $evaData = array();
             $evaData['project_id'] = $projectId;
-            $evaData['IRR'] = $_POST['IRR'];
+            $evaData['IRR'] = $_POST['IRR']==""?null:$_POST['IRR'];
             $evaData['evaluation_result'] = $_POST['evaluation_result'].",".$_POST['evaluation_result_text'];
-            $evaData['static_payback_time'] = $_POST['static_payback_time'];
-            $evaData['dynamic_payback_time'] = $_POST['dynamic_payback_time'];
-            $evaData['LCOE'] = $_POST['LCOE'];
-            $evaData['npv'] = $_POST['npv'];
-            $evaData['power_asset_current_value'] = $_POST['power_asset_current_value'];
+            $evaData['static_payback_time'] = $_POST['static_payback_time']==""?null:$_POST['static_payback_time'];
+            $evaData['dynamic_payback_time'] = $_POST['dynamic_payback_time']==""?null:$_POST['dynamic_payback_time'];
+            $evaData['LCOE'] = $_POST['LCOE']==""?null:$_POST['LCOE'];
+            $evaData['npv'] = $_POST['npv']==""?null:$_POST['npv'];
+            $evaData['power_asset_current_value'] = $_POST['power_asset_current_value']==""?null:$_POST['power_asset_current_value'];
             $evaData['evaluation_content'] = $_POST['evaluation_content'];
             $evaData['document_review'] = $_POST['document_review'];
             $evaData['project_quality_situation'] = $_POST['project_quality_situation'];
@@ -1386,41 +1391,47 @@ class InnerStaffController extends Controller {
                 $proData['project_id'] = $projectId;
                 $proData['housetop_owner'] = $_POST['housetop_owner']; 
                 $proData['company_type'] = $_POST['company_type'];
-                $proData['plan_build_volume'] = $_POST['plan_build_volume'];
-                $proData['project_area'] = $_POST['county'];
+                $proData['plan_build_volume'] = $_POST['plan_build_volume']==""?null:$_POST['plan_build_volume'];
+                // $proData['project_area'] = $_POST['county'];
+                $proArea = $_POST['county']?$_POST['county']:$_POST['city'];
+                $proArea = $proArea?$proArea:$_POST['province'];
+                $proData['project_area'] = $proArea;
                 $proData['project_address'] = $_POST['project_address'];
                 $proData['housetop_type'] = $_POST['housetop_type'];
                 $proData['housetop_type_other'] = $_POST['housetop_type_other'];
                 $proData['synchronize_type'] = $_POST['synchronize_type'];
-                $proData['plan_financing'] = $_POST['plan_financing'];
+                $proData['plan_financing'] = $_POST['plan_financing']==""?null:$_POST['plan_financing'];
                 $proData['financing_type'] = $_POST['financing_type'];
             }elseif($objProjectInfo['project_type'] == 2 || $objProjectInfo['project_type'] == 3){
                 $proData['project_id'] = $projectId;
-                $proData['plan_build_volume'] = $_POST['plan_build_volume'];
-                $proData['project_area'] = $_POST['county'];
+                $proData['plan_build_volume'] = $_POST['plan_build_volume']==""?null:$_POST['plan_build_volume'];
+                // $proData['project_area'] = $_POST['county'];
+                $proArea = $_POST['county']?$_POST['county']:$_POST['city'];
+                $proArea = $proArea?$proArea:$_POST['province'];
+                $proData['project_area'] = $proArea;
                 $proData['project_address'] = $_POST['project_address'];
                 $proData['project_name'] = $_POST['project_name'];
                 $proData['ground_project_type'] = $_POST['ground_project_type'];
                 $proData['project_finish_date'] = $_POST['project_finish_date'];
-                $proData['project_electricity_price'] = $_POST['project_electricity_price'];
-                $proData['project_investment'] = $_POST['project_investment'];
+                $proData['project_electricity_price'] = $_POST['project_electricity_price']==""?null:$_POST['project_electricity_price'];
+                $proData['project_investment'] = $_POST['project_investment']==""?null:$_POST['project_investment'];
                 $proData['ground_condition'] = $_POST['ground_condition'];
                 $proData['ground_property'] = $_POST['ground_property'];
                 $proData['ground_property_other'] = $_POST['ground_property_other'];
-                $proData['ground_area'] = $_POST['ground_area'];
-                $proData['plan_financing'] = $_POST['plan_financing'];
+                $proData['ground_area'] = $_POST['ground_area']==""?null:$_POST['ground_area'];
+                $proData['plan_financing'] = $_POST['plan_financing']==""?null:$_POST['plan_financing'];
                 $proData['financing_type'] = $_POST['financing_type'];
             }
 
             $evaData = array();
             $evaData['project_id'] = $projectId;
-            $evaData['IRR'] = $_POST['IRR'];
+            $evaData['IRR'] = $_POST['IRR']==""?null:$_POST['IRR'];
             $evaData['evaluation_result'] = $_POST['evaluation_result'].",".$_POST['evaluation_result_text'];
-            $evaData['static_payback_time'] = $_POST['static_payback_time'];
-            $evaData['dynamic_payback_time'] = $_POST['dynamic_payback_time'];
-            $evaData['LCOE'] = $_POST['LCOE'];
-            $evaData['npv'] = $_POST['npv'];
-            $evaData['power_asset_current_value'] = $_POST['power_asset_current_value'];
+            $evaData['static_payback_time'] = $_POST['static_payback_time']==""?null:$_POST['static_payback_time'];
+            $evaData['dynamic_payback_time'] = $_POST['dynamic_payback_time']==""?null:$_POST['dynamic_payback_time'];
+            $evaData['LCOE'] = $_POST['LCOE']==""?null:$_POST['LCOE'];
+            $evaData['npv'] = $_POST['npv']==""?null:$_POST['npv'];
+            $evaData['power_asset_current_value'] = $_POST['power_asset_current_value']==""?null:$_POST['power_asset_current_value'];
             $evaData['evaluation_content'] = $_POST['evaluation_content'];
             $evaData['document_review'] = $_POST['document_review'];
             $evaData['project_quality_situation'] = $_POST['project_quality_situation'];

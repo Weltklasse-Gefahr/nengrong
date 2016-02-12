@@ -456,14 +456,13 @@
 						</select>
 					</li>
 					<li>
-						<span class="lb not-empty">行业</span>
+						<span class="lb not-empty">自发自用用电分类</span>
 						<select name="project_industry">
-							<option value="I" {$data['project_industry'] == 'I' ? 'selected' : ''} >工业</option>
-							<option value="C" {$data['project_industry'] == 'C' ? 'selected' : ''} >商业</option>
-							<option value="A" {$data['project_industry'] == 'A' ? 'selected' : ''} >农业</option>
-							<option value="R" {$data['project_industry'] == 'R' ? 'selected' : ''} >居民</option>
-							<option value="F" {$data['project_industry'] == 'F' ? 'selected' : ''} >渔光互补</option>
-							<option value="X" {$data['project_industry'] == 'X' ? 'selected' : ''} >其他</option>
+							<option value="I" {$data['project_industry'] == 'I' ? 'selected' : ''}>大工业</option>
+							<option value="C" {$data['project_industry'] == 'C' ? 'selected' : ''}>一般工商业</option>
+							<option value="A" {$data['project_industry'] == 'A' ? 'selected' : ''}>农业</option>
+							<option value="R" {$data['project_industry'] == 'R' ? 'selected' : ''}>居民</option>
+							<option value="X" {$data['project_industry'] == 'X' ? 'selected' : ''}>其他</option>
 						</select>
 					</li>
 				</ul>
