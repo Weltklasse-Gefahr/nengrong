@@ -205,11 +205,11 @@ function getProjectCode($projectType, $financingType, $area, $projectIndustry,$p
     //$areaType = empty($area)?"0101":$area;
     if (empty($area))
     {
-        $areaType = '0000';
+        $areaType = '000000';
     }
     else
     {
-        $areaType = substr( $area, 0, 4 );
+        $areaType = substr( $area, 0, 6 );
     }
     //项目规模  19800kw表示为0198M  100kw 表示为 0100k    1001kw 表示为  0010M
     if($planBuildVolume >= 1000 && $planBuildVolume < 1000000)
