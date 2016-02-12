@@ -224,49 +224,34 @@ class UserController extends Controller
         }
     }
 
-    // public function test1(){
-    //     $com = D('Common', 'Service');
-    //     $res = $com->getFileSize(1000230);
-    //     echo $res;exit;
+    public function test1(){
+        $qianqiang = M('qian');
+        $data['id'] = NULL;
+        $data['int'] = "";
+        $data['double'] = "";
+        $data['varchar'] = NULL;
+        $qianqiang->add($data);
+        echo "sucess";
 
-    //     // $user = D("User", "Service");
-    //     // $userInfo = $user->getAllCompanyName();
-    //     // dump($userInfo);
+        // $investors = '123,456,789,';
+        // $newstr = substr($investors,0,strlen($investors)-1); 
+        // $investorList = explode(",",$newstr);
+        // dump($investorList);exit;
 
-    //     // $investors = '123,456,789,';
-    //     // $newstr = substr($investors,0,strlen($investors)-1); 
-    //     // $investorList = explode(",",$newstr);
-    //     // dump($investorList);exit;
-
-    //     // $email = "82563912@qq.com";
-    //     // $key = $email.",".md5(addToken($email)).",".time();
-    //     // $encryptKey = encrypt($key, getKey()); 
-    //     // $url = "www.enetf.com/?c=User&a=activeUser&key=".$encryptKey;
-    //     // $name = "能融网用户";
-    //     // $subject = "验证您的电子邮箱地址";
-    //     // $text = "激活邮件内容".$url;
-    //     // $r = think_send_mail($email, $name, $subject, $text, null);
-    //     // dump($r);dump($key);dump($url);
-    //     // exit;
-
-    //     // $area = D("Area", "Service");
-    //     // $res = $area->getAreaArrayByHighLevelId("130000");
-    //     // header('Content-Type: text/html; charset=utf-8');
-    //     // dump($res);
+        // $area = D("Area", "Service");
+        // $res = $area->getAreaArrayByHighLevelId("130000");
+        // header('Content-Type: text/html; charset=utf-8');
+        // dump($res);
         
-    //     // $email = "qianqiang@qq.com";
-    //     // isDataComplete($email);
-    //     // echo "chenggong!";
-    //     // exit;
-    //     // $User = M("User");
-    //     // $email = $User->where('id=3 and password=123')->getField('email');
-    //     // echo json_encode($email);
-    //     // $list = $User->getField('id,email');
-    //     // dump($list);
-    //     // echo json_encode(sizeof($list));
-    //     // $news = M('news');
-    //     // $new = $news->select(1);
-    //     // echo json_encode($new);
-    // }
+        // $User = M("User");
+        // $email = $User->where('id=3 and password=123')->getField('email');
+        // echo json_encode($email);
+        // $list = $User->getField('id,email');
+        // dump($list);
+        // echo json_encode(sizeof($list));
+        // $news = M('news');
+        // $new = $news->select(1);
+        // echo json_encode($new);
+    }
 
 }
