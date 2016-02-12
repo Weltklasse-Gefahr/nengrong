@@ -114,7 +114,9 @@ class ProjectProviderMyProController extends Controller {
             $arrProInfo['project_code']  =$projectCode;
 
             //共有的一些参数接收
-            $arrInfor['project_area'] = $_POST['county'];//省市区
+            $proArea = $_POST['county']?$_POST['county']:$_POST['city'];
+            $proArea = $proArea?$proArea:$_POST['province'];
+            $arrInfor['project_area'] = $proArea;//省市区
             
             $arrInfor['project_address'] = $_POST['project_address'];  //详细地址
             $arrInfor['transformer_capacity'] = $_POST['transformer_capacity']==""?null:$_POST['transformer_capacity'];//上级变压器容量

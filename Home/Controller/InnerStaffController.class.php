@@ -747,7 +747,10 @@ class InnerStaffController extends Controller {
                 $proData['housetop_owner'] = $_POST['housetop_owner']; 
                 $proData['company_type'] = $_POST['company_type'];
                 $proData['plan_build_volume'] = $_POST['plan_build_volume']==""?null:$_POST['plan_build_volume'];
-                $proData['project_area'] = $_POST['county'];
+                // $proData['project_area'] = $_POST['county'];
+                $proArea = $_POST['county']?$_POST['county']:$_POST['city'];
+                $proArea = $proArea?$proArea:$_POST['province'];
+                $proData['project_area'] = $proArea;
                 $proData['project_address'] = $_POST['project_address'];
                 $proData['housetop_type'] = $_POST['housetop_type'];
                 $proData['housetop_type_other'] = $_POST['housetop_type_other'];
@@ -757,7 +760,10 @@ class InnerStaffController extends Controller {
             }elseif($objProjectInfo['project_type'] == 2 || $objProjectInfo['project_type'] == 3){
                 $proData['project_id'] = $projectId;
                 $proData['plan_build_volume'] = $_POST['plan_build_volume']==""?null:$_POST['plan_build_volume'];
-                $proData['project_area'] = $_POST['county'];
+                // $proData['project_area'] = $_POST['county'];
+                $proArea = $_POST['county']?$_POST['county']:$_POST['city'];
+                $proArea = $proArea?$proArea:$_POST['province'];
+                $proData['project_area'] = $proArea;
                 $proData['project_address'] = $_POST['project_address'];
                 $proData['project_name'] = $_POST['project_name'];
                 $proData['ground_project_type'] = $_POST['ground_project_type'];
@@ -818,7 +824,10 @@ class InnerStaffController extends Controller {
                 $proData['housetop_owner'] = $_POST['housetop_owner']; 
                 $proData['company_type'] = $_POST['company_type'];
                 $proData['plan_build_volume'] = $_POST['plan_build_volume']==""?null:$_POST['plan_build_volume'];
-                $proData['project_area'] = $_POST['county'];
+                // $proData['project_area'] = $_POST['county'];
+                $proArea = $_POST['county']?$_POST['county']:$_POST['city'];
+                $proArea = $proArea?$proArea:$_POST['province'];
+                $proData['project_area'] = $proArea;
                 $proData['project_address'] = $_POST['project_address'];
                 $proData['housetop_type'] = $_POST['housetop_type'];
                 $proData['housetop_type_other'] = $_POST['housetop_type_other'];
@@ -828,7 +837,10 @@ class InnerStaffController extends Controller {
             }elseif($objProjectInfo['project_type'] == 2 || $objProjectInfo['project_type'] == 3){
                 $proData['project_id'] = $projectId;
                 $proData['plan_build_volume'] = $_POST['plan_build_volume']==""?null:$_POST['plan_build_volume'];
-                $proData['project_area'] = $_POST['county'];
+                // $proData['project_area'] = $_POST['county'];
+                $proArea = $_POST['county']?$_POST['county']:$_POST['city'];
+                $proArea = $proArea?$proArea:$_POST['province'];
+                $proData['project_area'] = $proArea;
                 $proData['project_address'] = $_POST['project_address'];
                 $proData['project_name'] = $_POST['project_name'];
                 $proData['ground_project_type'] = $_POST['ground_project_type'];
