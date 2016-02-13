@@ -56,6 +56,12 @@
 				<form id="infoForm" class="ground_nonBuild">
 					<ul class="detail part1">
 						<li class="clrfix">
+							<span class="lb not-empty">项目名称</span>
+							<div class="item fullinput">
+								<input name="project_name" value="{$data['projectInfo']['project_name']}" />
+							</div>
+						</li>
+						<li class="clrfix">
 							<span class="lb not-empty">项目类型</span>
 							<div class="item">
 								<div class="filter">
@@ -85,7 +91,7 @@
 						</li>
 						<li class="clrfix">
 							<span class="lb not-empty">详细地址</span>
-							<div class="item area">
+							<div class="item fullinput">
 								<input name="project_address" value="{$data['projectInfo']['project_address']}" />
 							</div>
 						</li>
@@ -194,6 +200,21 @@
 									<p>变电站照片</p>
 								</div>
 							</div>
+						</li>
+					</ul>
+					<p class="title">联系人信息</p>
+					<ul class="detail part2">
+						<li>
+							<span class="lb not-empty">联系人</span>
+							<input name="contacts_name" value="{$data['projectInfo']['contacts_name']}">
+						</li>
+						<li>
+							<span class="lb not-empty">联系方式</span>
+							<input name="contacts_phone" value="{$data['projectInfo']['contacts_phone']}">
+						</li>
+						<li>
+							<span class="lb not-empty">邮件地址</span>
+							<input name="contacts_email" value="{$data['projectInfo']['contacts_email']}">
 						</li>
 					</ul>
 					<p class="title notall housetop_nonBuild_item housetop_build_item">屋顶业主信息</p>
@@ -474,14 +495,13 @@
 							</select>
 						</li>
 						<li>
-							<span class="lb not-empty">行业</span>
+							<span class="lb not-empty">自发自用用电分类</span>
 							<select name="project_industry">
-								<option value="I" {$data['projectInfo']['project_industry'] == 'I' ? 'selected' : ''} >工业</option>
-								<option value="C" {$data['projectInfo']['project_industry'] == 'C' ? 'selected' : ''} >商业</option>
-								<option value="A" {$data['projectInfo']['project_industry'] == 'A' ? 'selected' : ''} >农业</option>
-								<option value="R" {$data['projectInfo']['project_industry'] == 'R' ? 'selected' : ''} >居民</option>
-								<option value="F" {$data['projectInfo']['project_industry'] == 'F' ? 'selected' : ''} >渔光互补</option>
-								<option value="X" {$data['projectInfo']['project_industry'] == 'X' ? 'selected' : ''} >其他</option>
+								<option value="I" {$data['projectInfo']['project_industry'] == 'I' ? 'selected' : ''}>大工业</option>
+								<option value="C" {$data['projectInfo']['project_industry'] == 'C' ? 'selected' : ''}>一般工商业</option>
+								<option value="A" {$data['projectInfo']['project_industry'] == 'A' ? 'selected' : ''}>农业</option>
+								<option value="R" {$data['projectInfo']['project_industry'] == 'R' ? 'selected' : ''}>居民</option>
+								<option value="X" {$data['projectInfo']['project_industry'] == 'X' ? 'selected' : ''}>其他</option>
 							</select>
 						</li>
 					</ul>
@@ -680,7 +700,7 @@
 							</div>
 							<div class="bottom">
 								<span>净现值npv<span class="result">{$data['dueDiligence']['evaluationInfo']['npv']}</span>万元</span>
-								<span class="last">电站资产累计现值<span class="result">{$data['dueDiligence']['evaluationInfo']['power_asset_current_value']}</span></span>
+								<span>电站资产累计现值<span class="result">{$data['dueDiligence']['evaluationInfo']['power_asset_current_value']}</span></span>
 							</div>
 						</div>
 						<img class="rec" src="/EnergyFe/img/dueDiligence/4.png" />
@@ -731,12 +751,6 @@
 								</td>
 							</tr>
 							<tr>
-								<td>评价内容</td>
-								<td>
-									<textarea>{$data['dueDiligence']['evaluationInfo']['evaluation_content']}</textarea>
-								</td>
-							</tr>
-							<tr>
 								<td>评价情况</td>
 								<td>
 									<div class="item">
@@ -755,7 +769,11 @@
 							</tr>
 							<tr style="height: 100px;">
 								<td>评价结果</td>
-								<td class="result">{$data['dueDiligence']['evaluationInfo']['evaluation_result']}</td>
+								<td class="result">{$data['dueDiligence']['evaluationInfo']['evaluation_result']},{$data['dueDiligence']['evaluationInfo']['evaluation_result_text']}</td>
+							</tr>
+							<tr style="height: 100px;">
+								<td>责任人</td>
+								<td class="result">{$data['dueDiligence']['evaluationInfo']['duty_person']}</td>
 							</tr>
 						</tbody>
 					</table>

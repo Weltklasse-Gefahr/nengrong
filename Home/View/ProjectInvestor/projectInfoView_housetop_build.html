@@ -56,12 +56,16 @@
 				<form id="infoForm" class="housetop_build">
 					<ul class="detail part1">
 						<li class="clrfix">
+							<span class="lb">项目名称：</span>
+							<span class="lbw">{$data['projectInfo']['project_name']}</span>
+						</li>
+						<li class="clrfix">
 							<span class="lb">项目类型：</span>
 							<span class="lbw">{$data['dueDiligence']['projectDetail']['state_type']}</span>
 						</li>
 						<li class="clrfix">
 							<span class="lb">项目地点：</span>
-							<span class="lbw">{$data['dueDiligence']['areaArray'][3]}</span>
+							<span class="lbw">{$data['projectInfo']['areaStr']}</span>
 						</li>
 						<li class="clrfix">
 							<span class="lb">项目图片：</span>
@@ -88,6 +92,22 @@
 						</li>
 					</ul>
 
+					<p class="title">联系人信息</p>
+					<ul class="detail part2">
+						<li>
+							<span class="lb">联系人</span>
+							<span class="lbw">{$data['projectInfo']['contacts_name']}</span>
+						</li>
+						<li>
+							<span class="lb">联系方式</span>
+							<span class="lbw">{$data['projectInfo']['contacts_phone']}</span>
+						</li>
+						<li>
+							<span class="lb">邮件地址</span>
+							<span class="lbw">{$data['projectInfo']['contacts_email']}</span>
+						</li>
+					</ul>
+					
 					<p class="title">屋顶业主信息</p>
 					<ul class="detail part2">
 						<li>
@@ -124,7 +144,7 @@
 					<ul class="detail part2">
 						<li>
 							<span class="lb">屋顶类型</span>
-							<span class="lbw"><if condition="$data.projectInfo.housetop_type eq 0"> {$data['projectInfo']['housetop_type_other']}
+							<span class="lbw"><if condition="$data['projectInfo']['housetop_type'] eq 0"> {$data['projectInfo']['housetop_type_other']}
 <else />{$data['projectInfo']['housetopType']}</if></span>
 						</li>
 						<li>
@@ -141,7 +161,7 @@
 						</li>
 						<li>
 							<span class="lb">屋顶朝向</span>
-							<span class="lbw"><if condition="$data.projectInfo.housetop_direction eq 0"> {$data['projectInfo']['housetop_direction_other']}
+							<span class="lbw"><if condition="$data['projectInfo']['housetop_direction'] eq 0"> {$data['projectInfo']['housetop_direction_other']}
 <else />{$data['projectInfo']['housetopDirection']}</if></span>
 						</li>
 						<li>
@@ -149,7 +169,7 @@
 							<span class="lbw">{$data['projectInfo']['housetop_load']}kN/m2</span>
 						</li>
 						<li>
-							<span class="lb">附近有无遮挡/span>
+							<span class="lb">附近有无遮挡</span>
 							<span class="lbw">{$data['projectInfo']['hasShelter']}</span>
 						</li>
 						<li>
@@ -196,8 +216,8 @@
 							<span class="lb">资质等级</span>
 							<span class="lbw">{$data['projectInfo']['capacity_level']}</span>
 						</li>
-						<li>
-							<span class="lb">组件</span>
+						<li class="component">
+							<span class="name">组件</span>
 							<foreach name="data.projectInfo.components" item="vo" key="k" >
 							    <div class="item">
 								    <div><span class="c0">组件厂家</span><span class="c0">{$vo['component_company']}</span></div>
@@ -205,8 +225,8 @@
 							    </div>
 							</foreach>
 						</li>
-						<li>
-							<span class="lb">逆变器</span>
+						<li class="component">
+							<span class="name">逆变器</span>
 							<foreach name="data.projectInfo.inverters" item="vo" key="k" >
 							    <div class="item">
 								    <div><span class="c0">逆变器厂家</span><span class="c0">{$vo['inverter_company']}</span></div>
@@ -340,7 +360,7 @@
 							</div>
 							<div class="bottom">
 								<span>净现值npv<span class="result">{$data['dueDiligence']['evaluationInfo']['npv']}</span>万元</span>
-								<span class="last">电站资产累计现值<span class="result">{$data['dueDiligence']['evaluationInfo']['power_asset_current_value']}</span></span>
+								<span>电站资产累计现值<span class="result">{$data['dueDiligence']['evaluationInfo']['power_asset_current_value']}</span></span>
 							</div>
 						</div>
 						<img class="rec" src="/EnergyFe/img/dueDiligence/4.png" />
@@ -369,7 +389,8 @@
 											</tr>
 											<tr>
 												<td class="c0">屋顶类型</td>
-												<td class="c1">{$data['dueDiligence']['projectDetail']['housetopType']}</td>
+												<td class="c1"><if condition="$data['dueDiligence']['projectDetail']['housetop_type'] eq 0"> {$data['dueDiligence']['projectDetail']['housetop_type_other']}
+<else />{$data['dueDiligence']['projectDetail']['housetopType']}</if></td>
 												<td class="c2">并网方式</td>
 												<td class="c3">{$data['dueDiligence']['projectDetail']['synchronizeType']}</td>
 											</tr>
@@ -381,12 +402,6 @@
 											</tr>
 										</tbody>
 									</table>
-								</td>
-							</tr>
-							<tr>
-								<td>评价内容</td>
-								<td>
-									<textarea>{$data['dueDiligence']['evaluationInfo']['evaluation_content']}</textarea>
 								</td>
 							</tr>
 							<tr>
@@ -412,7 +427,11 @@
 							</tr>
 							<tr style="height: 100px;">
 								<td>评价结果</td>
-								<td class="result">{$data['dueDiligence']['evaluationInfo']['evaluation_result']}</td>
+								<td class="result">{$data['dueDiligence']['evaluationInfo']['evaluation_result']},{$data['dueDiligence']['evaluationInfo']['evaluation_result_text']}</td>
+							</tr>
+							<tr style="height: 100px;">
+								<td>责任人</td>
+								<td class="result">{$data['dueDiligence']['evaluationInfo']['duty_person']}</td>
 							</tr>
 						</tbody>
 					</table>

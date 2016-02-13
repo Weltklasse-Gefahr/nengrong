@@ -56,12 +56,16 @@
 				<form id="infoForm" class="ground_build">
 					<ul class="detail part1">
 						<li class="clrfix">
+							<span class="lb">项目名称：</span>
+							<span class="lbw">{$data['projectInfo']['project_name']}</span>
+						</li>
+						<li class="clrfix">
 							<span class="lb">项目类型：</span>
 							<span class="lbw">{$data['dueDiligence']['projectDetail']['state_type']}</span>
 						</li>
 						<li class="clrfix">
 							<span class="lb">项目地点：</span>
-							<span class="lbw">{$data['dueDiligence']['areaArray'][3]}</span>
+							<span class="lbw">{$data['projectInfo']['areaStr']}</span>
 						</li>
 						<li class="clrfix">
 							<span class="lb">项目图片：</span>
@@ -92,12 +96,28 @@
 						</li>
 					</ul>
 
+					<p class="title">联系人信息</p>
+					<ul class="detail part2">
+						<li>
+							<span class="lb">联系人</span>
+							<span class="lbw">{$data['projectInfo']['contacts_name']}</span>
+						</li>
+						<li>
+							<span class="lb">联系方式</span>
+							<span class="lbw">{$data['projectInfo']['contacts_phone']}</span>
+						</li>
+						<li>
+							<span class="lb">邮件地址</span>
+							<span class="lbw">{$data['projectInfo']['contacts_email']}</span>
+						</li>
+					</ul>
+			
 					<p class="title">土地情况</p>
 					<ul class="detail part2">
 						<li>
 							<span class="lb">土地性质</span>
-							<span class="lbw"><if condition="$data.projectInfo.ground_property eq 0"> {$data['projectInfo']['ground_property_other']}
-<else />{$data['projectInfo']['groundProperty']}</if></span>
+							<span class="lbw"><if condition="$data['dueDiligence']['projectDetail']['ground_property'] eq 0"> {$data['dueDiligence']['projectDetail']['ground_property_other']}
+<else />{$data['dueDiligence']['projectDetail']['groundProperty']}</if></span>
 						</li>
 						<li>
 							<span class="lb">租赁土地面积</span>
@@ -171,8 +191,8 @@
 							<span class="lb">资质等级</span>
 							<span class="lbw">{$data['projectInfo']['capacity_level']}</span>
 						</li>
-						<li>
-							<span class="lb">组件</span>
+						<li class="component">
+							<span class="name">组件</span>
 							<foreach name="data.projectInfo.components" item="vo" key="k" >
 							    <div class="item">
 								    <div><span class="c0">组件厂家</span><span class="c0">{$vo['component_company']}</span></div>
@@ -180,8 +200,8 @@
 							    </div>
 							</foreach>
 						</li>
-						<li>
-							<span class="lb">逆变器</span>
+						<li class="component">
+							<span class="name">逆变器</span>
 							<foreach name="data.projectInfo.inverters" item="vo" key="k" >
 							    <div class="item">
 								    <div><span class="c0">逆变器厂家</span><span class="c0">{$vo['inverter_company']}</span></div>
@@ -322,7 +342,7 @@
 							</div>
 							<div class="bottom">
 								<span>净现值npv<span class="result">{$data['dueDiligence']['evaluationInfo']['npv']}</span>万元</span>
-								<span class="last">电站资产累计现值<span class="result">{$data['dueDiligence']['evaluationInfo']['power_asset_current_value']}</span></span>
+								<span>电站资产累计现值<span class="result">{$data['dueDiligence']['evaluationInfo']['power_asset_current_value']}</span></span>
 							</div>
 						</div>
 						<img class="rec" src="/EnergyFe/img/dueDiligence/4.png" />
@@ -379,12 +399,6 @@
 								</td>
 							</tr>
 							<tr>
-								<td>评价内容</td>
-								<td>
-									<textarea>{$data['dueDiligence']['evaluationInfo']['evaluation_content']}</textarea>
-								</td>
-							</tr>
-							<tr>
 								<td>评价情况</td>
 								<td>
 									<div class="item">
@@ -407,7 +421,11 @@
 							</tr>
 							<tr style="height: 100px;">
 								<td>评价结果</td>
-								<td class="result">{$data['dueDiligence']['evaluationInfo']['evaluation_result']}</td>
+								<td class="result">{$data['dueDiligence']['evaluationInfo']['evaluation_result']},{$data['dueDiligence']['evaluationInfo']['evaluation_result_text']}</td>
+							</tr>
+							<tr style="height: 100px;">
+								<td>责任人</td>
+								<td class="result">{$data['dueDiligence']['evaluationInfo']['duty_person']}</td>
 							</tr>
 						</tbody>
 					</table>

@@ -70,7 +70,7 @@
 							</div>
 							<div class="bottom">
 								<span>净现值npv<input name="npv" value="{$evaluationInfo['npv']}" maxlength="10" />万元</span>
-								<span class="last">电站资产累计现值<input  name="power_asset_current_value" value="{$evaluationInfo['power_asset_current_value']}" maxlength="10" />万元</span>
+								<span>电站资产累计现值<input  name="power_asset_current_value" value="{$evaluationInfo['power_asset_current_value']}" maxlength="10" />万元</span>
 							</div>
 						</div>
 					</div>
@@ -141,7 +141,7 @@
 											</tr>
 											<tr>
 												<td class="c0">拟融资金额</td>
-												<td class="c1"><input name="plan_financing" value="100"><span>万元</span></td>
+												<td class="c1"><input name="plan_financing" value="{$projectDetail['plan_financing']}"><span>万元</span></td>
 												<td class="c2">融资方式</td>
 												<td class="c3">
 													<select name="financing_type">
@@ -272,6 +272,14 @@
 									</table>
 								</td>
 							</tr>
+							<tr class="result_text">
+								<td></td>
+								<td clsss="r"><input id="evaluation_result_text" name="evaluation_result_text" value="{$evaluationInfo['evaluation_result_text']}" /></td>
+							</tr>
+							<tr class="duty_person">
+								<td>责任人</td>
+								<td clsss="r"><input id="duty_person" name="duty_person" value="{$evaluationInfo['duty_person']}" /></td>
+							</tr>
 						</tbody>
 					</table>
 				</div>
@@ -327,7 +335,7 @@
 							</div>
 							<div class="bottom">
 								<span>净现值npv<span class="result">{$evaluationInfo['npv']}</span>万元</span>
-								<span class="last">电站资产累计现值<span class="result">{$evaluationInfo['power_asset_current_value']}</span>万元</span>
+								<span>电站资产累计现值<span class="result">{$evaluationInfo['power_asset_current_value']}</span>万元</span>
 							</div>
 						</div>
 						<img class="rec" src="/EnergyFe/img/dueDiligence/4.png" />
@@ -362,7 +370,9 @@
 											</tr>
 											<tr>
 												<td class="c0">土地性质</td>
-												<td class="c1">{$projectDetail['groundProperty']}</td>
+												<td class="c1"><if condition="$projectDetail['ground_property'] eq 0">{$projectDetail['ground_property_other']}
+					<else />{$projectDetail['groundProperty']}
+					</if></td>
 												<td class="c2">租赁土地面积</td>
 												<td class="c3">{$projectDetail['ground_area']}<span class="gray">m<sup>2</sup></span>
 												</td>
@@ -396,7 +406,11 @@
 							</tr>
 							<tr style="height: 100px;">
 								<td>评价结果</td>
-								<td class="result">{$evaluationInfo['evaluation_result']}</td>
+								<td class="result">{$evaluationInfo['evaluation_result']},{$evaluationInfo['evaluation_result_text']}</td>
+							</tr>
+							<tr>
+								<td>责任人</td>
+								<td class="result">{$evaluationInfo['duty_person']}</td>
 							</tr>
 						</tbody>
 					</table>

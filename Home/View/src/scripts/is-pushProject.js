@@ -66,7 +66,10 @@ $(function() {
 				
 			}).fail(function() {
 			});
+		} else {
+			alert("请选择要推送的项目");
 		}
+		return false;
     });
 
 	
@@ -103,6 +106,7 @@ $(function() {
 			});
 
 		}
+		return false;
 	});
 
 

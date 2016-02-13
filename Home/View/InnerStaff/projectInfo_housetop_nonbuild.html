@@ -45,6 +45,10 @@
 			</div>
 			<ul class="detail part1">
 				<li class="clrfix">
+					<span class="lb">项目名称：</span>
+					<span class="lbw">{$data['projectInfo']['project_name']}</span>
+				</li>
+				<li class="clrfix">
 					<span class="lb">项目类型：</span>
 					<span class="lbw">{$data['projectInfo']['typeStr']}</span>
 				</li>
@@ -77,6 +81,22 @@
 				</li>
 			</ul>
 
+			<p class="title">联系人信息</p>
+			<ul class="detail part2">
+				<li>
+					<span class="lb">联系人</span>
+					<span class="lbw">{$data['projectInfo']['contacts_name']}</span>
+				</li>
+				<li>
+					<span class="lb">联系方式</span>
+					<span class="lbw">{$data['projectInfo']['contacts_phone']}</span>
+				</li>
+				<li>
+					<span class="lb">邮件地址</span>
+					<span class="lbw">{$data['projectInfo']['contacts_email']}</span>
+				</li>
+			</ul>
+			
 			<p class="title">屋顶业主信息</p>
 			<ul class="detail part2">
 				<li>
@@ -113,7 +133,7 @@
 			<ul class="detail part2">
 				<li>
 					<span class="lb">屋顶类型</span>
-					<span class="lbw"><if condition="$data.projectInfo.housetop_type eq 0"> {$data['projectInfo']['housetop_type_other']}
+					<span class="lbw"><if condition="$data['projectInfo']['housetop_type'] eq 0"> {$data['projectInfo']['housetop_type_other']}
 <else />{$data['projectInfo']['housetopType']}</if></span>
 				</li>
 				<li>
@@ -126,7 +146,7 @@
 				</li>
 				<li>
 					<span class="lb">屋顶朝向</span>
-					<span class="lbw"><if condition="$data.projectInfo.housetop_direction eq 0"> {$data['projectInfo']['housetop_direction_other']}
+					<span class="lbw"><if condition="$data['projectInfo']['housetop_direction'] eq 0"> {$data['projectInfo']['housetop_direction_other']}
 <else />{$data['projectInfo']['housetopDirection']}</if></span>
 				</li>
 			</ul>

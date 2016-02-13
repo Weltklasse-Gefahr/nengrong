@@ -340,6 +340,7 @@ class ProjectService extends Model{
             $condition["delete_flag"] = array('neq',9999);
             $projectInfo = $projectObj->where($condition)->find();
             $pushProInfo[$i]['project_type'] = $projectInfo['project_type'];
+            $pushProInfo[$i]['build_state'] = $projectInfo['build_state'];
             $pushProInfo[$i]['status'] = $projectInfo['status'];
             $i += 1;
         }
@@ -400,13 +401,28 @@ class ProjectService extends Model{
                 $projectList[$i]['push_time'] = date('Y-m-d', strtotime($projectList[$i]['push_time']));
             }
 
-            $condition['project_id'] = $projectList[$i]['id'];
-            $condition['status'] = $projectList[$i]['status'];
-            // $condition['delete_flag'] = array('neq',9999);
-            $proDetails = $proObj->where($condition)->find();
-            $areaObj = D('Area', 'Service');
-            $areaStr = $areaObj->getAreaById($proDetails['project_area']);
-            $projectList[$i]['area'] = $areaStr.$proDetails['project_address'];
+            if(!empty($projectList[$i]['investor_id'])){//推送项目
+                $projectObj = M("Project");
+                $condition['project_code'] = $projectList[$i]['project_code'];
+                $condition['status'] = $projectList[$i]['status'];
+                $condition['delete_flag'] = array('neq',9999);
+                $projectInfo = $projectObj->where($condition)->find();
+                $condition2['project_id'] = $projectInfo['id'];
+                $condition2['status'] = $projectList[$i]['status'];
+                $proDetails = $proObj->where($condition2)->find();
+                $areaObj = D('Area', 'Service');
+                $areaStr = $areaObj->getAreaById($proDetails['project_area']);
+                $projectList[$i]['area'] = $areaStr.$proDetails['project_address'];
+            }else{
+                $condition['project_id'] = $projectList[$i]['id'];
+                $condition['status'] = $projectList[$i]['status'];
+                // $condition['delete_flag'] = array('neq',9999);
+                $proDetails = $proObj->where($condition)->find();
+                $areaObj = D('Area', 'Service');
+                $areaStr = $areaObj->getAreaById($proDetails['project_area']);
+                $projectList[$i]['area'] = $areaStr.$proDetails['project_address'];
+            }
+
             $i += 1;
         }        
         return $projectList; 
@@ -701,9 +717,11 @@ class ProjectService extends Model{
         $data['push_time'] = date("Y-m-d H:i:s",time());
         $i = 0;
         while($investorList[$i]){
-            $data['investor_id'] = $investorList[$i];
-            $res = $pushProject->add($data);
-            if($res === false) return false;
+            if($this->hasPushProject($projectCode, $investorList[$i]) === false){
+                $data['investor_id'] = $investorList[$i];
+                $res = $pushProject->add($data);
+                if($res === false) return false;
+            }
             $i += 1;
         }
         return true;
@@ -721,6 +739,24 @@ class ProjectService extends Model{
         $condition["status"] = array('in','21,23');
         $condition["delete_flag"] = 0;
         $res = $projectObj->where($condition)->select();
+        if(empty($res)) 
+            return false;
+        else
+            return true;
+    }
+
+    /**
+    **@auth qianqiang
+    **@breif 判断项目是否已经推送
+    **@return 已经推送返回true，没有推送返回false
+    **@date 2016.2.4
+    **/ 
+    public function hasPushProject($projectCode, $investorId){
+        $pushObj = M("Pushproject");
+        $condition["project_code"] = $projectCode;
+        $condition["investor_id"] = $investorId;
+        $condition["delete_flag"] = 0;
+        $res = $pushObj->where($condition)->select();
         if(empty($res)) 
             return false;
         else
@@ -811,6 +847,25 @@ class ProjectService extends Model{
         $condition["delete_flag"] = array('neq',9999);
         $projectInfo = $project->where($condition)->where("status!=51")->select();
         return !empty($projectInfo) ? $projectInfo[0]["id"]:false;
+    }
+
+    /**
+    **@auth qiujinhan
+    **@breif 更新项目编号 enf_project和enf_pushproject表
+    **@return 保存成功返回project id，失败返回false
+    **@date 2015.12.23
+    **/ 
+    public function updateProjectCode($oldProjectCode, $newProjectCode){
+        $project = M("Project");
+        $condition["project_code"] = $oldProjectCode;
+        $condition["delete_flag"] = array('neq',9999);
+        $data["project_code"] = $newProjectCode;
+        $res = $project->where($condition)->where("status!=51")->save($data);
+
+        $Pushproject = M("Pushproject");
+        $res = $Pushproject->where($condition)->where("status!=51")->save($data);
+
+        return true;
     }
 
     /**

@@ -70,7 +70,7 @@
 							</div>
 							<div class="bottom">
 								<span>净现值npv<input name="npv" value="{$evaluationInfo['npv']}" maxlength="10" />万元</span>
-								<span class="last">电站资产累计现值<input  name="power_asset_current_value" value="{$evaluationInfo['power_asset_current_value']}" maxlength="10" />万元</span>
+								<span>电站资产累计现值<input  name="power_asset_current_value" value="{$evaluationInfo['power_asset_current_value']}" maxlength="10" />万元</span>
 							</div>
 						</div>
 					</div>
@@ -131,9 +131,9 @@
 												<td class="c2">并网方式</td>
 												<td class="c3">
 													<select name="synchronize_type">
-														<option value="1" {$projectDetail['synchronize_type']==1?'selected':''}>自发自用</option>
+														<option value="1" {$projectDetail['synchronize_type']==1?'selected':''}>全部自发自用</option>
 														<option value="2" {$projectDetail['synchronize_type']==2?'selected':''}>全额上网</option>
-														<option value="3" {$projectDetail['synchronize_type']==3?'selected':''}>自发自用,全额上网</option>
+														<option value="3" {$projectDetail['synchronize_type']==3?'selected':''}>自发自用，余额上网</option>
 													</select>
 												</td>
 											</tr>
@@ -283,6 +283,14 @@
 									</table>
 								</td>
 							</tr>
+							<tr class="result_text">
+								<td></td>
+								<td clsss="r"><input id="evaluation_result_text" name="evaluation_result_text" value="{$evaluationInfo['evaluation_result_text']}" /></td>
+							</tr>
+							<tr class="duty_person">
+								<td>责任人</td>
+								<td clsss="r"><input id="duty_person" name="duty_person" value="{$evaluationInfo['duty_person']}" /></td>
+							</tr>
 						</tbody>
 					</table>
 				</div>
@@ -338,7 +346,7 @@
 							</div>
 							<div class="bottom">
 								<span>净现值npv<span class="result">{$evaluationInfo['npv']}</span>万元</span>
-								<span class="last">电站资产累计现值<span class="result">{$evaluationInfo['power_asset_current_value']}</span>万元</span>
+								<span>电站资产累计现值<span class="result">{$evaluationInfo['power_asset_current_value']}</span>万元</span>
 							</div>
 						</div>
 						<img class="rec" src="/EnergyFe/img/dueDiligence/4.png" />
@@ -367,7 +375,8 @@
 											</tr>
 											<tr>
 												<td class="c0">屋顶类型</td>
-												<td class="c1">{$projectDetail['housetopType']}</td>
+												<td class="c1"><if condition="$projectDetail['housetop_type'] eq 0"> {$projectDetail['housetop_type_other']}
+<else />{$projectDetail['housetopType']}</if></td>
 												<td class="c2">并网方式</td>
 												<td class="c3">{$projectDetail['synchronizeType']}</td>
 											</tr>
@@ -404,7 +413,11 @@
 							</tr>
 							<tr style="height: 100px;">
 								<td>评价结果</td>
-								<td class="result">{$evaluationInfo['evaluation_result']}</td>
+								<td class="result">{$evaluationInfo['evaluation_result']},{$evaluationInfo['evaluation_result_text']}</td>
+							</tr>
+							<tr>
+								<td>责任人</td>
+								<td class="result">{$evaluationInfo['duty_person']}</td>
 							</tr>
 						</tbody>
 					</table>

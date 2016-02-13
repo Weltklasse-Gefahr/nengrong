@@ -66,11 +66,12 @@
 						<li><span class="lb not-empty">企业名称</span><input name="company_name" value="{$data['company_name']}"/></li>
 						<li><span class="lb">企业类型</span>
 							<select name="company_type">
-								<option value="1" {$data['company_type'] == 1?'selected':''}>央企国企</option>
+								<option value="1" {$data['company_type'] == 1?'selected':''}>国有企业</option>
 								<option value="2" {$data['company_type'] == 2?'selected':''}>中外合资</option>
 								<option value="3" {$data['company_type'] == 3?'selected':''}>外商独资</option>
-								<option value="4" {$data['company_type'] == 4?'selected':''}>大型民营</option>
-								<option value="5" {$data['company_type'] == 5?'selected':''}>小型民营</option>
+								<option value="4" {$data['company_type'] == 4?'selected':''}>集体企业</option>
+								<option value="5" {$data['company_type'] == 5?'selected':''}>民营企业</option>
+								<option value="0" {$data['company_type'] == 0?'selected':''}>其他</option>
 							</select>
 						</li>
 						<li><span class="lb">公司传真</span><input name="company_fax" value="{$data['company_fax']}"/></li>
@@ -83,27 +84,27 @@
 				<div class="detail part2 clrfix">
 					<div class="item">
 						<p>公司营业执照</p>
-						<input type="file" accept="image/*" name="business_license" style="visibility: hidden;" data-url="{$data['business_license']['url']}" data-name="{$data['business_license']['name']}" data-id="{$data['business_license']['id']}" />
+						<input type="file" accept="image/*,application/msword,docx,application/pdf" name="business_license" style="visibility: hidden;" data-url="{$data['business_license']['url']}" data-name="{$data['business_license']['name']}" data-id="{$data['business_license']['id']}" />
 					</div>
 					<div class="item">
 						<p>组织机构代码证</p>
-						<input type="file" accept="image/*" name="organization_code" style="visibility: hidden;" data-url="{$data['organization_code']['url']}" data-name="{$data['organization_code']['name']}" data-id="{$data['organization_code']['id']}" />
+						<input type="file" accept="image/*,application/msword,docx,application/pdf" name="organization_code" style="visibility: hidden;" data-url="{$data['organization_code']['url']}" data-name="{$data['organization_code']['name']}" data-id="{$data['organization_code']['id']}" />
 					</div>
 					<div class="item">
 						<p>国税登记证</p>
-						<input type="file" accept="image/*" name="national_tax_certificate" style="visibility: hidden;" data-url="{$data['national_tax_certificate']['url']}" data-name="{$data['national_tax_certificate']['name']}" data-id="{$data['national_tax_certificate']['id']}" />
+						<input type="file" accept="image/*,application/msword,docx,application/pdf" name="national_tax_certificate" style="visibility: hidden;" data-url="{$data['national_tax_certificate']['url']}" data-name="{$data['national_tax_certificate']['name']}" data-id="{$data['national_tax_certificate']['id']}" />
 					</div>
 					<div class="item">
 						<p>地税登记证</p>
-						<input type="file" accept="image/*" name="local_tax_certificate" style="visibility: hidden;" data-url="{$data['local_tax_certificate']['url']}" data-name="{$data['local_tax_certificate']['name']}" data-id="{$data['local_tax_certificate']['id']}" />
+						<input type="file" accept="image/*,application/msword,docx,application/pdf" name="local_tax_certificate" style="visibility: hidden;" data-url="{$data['local_tax_certificate']['url']}" data-name="{$data['local_tax_certificate']['name']}" data-id="{$data['local_tax_certificate']['id']}" />
 					</div>
 					<div class="item">
 						<p>法人身份证正面</p>
-						<input type="file" accept="image/*" name="identity_card_front" style="visibility: hidden;" data-url="{$data['identity_card_front']['url']}" data-name="{$data['identity_card_front']['name']}" data-id="{$data['identity_card_front']['id']}" />
+						<input type="file" accept="image/*,application/msword,docx,application/pdf" name="identity_card_front" style="visibility: hidden;" data-url="{$data['identity_card_front']['url']}" data-name="{$data['identity_card_front']['name']}" data-id="{$data['identity_card_front']['id']}" />
 					</div>
 					<div class="item">
 						<p>法人身份证反面</p>
-						<input type="file" accept="image/*" name="identity_card_back" style="visibility: hidden;" data-url="{$data['identity_card_back']['url']}"  data-name="{$data['identity_card_back']['name']}" data-id="{$data['identity_card_back']['id']}" />
+						<input type="file" accept="image/*,application/msword,docx,application/pdf" name="identity_card_back" style="visibility: hidden;" data-url="{$data['identity_card_back']['url']}"  data-name="{$data['identity_card_back']['name']}" data-id="{$data['identity_card_back']['id']}" />
 					</div>
 					<div class="finance clrfix"><p>财务审计报告</p><input type="file" accept="image/*,application/msword,application/vnd.ms-excel,application/vnd.ms-powerpoint,.docx,xlsx,pptx,text/plain,application/pdf,application/zip,application/x-zip-compressed,rar,arj,gz,z,tar,7z,gzip,bz2" name="financial_audit" style="visibility: hidden;" data-url="{$data['financial_audit']['url']}" data-name="{$data['financial_audit']['name']}" data-id="{$data['financial_audit']['id']}" /></div>
 				</div>

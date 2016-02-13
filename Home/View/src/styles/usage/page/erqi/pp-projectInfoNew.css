@@ -92,7 +92,7 @@
 	margin-left: 0;
 }
 
-.r-content form .part1 .item.area input {
+.r-content form .part1 .item.fullinput input {
 	height: 24px;
 	width: 500px;
 }
@@ -170,29 +170,27 @@
 	right: 12px;
 }
 
-.r-content form .part2 li.component .item span.c0 {
+.r-content form .part2 li.component .item .c0:nth-child(odd) {
 	display: inline-block;
-	width: 72px;
+	width: 75px;
 }
 
-.r-content form .part2 li.component .item input.c0 {
+.r-content form .part2 li.component .item .c0:nth-child(even) {
 	width: 200px;
+	display: inline-block;
 }
 
-.r-content form .part2 li.component .item span.c1 {
+.r-content form .part2 li.component .item .c1:nth-child(odd) {
 	display: inline-block;
 	width: 50px;
 	text-align: right;
 	margin-right: 2px;
 }
 
-.r-content form .part2 li.component .item input.c1 {
+.r-content form .part2 li.component .item .c1:nth-child(even) {
 	width: 100px;
-}
-
-.r-content form .part2 li.component .item input.c1 {
-	width: 100px;
-	margin-right: 10px;
+	margin-left: 8px;
+	margin-right: 2px;
 }
 
 .r-content form .part2 .input-wrap {

@@ -114,14 +114,21 @@ class ProjectProviderMyProController extends Controller {
             $arrProInfo['project_code']  =$projectCode;
 
             //共有的一些参数接收
-            $arrInfor['project_area'] = $_POST['county'];//省市区
+            $proArea = $_POST['county']?$_POST['county']:$_POST['city'];
+            $proArea = $proArea?$proArea:$_POST['province'];
+            $arrInfor['project_area'] = $proArea;//省市区
             
             $arrInfor['project_address'] = $_POST['project_address'];  //详细地址
-            $arrInfor['transformer_capacity'] = $_POST['transformer_capacity'];//上级变压器容量
-            $arrInfor['voltage_level'] = $_POST['voltage_level'];//并网电压等级
-            $arrInfor['plan_financing'] = $_POST['plan_financing'];//拟融资金额
+            $arrInfor['transformer_capacity'] = $_POST['transformer_capacity']==""?null:$_POST['transformer_capacity'];//上级变压器容量
+            $arrInfor['voltage_level'] = $_POST['voltage_level']==""?null:$_POST['voltage_level'];//并网电压等级
+            $arrInfor['plan_financing'] = $_POST['plan_financing']==""?null:$_POST['plan_financing'];//拟融资金额
             $arrInfor['project_industry'] = $_POST['project_industry'];//行业选择项
+            $arrInfor['project_name'] = $_POST['project_name'];//项目名称
 
+            $arrInfor['project_name'] = $_POST['project_name'];//项目名称
+            $arrInfor['contacts_name'] = $_POST['contacts_name'];//联系人名称
+            $arrInfor['contacts_phone'] = $_POST['contacts_phone'];//联系方式
+            $arrInfor['contacts_email'] = $_POST['contacts_email'];//邮件地址
 
             //上传公用的图片和文件
             $arrPhotosAndFile = array(
@@ -178,28 +185,30 @@ class ProjectProviderMyProController extends Controller {
 
                 $arrInfor['housetop_owner'] = $_POST['housetop_owner']; //屋顶业主名称
                 $arrInfor['company_type'] = $_POST['company_type']; //企业类型
-                $arrInfor['company_capital'] = $_POST['company_capital']; //注册资本金
-                $arrInfor['electricity_total'] = $_POST['electricity_total']; //年用电量
-                $arrInfor['electricity_pay'] = $_POST['electricity_pay']; //电费
+                $arrInfor['company_capital'] = $_POST['company_capital']==""?null:$_POST['company_capital']; //注册资本金
+                $arrInfor['electricity_total'] = $_POST['electricity_total']==""?null:$_POST['electricity_total']; //年用电量
+                $arrInfor['electricity_pay'] = $_POST['electricity_pay']==""?null:$_POST['electricity_pay']; //电费
                 $arrInfor['housetop_type'] = $_POST['housetop_type']; //屋顶类型
                 $arrInfor['housetop_type_other'] = $_POST['housetop_type_other']; //屋顶类型其他可填写
-                $arrInfor['housetop_area'] = $_POST['housetop_area']; //屋顶面积
-                $arrInfor['housetop_age'] = $_POST['housetop_age']; //屋顶使用寿命
+                $arrInfor['housetop_area'] = $_POST['housetop_area']==""?null:$_POST['housetop_area']; //屋顶面积
+                $arrInfor['housetop_age'] = $_POST['housetop_age']==""?null:$_POST['housetop_age']; //屋顶使用寿命
                 $arrInfor['housetop_direction'] = $_POST['housetop_direction']; //屋顶朝向
                 $arrInfor['housetop_direction_other'] = $_POST['housetop_direction_other']; //屋顶朝向其他可填写
                 $arrInfor['synchronize_type'] = $_POST['synchronize_type']; //并网方式
                 
                 
                 
-                $arrInfor['rent_time'] = $_POST['rent_time']; //租赁年限
-                $arrInfor['rent_pay'] = $_POST['rent_pay']; //租赁租金
+                $arrInfor['rent_time'] = $_POST['rent_time']==""?null:$_POST['rent_time']; //租赁年限
+                $arrInfor['rent_pay'] = $_POST['rent_pay']==""?null:$_POST['rent_pay']; //租赁租金
                 $arrInfor['electricity_clear_type'] = $_POST['electricity_clear_type']; //电价结算方式
                 $arrInfor['electricity_clear'] = $_POST['electricity_clear']; //结算电价
-                
+                // if($arrInfor['rent_time']==""){echo jj;}
+                // var_dump($arrInfor['company_capital']);
+                // exit;
                 //未建
                 if ($arrProInfo['build_state'] == 1)
                 {
-                    $arrInfor['plan_build_volume'] = $_POST['plan_build_volume']; //拟建设容量
+                    $arrInfor['plan_build_volume'] = $_POST['plan_build_volume']==""?null:$_POST['plan_build_volume']; //拟建设容量
                     $arrInfor['cooperation_type'] = $_POST['cooperation_type']; //与能融网合作方式（可多选）
                     //var_dump($_POST['cooperation_type']);exit;
                     $arrInfor['cooperation_type'] =  implode("&",$arrInfor['cooperation_type']);
@@ -222,13 +231,13 @@ class ProjectProviderMyProController extends Controller {
                     {
                         $arrInfor[$key] = $val;
                     }
-                    $arrInfor['housetop_waterproof_time'] = $_POST['housetop_waterproof_time']; //屋顶防水周期
-                    $arrInfor['housetop_load'] = $_POST['housetop_load']; //屋顶活载荷
+                    $arrInfor['housetop_waterproof_time'] = $_POST['housetop_waterproof_time']==""?null:$_POST['housetop_waterproof_time']; //屋顶防水周期
+                    $arrInfor['housetop_load'] = $_POST['housetop_load']==""?null:$_POST['housetop_load']; //屋顶活载荷
                     $arrInfor['has_shelter'] = $_POST['has_shelter']; //附近有无遮挡
                     $arrInfor['has_pollution'] = $_POST['has_pollution']; //有无污染源
-                    $arrInfor['electricity_distance'] = $_POST['electricity_distance']; //电网接入点距离
-                    $arrInfor['plan_build_volume'] = $_POST['plan_build_volume']; //拟建设容量
-                    $arrInfor['company_invest'] = $_POST['company_invest']; //单位投资
+                    $arrInfor['electricity_distance'] = $_POST['electricity_distance']==""?null:$_POST['electricity_distance']; //电网接入点距离
+                    $arrInfor['plan_build_volume'] = $_POST['plan_build_volume']==""?null:$_POST['plan_build_volume']; //拟建设容量
+                    $arrInfor['company_invest'] = $_POST['company_invest']==""?null:$_POST['company_invest']; //单位投资
                     $arrInfor['company_EPC'] = $_POST['company_EPC']; //EPC厂家
                     $arrInfor['capacity_level'] = $_POST['capacity_level']; //资质等级
                     $arrInfor['synchronize_date'] = $_POST['synchronize_date']; //并网时间
@@ -237,7 +246,7 @@ class ProjectProviderMyProController extends Controller {
                     $arrInfor['financing_type'] = $_POST['financing_type']; //融资方式
                     $arrInfor['history_data'] = $_POST['history_data']; //历史发电量数据/辐照数据
                     $arrInfor['electricity_bill'] = $_POST['electricity_bill']; //电费结算票据
-                    $arrInfor['electricity_data'] = $_POST['electricity_data']; //历史发电量数据
+                    $arrInfor['electricity_data'] = $_POST['electricity_data']==""?null:$_POST['electricity_data']; //历史发电量数据
 
 
 
@@ -281,11 +290,11 @@ class ProjectProviderMyProController extends Controller {
                 //公用的
                 $arrInfor['ground_property'] = $_POST['ground_property']; //土地性质
                 $arrInfor['ground_property_other'] = $_POST['ground_property_other']; //土地性质其他可填入
-                $arrInfor['ground_area'] = $_POST['ground_area']; //租赁土地面积
-                $arrInfor['rent_time'] = $_POST['rent_time']; //租赁年限
-                $arrInfor['rent_pay'] = $_POST['rent_pay']; //租赁租金
+                $arrInfor['ground_area'] = $_POST['ground_area']==""?null:$_POST['ground_area']; //租赁土地面积
+                $arrInfor['rent_time'] = $_POST['rent_time']==""?null:$_POST['rent_time']; //租赁年限
+                $arrInfor['rent_pay'] = $_POST['rent_pay']==""?null:$_POST['rent_pay']; //租赁租金
                 $arrInfor['ground_condition'] = $_POST['ground_condition']; //土地平整情况
-                $arrInfor['electricity_distance'] = $_POST['electricity_distance']; //电网接入点距离
+                $arrInfor['electricity_distance'] = $_POST['electricity_distance']==""?null:$_POST['electricity_distance']; //电网接入点距离
                 $arrInfor['measure_point'] = $_POST['measure_point']; //计量点
                 $arrInfor['project_holder_type'] = $_POST['project_holder_type']; //项目支架类型
                 $arrInfor['ground_project_type'] = $_POST['ground_project_type']; //项目类型
@@ -294,7 +303,7 @@ class ProjectProviderMyProController extends Controller {
                 //未建
                 if ($arrProInfo['build_state'] == 1)
                 {
-                    $arrInfor['plan_build_volume'] = $_POST['plan_build_volume']; //拟建设容量
+                    $arrInfor['plan_build_volume'] = $_POST['plan_build_volume']==""?null:$_POST['plan_build_volume']; //拟建设容量
                     $arrInfor['cooperation_type'] = $_POST['cooperation_type']; //与能融网合作方式（可多选）
                     $arrInfor['cooperation_type'] =  implode("&",$arrInfor['cooperation_type']);
                 }
@@ -326,12 +335,12 @@ class ProjectProviderMyProController extends Controller {
                     {
                         $arrInfor[$key] = $val;
                     }
-                    $arrInfor['control_room_area'] = $_POST['control_room_area']; //中控室建筑面积
-                    $arrInfor['sell_sum'] = $_POST['sell_sum']; //出让金额
+                    $arrInfor['control_room_area'] = $_POST['control_room_area']==""?null:$_POST['control_room_area']; //中控室建筑面积
+                    $arrInfor['sell_sum'] = $_POST['sell_sum']==""?null:$_POST['sell_sum']; //出让金额
                     $arrInfor['has_shelter'] = $_POST['has_shelter']; //附近有无遮挡
                     $arrInfor['has_pollute'] = $_POST['has_pollute']; //有无污染源
-                    $arrInfor['plan_build_volume'] = $_POST['plan_build_volume']; //拟建设容量
-                    $arrInfor['company_invest'] = $_POST['company_invest']; //单位投资
+                    $arrInfor['plan_build_volume'] = $_POST['plan_build_volume']==""?null:$_POST['plan_build_volume']; //拟建设容量
+                    $arrInfor['company_invest'] = $_POST['company_invest']==""?null:$_POST['company_invest']; //单位投资
                     $arrInfor['company_EPC'] = $_POST['company_EPC']; //EPC厂家
                     $arrInfor['capacity_level'] = $_POST['capacity_level']; //资质等级
                     $arrInfor['synchronize_date'] = $_POST['synchronize_date']; //并网时间
@@ -340,7 +349,7 @@ class ProjectProviderMyProController extends Controller {
                     $arrInfor['financing_type'] = $_POST['financing_type']; //融资方式
                     //$arrInfor['history_data'] = $_POST['history_data']; //历史发电量数据/辐照数据
                     //$arrInfor['electricity_bill'] = $_POST['electricity_bill']; //电费结算票据
-                    $arrInfor['electricity_data'] = $_POST['electricity_data']; //历史发电量数据
+                    $arrInfor['electricity_data'] = $_POST['electricity_data']==""?null:$_POST['electricity_data']; //历史发电量数据
                 }
 
             }
@@ -366,19 +375,21 @@ class ProjectProviderMyProController extends Controller {
             {
                 //echo $_POST['project_type'];exit;
                 //插入
-                $getProjectCode = getProjectCode($_POST['project_type'], 
-                     $_POST['financing_type'], $_POST['county'],$_POST['project_industry']);
-                $arrProInfo["project_code"] = $getProjectCode;
-                //$arrProInfo["project_code"] = '2323DDDDDDDDDDd'.time();  //之后需要加一下这个生成项目id的功能
                 $objUser  = D("User","Service");
                 $userInfo = $objUser->getUserINfoByEmail($email);
                 $arrProInfo["provider_id"] = $userInfo[0]['id'];//之后需要加一下项目提供方的id
+                $getProjectCode = getProjectCode($_POST['project_type'], 
+                     $_POST['financing_type'], $_POST['county'],$_POST['project_industry'],$_POST['plan_build_volume'],$arrProInfo["provider_id"]);
+                $arrProInfo["project_code"] = $getProjectCode;
+                //$arrProInfo["project_code"] = '2323DDDDDDDDDDd'.time();  //之后需要加一下这个生成项目id的功能
+
                 //echo $email;exit;
                 //echo json_encode($userInfo);exit;
                 $arrProInfo["highlight_flag"] = 1;
                 $arrProInfo["create_time"] = date("Y-m-d H:i:s" ,time());
                 $arrProInfo["create_date"] = date("Y-m-d H:i:s" ,time());
                 $ret = $objProject->insertProject($arrProInfo);
+                //echo json_encode($arrProInfo);exit;
                 if ($ret === false)
                 {
                      echo '{"code":"-1","msg":"插入数据库失败9999999999！"}';
@@ -435,6 +446,18 @@ class ProjectProviderMyProController extends Controller {
                  echo '{"code":"-1","msg":"插入数据库失败111！"}';
                  exit;
             }
+
+            //最后项目提交后，更新成最后的编号，涉及到enf_project和enf_pushproject表
+            if($optype == "submit")
+            {
+                $objUser  = D("User","Service");
+                $userInfo = $objUser->getUserINfoByEmail($email);
+                $arrProInfo["provider_id"] = $userInfo[0]['id'];//之后需要加一下项目提供方的id
+                $getNewProjectCode = getProjectCode($_POST['project_type'], 
+                     $_POST['financing_type'], $_POST['county'],$_POST['project_industry'],$_POST['plan_build_volume'],$arrProInfo["provider_id"]);
+                $ret = $objProject->updateProjectCode($arrProInfo['project_code'], $getNewProjectCode);
+                $arrProInfo["project_code"] = $getNewProjectCode;
+            }
             echo '{"code":"0","msg":"","id":"'.$arrProInfo["project_code"].'","idm":"'
                  .MD5(addToken($arrProInfo["project_code"])).'"}';
 
@@ -476,9 +499,9 @@ class ProjectProviderMyProController extends Controller {
             //根据project_code去查询项目信息
             $objProject  = D("Project","Service");
             $projectInfo = $objProject->getProjectInfo($projectCode);
-            //echo $projectCode;exit;
+            // echo $projectCode;exit;
             //echo jj;exit;
-            //echo json_encode($projectInfo);exit;
+            // echo json_encode($projectInfo);exit;
             //在去Housetop，or  Ground 取一下数据
             $projectInfoDetail = $objProject->getProjectDetail($projectInfo['id'], $projectInfo['project_type']);
             //获取组件信息
@@ -533,7 +556,15 @@ class ProjectProviderMyProController extends Controller {
                         $temp["url"] = $docInfo[0]["file_rename"];
                         $projectInfo["picture_mul"][] = $temp;
                     }
-                    if($projectInfo['status']== 11)
+                    //echo count($arrDocId);exit;
+                    $flagOne = 0;
+                    if($projectInfo['project_type'] == 1 && count($arrDocId) >= 10){
+                       $flagOne = 1;
+                    }
+                    if($projectInfo['project_type'] == 2 && count($arrDocId) >= 9){
+                       $flagOne = 1;
+                    }
+                    if($projectInfo['status']== 11 && $flagOne == 0)
                     {
                         $projectInfo["picture_mul"][] = "";
                     }
@@ -563,7 +594,28 @@ class ProjectProviderMyProController extends Controller {
             //加上项目编码的token
             $projectInfo['project_idm'] = MD5(addToken($projectInfo['project_code']));
             $this->assign('data',$projectInfo);
-            $this->display("ProjectProvider:projectInfoNew");
+            /*
+             create mode 100755 Home/View/ProjectProvider/projectInfoEdit_ground_build.html
+             create mode 100755 Home/View/ProjectProvider/projectInfoEdit_ground_nonbuild.html
+             create mode 100755 Home/View/ProjectProvider/projectInfoEdit_housetop_build.html
+             create mode 100755 Home/View/ProjectProvider/projectInfoEdit_housetop_nonbuild.html
+             翔哥改动了前端，我后端也要调整下
+            */
+
+            if($projectInfo['project_type'] == 1){
+                if($projectInfo['build_state'] == 1){
+                    $this->display("ProjectProvider:projectInfoEdit_housetop_nonbuild");
+                }elseif($projectInfo['build_state'] == 2){
+                    $this->display("ProjectProvider:projectInfoEdit_housetop_build");
+                }
+            }elseif($projectInfo['project_type'] == 2 || $projectInfo['project_type'] == 3){
+                if($projectInfo['build_state'] == 1){
+                    $this->display("ProjectProvider:projectInfoEdit_ground_nonbuild");
+                }elseif($projectInfo['build_state'] == 2){
+                    $this->display("ProjectProvider:projectInfoEdit_ground_build");
+                }
+            }
+            //$this->display("ProjectProvider:projectInfoNew");
         }
     }
 

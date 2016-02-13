@@ -81,6 +81,9 @@ $(function() {
 		uploadType: "image",
 		width: "120px",
 		height: "120px",
+		fileSizeLimit: {
+			size: 10*1024*1024
+		},
 		callback: uploadCallback
 	});
 
@@ -90,7 +93,10 @@ $(function() {
 		content: "上传附件",
 		uploadType: "file",
 		width: "80px",
-		height: "20px"
+		height: "20px",
+		fileSizeLimit: {
+			size: 10*1024*1024
+		}
 	});
 
 	// 有无（附件）
@@ -156,8 +162,9 @@ $(function() {
 			rtype: 1
 		},
 	   	// target: '#output',          //把服务器返回的内容放入id为output的元素中      
-	   	beforeSubmit: beforeSubmit, //提交前的回调函数  
+	   	beforeSubmit: beforeSubmit, //提交前的回调函数
 	   	success: successCallback,  	//提交后的回调函数
+	   	error: failCallback,		//服务器出错的回调函数
 	   	dataType: "json",           //html(默认), xml, script, json...接受服务端返回的类型  
 	   	// clearForm: true,         //成功提交后，清除所有表单元素的值  
 	   	// resetForm: true,         //成功提交后，重置所有表单元素的值  
@@ -168,10 +175,23 @@ $(function() {
 	$form.validate({
 		ignore: ':hidden, [data-with-file="true"]',
 		rules: {
+			"project_name": "required",
 			"province": "required",
 			"city": "required",
-			"county": "required",
+			// "county": "required",
    			"project_address": "required",
+
+   			"contacts_name": "required",
+   			"contacts_phone": {
+   				"required": true,
+				"mobile": true
+
+   			},
+   			"contacts_email": {
+   				"required": true,
+   				"email": true
+   			},
+
    			"housetop_owner": "required",
    			"company_capital": {
    				"required": true,
@@ -288,10 +308,22 @@ $(function() {
 	   		}
    		},
    		messages: {
+   			"project_name": "请填写项目名称",
    			"province": "请选择省份",
    			"city": "请选择市",
-			"county": "请选择区",
+			// "county": "请选择区",
 			"project_address": "请填写详细地址",
+
+			"contacts_name": "请填写项目联系人",
+			"contacts_phone": {
+   				"required": "请填写联系方式",
+				"mobile": "联系人手机号格式不对"
+   			},
+   			"contacts_email": {
+   				"required": "请填写联系人邮件地址",
+   				"email": "联系人邮箱地址格式不对"
+   			},
+
 			"housetop_owner": "请填写屋顶业主名称",
 			"company_capital": {
 				"required": "请填写注册资本金",
@@ -391,9 +423,9 @@ $(function() {
 	   		}
    		},
    		errorClass: 'validate-error',
-   		focusInvalid: false,
+   		focusInvalid: true,
    		errorPlacement: function(error, element) {
-   			element.focus();
+   			// element.focus();
    		},
    		submitHandler: function(form) {
    			$form.ajaxSubmit(options);
@@ -410,6 +442,7 @@ $(function() {
 		
 		var optype = $form.find("[name=optype]").val();
 		if(optype === "save") { // 保存不加校验
+			$.loading("正在保存，请稍侯");
 			return true;
 		}
 
@@ -496,8 +529,8 @@ $(function() {
 					alert("请填写租赁租金");
 					$rent_pay.focus();
 					return false;
-				} else if( !($rent_pay_val && /^\d+(\.\d+)?$/.test($rent_pay_val)) ) {
-					alert("租赁租金应为数字");
+				} else if( !($rent_pay_val && /^\d+(\.\d+)?$/.test($rent_pay_val) && parseFloat($rent_pay_val) > 0) ) {
+					alert("租赁租金应为大于0的数字");
 					$rent_pay.focus();
 					return false;
 				}
@@ -563,7 +596,7 @@ $(function() {
 						alert("请填写组件数量");
 						$component_count.focus();
 						return false;
-					} else if( !($component_count_val && /^\d+(\.\d+)?$/.test($component_count_val) && parseFloat($component_count_val) > 0) ) {
+					} else if( !($component_count_val && /^\d+$/.test($component_count_val) && parseInt($component_count_val) > 0) ) {
 						alert("组件数量应为正整数");
 						$component_count.focus();
 						return false;
@@ -593,7 +626,7 @@ $(function() {
 						alert("请填写逆变器数量");
 						$inverter_count.focus();
 						return false;
-					} else if( !($inverter_count_val && /^\d+(\.\d+)?$/.test($inverter_count_val) && parseFloat($inverter_count_val) > 0) ) {
+					} else if( !($inverter_count_val && /^\d+$/.test($inverter_count_val) && parseInt($inverter_count_val) > 0) ) {
 						alert("逆变器数量应为正整数");
 						$inverter_count.focus();
 						return false;
@@ -609,23 +642,42 @@ $(function() {
 				break;
 		}
 
+		$.loading("正在提交，请稍侯");
+
 	   	return true;
 	}
 
 	function successCallback(data) {
-		if(data.code == "0") {
-			var optype = $form.find("[name=optype]").val();
-			if(optype === "save") {
-				location.href = "?c=ProjectProviderMyPro&a=projectInfoEdit&no=" + data.id + "&token=" + data.idm;
+		var takeTime = new Date().getTime() - $._loadingDialog.timeStamp;
+		setTimeout(function() {
+			$.closeLoading();
+			if(data.code == "0") {
+				var optype = $form.find("[name=optype]").val();
+				if(optype === "save") {
+					location.href = "?c=ProjectProviderMyPro&a=projectInfoEdit&no=" + data.id + "&token=" + data.idm;
+				} else {
+					location.href = "?c=ProjectProviderMyPro&a=awaitingAssessment";
+				}
 			} else {
-				location.href = "?c=ProjectProviderMyPro&a=awaitingAssessment";
+				// $form.find('[data-type="mul"]').each(function() {
+				// 	$(this).attr("name", $(this).attr("name").replace(/^([^\[\]]*)\[\]$/, "$1"));
+				// });
+				alert(data.msg || "操作失败,请稍后再试！");
 			}
-		} else {
-			// $form.find('[data-type="mul"]').each(function() {
-			// 	$(this).attr("name", $(this).attr("name").replace(/^([^\[\]]*)\[\]$/, "$1"));
-			// });
-			alert(data.msg || "操作失败！");
-		}
+		}, takeTime > 1000 ? 0 : 1000 - takeTime);
+		
+	}
+
+	function failCallback(xhr, status, error, $form) {
+		var takeTime = new Date().getTime() - $._loadingDialog.timeStamp;
+		setTimeout(function() {
+			$.closeLoading();
+			if(xhr.status === 413) {
+				alert("本次提交的附件太大，请尽量上传小附件，或者分批保存再提交！");
+			} else {
+				alert("操作失败,请稍后再试！");
+			}
+		}, takeTime > 1000 ? 0 : 1000 - takeTime);
 	}
 
 	$form.find("input[type=submit], input[type=button]").click(function() {
