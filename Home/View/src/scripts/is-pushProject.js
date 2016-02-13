@@ -29,9 +29,13 @@ $(function() {
 		var arr = new Array(); 
 		var i=0;
 		$("[name='checkbox']:checked").each(function(){
-			item_id+=$(this).parent().parent().data("id")+",";
-			arr[i]=$(this).parent().parent().data("cn"); 
-			i++;
+			var flag=$(this).parent().parent().data("flag");
+			if(flag!='已推送')
+			{
+				item_id+=$(this).parent().parent().data("id")+",";
+				arr[i]=$(this).parent().parent().data("cn"); 
+				i++;
+			}
 		})
 		var str='';
 		for (var i=0;i<arr.length;i++)
