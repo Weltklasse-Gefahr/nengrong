@@ -42,7 +42,7 @@ class ProjectProviderMyInfoController extends Controller {
             $arrUser['company_contacts_phone'] = $_POST['company_contacts_phone']; //联系人手机
             $arrUser['company_contacts_position'] = $_POST['company_contacts_position'];//联系人职务
             $arrUser['company_address'] = $_POST['company_address'];//详细地址
-            $arrUser['company_capital'] = $_POST['company_capital'];//企业注册资本
+            $arrUser['company_capital'] = $_POST['company_capital']==""?null:$_POST['company_capital'];//企业注册资本
             $arrUser['company_name'] = $_POST['company_name'];//企业名称
             $arrUser['company_type'] = $_POST['company_type'];//企业类型
             $arrUser['company_fax'] = $_POST['company_fax'];//公司传真
