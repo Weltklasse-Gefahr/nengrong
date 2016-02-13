@@ -440,7 +440,8 @@ $(function() {
 
 	function beforeSubmit(formData, jqForm, options) {
 		
-		var optype = $form.find("[name=optype]").val();
+		var optype = $form.find("[name=optype]").val(),
+			valid = true;
 		if(optype === "save") { // 保存不加校验
 			$.loading("正在保存，请稍侯");
 			return true;
@@ -582,12 +583,14 @@ $(function() {
 					if(!$component_company.val()) {
 						alert("请填写组件厂家");
 						$component_company.focus();
+						valid = false;
 						return false;
 					}
 
 					if(!$component_type.val()) {
 						alert("请填写组件规格型号");
 						$component_type.focus();
+						valid = false;
 						return false;
 					}
 
@@ -595,13 +598,18 @@ $(function() {
 					if(!$component_count.val()) {
 						alert("请填写组件数量");
 						$component_count.focus();
+						valid = false;
 						return false;
 					} else if( !($component_count_val && /^\d+$/.test($component_count_val) && parseInt($component_count_val) > 0) ) {
 						alert("组件数量应为正整数");
 						$component_count.focus();
+						valid = false;
 						return false;
 					}
 				});
+				if(!valid) {
+					return false;
+				}
 
 				// 逆变器
 				$("li.component.inverter").children(".item").each(function() {
@@ -612,12 +620,14 @@ $(function() {
 					if(!$inverter_company.val()) {
 						alert("请填写逆变器厂家");
 						$inverter_company.focus();
+						valid = false;
 						return false;
 					}
 
 					if(!$inverter_type.val()) {
 						alert("请填写逆变器规格型号");
 						$inverter_type.focus();
+						valid = false;
 						return false;
 					}
 
@@ -625,13 +635,18 @@ $(function() {
 					if(!$inverter_count.val()) {
 						alert("请填写逆变器数量");
 						$inverter_count.focus();
+						valid = false;
 						return false;
 					} else if( !($inverter_count_val && /^\d+$/.test($inverter_count_val) && parseInt($inverter_count_val) > 0) ) {
 						alert("逆变器数量应为正整数");
 						$inverter_count.focus();
+						valid = false;
 						return false;
 					}
 				});
+				if(!valid) {
+					return false;
+				}
 
 				var $cooperation_type = $('.housetop_build_item [r-name=cooperation_type]');
 				if(!$cooperation_type.filter(":checked").length) {
