@@ -29,7 +29,7 @@ $(function() {
 		var arr = new Array(); 
 		var i=0;
 		$("[name='checkbox']:checked").each(function(){
-			var flag=$(this).parent().parent().data("flag")
+			var flag=$(this).parent().parent().data("flag");
 			if(flag!='已推送')
 			{
 				item_id+=$(this).parent().parent().data("id")+",";
