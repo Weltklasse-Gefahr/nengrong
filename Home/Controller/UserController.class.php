@@ -225,13 +225,14 @@ class UserController extends Controller
     }
 
     public function test1(){
-        // $qianqiang = M('qian');
-        // $data['id'] = NULL;
-        // $data['int'] = "";
-        // $data['double'] = "";
-        // $data['varchar'] = NULL;
-        // $qianqiang->add($data);
-        // echo "sucess";
+        $qianqiang = M('qian');
+        $data['id'] = NULL;
+        $data['int'] = "";
+        $data['double'] = "";
+        $data['varchar'] = NULL;
+        $data['datetime'] = "";
+        $qianqiang->add($data);
+        echo "sucess";
 
         // $investors = '123,456,789,';
         // $newstr = substr($investors,0,strlen($investors)-1); 

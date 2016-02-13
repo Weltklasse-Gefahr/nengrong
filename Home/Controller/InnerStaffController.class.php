@@ -1483,7 +1483,11 @@ class InnerStaffController extends Controller {
             // $projectDetail['projectHolderType'] = $common->getProjectHolderType($projectDetail['project_holder_type']);
             $projectDetail['groundProjectType'] = $common->getGroundProjectType($projectDetail['ground_project_type']);
             // $projectDetail['housetopDirection'] = $common->getHousetopDirection($projectDetail['housetop_direction']);
-            $projectDetail['project_finish_date'] = date('Y-m-d', strtotime($projectDetail['project_finish_date']));
+            if($projectDetail['project_finish_date'] == null){
+                $projectDetail['project_finish_date'] = null;
+            }else{
+                $projectDetail['project_finish_date'] = date('Y-m-d', strtotime($projectDetail['project_finish_date']));
+            }
 
             $area = D("Area", "Service");
             $areaArray = $area->getAreaArrayById($projectDetail['project_area']);
