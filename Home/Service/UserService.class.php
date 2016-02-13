@@ -102,14 +102,14 @@ class UserService extends Model{
 		if($flag == 0){
 			$key = $email.",".md5(addToken($email)).",".time();
 	        $encryptKey = base64_encode($key); 
-	        $url = "http://www.enetf.com/?c=User&a=activeUser&key=".urlencode($encryptKey);
+	        $url = "http://www.enetf.com?c=User&a=activeUser&key=".urlencode($encryptKey);
 	        $name = "能融网用户";
 	        $subject = "验证您的电子邮箱地址";
 	        $text = '欢迎使用能融网账号激活功能<br><br>请点击链接激活账号：<br><a target="_blank" href="'.$url.'">'.$url.'</a><br><br>（该链接在24小时内有效）<br>如果上面不是链接形式，请将地址复制到您的浏览器的地址栏再访问';
 		}elseif($flag == 1){
 			$key = $email.",".md5(addToken($email)).",".time();
 	        $encryptKey = base64_encode($key); 
-	        $url = "http://www.enetf.com/?c=User&a=forgetPassword&key=".urlencode($encryptKey)."&r=1";
+	        $url = "http://www.enetf.com?c=User&a=forgetPassword&key=".urlencode($encryptKey)."&r=1";
 	        $name = "能融网用户";
 	        $subject = "修改密码邮件";
 	        $text = '欢迎使用能融网修改密码功能<br><br>请点击链接修改密码：<br><a target="_blank" href="'.$url.'">'.$url.'</a><br><br>（该链接在24小时内有效）<br>如果上面不是链接形式，请将地址复制到您的浏览器的地址栏再访问';
