@@ -561,7 +561,7 @@ class ProjectProviderMyProController extends Controller {
                     if($projectInfo['project_type'] == 1 && count($arrDocId) >= 10){
                        $flagOne = 1;
                     }
-                    if($projectInfo['project_type'] == 2 && count($arrDocId) >= 9){
+                    if(($projectInfo['project_type'] == 2 || $projectInfo['project_type'] == 3)&& count($arrDocId) >= 9){
                        $flagOne = 1;
                     }
                     if($projectInfo['status']== 11 && $flagOne == 0)
