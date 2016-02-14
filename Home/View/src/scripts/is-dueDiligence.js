@@ -67,7 +67,7 @@ application/msword,application/vnd.ms-excel,application/vnd.ms-powerpoint,\
 .docx,xlsx,pptx,\
 text/plain,application/pdf,\
 application/zip,application/x-zip-compressed,\
-rar,arj,gz,z,tar,7z,gzip,bz2',
+rar,arj,gz,z,tar,7z,bz2,psd,xz',
 
         overrideEvents: ['onUploadComplete'],
 

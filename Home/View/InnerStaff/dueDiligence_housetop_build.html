@@ -191,8 +191,7 @@
 										<div class="hd">D、项目经济收益情况</div>
 										<div class="bd"><textarea name="project_earnings_situation"><?php if($evaluationInfo['project_earnings_situation']){ 
 										 echo $evaluationInfo['project_earnings_situation'];
-										 }else{ ?>
-										1、依据历史发电数据测算该项目年发电量为3342.6万度，交流侧等效年发电有效利用小时为1337小时。
+										 }else{ ?>1、依据历史发电数据测算该项目年发电量为3342.6万度，交流侧等效年发电有效利用小时为1337小时。
 2、IRR=19.79%，静态回收期4.32059581142年，LCOE为。
 3.项目按收益法折现（折现率8%）后得到电站价格：31004.83万元。<?php } ?>
 										</textarea></div>
@@ -285,11 +284,11 @@
 							</tr>
 							<tr class="result_text">
 								<td></td>
-								<td clsss="r"><input id="evaluation_result_text" name="evaluation_result_text" value="{$evaluationInfo['evaluation_result_text']}" /></td>
+								<td class="r"><input id="evaluation_result_text" name="evaluation_result_text" value="{$evaluationInfo['evaluation_result_text']}" /></td>
 							</tr>
 							<tr class="duty_person">
 								<td>责任人</td>
-								<td clsss="r"><input id="duty_person" name="duty_person" value="{$evaluationInfo['duty_person']}" /></td>
+								<td class="r"><input id="duty_person" name="duty_person" value="{$evaluationInfo['duty_person']}" /></td>
 							</tr>
 						</tbody>
 					</table>
@@ -415,7 +414,7 @@
 								<td>评价结果</td>
 								<td class="result">{$evaluationInfo['evaluation_result']},{$evaluationInfo['evaluation_result_text']}</td>
 							</tr>
-							<tr>
+							<tr style="height: 30px;">
 								<td>责任人</td>
 								<td class="result">{$evaluationInfo['duty_person']}</td>
 							</tr>
