@@ -64,7 +64,7 @@ $(function() {
 				var mul_items = ct.children(".img-ct").filter(function(){
 					return !!$(this).find('[data-type=mul]').length;
 				});
-				if(mul_items.last().find('[data-type=mul]').val()) {
+				if($.map(mul_items.last().find('[data-type=mul]'), function(item){ return $(item).val() || ""; }).join("")) {
 					mul_items.last().after(fileTpl).next().find('input[type=file]').customUpload({
 						bg_url: "upload.png",
 						uploadType: "image",
