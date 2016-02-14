@@ -85,7 +85,7 @@ class InnerStaffController extends Controller {
             $obpe->getactivesheet()->setcellvalue('A13', "企业法人");
 
             $obpe->getactivesheet()->setcellvalue('B8', $userInfo["company_name"]);
-            $obpe->getactivesheet()->setcellvalue('B9', $userInfo["company_type"]);
+            $obpe->getactivesheet()->setcellvalue('B9', $userInfo["companyType"]);
             $obpe->getactivesheet()->setcellvalue('B10', $userInfo["company_fax"]);
             $obpe->getactivesheet()->setcellvalue('B11', $userInfo['company_telephone']);
             $obpe->getactivesheet()->setcellvalue('B12', $userInfo["company_phone"]);
@@ -877,7 +877,7 @@ class InnerStaffController extends Controller {
             if (($data['project_type'] == 2 || $data['project_type'] == 3) && $data['build_state'] == 1)
             {
                 //对第一列的信息字体飘红
-                for($i=1; $i<=23 ;$i++)
+                for($i=1; $i<=24 ;$i++)
                 {
                     $obpe->getActiveSheet()->getStyle('A'.$i)->getFont()->getColor()->setARGB('D94600');
                 }
@@ -914,8 +914,9 @@ class InnerStaffController extends Controller {
                 $obpe->getactivesheet()->setcellvalue('A20', "评价情况 ");//这个需要填充颜色
                 $obpe->getactivesheet()->setcellvalue('A21', "A、文件审查");
                 $obpe->getactivesheet()->setcellvalue('A22', "B、工程建设可行性");
-                $obpe->getactivesheet()->setcellvalue('A23', "C、项目经济收益情况");     
-                $obpe->getactivesheet()->setcellvalue('A25', "注:相关上传的图片资料,请到页面点击下载");
+                $obpe->getactivesheet()->setcellvalue('A23', "C、项目经济收益情况");  
+                $obpe->getactivesheet()->setcellvalue('A24', "责任人");    
+                $obpe->getactivesheet()->setcellvalue('A26', "注:相关上传的图片资料,请到页面点击下载");
                 //第二列的数据
                 $obpe->getactivesheet()->setcellvalue('B2', $evaluationInfo['irr']); //内部收益率IRR
                 $obpe->getactivesheet()->setcellvalue('B3', $evaluationInfo['evaluation_result']);//评价结果
@@ -929,7 +930,7 @@ class InnerStaffController extends Controller {
                 $obpe->getactivesheet()->setcellvalue('B10', $projectDetail['project_name']);//项目名称
                 $obpe->getactivesheet()->setcellvalue('B11', $projectDetail['groundProjectType']);//项目类型
                 $obpe->getactivesheet()->setcellvalue('B12', $projectDetail['plan_build_volume'].'kW');//建设容量
-                $obpe->getactivesheet()->setcellvalue('B13', $areaArray[3].$projectDetail['project_address']); //项目地点
+                $obpe->getactivesheet()->setcellvalue('B13', $areaArray[sizeof($areaArray)-1].$projectDetail['project_address']); //项目地点
                 $obpe->getactivesheet()->setcellvalue('B14', $projectDetail['project_finish_date']);//项目完工时间
                 $obpe->getactivesheet()->setcellvalue('B15', $projectDetail['project_electricity_price'].'元/kWh');//项目电价
                 $obpe->getactivesheet()->setcellvalue('B16', $projectDetail['ground_property_other'].$projectDetail['groundProperty']); //土地性质
@@ -959,6 +960,7 @@ class InnerStaffController extends Controller {
                 $obpe->getactivesheet()->setcellvalue('B21', $evaluationInfo['document_review']);//A、文件审查
                 $obpe->getactivesheet()->setcellvalue('B22', $evaluationInfo['project_quality_situation']);//B、工程建设可行性
                 $obpe->getactivesheet()->setcellvalue('B23', $evaluationInfo['project_earnings_situation']);//C、项目经济收益情况
+                $obpe->getactivesheet()->setcellvalue('B24', $evaluationInfo['duty_person']);//责任人
 
             }
             //地面 未建-----------------------尽职调查----------------------------结束
