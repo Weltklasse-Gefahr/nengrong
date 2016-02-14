@@ -1195,7 +1195,8 @@ class InnerStaffController extends Controller {
         $docData['organization_code']['id'] = $docInfo[0]['id'];
         $docData['organization_code']['file_name'] = $docInfo[0]['file_name'];
         $docData['organization_code']['file_rename'] = $docInfo[0]['file_rename'];
-        $docFileInfo = explode(".",$docData['organization_code']['file_name']);
+        $fileNames = strtolower($docData['organization_code']['file_name']);
+        $docFileInfo = explode(".",$fileNames);
         if($docFileInfo[1] == "" || $docFileInfo[1] == "jpg" || $docFileInfo[1] == "jpeg" || $docFileInfo[1] == "png" || $docFileInfo[1] == "gif" || $docFileInfo[1] == "bmp" || $docFileInfo[1] == "ico"){
             $docData['organization_code']['img_file_rename'] = $docData['organization_code']['file_rename'];
         }else{
