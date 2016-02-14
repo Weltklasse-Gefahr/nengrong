@@ -1183,7 +1183,8 @@ class InnerStaffController extends Controller {
         $docData['business_license']['id'] = $docInfo[0]['id'];
         $docData['business_license']['file_name'] = $docInfo[0]['file_name'];
         $docData['business_license']['file_rename'] = $docInfo[0]['file_rename'];
-        $docFileInfo = explode(".",$docData['business_license']['file_name']);
+        $fileNames = strtolower($docData['business_license']['file_name']);
+        $docFileInfo = explode(".",$fileNames);
         if($docFileInfo[1] == "" || $docFileInfo[1] == "jpg" || $docFileInfo[1] == "jpeg" || $docFileInfo[1] == "png" || $docFileInfo[1] == "gif" || $docFileInfo[1] == "bmp" || $docFileInfo[1] == "ico"){
             $docData['business_license']['img_file_rename'] = $docData['business_license']['file_rename'];
         }else{
@@ -1208,7 +1209,8 @@ class InnerStaffController extends Controller {
         $docData['national_tax_certificate']['id'] = $docInfo[0]['id'];
         $docData['national_tax_certificate']['file_name'] = $docInfo[0]['file_name'];
         $docData['national_tax_certificate']['file_rename'] = $docInfo[0]['file_rename'];
-        $docFileInfo = explode(".",$docData['national_tax_certificate']['file_name']);
+        $fileNames = strtolower($docData['national_tax_certificate']['file_name']);
+        $docFileInfo = explode(".",$fileNames);
         if($docFileInfo[1] == "" || $docFileInfo[1] == "jpg" || $docFileInfo[1] == "jpeg" || $docFileInfo[1] == "png" || $docFileInfo[1] == "gif" || $docFileInfo[1] == "bmp" || $docFileInfo[1] == "ico"){
             $docData['national_tax_certificate']['img_file_rename'] = $docData['national_tax_certificate']['file_rename'];
         }else{
@@ -1220,7 +1222,8 @@ class InnerStaffController extends Controller {
         $docData['local_tax_certificate']['id'] = $docInfo[0]['id'];
         $docData['local_tax_certificate']['file_name'] = $docInfo[0]['file_name'];
         $docData['local_tax_certificate']['file_rename'] = $docInfo[0]['file_rename'];
-        $docFileInfo = explode(".",$docData['local_tax_certificate']['file_name']);
+        $fileNames = strtolower($docData['local_tax_certificate']['file_name']);
+        $docFileInfo = explode(".",$fileNames);
         if($docFileInfo[1] == "" || $docFileInfo[1] == "jpg" || $docFileInfo[1] == "jpeg" || $docFileInfo[1] == "png" || $docFileInfo[1] == "gif" || $docFileInfo[1] == "bmp" || $docFileInfo[1] == "ico"){
             $docData['local_tax_certificate']['img_file_rename'] = $docData['local_tax_certificate']['file_rename'];
         }else{
@@ -1232,7 +1235,8 @@ class InnerStaffController extends Controller {
         $docData['identity_card_front']['id'] = $docInfo[0]['id'];
         $docData['identity_card_front']['file_name'] = $docInfo[0]['file_name'];
         $docData['identity_card_front']['file_rename'] = $docInfo[0]['file_rename'];
-        $docFileInfo = explode(".",$docData['identity_card_front']['file_name']);
+        $fileNames = strtolower($docData['identity_card_front']['file_name']);
+        $docFileInfo = explode(".",$fileNames);
         if($docFileInfo[1] == "" || $docFileInfo[1] == "jpg" || $docFileInfo[1] == "jpeg" || $docFileInfo[1] == "png" || $docFileInfo[1] == "gif" || $docFileInfo[1] == "bmp" || $docFileInfo[1] == "ico"){
             $docData['identity_card_front']['img_file_rename'] = $docData['identity_card_front']['file_rename'];
         }else{
@@ -1244,7 +1248,8 @@ class InnerStaffController extends Controller {
         $docData['identity_card_back']['id'] = $docInfo[0]['id'];
         $docData['identity_card_back']['file_name'] = $docInfo[0]['file_name'];
         $docData['identity_card_back']['file_rename'] = $docInfo[0]['file_rename'];
-        $docFileInfo = explode(".",$docData['identity_card_back']['file_name']);
+        $fileNames = strtolower($docData['identity_card_back']['file_name']);
+        $docFileInfo = explode(".",$fileNames);
         if($docFileInfo[1] == "" || $docFileInfo[1] == "jpg" || $docFileInfo[1] == "jpeg" || $docFileInfo[1] == "png" || $docFileInfo[1] == "gif" || $docFileInfo[1] == "bmp" || $docFileInfo[1] == "ico"){
             $docData['identity_card_back']['img_file_rename'] = $docData['identity_card_back']['file_rename'];
         }else{
